@@ -18,31 +18,31 @@ namespace SpectraLogic.EscapePodClient
 
         public IEscapePodArchive GetArchive(string archiveName)
         {
-            _log.Info("GetArchive");
+            Log.Info("GetArchive");
             return null;
         }
 
         public IEscapePodJob Delete()
         {
-            _log.Info("Delete");
+            Log.Info("Delete");
             return null;
         }
 
         public IEscapePodJob Restore()
         {
-            _log.Info("Retore");
+            Log.Info("Retore");
             return null;
         }
 
         public IEscapePodJob Archive(ArchiveRequest request)
         {
-            _log.Debug($"Archive info\n{request}");
+            Log.Debug($"Archive info\n{request}");
             return new ArchiveResponseParser().Parse(_network.Invoke(request));
         }
 
         public IEscapePodJob Cancel()
         {
-            _log.InfoFormat("Cancel");
+            Log.InfoFormat("Cancel");
             return null;
         }
     }
