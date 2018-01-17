@@ -12,7 +12,7 @@ namespace SpectraLogic.EscapePodClient
         private readonly int _serverPort;
         private readonly string _username;
         private readonly string _password;
-        private string _proxy;
+        private Uri _proxy;
 
         public EscapePodClientBuilder(string serverName, int serverPort, string username, string password)
         {
@@ -24,6 +24,12 @@ namespace SpectraLogic.EscapePodClient
 
         public EscapePodClientBuilder WithProxy(string proxy)
         {
+            _proxy = new Uri(proxy);
+            return this;
+        }
+
+        public EscapePodClientBuilder WithProxy(Uri proxy)
+        {
             _proxy = proxy;
             return this;
         }
@@ -31,7 +37,6 @@ namespace SpectraLogic.EscapePodClient
         public IEscapePodClient Build()
         {
             var network = new Network(_serverName, _serverPort, _username, _password, _proxy);
-
             return new EscapePodClient(network);
         }
     }

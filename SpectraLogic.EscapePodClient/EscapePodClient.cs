@@ -28,10 +28,10 @@ namespace SpectraLogic.EscapePodClient
             return null;
         }
 
-        public IEscapePodJob Restore()
+        public IEscapePodJob Restore(RestoreRequest request)
         {
-            Log.Info("Retore");
-            return null;
+            Log.Debug($"Retore info\n{request}");
+            return new RestoreResponseParser().Parse(_network.Invoke(request));
         }
 
         public IEscapePodJob Archive(ArchiveRequest request)
