@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using SpectraLogic.EscapePodClient.Runtime;
 
 namespace SpectraLogic.EscapePodClient
@@ -29,13 +30,9 @@ namespace SpectraLogic.EscapePodClient
 
         public IEscapePodClient Build()
         {
-            var networkBuilder = new NetworkBuilder(_serverName, _serverPort, _username, _password);
-            if (_proxy != null)
-            {
-                networkBuilder.WithProxy(_proxy);
-            }
+            var network = new Network(_serverName, _serverPort, _username, _password, _proxy);
 
-            return new EscapePodClient(networkBuilder.Build());
+            return new EscapePodClient(network);
         }
     }
 }

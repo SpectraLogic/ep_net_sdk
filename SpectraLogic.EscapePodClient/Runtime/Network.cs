@@ -16,20 +16,19 @@ namespace SpectraLogic.EscapePodClient.Runtime
         private int HostServerPort { get; }
         private string Username { get; }
         private string Password { get; }
-        private Uri Proxy { get; set; }
+        private Uri Proxy { get; }
 
-        public Network(string hostServerName, int hostServerPort, string username, string password)
+        public Network(string hostServerName, int hostServerPort, string username, string password, string proxy = null)
         {
             HostServerName = hostServerName;
             HostServerPort = hostServerPort;
             Username = username;
             Password = password;
-        }
 
-        public INetwork WithProxy(Uri proxy)
-        {
-            Proxy = proxy;
-            return this;
+            if (proxy != null)
+            {
+                Proxy = new Uri(proxy);
+            }
         }
 
         public IHttpWebResponse Invoke(RestRequest request)
