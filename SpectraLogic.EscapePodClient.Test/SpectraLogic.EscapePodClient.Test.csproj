@@ -83,6 +83,12 @@
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\ArchiveResponse" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\RestoreRequest" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\RestoreResponse" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>

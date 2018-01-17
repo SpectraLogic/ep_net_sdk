@@ -1,0 +1,28 @@
+﻿{
+  "Files": [{
+      "Name": "name",
+      "Destination": "dest",
+      "RestoreFileAttributes": true,
+      "ByteRange": null,
+      "TimeCodeRange": null
+    }, {
+      "Name": "name2",
+      "Destination": "dest2",
+      "RestoreFileAttributes": false,
+      "ByteRange": {
+        "Start": 0,
+        "Stop": 10
+      },
+      "TimeCodeRange": null
+    }, {
+      "Name": "name3",
+      "Destination": "dest3",
+      "RestoreFileAttributes": false,
+      "ByteRange": null,
+      "TimeCodeRange": {
+        "Start": 10,
+        "Stop": 20
+      }
+    }
+  ]
+}

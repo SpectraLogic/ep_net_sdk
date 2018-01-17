@@ -21,7 +21,7 @@ namespace SpectraLogic.EscapePodClient
         /**
          *
          */
-        IEscapePodJob Restore();
+        IEscapePodJob Restore(RestoreRequest request);
 
         /**
          *

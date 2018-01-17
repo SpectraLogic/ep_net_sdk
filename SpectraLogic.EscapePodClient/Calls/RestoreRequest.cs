@@ -6,19 +6,20 @@ using SpectraLogic.EscapePodClient.Utils;
 namespace SpectraLogic.EscapePodClient.Calls
 {
     [DataContract]
-    public class ArchiveRequest : RestRequest
+    public class RestoreRequest : RestRequest
     {
-        [DataMember] public IEnumerable<ArchiveFile> Files;
+        [DataMember] public IEnumerable<RestoreFile> Files;
 
-        public ArchiveRequest() { }
+        public RestoreRequest(){ }
 
-        public ArchiveRequest(IEnumerable<ArchiveFile> files)
+        public RestoreRequest(IEnumerable<RestoreFile> files)
         {
             Files = files;
         }
 
-        internal override HttpVerb Verb => HttpVerb.POST;
-        internal override string Path => "api/archive"; //TODO use the right path
+        internal override HttpVerb Verb => HttpVerb.GET;
+        internal override string Path => "api/restore"; //TODO use the right path
+
         public override string ToString()
         {
             return $"{Path}\n{Verb}\n{GetBody()}";
@@ -26,7 +27,7 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal override string GetBody()
         {
-            return HttpUtils<ArchiveRequest>.ObjectToJson(this);
+            return HttpUtils<RestoreRequest>.ObjectToJson(this);
         }
     }
 }
