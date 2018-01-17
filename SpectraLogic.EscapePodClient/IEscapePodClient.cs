@@ -5,7 +5,7 @@ namespace SpectraLogic.EscapePodClient
 {
     public interface IEscapePodClient
     {
-        void VerifyArchiveName(string archiveName);
+        IEscapePodArchive GetArchive(string archiveName);
         IEscapePodJob Delete();
         IEscapePodJob Restore();
         IEscapePodJob Archive(ArchiveRequest request);

@@ -16,9 +16,10 @@ namespace SpectraLogic.EscapePodClient
             _network = network;
         }
 
-        public void VerifyArchiveName(string archiveName)
+        public IEscapePodArchive GetArchive(string archiveName)
         {
-            _log.Info("VerifyArchiveName");
+            _log.Info("GetArchive");
+            return null;
         }
 
         public IEscapePodJob Delete()

@@ -24,7 +24,7 @@ namespace SpectraLogic.EscapePodClient.Test
             mockNetwork
                 .Setup(n => n.Invoke(archiveRequest))
                 .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveResponse",
-                    HttpStatusCode.OK));
+                    HttpStatusCode.OK, null));
             
             var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
             mockBuilder

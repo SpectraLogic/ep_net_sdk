@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 
 namespace SpectraLogic.EscapePodClient.Runtime
@@ -18,6 +20,8 @@ namespace SpectraLogic.EscapePodClient.Runtime
         }
 
         public HttpStatusCode StatusCode => Response.StatusCode;
+
+        public IDictionary<string, IEnumerable<string>> Headers => Response.Headers.AllKeys.ToDictionary<string, string, IEnumerable<string>>(key => key, key => Response.Headers.GetValues(key));
 
         public void Dispose()
         {

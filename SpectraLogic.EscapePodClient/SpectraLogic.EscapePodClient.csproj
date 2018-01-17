@@ -57,7 +57,9 @@
     <Compile Include="EscapePodClientBuilder.cs" />
     <Compile Include="IEscapePodClient.cs" />
     <Compile Include="Model\EscapePodJob.cs" />
+    <Compile Include="Model\IEscapePodArchive.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
+    <Compile Include="Runtime\NetworkBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseParsers\ArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\IResponseParser.cs" />

@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
 namespace SpectraLogic.EscapePodClient.Runtime
 {
-    public interface IHttpWebResponse : IDisposable
+    internal interface IHttpWebResponse : IDisposable
     {
         Stream GetResponseStream();
         HttpStatusCode StatusCode { get; }
+        IDictionary<string, IEnumerable<string>> Headers { get; }
     }
 }

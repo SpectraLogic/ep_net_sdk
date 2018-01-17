@@ -1,7 +1,7 @@
 ﻿
 namespace SpectraLogic.EscapePodClient.Runtime
 {
-    public interface IHttpWebRequest
+    internal interface IHttpWebRequest
     {
         IHttpWebResponse GetResponse();
     }

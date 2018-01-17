@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -10,10 +11,11 @@ namespace SpectraLogic.EscapePodClient.Test.Mock
     {
         private readonly string _resourceName;
 
-        public MockHttpWebResponse(string resourceName, HttpStatusCode statusCode)
+        public MockHttpWebResponse(string resourceName, HttpStatusCode statusCode, IDictionary<string, IEnumerable<string>> headers)
         {
             _resourceName = resourceName;
             StatusCode = statusCode;
+            Headers = headers;
         }
 
         public void Dispose()
@@ -28,5 +30,6 @@ namespace SpectraLogic.EscapePodClient.Test.Mock
         }
 
         public HttpStatusCode StatusCode { get; }
+        public IDictionary<string, IEnumerable<string>> Headers { get; }
     }
 }
