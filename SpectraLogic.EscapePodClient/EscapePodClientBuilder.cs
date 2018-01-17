@@ -5,7 +5,7 @@ namespace SpectraLogic.EscapePodClient
 {
     public class EscapePodClientBuilder : IEscapePodClientBuilder
     {
-        private readonly ILog _log = LogManager.GetLogger("EscapePodClientBuilder");
+        private static readonly ILog Log = LogManager.GetLogger("EscapePodClientBuilder");
 
         private readonly string _serverName;
         private readonly int _serverPort;

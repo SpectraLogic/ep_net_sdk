@@ -1,9 +1,12 @@
 ﻿using System;
+using log4net;
 
 namespace SpectraLogic.EscapePodClient.Runtime
 {
     internal class NetworkBuilder
     {
+        private static readonly ILog Log = LogManager.GetLogger("NetworkBuilder");
+
         private readonly string _serverName;
         private readonly int _serverPort;
         private readonly string _username;

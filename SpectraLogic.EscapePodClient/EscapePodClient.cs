@@ -8,7 +8,7 @@ namespace SpectraLogic.EscapePodClient
 {
     public class EscapePodClient : IEscapePodClient
     {
-        private readonly ILog _log = LogManager.GetLogger("EscapePodClient");
+        private static readonly ILog Log = LogManager.GetLogger("EscapePodClient");
         private readonly INetwork _network;
 
         internal EscapePodClient(INetwork network)
