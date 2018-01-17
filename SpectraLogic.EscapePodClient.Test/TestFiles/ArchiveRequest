@@ -1,0 +1,16 @@
+﻿{
+  "Files": [
+    {
+      "Name": "fileName",
+      "Uri": "uri",
+      "Size": "1234",
+      "Metadata": [
+        {
+          "Key": "key",
+          "Value": "value"
+        }
+      ],
+      "Links": ["clipName"]
+    }
+  ]
+}
