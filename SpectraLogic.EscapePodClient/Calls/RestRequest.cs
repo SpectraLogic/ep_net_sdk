@@ -37,6 +37,7 @@ namespace SpectraLogic.EscapePodClient.Calls
     {
         GET,
         PUT,
-        POST
+        POST,
+        DELETE
     };
 }

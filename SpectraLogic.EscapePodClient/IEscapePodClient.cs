@@ -16,7 +16,7 @@ namespace SpectraLogic.EscapePodClient
         /**
          *
          */
-        IEscapePodJob Delete();
+        IEscapePodJob Delete(DeleteRequest request);
 
         /**
          *

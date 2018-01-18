@@ -70,7 +70,21 @@ namespace SpectraLogic.EscapePodClient.Test
             var json = HttpUtils<RestoreRequest>.ObjectToJson(restoreRequest);
             const string expected = "{\"Files\":[{\"Name\":\"name\",\"Destination\":\"dest\",\"RestoreFileAttributes\":true,\"ByteRange\":null,\"TimeCodeRange\":null},{\"Name\":\"name2\",\"Destination\":\"dest2\",\"RestoreFileAttributes\":false,\"ByteRange\":{\"Start\":0,\"Stop\":10},\"TimeCodeRange\":null},{\"Name\":\"name3\",\"Destination\":\"dest3\",\"RestoreFileAttributes\":false,\"ByteRange\":null,\"TimeCodeRange\":{\"Start\":10,\"Stop\":20}}]}";
             Assert.AreEqual(expected, json);
+        }
 
+        [Test]
+        public void ObjectToJsonDeleteRequestTest()
+        {
+            var files = new List<DeleteFile>
+            {
+                new DeleteFile("file1"),
+                new DeleteFile("file2")
+            };
+
+            var deleteRequest = new DeleteRequest(files);
+            var json = HttpUtils<DeleteRequest>.ObjectToJson(deleteRequest);
+            const string expected = "{\"Files\":[{\"Name\":\"file1\"},{\"Name\":\"file2\"}]}";
+            Assert.AreEqual(expected, json);
         }
     }
 

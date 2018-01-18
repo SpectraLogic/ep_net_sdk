@@ -73,6 +73,7 @@
     <None Include="App.config" />
     <EmbeddedResource Include="TestFiles\ArchiveRequest" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="TestFiles\DeleteRequest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.EscapePodClient\SpectraLogic.EscapePodClient.csproj">
@@ -88,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\RestoreResponse" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\DeleteResponse" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
