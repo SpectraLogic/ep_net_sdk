@@ -40,10 +40,10 @@ namespace SpectraLogic.EscapePodClient
             return new ArchiveResponseParser().Parse(_network.Invoke(request));
         }
 
-        public IEscapePodJob Cancel()
+        public IEscapePodJob Cancel(CancelRequest request)
         {
-            Log.InfoFormat("Cancel");
-            return null;
+            Log.Debug($"Cancel info\n{request}");
+            return new CancelResponseParser().Parse(_network.Invoke(request));
         }
     }
 }

@@ -93,6 +93,9 @@
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\DeleteResponse" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\CancelResponse" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>

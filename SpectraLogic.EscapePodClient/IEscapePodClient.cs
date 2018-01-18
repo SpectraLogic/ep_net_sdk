@@ -31,6 +31,6 @@ namespace SpectraLogic.EscapePodClient
         /**
          *
          */
-        IEscapePodJob Cancel();
+        IEscapePodJob Cancel(CancelRequest request);
     }
 }
