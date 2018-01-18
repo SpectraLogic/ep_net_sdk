@@ -16,10 +16,10 @@ namespace SpectraLogic.EscapePodClient
             _network = network;
         }
 
-        public IEscapePodArchive GetArchive(string archiveName)
+        public IEscapePodArchive GetArchive(GetArchiveRequest request)
         {
-            Log.Info("GetArchive");
-            return null;
+            Log.Debug($"GetArchive info\n{request}");
+            return new GetArchiveResponseParser().Parse(_network.Invoke(request));
         }
 
         public IEscapePodJob Delete(DeleteRequest request)
@@ -40,10 +40,10 @@ namespace SpectraLogic.EscapePodClient
             return new ArchiveResponseParser().Parse(_network.Invoke(request));
         }
 
-        public IEscapePodJob Cancel()
+        public IEscapePodJob Cancel(CancelRequest request)
         {
-            Log.InfoFormat("Cancel");
-            return null;
+            Log.Debug($"Cancel info\n{request}");
+            return new CancelResponseParser().Parse(_network.Invoke(request));
         }
     }
 }

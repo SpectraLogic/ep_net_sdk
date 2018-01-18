@@ -2,5 +2,6 @@
 {
     public interface IEscapePodArchive
     {
+        string Name { get; }
     }
 }

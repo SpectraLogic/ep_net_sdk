@@ -11,7 +11,7 @@ namespace SpectraLogic.EscapePodClient
         /**
          *
          */
-        IEscapePodArchive GetArchive(string archiveName);
+        IEscapePodArchive GetArchive(GetArchiveRequest request);
 
         /**
          *
@@ -31,6 +31,6 @@ namespace SpectraLogic.EscapePodClient
         /**
          *
          */
-        IEscapePodJob Cancel();
+        IEscapePodJob Cancel(CancelRequest request);
     }
 }

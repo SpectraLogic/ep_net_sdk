@@ -3,8 +3,8 @@
 namespace SpectraLogic.EscapePodClient.Model
 {
     [DataContract]
-    public class EscapePodJob : IEscapePodJob
+    public class EscapePodArchive : IEscapePodArchive
     {
-        [DataMember] public string Id { get; set; }
+        [DataMember] public string Name { get; set; }
     }
 }
