@@ -22,10 +22,10 @@ namespace SpectraLogic.EscapePodClient
             return null;
         }
 
-        public IEscapePodJob Delete()
+        public IEscapePodJob Delete(DeleteRequest request)
         {
-            Log.Info("Delete");
-            return null;
+            Log.Debug($"Delete info\n{request}");
+            return new DeleteResponseParser().Parse(_network.Invoke(request));
         }
 
         public IEscapePodJob Restore(RestoreRequest request)

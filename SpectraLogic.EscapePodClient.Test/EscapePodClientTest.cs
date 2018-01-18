@@ -70,6 +70,35 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        [Test]
+        public void DeleteTest()
+        {
+            var deleteRequest =
+                HttpUtils<DeleteRequest>.JsonToObject(
+                    ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.DeleteRequest"));
+            Assert.AreEqual("api/delete\nDELETE\n{\"Files\":[{\"Name\":\"file1\"},{\"Name\":\"file2\"}]}", deleteRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(deleteRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.DeleteResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var job = client.Delete(deleteRequest);
+            Assert.AreEqual("123456789", job.Id);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
     }
 
 
