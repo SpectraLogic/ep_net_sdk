@@ -11,7 +11,7 @@ namespace SpectraLogic.EscapePodClient
         /**
          *
          */
-        IEscapePodArchive GetArchive(string archiveName);
+        IEscapePodArchive GetArchive(GetArchiveRequest request);
 
         /**
          *

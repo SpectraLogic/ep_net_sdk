@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Calls\CancelRequest.cs" />
     <Compile Include="Calls\DeleteRequest.cs" />
+    <Compile Include="Calls\GetArchiveRequest.cs" />
     <Compile Include="IEscapePodClientBuilder.cs" />
     <Compile Include="Model\ArchiveFile.cs" />
     <Compile Include="Calls\ArchiveRequest.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="IEscapePodClient.cs" />
     <Compile Include="Model\ByteRange.cs" />
     <Compile Include="Model\DeleteFile.cs" />
+    <Compile Include="Model\EscapePodArchive.cs" />
     <Compile Include="Model\EscapePodJob.cs" />
     <Compile Include="Model\IEscapePodArchive.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="ResponseParsers\ArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\CancelResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteResponseParser.cs" />
+    <Compile Include="ResponseParsers\GetArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\IResponseParser.cs" />
     <Compile Include="Calls\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\RestoreResponseParser.cs" />
