@@ -21,9 +21,9 @@ using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
-    internal class GetEscapePodJobStatusParser : IResponseParser<IEscapePodJobStatus>
+    internal class GetEscapePodJobParser : IResponseParser<IEscapePodJob>
     {
-        public IEscapePodJobStatus Parse(IHttpWebResponse response)
+        public IEscapePodJob Parse(IHttpWebResponse response)
         {
             using (response)
             {
@@ -31,7 +31,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                 using (var stream = response.GetResponseStream())
                 using (var textStreamReader = new StreamReader(stream))
                 {
-                    return HttpUtils<EscapePodJobStatus>.JsonToObject(textStreamReader.ReadToEnd());
+                    return HttpUtils<EscapePodJob>.JsonToObject(textStreamReader.ReadToEnd());
                 }
             }
         }

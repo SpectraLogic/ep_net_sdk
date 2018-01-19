@@ -31,11 +31,11 @@ namespace SpectraLogic.EscapePodClient
         IEscapePodArchive GetArchive(GetArchiveRequest request);
 
         /// <summary>
-        /// Gets the job status.
+        /// Gets the job.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        IEscapePodJobStatus GetJobStatus(GetEscapePodJobStatus request);
+        IEscapePodJob GetJob(GetEscapePodJob request);
         
         /// <summary>
         /// Deletes the specified request.

@@ -57,7 +57,7 @@
     <Compile Include="Calls\CreateArchiveRequest.cs" />
     <Compile Include="Calls\DeleteRequest.cs" />
     <Compile Include="Calls\GetArchiveRequest.cs" />
-    <Compile Include="Calls\GetEscapePodJobStatus.cs" />
+    <Compile Include="Calls\GetEscapePodJob.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
     <Compile Include="IEscapePodClientBuilder.cs" />
     <Compile Include="Model\ArchiveFile.cs" />
@@ -70,10 +70,8 @@
     <Compile Include="Model\DeleteFile.cs" />
     <Compile Include="Model\EscapePodArchive.cs" />
     <Compile Include="Model\EscapePodJob.cs" />
-    <Compile Include="Model\EscapePodJobStatus.cs" />
     <Compile Include="Model\IEscapePodArchive.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
-    <Compile Include="Model\IEscapePodJobStatus.cs" />
     <Compile Include="Model\RestoreFile.cs" />
     <Compile Include="Model\TimecodeRange.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,7 +80,7 @@
     <Compile Include="ResponseParsers\CreateArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteResponseParser.cs" />
     <Compile Include="ResponseParsers\GetArchiveResponseParser.cs" />
-    <Compile Include="ResponseParsers\GetEscapePodJobStatusParser.cs" />
+    <Compile Include="ResponseParsers\GetEscapePodJobParser.cs" />
     <Compile Include="ResponseParsers\IResponseParser.cs" />
     <Compile Include="Calls\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\RestoreResponseParser.cs" />
