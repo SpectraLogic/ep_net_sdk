@@ -14,6 +14,11 @@ namespace SpectraLogic.EscapePodClient
         IEscapePodArchive GetArchive(GetArchiveRequest request);
 
         /**
+        *
+        */
+        IEscapePodJob GetJob(GetEscapePodJob request);
+
+        /**
          *
          */
         IEscapePodJob Delete(DeleteRequest request);

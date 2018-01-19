@@ -22,6 +22,12 @@ namespace SpectraLogic.EscapePodClient
             return new GetArchiveResponseParser().Parse(_network.Invoke(request));
         }
 
+        public IEscapePodJob GetJob(GetEscapePodJob request)
+        {
+            Log.Debug($"GetJob info\n{request}");
+            return new GetEscapePodJobParser().Parse(_network.Invoke(request));
+        }
+
         public IEscapePodJob Delete(DeleteRequest request)
         {
             Log.Debug($"Delete info\n{request}");

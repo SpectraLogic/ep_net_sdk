@@ -3,5 +3,6 @@
     public interface IEscapePodJob
     {
         string Id { get; }
+        Status Status { get; }
     }
 }
