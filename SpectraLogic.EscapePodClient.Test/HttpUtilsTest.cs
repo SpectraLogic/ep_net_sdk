@@ -86,6 +86,15 @@ namespace SpectraLogic.EscapePodClient.Test
             const string expected = "{\"Files\":[{\"Name\":\"file1\"},{\"Name\":\"file2\"}]}";
             Assert.AreEqual(expected, json);
         }
+
+        [Test]
+        public void ObjectToJsonCreateArchiveRequestTest()
+        {
+            var createArchiveRequest = new CreateArchiveRequest("archive");
+            var json = HttpUtils<CreateArchiveRequest>.ObjectToJson(createArchiveRequest);
+            const string expected = "{\"Name\":\"archive\"}";
+            Assert.AreEqual(expected, json);
+        }
     }
 
     [DataContract]

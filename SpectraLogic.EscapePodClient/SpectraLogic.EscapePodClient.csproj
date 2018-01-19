@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calls\CancelRequest.cs" />
+    <Compile Include="Calls\CreateArchiveRequest.cs" />
     <Compile Include="Calls\DeleteRequest.cs" />
     <Compile Include="Calls\GetArchiveRequest.cs" />
     <Compile Include="Calls\GetEscapePodJob.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseParsers\ArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\CancelResponseParser.cs" />
+    <Compile Include="ResponseParsers\CreateArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteResponseParser.cs" />
     <Compile Include="ResponseParsers\GetArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\GetEscapePodJobParser.cs" />

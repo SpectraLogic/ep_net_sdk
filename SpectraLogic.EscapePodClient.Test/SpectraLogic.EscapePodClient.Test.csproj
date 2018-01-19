@@ -105,6 +105,10 @@
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusInProgressResponse" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\CreateArchiveRequest" />
+    <EmbeddedResource Include="TestFiles\CreateArchiveResponse" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>
