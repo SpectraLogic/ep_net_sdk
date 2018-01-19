@@ -74,9 +74,9 @@
     <EmbeddedResource Include="TestFiles\ArchiveRequest" />
     <None Include="packages.config" />
     <EmbeddedResource Include="TestFiles\DeleteRequest" />
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobStatusDoneResponse" />
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobStatusCanceledResponse" />
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobStatusUnknownResponse" />
+    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusDoneResponse" />
+    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusCanceledResponse" />
+    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusUnknownResponse" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.EscapePodClient\SpectraLogic.EscapePodClient.csproj">
@@ -103,7 +103,7 @@
     <EmbeddedResource Include="TestFiles\GetArchiveResponse" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobStatusInProgressResponse" />
+    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusInProgressResponse" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
