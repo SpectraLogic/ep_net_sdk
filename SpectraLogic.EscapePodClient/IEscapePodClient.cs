@@ -31,7 +31,7 @@ namespace SpectraLogic.EscapePodClient
         /**
         *
         */
-        IEscapePodJobStatus GetJobStatus(GetEscapePodJobStatus request);
+        IEscapePodJob GetJob(GetEscapePodJob request);
 
         /**
          *

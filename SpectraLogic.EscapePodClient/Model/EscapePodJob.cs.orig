@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿/*
  * ******************************************************************************
  *   Copyright 2014-2018 Spectra Logic Corporation. All Rights Reserved.
@@ -13,27 +14,27 @@
  * ****************************************************************************
  */
 
-using System.Linq;
+=======
+﻿using System;
+>>>>>>> createArchive
+using System.Runtime.Serialization;
 
-namespace SpectraLogic.EscapePodClient.Calls
+namespace SpectraLogic.EscapePodClient.Model
 {
-    public class GetEscapePodJobStatus : RestRequest
+    [DataContract]
+    public class EscapePodJob : IEscapePodJob
     {
-        public GetEscapePodJobStatus(string escapePodJobId)
-        {
-            AddQueryParam("id", escapePodJobId);
-        }
+        [DataMember(IsRequired = true)] public string Id { get; set; }
+        [DataMember(Name = "Status", IsRequired = true)] public string StatusString { get; set; }
 
-        public GetEscapePodJobStatus(long escapePodJobId)
-        {
-            AddQueryParam("id", escapePodJobId.ToString());
-        }
+        public Status Status => Enum.TryParse(StatusString, true, out Status ret) ? ret : Status.UNKNOWN;
+    }
 
-        internal override HttpVerb Verb => HttpVerb.GET;
-        internal override string Path => "api/jobstatus"; //TODO use the right path
-        public override string ToString()
-        {
-            return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}";
-        }
+    public enum Status
+    {
+        IN_PROGRESS,
+        CANCELED,
+        DONE,
+        UNKNOWN
     }
 }
