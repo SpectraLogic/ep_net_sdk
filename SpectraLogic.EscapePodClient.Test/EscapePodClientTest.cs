@@ -272,5 +272,34 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        [Test]
+        public void CreateArchiveTest()
+        {
+            var createArchiveRequest =
+                HttpUtils<CreateArchiveRequest>.JsonToObject(
+                    ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.CreateArchiveRequest"));
+            Assert.AreEqual("api/createarchive\nPOST\n{\"Name\":\"archive\"}", createArchiveRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(createArchiveRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.CreateArchiveResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var archive = client.CreateArchive(createArchiveRequest);
+            Assert.AreEqual("archive", archive.Name);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
     }
 }

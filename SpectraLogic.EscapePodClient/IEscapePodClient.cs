@@ -37,5 +37,10 @@ namespace SpectraLogic.EscapePodClient
          *
          */
         IEscapePodJob Cancel(CancelRequest request);
+
+        /**
+         *
+         */
+        IEscapePodArchive CreateArchive(CreateArchiveRequest request);
     }
 }

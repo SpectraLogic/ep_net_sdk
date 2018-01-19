@@ -51,5 +51,11 @@ namespace SpectraLogic.EscapePodClient
             Log.Debug($"Cancel info\n{request}");
             return new CancelResponseParser().Parse(_network.Invoke(request));
         }
+
+        public IEscapePodArchive CreateArchive(CreateArchiveRequest request)
+        {
+            Log.Debug($"CreateArchive info\n{request}");
+            return new CreateArchiveResponseParser().Parse(_network.Invoke(request));
+        }
     }
 }
