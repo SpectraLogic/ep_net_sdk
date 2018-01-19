@@ -1,8 +1,8 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Moq;
 using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
+using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
 using SpectraLogic.EscapePodClient.Test.Mock;
 using SpectraLogic.EscapePodClient.Test.Utils;
@@ -26,7 +26,7 @@ namespace SpectraLogic.EscapePodClient.Test
                 .Setup(n => n.Invoke(archiveRequest))
                 .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveResponse",
                     HttpStatusCode.OK, null));
-            
+
             var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
@@ -180,7 +180,97 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        [Test]
+        public void GetEscapePodJobStatusStringTest()
+        {
+            var getEscapePodJobStatusRequest = new GetEscapePodJobStatus("123456789");
+            Assert.AreEqual("api/jobstatus?id=123456789\nGET", getEscapePodJobStatusRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .SetupSequence(n => n.Invoke(getEscapePodJobStatusRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusInProgressResponse",
+                    HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusDoneResponse",
+                    HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusCanceledResponse",
+                    HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusUnknownResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.IN_PROGRESS, jobStatus.Status);
+
+            jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.DONE, jobStatus.Status);
+
+            jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.CANCELED, jobStatus.Status);
+
+            jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.UNKNOWN, jobStatus.Status);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void GetEscapePodJobStatusLongTest()
+        {
+            var getEscapePodJobStatusRequest = new GetEscapePodJobStatus(123456789);
+            Assert.AreEqual("api/jobstatus?id=123456789\nGET", getEscapePodJobStatusRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .SetupSequence(n => n.Invoke(getEscapePodJobStatusRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusInProgressResponse",
+                    HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusDoneResponse",
+                    HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusCanceledResponse",
+                    HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobStatusUnknownResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.IN_PROGRESS, jobStatus.Status);
+
+            jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.DONE, jobStatus.Status);
+
+            jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.CANCELED, jobStatus.Status);
+
+            jobStatus = client.GetJobStatus(getEscapePodJobStatusRequest);
+            Assert.AreEqual(Status.UNKNOWN, jobStatus.Status);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
     }
-
-
 }

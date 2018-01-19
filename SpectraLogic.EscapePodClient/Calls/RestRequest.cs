@@ -32,12 +32,4 @@ namespace SpectraLogic.EscapePodClient.Calls
             return "";
         }
     }
-
-    internal enum HttpVerb
-    {
-        GET,
-        PUT,
-        POST,
-        DELETE
-    };
 }
