@@ -19,6 +19,10 @@ using SpectraLogic.EscapePodClient.Runtime;
 
 namespace SpectraLogic.EscapePodClient
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.IEscapePodClientBuilder" />
     public class EscapePodClientBuilder : IEscapePodClientBuilder
     {
         private static readonly ILog Log = LogManager.GetLogger("EscapePodClientBuilder");
@@ -29,6 +33,13 @@ namespace SpectraLogic.EscapePodClient
         private readonly string _password;
         private Uri _proxy;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EscapePodClientBuilder"/> class.
+        /// </summary>
+        /// <param name="serverName">Name of the server.</param>
+        /// <param name="serverPort">The server port.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
         public EscapePodClientBuilder(string serverName, int serverPort, string username, string password)
         {
             _serverName = serverName;
@@ -37,18 +48,32 @@ namespace SpectraLogic.EscapePodClient
             _password = password;
         }
 
+        /// <summary>
+        /// Withes the proxy.
+        /// </summary>
+        /// <param name="proxy">The proxy.</param>
+        /// <returns></returns>
         public EscapePodClientBuilder WithProxy(string proxy)
         {
             _proxy = new Uri(proxy);
             return this;
         }
 
+        /// <summary>
+        /// Withes the proxy.
+        /// </summary>
+        /// <param name="proxy">The proxy.</param>
+        /// <returns></returns>
         public EscapePodClientBuilder WithProxy(Uri proxy)
         {
             _proxy = proxy;
             return this;
         }
 
+        /// <summary>
+        /// Builds this instance.
+        /// </summary>
+        /// <returns></returns>
         public IEscapePodClient Build()
         {
             var network = new Network(_serverName, _serverPort, _username, _password, _proxy);

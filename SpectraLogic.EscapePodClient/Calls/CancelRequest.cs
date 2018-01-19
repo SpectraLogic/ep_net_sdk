@@ -17,13 +17,25 @@ using System.Linq;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class CancelRequest : RestRequest
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CancelRequest"/> class.
+        /// </summary>
+        /// <param name="escapePodJobId">The escape pod job identifier.</param>
         public CancelRequest(string escapePodJobId)
         {
             AddQueryParam("id", escapePodJobId);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CancelRequest"/> class.
+        /// </summary>
+        /// <param name="escapePodJobId">The escape pod job identifier.</param>
         public CancelRequest(long escapePodJobId)
         {
             AddQueryParam("id", escapePodJobId.ToString());
@@ -31,6 +43,13 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal override HttpVerb Verb => HttpVerb.PUT;
         internal override string Path => "api/cancel"; //TODO use the right path
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}";

@@ -20,13 +20,24 @@ using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     [DataContract]
     public class DeleteRequest : RestRequest
     {
         [DataMember] public IEnumerable<DeleteFile> Files;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
+        /// </summary>
         public DeleteRequest() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
+        /// </summary>
+        /// <param name="files">The files.</param>
         public DeleteRequest(IEnumerable<DeleteFile> files)
         {
             Files = files;
@@ -34,6 +45,13 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal override HttpVerb Verb => HttpVerb.DELETE;
         internal override string Path => "api/delete"; //TODO use the right path
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return $"{Path}\n{Verb}\n{GetBody()}";

@@ -18,13 +18,27 @@ using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     [DataContract]
     public class CreateArchiveRequest : RestRequest
     {
+        /// <summary>
+        /// The name
+        /// </summary>
         [DataMember] public string Name;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateArchiveRequest"/> class.
+        /// </summary>
         public CreateArchiveRequest() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateArchiveRequest"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
         public CreateArchiveRequest(string name)
         {
             Name = name;
@@ -32,6 +46,13 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal override HttpVerb Verb => HttpVerb.POST;
         internal override string Path => "api/createarchive"; //TODO use the right path
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return $"{Path}\n{Verb}\n{GetBody()}";

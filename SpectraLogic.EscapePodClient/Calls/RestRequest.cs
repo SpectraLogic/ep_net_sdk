@@ -19,6 +19,9 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public abstract class RestRequest
     {
@@ -28,6 +31,12 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal Dictionary<string, string> QueryParams { get; } = new Dictionary<string, string>();
 
+        /// <summary>
+        /// Adds the query parameter.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         protected void AddQueryParam(string key, string value)
         {
             if (!string.IsNullOrWhiteSpace(value))
@@ -40,6 +49,12 @@ namespace SpectraLogic.EscapePodClient.Calls
             }
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public abstract override string ToString();
 
         internal virtual string GetBody()

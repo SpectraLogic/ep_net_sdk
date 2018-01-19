@@ -20,12 +20,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpectraLogicAvidArchiveProvider.EscapePodClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SpectraLogic.EscapePodClient")]
+[assembly: AssemblyDescription("Provides a .NET SDK to EscapePod REST API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spectra Logic Corporation")]
-[assembly: AssemblyProduct("SpectraLogicAvidArchiveProvider.EscapePodClient")]
-[assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2017")]
+[assembly: AssemblyProduct("SpectraLogic.EscapePodClient")]
+[assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

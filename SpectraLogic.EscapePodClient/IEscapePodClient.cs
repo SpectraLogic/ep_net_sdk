@@ -23,39 +23,53 @@ namespace SpectraLogic.EscapePodClient
     /// </summary>
     public interface IEscapePodClient
     {
-        /**
-         *
-         */
+        /// <summary>
+        /// Gets the archive.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodArchive GetArchive(GetArchiveRequest request);
 
-        /**
-        *
-        */
+        /// <summary>
+        /// Gets the job.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodJob GetJob(GetEscapePodJob request);
-
-        /**
-         *
-         */
+        
+        /// <summary>
+        /// Deletes the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodJob Delete(DeleteRequest request);
-
-        /**
-         *
-         */
+        
+        /// <summary>
+        /// Restores the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodJob Restore(RestoreRequest request);
-
-        /**
-         *
-         */
+        
+        /// <summary>
+        /// Archives the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodJob Archive(ArchiveRequest request);
-
-        /**
-         *
-         */
+        
+        /// <summary>
+        /// Cancels the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodJob Cancel(CancelRequest request);
-
-        /**
-         *
-         */
+        
+        /// <summary>
+        /// Creates the archive.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
         IEscapePodArchive CreateArchive(CreateArchiveRequest request);
     }
 }
