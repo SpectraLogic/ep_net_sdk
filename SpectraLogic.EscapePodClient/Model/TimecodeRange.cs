@@ -17,12 +17,20 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class TimecodeRange
     {
         [DataMember(Order = 1)] private long Start;
         [DataMember(Order = 2)] private long Stop;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimecodeRange"/> class.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="stop">The stop.</param>
         public TimecodeRange(long start, long stop)
         {
             Start = start;

@@ -15,8 +15,15 @@
 
 namespace SpectraLogic.EscapePodClient
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IEscapePodClientBuilder
     {
+        /// <summary>
+        /// Builds this instance.
+        /// </summary>
+        /// <returns></returns>
         IEscapePodClient Build();
     }
 }

@@ -20,12 +20,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpectraLogicAvidArchiveProvider.EscapePodClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("SpectraLogic.EscapePodClient")]
+[assembly: AssemblyDescription("Provides a .NET SDK to EscapePod REST API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spectra Logic Corporation")]
-[assembly: AssemblyProduct("SpectraLogicAvidArchiveProvider.EscapePodClient")]
-[assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2017")]
+[assembly: AssemblyProduct("SpectraLogic.EscapePodClient")]
+[assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -47,8 +47,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.84")]
-[assembly: AssemblyFileVersion("1.0.0.84")]
+[assembly: AssemblyVersion("1.0.0.89")]
+[assembly: AssemblyFileVersion("1.0.0.89")]
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("SpectraLogic.EscapePodClient.Test")]

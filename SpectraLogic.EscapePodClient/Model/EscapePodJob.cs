@@ -17,9 +17,19 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodJob" />
     [DataContract]
     public class EscapePodJob : IEscapePodJob
     {
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         [DataMember] public string Id { get; set; }
     }
 }

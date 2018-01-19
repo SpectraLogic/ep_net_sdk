@@ -18,19 +18,44 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodJobStatus" />
     [DataContract]
     public class EscapePodJobStatus : IEscapePodJobStatus
     {
-        [DataMember(Name="Status")] public string StatusString { get; set; }
+        [DataMember(Name="Status")] private string StatusString { get; set; }
 
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
         public Status Status => Enum.TryParse(StatusString, true, out Status ret) ? ret : Status.UNKNOWN;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum Status
     {
+        /// <summary>
+        /// Job is in progress
+        /// </summary>
         IN_PROGRESS,
+        /// <summary>
+        /// The job is canceled
+        /// </summary>
         CANCELED,
+        /// <summary>
+        /// The job is done
+        /// </summary>
         DONE,
+        /// <summary>
+        /// Unknown status
+        /// </summary>
         UNKNOWN
     }
 }

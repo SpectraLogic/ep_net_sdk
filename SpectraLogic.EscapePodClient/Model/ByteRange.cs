@@ -17,12 +17,20 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class ByteRange
     {
         [DataMember(Order = 1)] private long Start;
         [DataMember(Order = 2)] private long Stop;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ByteRange"/> class.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="stop">The stop.</param>
         public ByteRange(long start, long stop)
         {
             Start = start;

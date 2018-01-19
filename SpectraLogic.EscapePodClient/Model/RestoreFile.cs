@@ -17,6 +17,9 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class RestoreFile
     {
@@ -26,6 +29,12 @@ namespace SpectraLogic.EscapePodClient.Model
         [DataMember(Order = 4)] private ByteRange ByteRange;
         [DataMember(Order = 5)] private TimecodeRange TimeCodeRange;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestoreFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="destination">The destination.</param>
+        /// <param name="restoreFileAttributes">if set to <c>true</c> [restore file attributes].</param>
         public RestoreFile(string name, string destination, bool restoreFileAttributes)
         {
             Name = name;
@@ -33,6 +42,12 @@ namespace SpectraLogic.EscapePodClient.Model
             RestoreFileAttributes = restoreFileAttributes;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestoreFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="destination">The destination.</param>
+        /// <param name="byteRange">The byte range.</param>
         public RestoreFile(string name, string destination, ByteRange byteRange)
         {
             Name = name;
@@ -40,6 +55,12 @@ namespace SpectraLogic.EscapePodClient.Model
             ByteRange = byteRange;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestoreFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="destination">The destination.</param>
+        /// <param name="timeCodeRange">The time code range.</param>
         public RestoreFile(string name, string destination, TimecodeRange timeCodeRange)
         {
             Name = name;

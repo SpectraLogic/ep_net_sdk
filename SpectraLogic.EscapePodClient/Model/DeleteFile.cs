@@ -17,11 +17,21 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class DeleteFile
     {
+        /// <summary>
+        /// The name
+        /// </summary>
         [DataMember(Order = 1)] public string Name;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
         public DeleteFile(string name)
         {
             Name = name;

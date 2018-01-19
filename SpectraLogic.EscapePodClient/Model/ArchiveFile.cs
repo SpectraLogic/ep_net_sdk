@@ -18,15 +18,41 @@ using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [DataContract]
     public class ArchiveFile
     {
+        /// <summary>
+        /// The name
+        /// </summary>
         [DataMember(Order = 1)] public string Name;
+        /// <summary>
+        /// The URI
+        /// </summary>
         [DataMember(Order = 2)] public string Uri;
+        /// <summary>
+        /// The size
+        /// </summary>
         [DataMember(Order = 3)] public long Size;
+        /// <summary>
+        /// The metadata
+        /// </summary>
         [DataMember(Order = 4)] public IDictionary<string, string> Metadata;
+        /// <summary>
+        /// The links
+        /// </summary>
         [DataMember(Order = 5)] public IEnumerable<string> Links;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="uri">The URI.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="links">The links.</param>
         public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, IEnumerable<string> links)
         {
             Name = name;

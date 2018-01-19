@@ -15,8 +15,17 @@
 
 namespace SpectraLogic.EscapePodClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IEscapePodJobStatus
     {
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
         Status Status { get; }
     }
 }
