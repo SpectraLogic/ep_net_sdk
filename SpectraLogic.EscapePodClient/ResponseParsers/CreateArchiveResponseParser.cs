@@ -15,6 +15,7 @@
 
 using System.IO;
 using System.Net;
+using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
 using SpectraLogic.EscapePodClient.Utils;
@@ -31,7 +32,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                 using (var stream = response.GetResponseStream())
                 using (var textStreamReader = new StreamReader(stream))
                 {
-                    return HttpUtils<EscapePodArchive>.JsonToObject(textStreamReader.ReadToEnd());
+                    return JsonConvert.DeserializeObject<EscapePodArchive>(textStreamReader.ReadToEnd());
                 }
             }
         }

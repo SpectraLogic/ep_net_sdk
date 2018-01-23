@@ -1,8 +1,8 @@
 ﻿{
-  "Files": [{
-      "Name": "file1"
+  "files": [{
+      "name": "file1"
     }, {
-      "Name": "file2"
+      "name": "file2"
     }
   ]
 }

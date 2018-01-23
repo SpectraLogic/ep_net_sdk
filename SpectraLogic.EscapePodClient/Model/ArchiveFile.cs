@@ -13,46 +13,45 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
     public class ArchiveFile
     {
         /// <summary>
         /// The name
         /// </summary>
-        [DataMember(Order = 1, Name = "name")] public string Name;
+        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
         
         /// <summary>
         /// The URI
         /// </summary>
-        [DataMember(Order = 2, Name = "uri")] public string Uri;
+        [JsonProperty(Order = 2, PropertyName = "uri")] public string Uri;
         
         /// <summary>
         /// The size
         /// </summary>
-        [DataMember(Order = 3, Name = "size")] public long Size;
+        [JsonProperty(Order = 3, PropertyName = "size")] public long Size;
         
         /// <summary>
         /// The metadata
         /// </summary>
-        [DataMember(Order = 4, Name = "metadata")] public IDictionary<string, string> Metadata;
+        [JsonProperty(Order = 4, PropertyName = "metadata")] public IDictionary<string, string> Metadata;
 
         /// <summary>
         /// The index media
         /// </summary>
-        [DataMember(Order = 5, Name = "indexMedia")] public bool IndexMedia;
+        [JsonProperty(Order = 5, PropertyName = "indexMedia")] public bool IndexMedia;
 
         /// <summary>
         /// The store file properties
         /// </summary>
-        [DataMember(Order = 6, Name = "storeFileProperties")] public bool StoreFileProperties;
+        [JsonProperty(Order = 6, PropertyName = "storeFileProperties")] public bool StoreFileProperties;
 
 
         /// <summary>

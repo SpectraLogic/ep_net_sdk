@@ -63,7 +63,7 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        public IEscapePodJob GetJob(GetEscapePodJob request)
+        public IEscapePodJob GetJob(GetEscapePodJobRequest request)
         {
             Log.Debug($"GetJob info\n{request}");
             return new GetEscapePodJobParser().Parse(_network.Invoke(request));

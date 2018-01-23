@@ -47,8 +47,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.103")]
-[assembly: AssemblyFileVersion("1.0.0.103")]
+[assembly: AssemblyVersion("1.0.0.133")]
+[assembly: AssemblyFileVersion("1.0.0.133")]
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("SpectraLogic.EscapePodClient.Test")]

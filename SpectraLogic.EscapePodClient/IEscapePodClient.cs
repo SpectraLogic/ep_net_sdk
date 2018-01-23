@@ -37,7 +37,7 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        IEscapePodJob GetJob(GetEscapePodJob request);
+        IEscapePodJob GetJob(GetEscapePodJobRequest request);
         
         /// <summary>
         /// Deletes the specified request.
