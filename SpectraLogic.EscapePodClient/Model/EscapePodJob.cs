@@ -32,16 +32,47 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The identifier.
         /// </value>
         [DataMember(IsRequired = true)] public string Id { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the status string.
+        /// </summary>
+        /// <value>
+        /// The status string.
+        /// </value>
         [DataMember(Name = "Status", IsRequired = true)] public string StatusString { get; set; }
 
-        public Status Status => Enum.TryParse(StatusString, true, out Status ret) ? ret : Status.UNKNOWN;
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public EscapePodJobStatus Status => Enum.TryParse(StatusString, true, out EscapePodJobStatus ret) ? ret : EscapePodJobStatus.UNKNOWN;
     }
 
-    public enum Status
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum EscapePodJobStatus
     {
+        /// <summary>
+        /// The in progress
+        /// </summary>
         IN_PROGRESS,
+        
+        /// <summary>
+        /// The canceled
+        /// </summary>
         CANCELED,
+        
+        /// <summary>
+        /// The done
+        /// </summary>
         DONE,
+        
+        /// <summary>
+        /// The unknown
+        /// </summary>
         UNKNOWN
     }
 }

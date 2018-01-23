@@ -30,7 +30,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// <summary>
         /// The files to be archive
         /// </summary>
-        [DataMember] public IEnumerable<ArchiveFile> Files;
+        [DataMember(Name = "files")] public IEnumerable<ArchiveFile> Files;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchiveRequest"/> class.

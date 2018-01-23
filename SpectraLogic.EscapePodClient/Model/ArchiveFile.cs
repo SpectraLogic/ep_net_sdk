@@ -27,23 +27,33 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <summary>
         /// The name
         /// </summary>
-        [DataMember(Order = 1)] public string Name;
+        [DataMember(Order = 1, Name = "name")] public string Name;
+        
         /// <summary>
         /// The URI
         /// </summary>
-        [DataMember(Order = 2)] public string Uri;
+        [DataMember(Order = 2, Name = "uri")] public string Uri;
+        
         /// <summary>
         /// The size
         /// </summary>
-        [DataMember(Order = 3)] public long Size;
+        [DataMember(Order = 3, Name = "size")] public long Size;
+        
         /// <summary>
         /// The metadata
         /// </summary>
-        [DataMember(Order = 4)] public IDictionary<string, string> Metadata;
+        [DataMember(Order = 4, Name = "metadata")] public IDictionary<string, string> Metadata;
+
         /// <summary>
-        /// The links
+        /// The index media
         /// </summary>
-        [DataMember(Order = 5)] public IEnumerable<string> Links;
+        [DataMember(Order = 5, Name = "indexMedia")] public bool IndexMedia;
+
+        /// <summary>
+        /// The store file properties
+        /// </summary>
+        [DataMember(Order = 6, Name = "storeFileProperties")] public bool StoreFileProperties;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
@@ -52,14 +62,16 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <param name="uri">The URI.</param>
         /// <param name="size">The size.</param>
         /// <param name="metadata">The metadata.</param>
-        /// <param name="links">The links.</param>
-        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, IEnumerable<string> links)
+        /// <param name="indexMedia">if set to <c>true</c> [index media].</param>
+        /// <param name="storeFileProperties">if set to <c>true</c> [store file properties].</param>
+        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia, bool storeFileProperties)
         {
             Name = name;
             Uri = uri;
             Size = size;
             Metadata = metadata;
-            Links = links;
+            IndexMedia = indexMedia;
+            StoreFileProperties = storeFileProperties;
         }
     }
 }

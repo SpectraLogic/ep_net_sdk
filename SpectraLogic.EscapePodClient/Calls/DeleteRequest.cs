@@ -27,6 +27,9 @@ namespace SpectraLogic.EscapePodClient.Calls
     [DataContract]
     public class DeleteRequest : RestRequest
     {
+        /// <summary>
+        /// The files to be deleted
+        /// </summary>
         [DataMember] public IEnumerable<DeleteFile> Files;
 
         /// <summary>

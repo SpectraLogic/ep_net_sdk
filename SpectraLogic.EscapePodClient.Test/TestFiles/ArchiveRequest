@@ -1,16 +1,17 @@
 ﻿{
-  "Files": [
+  "files": [
     {
-      "Name": "fileName",
-      "Uri": "uri",
-      "Size": "1234",
-      "Metadata": [
+      "name": "fileName",
+      "uri": "uri",
+      "size": "1234",
+      "metadata": [
         {
           "Key": "key",
           "Value": "value"
         }
       ],
-      "Links": ["clipName"]
+      "indexMedia": false,
+      "storeFileProperties":  false
     }
   ]
 }

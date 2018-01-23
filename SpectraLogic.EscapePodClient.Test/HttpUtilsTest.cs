@@ -62,12 +62,12 @@ namespace SpectraLogic.EscapePodClient.Test
             var files = new List<ArchiveFile>
             {
                 new ArchiveFile("name", "uri", 123, new Dictionary<string, string> {{"key", "value"}},
-                    new List<string> {"clip"})
+                    false, false)
             };
 
             var archiveRequest = new ArchiveRequest(files);
             var json = HttpUtils<ArchiveRequest>.ObjectToJson(archiveRequest);
-            const string expected = "{\"Files\":[{\"Name\":\"name\",\"Uri\":\"uri\",\"Size\":123,\"Metadata\":[{\"Key\":\"key\",\"Value\":\"value\"}],\"Links\":[\"clip\"]}]}";
+            const string expected = "{\"files\":[{\"name\":\"name\",\"uri\":\"uri\",\"size\":123,\"metadata\":[{\"Key\":\"key\",\"Value\":\"value\"}],\"indexMedia\":false,\"storeFileProperties\":false}]}";
             Assert.AreEqual(expected, json);
         }
 

@@ -15,9 +15,11 @@
 
 using log4net;
 using SpectraLogic.EscapePodClient.Calls;
+using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.ResponseParsers;
 using SpectraLogic.EscapePodClient.Runtime;
+using System;
 
 namespace SpectraLogic.EscapePodClient
 {
@@ -39,11 +41,21 @@ namespace SpectraLogic.EscapePodClient
         /// Gets the archive.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapoPodServerCredentialsException" />
         /// <returns></returns>
         public IEscapePodArchive GetArchive(GetArchiveRequest request)
         {
-            Log.Debug($"GetArchive info\n{request}");
-            return new GetArchiveResponseParser().Parse(_network.Invoke(request));
+            try
+            {
+                Log.Debug($"GetArchive info\n{request}");
+                return new GetArchiveResponseParser().Parse(_network.Invoke(request));
+            }
+            catch (Exception ex)
+            {
+                //TODO throw ArchiveNotFoundException or InvalidEscapoPodServerCredentialsException
+                throw ex;
+            }
         }
 
         /// <summary>
