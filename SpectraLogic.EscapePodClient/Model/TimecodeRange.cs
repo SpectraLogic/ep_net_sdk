@@ -13,18 +13,17 @@
  * ****************************************************************************
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
     public class TimecodeRange
     {
-        [DataMember(Order = 1)] private long Start;
-        [DataMember(Order = 2)] private long Stop;
+        [JsonProperty(Order = 1, PropertyName = "start")] private long Start;
+        [JsonProperty(Order = 2, PropertyName = "stop")] private long Stop;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimecodeRange"/> class.

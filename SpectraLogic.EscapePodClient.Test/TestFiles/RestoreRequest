@@ -1,27 +1,21 @@
 ﻿{
-  "Files": [{
-      "Name": "name",
-      "Destination": "dest",
-      "RestoreFileAttributes": true,
-      "ByteRange": null,
-      "TimeCodeRange": null
+  "files": [{
+      "name": "name",
+      "destination": "dest",
+      "restoreFileAttributes": true
     }, {
-      "Name": "name2",
-      "Destination": "dest2",
-      "RestoreFileAttributes": false,
-      "ByteRange": {
-        "Start": 0,
-        "Stop": 10
-      },
-      "TimeCodeRange": null
+      "name": "name2",
+      "destination": "dest2",
+      "byteRange": {
+        "start": 0,
+        "stop": 10
+      }
     }, {
-      "Name": "name3",
-      "Destination": "dest3",
-      "RestoreFileAttributes": false,
-      "ByteRange": null,
-      "TimeCodeRange": {
-        "Start": 10,
-        "Stop": 20
+      "name": "name3",
+      "destination": "dest3",
+      "timeCodeRange": {
+        "start": 10,
+        "stop": 20
       }
     }
   ]

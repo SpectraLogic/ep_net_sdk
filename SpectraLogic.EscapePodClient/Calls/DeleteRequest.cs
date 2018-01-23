@@ -14,7 +14,7 @@
  */
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Utils;
 
@@ -24,15 +24,12 @@ namespace SpectraLogic.EscapePodClient.Calls
     /// 
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
-    [DataContract]
     public class DeleteRequest : RestRequest
     {
-        [DataMember] public IEnumerable<DeleteFile> Files;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
+        /// The files to be deleted
         /// </summary>
-        public DeleteRequest() { }
+        [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<DeleteFile> Files;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
@@ -59,7 +56,7 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal override string GetBody()
         {
-            return HttpUtils<DeleteRequest>.ObjectToJson(this);
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

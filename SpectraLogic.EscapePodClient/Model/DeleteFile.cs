@@ -13,20 +13,19 @@
  * ****************************************************************************
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
     public class DeleteFile
     {
         /// <summary>
         /// The name
         /// </summary>
-        [DataMember(Order = 1)] public string Name;
+        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteFile"/> class.

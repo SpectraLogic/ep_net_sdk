@@ -15,14 +15,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
     public abstract class RestRequest
     {
         internal abstract HttpVerb Verb { get; }

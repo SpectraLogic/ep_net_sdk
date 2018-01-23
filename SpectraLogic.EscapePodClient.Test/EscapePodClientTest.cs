@@ -15,13 +15,13 @@
 
 using System.Net;
 using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
 using SpectraLogic.EscapePodClient.Test.Mock;
 using SpectraLogic.EscapePodClient.Test.Utils;
-using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.Test
 {
@@ -32,9 +32,8 @@ namespace SpectraLogic.EscapePodClient.Test
         public void ArchiveTest()
         {
             var archiveRequest =
-                HttpUtils<ArchiveRequest>.JsonToObject(
-                    ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveRequest"));
-            Assert.AreEqual("api/archive\nPOST\n{\"Files\":[{\"Name\":\"fileName\",\"Uri\":\"uri\",\"Size\":1234,\"Metadata\":[{\"Key\":\"key\",\"Value\":\"value\"}],\"Links\":[\"clipName\"]}]}", archiveRequest.ToString());
+                JsonConvert.DeserializeObject<ArchiveRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveRequest"));
+            Assert.AreEqual("api/archive\nPOST\n{\"files\":[{\"name\":\"fileName\",\"uri\":\"uri\",\"size\":1234,\"metadata\":{\"key\":\"value\"},\"indexMedia\":false,\"storeFileProperties\":false}]}", archiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -52,7 +51,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var job = client.Archive(archiveRequest);
             Assert.AreEqual("123456789", job.Id);
-            Assert.AreEqual(Status.IN_PROGRESS, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.IN_PROGRESS, job.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -62,9 +61,8 @@ namespace SpectraLogic.EscapePodClient.Test
         public void RestoreTest()
         {
             var restoreRequest =
-                HttpUtils<RestoreRequest>.JsonToObject(
-                    ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.RestoreRequest"));
-            Assert.AreEqual("api/restore\nGET\n{\"Files\":[{\"Name\":\"name\",\"Destination\":\"dest\",\"RestoreFileAttributes\":true,\"ByteRange\":null,\"TimeCodeRange\":null},{\"Name\":\"name2\",\"Destination\":\"dest2\",\"RestoreFileAttributes\":false,\"ByteRange\":{\"Start\":0,\"Stop\":10},\"TimeCodeRange\":null},{\"Name\":\"name3\",\"Destination\":\"dest3\",\"RestoreFileAttributes\":false,\"ByteRange\":null,\"TimeCodeRange\":{\"Start\":10,\"Stop\":20}}]}", restoreRequest.ToString());
+                JsonConvert.DeserializeObject<RestoreRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.RestoreRequest"));
+            Assert.AreEqual("api/restore\nGET\n{\"files\":[{\"name\":\"name\",\"destination\":\"dest\",\"restoreFileAttributes\":true},{\"name\":\"name2\",\"destination\":\"dest2\",\"byteRange\":{\"start\":0,\"stop\":10}},{\"name\":\"name3\",\"destination\":\"dest3\",\"timeCodeRange\":{\"start\":10,\"stop\":20}}]}", restoreRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -91,9 +89,8 @@ namespace SpectraLogic.EscapePodClient.Test
         public void DeleteTest()
         {
             var deleteRequest =
-                HttpUtils<DeleteRequest>.JsonToObject(
-                    ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.DeleteRequest"));
-            Assert.AreEqual("api/delete\nDELETE\n{\"Files\":[{\"Name\":\"file1\"},{\"Name\":\"file2\"}]}", deleteRequest.ToString());
+                JsonConvert.DeserializeObject<DeleteRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.DeleteRequest"));
+            Assert.AreEqual("api/delete\nDELETE\n{\"files\":[{\"name\":\"file1\"},{\"name\":\"file2\"}]}", deleteRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -111,7 +108,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var job = client.Delete(deleteRequest);
             Assert.AreEqual("123456789", job.Id);
-            Assert.AreEqual(Status.DONE, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.DONE, job.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -139,7 +136,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var job = client.Cancel(cancelRequest);
             Assert.AreEqual("123456789", job.Id);
-            Assert.AreEqual(Status.CANCELED, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.CANCELED, job.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -167,7 +164,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var job = client.Cancel(cancelRequest);
             Assert.AreEqual("123456789", job.Id);
-            Assert.AreEqual(Status.CANCELED, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.CANCELED, job.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -204,7 +201,7 @@ namespace SpectraLogic.EscapePodClient.Test
         public void GetEscapePodJobWithStatusStringTest()
         {
             var id = "123456789";
-            var getEscapePodJobWithStatusRequest = new GetEscapePodJob("archiveName", id);
+            var getEscapePodJobWithStatusRequest = new GetEscapePodJobRequest("archiveName", id);
             Assert.AreEqual("api/archive/archiveName/jobs/123456789\nGET", getEscapePodJobWithStatusRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
@@ -233,19 +230,19 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.IN_PROGRESS, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.IN_PROGRESS, job.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.DONE, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.DONE, job.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.CANCELED, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.CANCELED, job.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.UNKNOWN, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.UNKNOWN, job.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -255,7 +252,7 @@ namespace SpectraLogic.EscapePodClient.Test
         public void GetEscapePodJobWithStatusLongTest()
         {
             var id = "123456789";
-            var getEscapePodJobWithStatusRequest = new GetEscapePodJob("archiveName", long.Parse(id));
+            var getEscapePodJobWithStatusRequest = new GetEscapePodJobRequest("archiveName", long.Parse(id));
             Assert.AreEqual("api/archive/archiveName/jobs/123456789\nGET", getEscapePodJobWithStatusRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
@@ -284,19 +281,19 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.IN_PROGRESS, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.IN_PROGRESS, job.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.DONE, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.DONE, job.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.CANCELED, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.CANCELED, job.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual(id, job.Id);
-            Assert.AreEqual(Status.UNKNOWN, job.Status);
+            Assert.AreEqual(EscapePodJobStatus.UNKNOWN, job.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -306,9 +303,8 @@ namespace SpectraLogic.EscapePodClient.Test
         public void CreateArchiveTest()
         {
             var createArchiveRequest =
-                HttpUtils<CreateArchiveRequest>.JsonToObject(
-                    ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.CreateArchiveRequest"));
-            Assert.AreEqual("api/createarchive\nPOST\n{\"Name\":\"archive\"}", createArchiveRequest.ToString());
+                JsonConvert.DeserializeObject<CreateArchiveRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.CreateArchiveRequest"));
+            Assert.AreEqual("api/createarchive\nPOST\n{\"name\":\"archive\"}", createArchiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork

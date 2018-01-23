@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
@@ -21,7 +21,6 @@ namespace SpectraLogic.EscapePodClient.Model
     /// 
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodArchive" />
-    [DataContract]
     public class EscapePodArchive : IEscapePodArchive
     {
         /// <summary>
@@ -30,6 +29,12 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The name.
         /// </value>
-        [DataMember] public string Name { get; set; }
+        [JsonProperty(Order = 1, PropertyName = "name")] public string Name { get; }
+
+        [JsonConstructor]
+        private EscapePodArchive(string name)
+        {
+            Name = name;
+        }
     }
 }

@@ -13,8 +13,8 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
@@ -22,7 +22,6 @@ namespace SpectraLogic.EscapePodClient.Model
     /// 
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodJob" />
-    [DataContract]
     public class EscapePodJob : IEscapePodJob
     {
         /// <summary>
@@ -31,17 +30,55 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        [DataMember(IsRequired = true)] public string Id { get; set; }
-        [DataMember(Name = "Status", IsRequired = true)] public string StatusString { get; set; }
+        [JsonProperty(Order = 1, PropertyName = "id")] public string Id { get; }
 
-        public Status Status => Enum.TryParse(StatusString, true, out Status ret) ? ret : Status.UNKNOWN;
+        /// <summary>
+        /// Gets or sets the status string.
+        /// </summary>
+        /// <value>
+        /// The status string.
+        /// </value>
+        [JsonProperty(Order = 2, PropertyName = "status")] private string StatusString;
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public EscapePodJobStatus Status => Enum.TryParse(StatusString, true, out EscapePodJobStatus ret) ? ret : EscapePodJobStatus.UNKNOWN;
+
+        [JsonConstructor]
+        private EscapePodJob(string id, string status)
+        {
+            Id = id;
+            StatusString = status;
+        }
     }
 
-    public enum Status
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum EscapePodJobStatus
     {
+        /// <summary>
+        /// The in progress
+        /// </summary>
         IN_PROGRESS,
+        
+        /// <summary>
+        /// The canceled
+        /// </summary>
         CANCELED,
+        
+        /// <summary>
+        /// The done
+        /// </summary>
         DONE,
+        
+        /// <summary>
+        /// The unknown
+        /// </summary>
         UNKNOWN
     }
 }

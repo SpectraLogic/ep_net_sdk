@@ -13,21 +13,23 @@
  * ****************************************************************************
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    [DataContract]
     public class RestoreFile
     {
-        [DataMember(Order = 1)] private string Name;
-        [DataMember(Order = 2)] private string Destination;
-        [DataMember(Order = 3)] private bool RestoreFileAttributes;
-        [DataMember(Order = 4)] private ByteRange ByteRange;
-        [DataMember(Order = 5)] private TimecodeRange TimeCodeRange;
+        [JsonProperty(Order = 1, PropertyName = "name")] private string Name;
+        [JsonProperty(Order = 2, PropertyName = "destination")] private string Destination;
+        [JsonProperty(Order = 3, PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] private bool? RestoreFileAttributes;
+        [JsonProperty(Order = 4, PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] private ByteRange ByteRange;
+        [JsonProperty(Order = 5, PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] private TimecodeRange TimeCodeRange;
+
+        [JsonConstructor]
+        private RestoreFile() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreFile"/> class.

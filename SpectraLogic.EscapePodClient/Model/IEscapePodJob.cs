@@ -27,6 +27,13 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The identifier.
         /// </value>
         string Id { get; }
-        Status Status { get; }
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        EscapePodJobStatus Status { get; }
     }
 }

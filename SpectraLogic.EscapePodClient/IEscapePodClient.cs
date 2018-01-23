@@ -27,6 +27,8 @@ namespace SpectraLogic.EscapePodClient
         /// Gets the archive.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapoPodServerCredentialsException" />
         /// <returns></returns>
         IEscapePodArchive GetArchive(GetArchiveRequest request);
 
@@ -35,7 +37,7 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        IEscapePodJob GetJob(GetEscapePodJob request);
+        IEscapePodJob GetJob(GetEscapePodJobRequest request);
         
         /// <summary>
         /// Deletes the specified request.

@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.Calls
@@ -22,18 +22,12 @@ namespace SpectraLogic.EscapePodClient.Calls
     /// 
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
-    [DataContract]
     public class CreateArchiveRequest : RestRequest
     {
         /// <summary>
         /// The name
         /// </summary>
-        [DataMember] public string Name;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreateArchiveRequest"/> class.
-        /// </summary>
-        public CreateArchiveRequest() { }
+        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateArchiveRequest"/> class.
@@ -60,7 +54,7 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         internal override string GetBody()
         {
-            return HttpUtils<CreateArchiveRequest>.ObjectToJson(this);
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
