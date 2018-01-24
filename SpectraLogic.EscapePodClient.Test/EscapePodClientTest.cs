@@ -171,7 +171,7 @@ namespace SpectraLogic.EscapePodClient.Test
         public void GetArchiveTest()
         {
             var getArchiveRequest = new GetArchiveRequest("archive");
-            Assert.AreEqual("api/getarchive?name=archive\nGET", getArchiveRequest.ToString());
+            Assert.AreEqual("/api/archives/archive\nGET", getArchiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -188,7 +188,8 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var archive = client.GetArchive(getArchiveRequest);
-            Assert.AreEqual("archive", archive.Name);
+            Assert.AreEqual("archive", archive.ArchiveName);
+            Assert.AreEqual("2018-01-24T19:10:22.819Z[UTC]", archive.CreationDate);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -277,7 +278,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var archive = client.CreateArchive(createArchiveRequest);
-            Assert.AreEqual("archive", archive.Name);
+            Assert.AreEqual("archive", archive.ArchiveName);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
