@@ -48,6 +48,8 @@ namespace SpectraLogic.EscapePodClient.Model
             Message = message;
             Status = status;
         }
+
+        //TODO add a ToString function for pretty printing
     }
 
     /// <summary>
