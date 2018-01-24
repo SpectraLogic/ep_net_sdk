@@ -28,7 +28,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
         {
             using (response)
             {
-                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.OK); //TODO use the right status code
+                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.Created);
                 using (var stream = response.GetResponseStream())
                 using (var textStreamReader = new StreamReader(stream))
                 {

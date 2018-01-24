@@ -14,6 +14,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
 
@@ -26,21 +27,32 @@ namespace SpectraLogic.EscapePodClient.Calls
     public class ArchiveRequest : RestRequest
     {
         /// <summary>
+        /// Gets the name of the archive.
+        /// </summary>
+        /// <value>
+        /// The name of the archive.
+        /// </value>
+        [JsonIgnore] public string ArchiveName { get; private set; }
+
+        /// <summary>
         /// The files to be archive
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<ArchiveFile> Files;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArchiveRequest"/> class.
+        /// Initializes a new instance of the <see cref="ArchiveRequest" /> class.
         /// </summary>
+        /// <param name="archiveName">Name of the archive.</param>
         /// <param name="files">The files.</param>
-        public ArchiveRequest(IEnumerable<ArchiveFile> files)
+        public ArchiveRequest(string archiveName, IEnumerable<ArchiveFile> files)
         {
+            ArchiveName = archiveName;
             Files = files;
+            QueryParams.Add("operation", "archive");
         }
 
         internal override HttpVerb Verb => HttpVerb.POST;
-        internal override string Path => "api/archive"; //TODO use the right path
+        internal override string Path => $"/api/archives/{ArchiveName}/jobs";
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -50,7 +62,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// </returns>
         public override string ToString()
         {
-            return $"{Path}\n{Verb}\n{GetBody()}";
+            return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}\n{GetBody()}";
         }
 
         internal override string GetBody()

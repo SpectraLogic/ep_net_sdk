@@ -64,7 +64,7 @@ namespace SpectraLogic.EscapePodClient.Runtime
         {
             var uriBuilder = new UriBuilder(HostServerName)
             {
-                Path = Uri.EscapeDataString(request.Path),
+                Path =request.Path,
                 Query = BuildQueryParams(request.QueryParams),
                 Port = HostServerPort
             };

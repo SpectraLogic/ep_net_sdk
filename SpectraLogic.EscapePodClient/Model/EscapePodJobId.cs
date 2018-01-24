@@ -14,7 +14,6 @@
  */
 
 using Newtonsoft.Json;
-using System;
 
 namespace SpectraLogic.EscapePodClient.Model
 {

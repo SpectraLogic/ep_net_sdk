@@ -1,30 +1,14 @@
-﻿/*
- * ******************************************************************************
- *   Copyright 2014-2018 Spectra Logic Corporation. All Rights Reserved.
- *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
- *   this file except in compliance with the License. A copy of the License is located at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- *   or in the "license" file accompanying this file.
- *   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- *   CONDITIONS OF ANY KIND, either express or implied. See the License for the
- *   specific language governing permissions and limitations under the License.
- * ****************************************************************************
- */
-
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpectraLogic.EscapePodClient.Test")]
+[assembly: AssemblyTitle("SpectraLogic.EscapePodClient.Integration.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spectra Logic Corporation")]
-[assembly: AssemblyProduct("SpectraLogic.EscapePodClient.Test")]
+[assembly: AssemblyProduct("SpectraLogic.EscapePodClient.Integration.Test")]
 [assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -35,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("81ee8ece-970c-4f9f-b630-98a5f38c74a8")]
+[assembly: Guid("5ee70381-47e5-44d6-b627-daa6b62731bf")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -47,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.229")]
-[assembly: AssemblyFileVersion("1.0.0.229")]
+[assembly: AssemblyVersion("1.0.0.29")]
+[assembly: AssemblyFileVersion("1.0.0.29")]
