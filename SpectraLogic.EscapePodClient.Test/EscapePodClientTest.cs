@@ -33,13 +33,13 @@ namespace SpectraLogic.EscapePodClient.Test
         {
             var archiveRequest =
                 JsonConvert.DeserializeObject<ArchiveRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveRequest"));
-            Assert.AreEqual("api/archive\nPOST\n{\"files\":[{\"name\":\"fileName\",\"uri\":\"uri\",\"size\":1234,\"metadata\":{\"key\":\"value\"},\"indexMedia\":false,\"storeFileProperties\":false}]}", archiveRequest.ToString());
+            Assert.AreEqual("/api/archives//jobs?operation=archive\nPOST\n{\"files\":[{\"name\":\"fileName\",\"uri\":\"uri\",\"size\":1234,\"metadata\":{\"key\":\"value\"},\"indexMedia\":false,\"storeFileProperties\":false}]}", archiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(archiveRequest))
                 .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveResponse",
-                    HttpStatusCode.OK, null));
+                    HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
             mockBuilder
@@ -68,7 +68,7 @@ namespace SpectraLogic.EscapePodClient.Test
         {
             var restoreRequest =
                 JsonConvert.DeserializeObject<RestoreRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.RestoreRequest"));
-            Assert.AreEqual("api/restore\nGET\n{\"files\":[{\"name\":\"name\",\"destination\":\"dest\",\"restoreFileAttributes\":true},{\"name\":\"name2\",\"destination\":\"dest2\",\"byteRange\":{\"start\":0,\"stop\":10}},{\"name\":\"name3\",\"destination\":\"dest3\",\"timeCodeRange\":{\"start\":10,\"stop\":20}}]}", restoreRequest.ToString());
+            Assert.AreEqual("api/restore//jobs?operation=restore\nGET\n{\"files\":[{\"name\":\"name\",\"destination\":\"dest\",\"restoreFileAttributes\":true},{\"name\":\"name2\",\"destination\":\"dest2\",\"byteRange\":{\"start\":0,\"stop\":10}},{\"name\":\"name3\",\"destination\":\"dest3\",\"timeCodeRange\":{\"start\":10,\"stop\":20}}]}", restoreRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
