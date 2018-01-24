@@ -13,60 +13,22 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
+
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IEscapePodJob
+    public class EscapePodJobStatus
     {
         /// <summary>
-        /// Gets the identifier.
+        /// Gets the message.
         /// </summary>
         /// <value>
-        /// The identifier.
+        /// The message.
         /// </value>
-        EscapePodJobId JobId { get; }
-
-        /// <summary>
-        /// Gets the type of the job.
-        /// </summary>
-        /// <value>
-        /// The type of the job.
-        /// </value>
-        EscapePodJobType JobType { get; }
-
-        /// <summary>
-        /// Gets the number of files.
-        /// </summary>
-        /// <value>
-        /// The number of files.
-        /// </value>
-        int NumberOfFiles { get; }
-
-        /// <summary>
-        /// Gets the total size in bytes.
-        /// </summary>
-        /// <value>
-        /// The total size in bytes.
-        /// </value>
-        long TotalSizeInBytes { get; }
-
-        /// <summary>
-        /// Gets the created.
-        /// </summary>
-        /// <value>
-        /// The created.
-        /// </value>
-        string Created { get; }
-
-        /// <summary>
-        /// Gets the progress.
-        /// </summary>
-        /// <value>
-        /// The progress.
-        /// </value>
-        double Progress { get; }
+        [JsonProperty(Order = 1, PropertyName = "message")] public string Message { get; }
 
         /// <summary>
         /// Gets the status.
@@ -74,6 +36,43 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The status.
         /// </value>
-        EscapePodJobStatus Status { get; }
+        [JsonProperty(Order = 2, PropertyName = "status")] public JobStatus Status { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EscapePodJobStatus"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="status">The status.</param>
+        public EscapePodJobStatus(string message, JobStatus status)
+        {
+            Message = message;
+            Status = status;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum JobStatus
+    {
+        /// <summary>
+        /// The active
+        /// </summary>
+        ACTIVE,
+
+        /// <summary>
+        /// The in progress
+        /// </summary>
+        IN_PROGRESS,
+
+        /// <summary>
+        /// The canceled
+        /// </summary>
+        CANCELED,
+
+        /// <summary>
+        /// The done
+        /// </summary>
+        DONE,
     }
 }
