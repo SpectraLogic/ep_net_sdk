@@ -78,7 +78,6 @@
     <EmbeddedResource Include="TestFiles\DeleteRequest" />
     <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusDoneResponse" />
     <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusCanceledResponse" />
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusUnknownResponse" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.EscapePodClient\SpectraLogic.EscapePodClient.csproj">

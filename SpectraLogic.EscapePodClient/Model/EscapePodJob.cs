@@ -14,7 +14,6 @@
  */
 
 using Newtonsoft.Json;
-using System;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
@@ -30,15 +29,47 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "id")] public string Id { get; }
+        [JsonProperty(Order = 1, PropertyName = "jobId")] public EscapePodJobId JobId { get; }
 
         /// <summary>
-        /// Gets or sets the status string.
+        /// Gets the type of the job.
         /// </summary>
         /// <value>
-        /// The status string.
+        /// The type of the job.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "status")] private string StatusString;
+        [JsonProperty(Order = 2, PropertyName = "jobType")] public EscapePodJobType JobType { get; }
+
+        /// <summary>
+        /// Gets the number of files.
+        /// </summary>
+        /// <value>
+        /// The number of files.
+        /// </value>
+        [JsonProperty(Order = 3, PropertyName = "numberOfFiles")] public int NumberOfFiles { get; }
+
+        /// <summary>
+        /// Gets the total size in bytes.
+        /// </summary>
+        /// <value>
+        /// The total size in bytes.
+        /// </value>
+        [JsonProperty(Order = 4, PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
+
+        /// <summary>
+        /// Gets the created.
+        /// </summary>
+        /// <value>
+        /// The created.
+        /// </value>
+        [JsonProperty(Order = 5, PropertyName = "created")] public string Created { get; }
+
+        /// <summary>
+        /// Gets the progress.
+        /// </summary>
+        /// <value>
+        /// The progress.
+        /// </value>
+        [JsonProperty(Order = 6, PropertyName = "progress")] public double Progress { get; }
 
         /// <summary>
         /// Gets the status.
@@ -46,39 +77,52 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The status.
         /// </value>
-        public EscapePodJobStatus Status => Enum.TryParse(StatusString, true, out EscapePodJobStatus ret) ? ret : EscapePodJobStatus.UNKNOWN;
+        [JsonProperty(Order = 7, PropertyName = "status")] public EscapePodJobStatus Status { get; }
 
-        [JsonConstructor]
-        private EscapePodJob(string id, string status)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EscapePodJob"/> class.
+        /// </summary>
+        /// <param name="jobId">The job identifier.</param>
+        /// <param name="jobType">Type of the job.</param>
+        /// <param name="numberOfFiles">The number of files.</param>
+        /// <param name="totalSizeInBytes">The total size in bytes.</param>
+        /// <param name="created">The created.</param>
+        /// <param name="progress">The progress.</param>
+        /// <param name="status">The status.</param>
+        public EscapePodJob(EscapePodJobId jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
         {
-            Id = id;
-            StatusString = status;
+            JobId = jobId;
+            JobType = jobType;
+            NumberOfFiles = numberOfFiles;
+            TotalSizeInBytes = totalSizeInBytes;
+            Created = created;
+            Progress = progress;
+            Status = status;
         }
-    }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum EscapePodJobStatus
-    {
         /// <summary>
-        /// The in progress
+        /// Gets or sets the status string.
         /// </summary>
-        IN_PROGRESS,
-        
+        /// <value>
+        /// The status string.
+        /// </value>
+        //[JsonProperty(Order = 2, PropertyName = "status")] private string StatusString;
+
         /// <summary>
-        /// The canceled
+        /// Gets the status.
         /// </summary>
-        CANCELED,
-        
-        /// <summary>
-        /// The done
-        /// </summary>
-        DONE,
-        
-        /// <summary>
-        /// The unknown
-        /// </summary>
-        UNKNOWN
+        /// <value>
+        /// The status.
+        /// </value>
+        //public EscapePodJobStatus Status => Enum.TryParse(StatusString, true, out EscapePodJobStatus ret) ? ret : EscapePodJobStatus.UNKNOWN;
+
+        //[JsonConstructor]
+        //private EscapePodJob(string id, string status)
+        //{
+        //    Id = id;
+        //    StatusString = status;
+        //}
+
+
     }
 }

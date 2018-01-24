@@ -32,15 +32,6 @@ namespace SpectraLogic.EscapePodClient.Calls
             AddQueryParam("id", escapePodJobId);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CancelRequest"/> class.
-        /// </summary>
-        /// <param name="escapePodJobId">The escape pod job identifier.</param>
-        public CancelRequest(long escapePodJobId)
-        {
-            AddQueryParam("id", escapePodJobId.ToString());
-        }
-
         internal override HttpVerb Verb => HttpVerb.PUT;
         internal override string Path => "api/cancel"; //TODO use the right path
 
