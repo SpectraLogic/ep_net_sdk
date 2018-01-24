@@ -64,13 +64,13 @@ namespace SpectraLogic.EscapePodClient.Runtime
         {
             var uriBuilder = new UriBuilder(HostServerName)
             {
-                Path =request.Path,
+                Path = request.Path,
                 Query = BuildQueryParams(request.QueryParams),
                 Port = HostServerPort
             };
 
 
-            var httpRequest = (HttpWebRequest) WebRequest.Create(uriBuilder.Uri);
+            var httpRequest = (HttpWebRequest)WebRequest.Create(uriBuilder.Uri);
             httpRequest.Method = request.Verb.ToString();
             httpRequest.Headers.Add("Authorization", GetBasicAuth());
             httpRequest.ContentType = "application/json";
