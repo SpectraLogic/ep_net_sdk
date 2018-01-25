@@ -21,11 +21,19 @@ namespace SpectraLogic.EscapePodClient.Model
     public interface IEscapePodArchive
     {
         /// <summary>
-        /// Gets the name.
+        /// Gets the name of the archive.
         /// </summary>
         /// <value>
-        /// The name.
+        /// The name of the archive.
         /// </value>
-        string Name { get; }
+        string ArchiveName { get; }
+
+        /// <summary>
+        /// Gets the creation date.
+        /// </summary>
+        /// <value>
+        /// The creation date.
+        /// </value>
+        string CreationDate { get; }
     }
 }

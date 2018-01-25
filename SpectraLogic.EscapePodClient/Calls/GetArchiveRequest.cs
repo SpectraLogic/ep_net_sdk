@@ -24,16 +24,24 @@ namespace SpectraLogic.EscapePodClient.Calls
     public class GetArchiveRequest : RestRequest
     {
         /// <summary>
+        /// Gets the name of the archive.
+        /// </summary>
+        /// <value>
+        /// The name of the archive.
+        /// </value>
+        public string ArchiveName { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GetArchiveRequest"/> class.
         /// </summary>
         /// <param name="archiveName">Name of the archive.</param>
         public GetArchiveRequest(string archiveName)
         {
-            QueryParams.Add("name", archiveName);
+            ArchiveName = archiveName;
         }
 
         internal override HttpVerb Verb => HttpVerb.GET;
-        internal override string Path => "api/getarchive"; //TODO use the right path
+        internal override string Path => $"/api/archives/{ArchiveName}";
         
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -43,7 +51,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// </returns>
         public override string ToString()
         {
-            return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}";
+            return $"{Path}\n{Verb}";
         }
     }
 }
