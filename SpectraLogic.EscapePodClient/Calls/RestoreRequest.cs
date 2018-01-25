@@ -52,8 +52,8 @@ namespace SpectraLogic.EscapePodClient.Calls
             QueryParams.Add("operation", "restore");
         }
 
-        internal override HttpVerb Verb => HttpVerb.GET;
-        internal override string Path => $"api/restore/{ArchiveName}/jobs";
+        internal override HttpVerb Verb => HttpVerb.POST;
+        internal override string Path => $"api/archives/{ArchiveName}/jobs";
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

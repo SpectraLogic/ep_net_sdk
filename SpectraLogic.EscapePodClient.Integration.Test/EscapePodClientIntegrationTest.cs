@@ -18,7 +18,6 @@ using log4net.Config;
 using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Model;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -42,10 +41,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 ConfigurationManager.AppSettings["Password"]);
 
             var proxy = ConfigurationManager.AppSettings["Proxy"];
-            Console.WriteLine($"proxy = {proxy}");
             if (!string.IsNullOrWhiteSpace(proxy))
             {
-                Console.WriteLine($"adding proxy {proxy}");
                 escapePodClientBuilder.WithProxy(proxy);
             }
 
@@ -57,7 +54,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         {
             var archiveRequest = new ArchiveRequest("net_archive", new List<ArchiveFile>
             {
-                new ArchiveFile("ArchiveTestFile.txt", "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/ArchiveTestFile.txt", 31, new Dictionary<string, string>{ { "test", "archive" } }, false, false)
+                new ArchiveFile("F1", "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F1.txt", 14, new Dictionary<string, string>{ { "fileName", "F1" } }, false, false),
+                new ArchiveFile("F2", "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F2.txt", 14, new Dictionary<string, string>{ { "fileName", "F2" } }, false, false)
             });
 
             var job = EscapePodClient.Archive(archiveRequest);
@@ -67,10 +65,11 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         [Test]
         public void Restore()
         {
-            var restoreRequest = new RestoreRequest("", new List<RestoreFile>
+            //TODO create a temp dir for the restore
+            var restoreRequest = new RestoreRequest("net_archive", new List<RestoreFile>
             {
-                new RestoreFile("", "", false),
-                new RestoreFile("", "", new ByteRange(0, 10))
+                new RestoreFile("F1", "file:///C:/Temp/restore/F1_restore.txt"),
+                new RestoreFile("F2", "file:///C:/Temp/restore/F2_restore.txt")
             });
 
             var job = EscapePodClient.Restore(restoreRequest);
