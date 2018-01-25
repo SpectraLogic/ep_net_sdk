@@ -61,7 +61,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestFiles\ArchiveTestFile.txt" />
+    <Content Include="TestFiles\F2.txt" />
+    <Content Include="TestFiles\F1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

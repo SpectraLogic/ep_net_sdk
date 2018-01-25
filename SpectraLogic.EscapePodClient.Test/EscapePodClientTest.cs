@@ -68,13 +68,13 @@ namespace SpectraLogic.EscapePodClient.Test
         {
             var restoreRequest =
                 JsonConvert.DeserializeObject<RestoreRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.RestoreRequest"));
-            Assert.AreEqual("api/restore//jobs?operation=restore\nGET\n{\"files\":[{\"name\":\"name\",\"destination\":\"dest\",\"restoreFileAttributes\":true},{\"name\":\"name2\",\"destination\":\"dest2\",\"byteRange\":{\"start\":0,\"stop\":10}},{\"name\":\"name3\",\"destination\":\"dest3\",\"timeCodeRange\":{\"start\":10,\"stop\":20}}]}", restoreRequest.ToString());
+            Assert.AreEqual("api/archives//jobs?operation=restore\nPOST\n{\"files\":[{\"name\":\"name\",\"uri\":\"dest\",\"restoreFileAttributes\":true},{\"name\":\"name2\",\"uri\":\"dest2\",\"byteRange\":{\"start\":0,\"stop\":10}},{\"name\":\"name3\",\"uri\":\"dest3\",\"timeCodeRange\":{\"start\":10,\"stop\":20}}]}", restoreRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(restoreRequest))
                 .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.RestoreResponse",
-                    HttpStatusCode.OK, null));
+                    HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
             mockBuilder

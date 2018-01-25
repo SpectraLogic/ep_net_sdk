@@ -23,7 +23,7 @@ namespace SpectraLogic.EscapePodClient.Model
     public class RestoreFile
     {
         [JsonProperty(Order = 1, PropertyName = "name")] private string Name;
-        [JsonProperty(Order = 2, PropertyName = "destination")] private string Destination;
+        [JsonProperty(Order = 2, PropertyName = "uri")] private string Uri;
         [JsonProperty(Order = 3, PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] private bool? RestoreFileAttributes;
         [JsonProperty(Order = 4, PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] private ByteRange ByteRange;
         [JsonProperty(Order = 5, PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] private TimecodeRange TimeCodeRange;
@@ -35,12 +35,23 @@ namespace SpectraLogic.EscapePodClient.Model
         /// Initializes a new instance of the <see cref="RestoreFile"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="destination">The destination.</param>
-        /// <param name="restoreFileAttributes">if set to <c>true</c> [restore file attributes].</param>
-        public RestoreFile(string name, string destination, bool restoreFileAttributes)
+        /// <param name="uri">The destination.</param>
+        public RestoreFile(string name, string uri)
         {
             Name = name;
-            Destination = destination;
+            Uri = uri;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestoreFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="uri">The destination.</param>
+        /// <param name="restoreFileAttributes">if set to <c>true</c> [restore file attributes].</param>
+        public RestoreFile(string name, string uri, bool restoreFileAttributes)
+        {
+            Name = name;
+            Uri = uri;
             RestoreFileAttributes = restoreFileAttributes;
         }
 
@@ -48,12 +59,12 @@ namespace SpectraLogic.EscapePodClient.Model
         /// Initializes a new instance of the <see cref="RestoreFile"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="destination">The destination.</param>
+        /// <param name="uri">The destination.</param>
         /// <param name="byteRange">The byte range.</param>
-        public RestoreFile(string name, string destination, ByteRange byteRange)
+        public RestoreFile(string name, string uri, ByteRange byteRange)
         {
             Name = name;
-            Destination = destination;
+            Uri = uri;
             ByteRange = byteRange;
         }
 
@@ -61,12 +72,12 @@ namespace SpectraLogic.EscapePodClient.Model
         /// Initializes a new instance of the <see cref="RestoreFile"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="destination">The destination.</param>
+        /// <param name="uri">The destination.</param>
         /// <param name="timeCodeRange">The time code range.</param>
-        public RestoreFile(string name, string destination, TimecodeRange timeCodeRange)
+        public RestoreFile(string name, string uri, TimecodeRange timeCodeRange)
         {
             Name = name;
-            Destination = destination;
+            Uri = uri;
             TimeCodeRange = timeCodeRange;
         }
     }
