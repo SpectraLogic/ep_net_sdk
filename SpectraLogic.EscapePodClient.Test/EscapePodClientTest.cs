@@ -90,9 +90,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(100, job.Progress);
-            Assert.AreEqual("Done", job.Status.Message);
-            Assert.AreEqual(JobStatus.DONE, job.Status.Status);
+            Assert.AreEqual(1.0, job.Progress);
+            Assert.AreEqual("Completed", job.Status.Message);
+            Assert.AreEqual(JobStatus.COMPLETED, job.Status.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -125,9 +125,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(100, job.Progress);
-            Assert.AreEqual("Done", job.Status.Message);
-            Assert.AreEqual(JobStatus.DONE, job.Status.Status);
+            Assert.AreEqual(1.0, job.Progress);
+            Assert.AreEqual("Completed", job.Status.Message);
+            Assert.AreEqual(JobStatus.COMPLETED, job.Status.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -159,7 +159,7 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(100, job.Progress);
+            Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Done", job.Status.Message);
             Assert.AreEqual(JobStatus.CANCELED, job.Status.Status);
 
@@ -199,16 +199,16 @@ namespace SpectraLogic.EscapePodClient.Test
         public void GetEscapePodJobWithStatusStringTest()
         {
             var getEscapePodJobWithStatusRequest = new GetEscapePodJobRequest("archiveName", "123456789");
-            Assert.AreEqual("api/archive/archiveName/jobs/123456789\nGET", getEscapePodJobWithStatusRequest.ToString());
+            Assert.AreEqual("api/archives/archiveName/jobs/123456789\nGET", getEscapePodJobWithStatusRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .SetupSequence(n => n.Invoke(getEscapePodJobWithStatusRequest))
                 .Returns(new MockHttpWebResponse(
-                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobWithStatusInProgressResponse",
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobWithStatusActiveResponse",
                     HttpStatusCode.OK, null))
                 .Returns(new MockHttpWebResponse(
-                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobWithStatusDoneResponse",
+                    "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobWithStatusCompletedResponse",
                     HttpStatusCode.OK, null))
                 .Returns(new MockHttpWebResponse(
                     "SpectraLogic.EscapePodClient.Test.TestFiles.GetEscapePodJobWithStatusCanceledResponse",
@@ -228,9 +228,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(50, job.Progress);
-            Assert.AreEqual("In progress", job.Status.Message);
-            Assert.AreEqual(JobStatus.IN_PROGRESS, job.Status.Status);
+            Assert.AreEqual(0.5, job.Progress);
+            Assert.AreEqual("Active", job.Status.Message);
+            Assert.AreEqual(JobStatus.ACTIVE, job.Status.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
@@ -238,9 +238,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(100, job.Progress);
-            Assert.AreEqual("Done", job.Status.Message);
-            Assert.AreEqual(JobStatus.DONE, job.Status.Status);
+            Assert.AreEqual(1.0, job.Progress);
+            Assert.AreEqual("Completed", job.Status.Message);
+            Assert.AreEqual(JobStatus.COMPLETED, job.Status.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
             Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
@@ -248,8 +248,8 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(100, job.Progress);
-            Assert.AreEqual("Done", job.Status.Message);
+            Assert.AreEqual(1.0, job.Progress);
+            Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatus.CANCELED, job.Status.Status);
 
             mockBuilder.VerifyAll();

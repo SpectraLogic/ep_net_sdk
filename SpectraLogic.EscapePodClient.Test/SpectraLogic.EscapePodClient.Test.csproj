@@ -75,7 +75,7 @@
     <EmbeddedResource Include="TestFiles\ArchiveRequest" />
     <None Include="packages.config" />
     <EmbeddedResource Include="TestFiles\DeleteRequest" />
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusDoneResponse" />
+    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusCompletedResponse" />
     <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusCanceledResponse" />
   </ItemGroup>
   <ItemGroup>
@@ -103,7 +103,7 @@
     <EmbeddedResource Include="TestFiles\GetArchiveResponse" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusInProgressResponse" />
+    <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusActiveResponse" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\CreateArchiveRequest" />

@@ -49,7 +49,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         }
 
         internal override HttpVerb Verb => HttpVerb.GET;
-        internal override string Path => $"api/archive/{ArchiveName}/jobs/{EscapePodJobId}";
+        internal override string Path => $"api/archives/{ArchiveName}/jobs/{EscapePodJobId}";
         
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
