@@ -19,6 +19,7 @@ using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.ResponseParsers;
 using SpectraLogic.EscapePodClient.Runtime;
+using System.Net;
 
 namespace SpectraLogic.EscapePodClient
 {
@@ -53,12 +54,12 @@ namespace SpectraLogic.EscapePodClient
             }
             catch (ErrorResponseException ex)
             {
-                if (ex.ErrorResponse.StatusCode == 400) //should be HttpStatusCode.NotFound 404
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.BadRequest) //should be HttpStatusCode.NotFound 404
                 {
                     throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage);
                 }
 
-                if (ex.ErrorResponse.StatusCode == 403)
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.Forbidden)
                 {
                     throw new InvalidEscapePodServerCredentialsException(ex.ErrorResponse.ErrorMessage);
                 }
