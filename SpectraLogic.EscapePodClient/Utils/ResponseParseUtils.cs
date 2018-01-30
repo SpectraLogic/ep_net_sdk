@@ -13,10 +13,12 @@
  * ****************************************************************************
  */
 
-using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
+using Newtonsoft.Json;
+using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Runtime;
 
 namespace SpectraLogic.EscapePodClient.Utils
@@ -31,15 +33,18 @@ namespace SpectraLogic.EscapePodClient.Utils
                 return;
             }
 
-            var responseContent = GetResponseContent(response);
-            throw new Exception(responseContent);
+            var errorResponse = GetErrorResponse(response);
+            throw new ErrorResponseException(errorResponse);
         }
 
-        private static string GetResponseContent(IHttpWebResponse response)
+        private static ErrorResponse GetErrorResponse(IHttpWebResponse response)
         {
             using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream))
-                return reader.ReadToEnd();
+            using (var reader = new StreamReader(stream, encoding: Encoding.UTF8))
+            {
+                var responseString = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
+            }
         }
     }
 }

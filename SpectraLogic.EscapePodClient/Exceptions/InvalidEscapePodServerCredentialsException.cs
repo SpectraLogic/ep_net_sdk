@@ -22,13 +22,13 @@ namespace SpectraLogic.EscapePodClient.Exceptions
     /// 
     /// </summary>
     /// <seealso cref="System.Exception" />
-    public class InvalidEscapoPodServerCredentialsException : Exception
+    public class InvalidEscapePodServerCredentialsException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidEscapoPodServerCredentialsException"/> class.
+        /// Initializes a new instance of the <see cref="InvalidEscapePodServerCredentialsException"/> class.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public InvalidEscapoPodServerCredentialsException(string message) : base(message)
+        public InvalidEscapePodServerCredentialsException(string message) : base(message)
         {
         }
     }

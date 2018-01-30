@@ -14,6 +14,8 @@
  */
 
 using System.Net;
+using log4net;
+using log4net.Config;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -28,6 +30,13 @@ namespace SpectraLogic.EscapePodClient.Test
     [TestFixture]
     internal class EscapePodClientTest
     {
+        private static readonly ILog Log = LogManager.GetLogger("EscapePodClientTest");
+
+        public EscapePodClientTest()
+        {
+            BasicConfigurator.Configure();
+        }
+
         [Test]
         public void ArchiveTest()
         {

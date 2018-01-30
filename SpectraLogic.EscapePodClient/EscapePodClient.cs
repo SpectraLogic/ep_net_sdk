@@ -19,7 +19,6 @@ using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.ResponseParsers;
 using SpectraLogic.EscapePodClient.Runtime;
-using System;
 
 namespace SpectraLogic.EscapePodClient
 {
@@ -42,7 +41,8 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapoPodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
         public IEscapePodArchive GetArchive(GetArchiveRequest request)
         {
@@ -51,9 +51,18 @@ namespace SpectraLogic.EscapePodClient
                 Log.Debug($"GetArchive info\n{request}");
                 return new GetArchiveResponseParser().Parse(_network.Invoke(request));
             }
-            catch (Exception ex)
+            catch (ErrorResponseException ex)
             {
-                //TODO throw ArchiveNotFoundException or InvalidEscapoPodServerCredentialsException
+                if (ex.ErrorResponse.StatusCode == 400) //should be HttpStatusCode.NotFound 404
+                {
+                    throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage);
+                }
+
+                if (ex.ErrorResponse.StatusCode == 403)
+                {
+                    throw new InvalidEscapePodServerCredentialsException(ex.ErrorResponse.ErrorMessage);
+                }
+
                 throw ex;
             }
         }

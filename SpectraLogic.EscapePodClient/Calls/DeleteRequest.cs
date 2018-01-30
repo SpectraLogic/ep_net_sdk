@@ -16,7 +16,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
-using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {

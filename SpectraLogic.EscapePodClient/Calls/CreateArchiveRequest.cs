@@ -14,7 +14,6 @@
  */
 
 using Newtonsoft.Json;
-using SpectraLogic.EscapePodClient.Utils;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
