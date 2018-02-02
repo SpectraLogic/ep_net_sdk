@@ -2,4 +2,4 @@ language: csharp
 solution: SpectraLogic.EscapePodClient.sln
 script:
   - xbuild /p:Configuration=Release SpectraLogic.EscapePodClient.sln
-  - mono ./packages/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./SpectraLogic.EscapePodClient.Test/bin/Release/SpectraLogic.EscapePodClient.Test.dll
+  - mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./SpectraLogic.EscapePodClient.Test/bin/Release/SpectraLogic.EscapePodClient.Test.dll

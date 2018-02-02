@@ -4,6 +4,38 @@
         <name>nunit.engine.api</name>
     </assembly>
     <members>
+        <member name="T:NUnit.Engine.NUnitEngineUnloadException">
+            <summary>
+            NUnitEngineUnloadException is thrown when a test run has completed successfully
+            but one or more errors were encountered when attempting to unload
+            and shut down the test run cleanly.
+            </summary>
+        </member>
+        <member name="M:NUnit.Engine.NUnitEngineUnloadException.#ctor(System.String)">
+            <summary>
+            Construct with a message
+            </summary>
+        </member>
+        <member name="M:NUnit.Engine.NUnitEngineUnloadException.#ctor(System.String,System.Exception)">
+            <summary>
+            Construct with a message and inner exception
+            </summary>
+        </member>
+        <member name="M:NUnit.Engine.NUnitEngineUnloadException.#ctor(System.Collections.Generic.ICollection{System.Exception})">
+            <summary>
+            Construct with a message and a collection of exceptions.
+            </summary>
+        </member>
+        <member name="M:NUnit.Engine.NUnitEngineUnloadException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialization constructor.
+            </summary>
+        </member>
+        <member name="P:NUnit.Engine.NUnitEngineUnloadException.AggregatedExceptions">
+            <summary>
+            Gets the collection of exceptions .
+            </summary>
+        </member>
         <member name="T:NUnit.Engine.Extensibility.TypeExtensionPointAttribute">
             <summary>
             TypeExtensionPointAttribute is used to bind an extension point
@@ -871,8 +903,6 @@
             <summary>
             Construct with a message and inner exception
             </summary>
-            <param name="message"></param>
-            <param name="innerException"></param>
         </member>
         <member name="M:NUnit.Engine.NUnitEngineException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -919,10 +949,7 @@
             <summary>
             Create an instance of the test engine.
             </summary>
-            <remarks>If private copy is false, the search order is the NUnit install directory for the current user, then
-            the install directory for the local machine and finally the current AppDomain's ApplicationBase.</remarks>
-            <param name="privateCopy">if set to <c>true</c> loads the engine found in the application base directory, 
-            otherwise searches for the test engine with the highest version installed. Defaults to <c>true</c>.</param>
+            <param name="unused">This parameter is no longer used but has not been removed to ensure API compatibility.</param>
             <exception cref="T:NUnit.Engine.NUnitEngineNotFoundException">Thrown when a test engine of the required minimum version is not found</exception>
             <returns>An <see cref="T:NUnit.Engine.ITestEngine"/></returns>
         </member>
@@ -930,12 +957,9 @@
             <summary>
             Create an instance of the test engine with a minimum version.
             </summary>
-            <remarks>If private copy is false, the search order is the NUnit install directory for the current user, then
-            the install directory for the local machine and finally the current AppDomain's ApplicationBase.</remarks>
             <param name="minVersion">The minimum version of the engine to return inclusive.</param>
-            <param name="privateCopy">if set to <c>true</c> loads the engine found in the application base directory, 
-            otherwise searches for the test engine with the highest version installed. Defaults to <c>true</c>.</param>
-            <exception cref="T:NUnit.Engine.NUnitEngineNotFoundException">Thrown when a test engine of the given minimum version is not found</exception>
+            <param name="unused">This parameter is no longer used but has not been removed to ensure API compatibility.</param>
+            <exception cref="T:NUnit.Engine.NUnitEngineNotFoundException">Thrown when a test engine of the required minimum version is not found</exception>
             <returns>An <see cref="T:NUnit.Engine.ITestEngine"/></returns>
         </member>
         <member name="T:NUnit.Engine.TestFilter">
@@ -988,7 +1012,7 @@
             Every test package gets a unique ID used to prefix test IDs within that package.
             </summary>
             <remarks>
-            The generated ID is only unique for packages created within the same AppDomain.
+            The generated ID is only unique for packages created within the same application domain.
             For that reason, NUnit pre-creates all test packages that will be needed.
             </remarks>
         </member>
