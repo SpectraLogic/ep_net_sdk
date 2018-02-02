@@ -13,22 +13,22 @@
  * ****************************************************************************
  */
 
-
-using Newtonsoft.Json;
-using System.Net;
+using System;
 
 namespace SpectraLogic.EscapePodClient.Exceptions
 {
-    internal class ErrorResponse
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Exception" />
+    public class ArchiveAlreadyExistsException : Exception
     {
-        [JsonProperty(Order = 1, PropertyName = "message")] public string ErrorMessage { get; }
-        [JsonProperty(Order = 2, PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
-
-        [JsonConstructor]
-        private ErrorResponse(string errorMessage, HttpStatusCode statusCode)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArchiveAlreadyExistsException"/> class.
+        /// </summary>
+        /// <param name="message">The message that describes the error.</param>
+        public ArchiveAlreadyExistsException(string message) : base(message)
         {
-            ErrorMessage = errorMessage;
-            StatusCode = statusCode;
         }
     }
 }
