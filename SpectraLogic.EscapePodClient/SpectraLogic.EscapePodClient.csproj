@@ -61,7 +61,9 @@
     <Compile Include="Calls\GetArchiveRequest.cs" />
     <Compile Include="Calls\GetEscapePodJobRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
+    <Compile Include="Exceptions\ArchiveAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
+    <Compile Include="Exceptions\BucketDoesNotExistException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
     <Compile Include="Exceptions\InvalidEscapePodServerCredentialsException.cs" />
     <Compile Include="IEscapePodClientBuilder.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Model\EscapePodJobType.cs" />
     <Compile Include="Model\IEscapePodArchive.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
+    <Compile Include="Model\ResolverConfig.cs" />
     <Compile Include="Model\RestoreFile.cs" />
     <Compile Include="Model\TimecodeRange.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

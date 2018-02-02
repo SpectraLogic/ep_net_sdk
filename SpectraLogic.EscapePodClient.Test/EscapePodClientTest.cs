@@ -270,7 +270,7 @@ namespace SpectraLogic.EscapePodClient.Test
         {
             var createArchiveRequest =
                 JsonConvert.DeserializeObject<CreateArchiveRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.CreateArchiveRequest"));
-            Assert.AreEqual("api/createarchive\nPOST\n{\"name\":\"archive\"}", createArchiveRequest.ToString());
+            Assert.AreEqual("/api/archives\nPOST\n{\"name\":\"archive_test\",\"resolverConfig\":{\"name\":\"testResolver\",\"blackPearlName\":\"name\",\"userName\":\"user\",\"bucket\":\"bucket\",\"https\":false}}", createArchiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -287,7 +287,8 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var archive = client.CreateArchive(createArchiveRequest);
-            Assert.AreEqual("archive", archive.ArchiveName);
+            Assert.AreEqual("archive_test", archive.ArchiveName);
+            Assert.AreEqual("2018-01-30T23:00:29.88Z[UTC]", archive.CreationDate);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
