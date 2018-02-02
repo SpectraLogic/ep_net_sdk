@@ -14,7 +14,7 @@
  */
 
 using Newtonsoft.Json;
-using SpectraLogic.EscapePodClient.Utils;
+using SpectraLogic.EscapePodClient.Model;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
@@ -30,16 +30,23 @@ namespace SpectraLogic.EscapePodClient.Calls
         [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateArchiveRequest"/> class.
+        /// The resolver configuration
+        /// </summary>
+        [JsonProperty(Order = 2, PropertyName = "resolverConfig")] public ResolverConfig ResolverConfig;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateArchiveRequest" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        public CreateArchiveRequest(string name)
+        /// <param name="resolver">The resolver.</param>
+        public CreateArchiveRequest(string name, ResolverConfig resolver)
         {
             Name = name;
+            ResolverConfig = resolver;
         }
 
         internal override HttpVerb Verb => HttpVerb.POST;
-        internal override string Path => "api/createarchive"; //TODO use the right path
+        internal override string Path => "/api/archives";
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.

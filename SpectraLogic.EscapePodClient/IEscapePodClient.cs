@@ -28,7 +28,8 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapoPodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
         IEscapePodArchive GetArchive(GetArchiveRequest request);
 

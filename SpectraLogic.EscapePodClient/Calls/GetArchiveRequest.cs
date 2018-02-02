@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using System.Linq;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {

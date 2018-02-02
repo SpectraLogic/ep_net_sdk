@@ -1,3 +1,10 @@
 ﻿{
-   "name": "archive"
+  "name": "archive_test",
+  "resolverConfig": {
+    "name": "testResolver",
+    "blackPearlName": "name",
+    "userName": "user",
+    "bucket": "bucket",
+    "https": false
+  }
 }

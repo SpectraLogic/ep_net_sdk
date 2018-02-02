@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-
 using System;
 
 namespace SpectraLogic.EscapePodClient.Exceptions
@@ -22,13 +21,13 @@ namespace SpectraLogic.EscapePodClient.Exceptions
     /// 
     /// </summary>
     /// <seealso cref="System.Exception" />
-    public class InvalidEscapoPodServerCredentialsException : Exception
+    public class BucketDoesNotExistException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidEscapoPodServerCredentialsException"/> class.
+        /// Initializes a new instance of the <see cref="BucketDoesNotExistException"/> class.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public InvalidEscapoPodServerCredentialsException(string message) : base(message)
+        public BucketDoesNotExistException(string message) : base(message)
         {
         }
     }
