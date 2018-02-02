@@ -20,6 +20,7 @@ using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Model;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Threading;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
@@ -28,6 +29,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
     {
         ILog _log = LogManager.GetLogger("EscapePodClientIntegrationTest");
         IEscapePodClient EscapePodClient;
+        const string ArchiveName = "net_archive_test";
 
         [OneTimeSetUp]
         public void Setup()
@@ -50,29 +52,50 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         }
 
         [Test]
-        public void Archive()
+        public void ArchiveAndRestore()
         {
-            var archiveRequest = new ArchiveRequest("net_archive", new List<ArchiveFile>
+            /***********
+             * ARCHIVE *
+             ***********/
+
+            var archiveRequest = new ArchiveRequest(ArchiveName, new List<ArchiveFile>
             {
                 new ArchiveFile("F1", "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F1.txt", 14, new Dictionary<string, string>{ { "fileName", "F1" } }, false, false),
                 new ArchiveFile("F2", "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F2.txt", 14, new Dictionary<string, string>{ { "fileName", "F2" } }, false, false)
             });
 
-            var job = EscapePodClient.Archive(archiveRequest);
-        }
+            var archiveJob = EscapePodClient.Archive(archiveRequest);
 
+            do
+            {
+                archiveJob = EscapePodClient.GetJob(new GetEscapePodJobRequest(ArchiveName, archiveJob.JobId.Id));
+                _log.Debug(archiveJob.Status);
+                Thread.Sleep(5000);
+            } while (archiveJob.Status.Status == JobStatus.ACTIVE);
 
-        [Test]
-        public void Restore()
-        {
+            Assert.AreEqual(JobStatus.COMPLETED, archiveJob.Status.Status);
+
+            /**********
+            * RESTORE *
+            ***********/
+
             //TODO create a temp dir for the restore
-            var restoreRequest = new RestoreRequest("net_archive", new List<RestoreFile>
+            var restoreRequest = new RestoreRequest(ArchiveName, new List<RestoreFile>
             {
                 new RestoreFile("F1", "file:///C:/Temp/restore/F1_restore.txt"),
                 new RestoreFile("F2", "file:///C:/Temp/restore/F2_restore.txt")
             });
 
-            var job = EscapePodClient.Restore(restoreRequest);
+            var restoreJob = EscapePodClient.Restore(restoreRequest);
+
+            do
+            {
+                restoreJob = EscapePodClient.GetJob(new GetEscapePodJobRequest(ArchiveName, restoreJob.JobId.Id));
+                _log.Debug(restoreJob.Status);
+                Thread.Sleep(5000);
+            } while (restoreJob.Status.Status == JobStatus.ACTIVE);
+
+            Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
         }
     }
 }

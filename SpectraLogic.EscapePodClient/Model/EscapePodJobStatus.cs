@@ -49,7 +49,16 @@ namespace SpectraLogic.EscapePodClient.Model
             Status = status;
         }
 
-        //TODO add a ToString function for pretty printing
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format("<message: {0}, status: {1}>", Message, Status);
+        }
     }
 
     /// <summary>
@@ -58,23 +67,28 @@ namespace SpectraLogic.EscapePodClient.Model
     public enum JobStatus
     {
         /// <summary>
-        /// The active
+        /// The job is active
         /// </summary>
         ACTIVE,
 
         /// <summary>
-        /// The in progress
+        /// The job is completed
         /// </summary>
-        IN_PROGRESS,
+        COMPLETED,
 
         /// <summary>
-        /// The canceled
+        /// The job is paused
+        /// </summary>
+        PAUSED,
+
+        /// <summary>
+        /// The job is canceled
         /// </summary>
         CANCELED,
 
         /// <summary>
-        /// The done
+        /// The job has error
         /// </summary>
-        DONE,
+        ERROR
     }
 }

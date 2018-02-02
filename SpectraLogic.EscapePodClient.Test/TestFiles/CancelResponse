@@ -6,7 +6,7 @@
   "numberOfFiles": 1,
   "totalSizeInBytes": 1234,
   "created": "2018-01-23T03:52:46.869Z[UTC]",
-  "progress": 100,
+  "progress": 1.0,
   "status": {
     "message": "Done",
     "status": "CANCELED"
