@@ -1,4 +1,4 @@
 ﻿{
   "message": "archive not found",
-  "statusCode": 400
+  "statusCode": 404
 }

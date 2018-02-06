@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using log4net;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Runtime;
@@ -25,6 +26,8 @@ namespace SpectraLogic.EscapePodClient.Utils
 {
     internal static class ResponseParseUtils
     {
+        private static readonly ILog LOG = LogManager.GetLogger("ResponseParseUtils");
+
         internal static void HandleStatusCode(IHttpWebResponse response, params HttpStatusCode[] expectedStatusCodes)
         {
             var actualStatusCode = response.StatusCode;
@@ -43,6 +46,7 @@ namespace SpectraLogic.EscapePodClient.Utils
             using (var reader = new StreamReader(stream, encoding: Encoding.UTF8))
             {
                 var responseString = reader.ReadToEnd();
+                LOG.Debug(responseString);
                 return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
             }
         }

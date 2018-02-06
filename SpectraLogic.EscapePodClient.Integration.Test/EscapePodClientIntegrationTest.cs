@@ -17,10 +17,13 @@ using log4net;
 using log4net.Config;
 using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
+using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
@@ -96,6 +99,13 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             } while (restoreJob.Status.Status == JobStatus.ACTIVE);
 
             Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
+        }
+
+        [Test]
+        public void ArchiveNotFoundExceptionTest()
+        {
+            var archive = new GetArchiveRequest("not_found");
+            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.GetArchive(archive)));
         }
     }
 }

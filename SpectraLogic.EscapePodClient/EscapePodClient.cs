@@ -54,7 +54,7 @@ namespace SpectraLogic.EscapePodClient
             }
             catch (ErrorResponseException ex)
             {
-                if (ex.ErrorResponse.StatusCode == HttpStatusCode.BadRequest) //should be HttpStatusCode.NotFound 404
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.NotFound)
                 {
                     throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage);
                 }
