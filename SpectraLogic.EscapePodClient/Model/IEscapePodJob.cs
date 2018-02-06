@@ -26,7 +26,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        EscapePodJobId JobId { get; }
+        string JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.

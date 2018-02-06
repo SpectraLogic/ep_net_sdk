@@ -29,7 +29,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "jobId")] public EscapePodJobId JobId { get; }
+        [JsonProperty(Order = 1, PropertyName = "id")] public string JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.
@@ -89,7 +89,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <param name="created">The created.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
-        public EscapePodJob(EscapePodJobId jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
+        public EscapePodJob(string jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
         {
             JobId = jobId;
             JobType = jobType;
@@ -99,30 +99,5 @@ namespace SpectraLogic.EscapePodClient.Model
             Progress = progress;
             Status = status;
         }
-
-        /// <summary>
-        /// Gets or sets the status string.
-        /// </summary>
-        /// <value>
-        /// The status string.
-        /// </value>
-        //[JsonProperty(Order = 2, PropertyName = "status")] private string StatusString;
-
-        /// <summary>
-        /// Gets the status.
-        /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
-        //public EscapePodJobStatus Status => Enum.TryParse(StatusString, true, out EscapePodJobStatus ret) ? ret : EscapePodJobStatus.UNKNOWN;
-
-        //[JsonConstructor]
-        //private EscapePodJob(string id, string status)
-        //{
-        //    Id = id;
-        //    StatusString = status;
-        //}
-
-
     }
 }

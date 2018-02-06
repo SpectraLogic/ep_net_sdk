@@ -78,7 +78,6 @@
     <Compile Include="Exceptions\ErrorResponse.cs" />
     <Compile Include="Model\EscapePodArchive.cs" />
     <Compile Include="Model\EscapePodJob.cs" />
-    <Compile Include="Model\EscapePodJobId.cs" />
     <Compile Include="Model\EscapePodJobStatus.cs" />
     <Compile Include="Model\EscapePodJobType.cs" />
     <Compile Include="Model\IEscapePodArchive.cs" />
