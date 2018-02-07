@@ -1,7 +1,5 @@
 ﻿{
-  "jobId": {
-    "id": "101bddb7-8b34-4b35-9ef5-3c829d561e19"
-  },
+  "id": "101bddb7-8b34-4b35-9ef5-3c829d561e19",
   "jobType": "ARCHIVE",
   "numberOfFiles": 1,
   "totalSizeInBytes": 1234,

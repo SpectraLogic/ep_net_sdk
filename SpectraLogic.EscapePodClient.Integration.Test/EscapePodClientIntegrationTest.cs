@@ -17,10 +17,13 @@ using log4net;
 using log4net.Config;
 using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
+using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
@@ -68,7 +71,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             do
             {
-                archiveJob = EscapePodClient.GetJob(new GetEscapePodJobRequest(ArchiveName, archiveJob.JobId.Id));
+                archiveJob = EscapePodClient.GetJob(new GetEscapePodJobRequest(ArchiveName, archiveJob.JobId));
                 _log.Debug(archiveJob.Status);
                 Thread.Sleep(5000);
             } while (archiveJob.Status.Status == JobStatus.ACTIVE);
@@ -90,12 +93,19 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             do
             {
-                restoreJob = EscapePodClient.GetJob(new GetEscapePodJobRequest(ArchiveName, restoreJob.JobId.Id));
+                restoreJob = EscapePodClient.GetJob(new GetEscapePodJobRequest(ArchiveName, restoreJob.JobId));
                 _log.Debug(restoreJob.Status);
                 Thread.Sleep(5000);
             } while (restoreJob.Status.Status == JobStatus.ACTIVE);
 
             Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
+        }
+
+        [Test]
+        public void ArchiveNotFoundExceptionTest()
+        {
+            var archive = new GetArchiveRequest("not_found");
+            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.GetArchive(archive)));
         }
     }
 }

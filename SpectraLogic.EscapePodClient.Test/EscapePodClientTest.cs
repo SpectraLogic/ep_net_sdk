@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using System;
 using System.Net;
 using log4net;
 using log4net.Config;
@@ -59,7 +60,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var job = client.Archive(archiveRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
@@ -94,7 +95,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var job = client.Restore(restoreRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.RESTORE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
@@ -129,7 +130,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var job = client.Delete(deleteRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.DELETE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
@@ -163,7 +164,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var job = client.Cancel(cancelRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.CANCEL, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
@@ -207,8 +208,9 @@ namespace SpectraLogic.EscapePodClient.Test
         [Test]
         public void GetEscapePodJobWithStatusStringTest()
         {
-            var getEscapePodJobWithStatusRequest = new GetEscapePodJobRequest("archiveName", "123456789");
-            Assert.AreEqual("api/archives/archiveName/jobs/123456789\nGET", getEscapePodJobWithStatusRequest.ToString());
+            var jobId = new Guid();
+            var getEscapePodJobWithStatusRequest = new GetEscapePodJobRequest("archiveName", jobId);
+            Assert.AreEqual($"api/archives/archiveName/jobs/{jobId}\nGET", getEscapePodJobWithStatusRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -232,7 +234,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var client = builder.Build();
 
             var job = client.GetJob(getEscapePodJobWithStatusRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.RESTORE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
@@ -242,7 +244,7 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(JobStatus.ACTIVE, job.Status.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
@@ -252,7 +254,7 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(JobStatus.COMPLETED, job.Status.Status);
 
             job = client.GetJob(getEscapePodJobWithStatusRequest);
-            Assert.AreEqual("101bddb7-8b34-4b35-9ef5-3c829d561e19", job.JobId.Id);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.CANCEL, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
