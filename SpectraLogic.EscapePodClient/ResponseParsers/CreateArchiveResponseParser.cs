@@ -15,6 +15,7 @@
 
 using System.IO;
 using System.Net;
+using log4net;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
@@ -24,6 +25,8 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
     internal class CreateArchiveResponseParser : IResponseParser<IEscapePodArchive>
     {
+        private static readonly ILog LOG = LogManager.GetLogger("CreateArchiveResponseParser");
+
         public IEscapePodArchive Parse(IHttpWebResponse response)
         {
             using (response)
@@ -32,7 +35,9 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                 using (var stream = response.GetResponseStream())
                 using (var textStreamReader = new StreamReader(stream))
                 {
-                    return JsonConvert.DeserializeObject<EscapePodArchive>(textStreamReader.ReadToEnd());
+                    var responseString = textStreamReader.ReadToEnd();
+                    LOG.Debug(responseString);
+                    return JsonConvert.DeserializeObject<EscapePodArchive>(responseString);
                 }
             }
         }

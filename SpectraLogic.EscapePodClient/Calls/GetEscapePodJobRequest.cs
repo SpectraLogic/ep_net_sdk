@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using System;
+
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
@@ -35,14 +37,14 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// <value>
         /// The escape pod job identifier.
         /// </value>
-        public string EscapePodJobId { get; private set; }
+        public Guid EscapePodJobId { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetEscapePodJobRequest"/> class.
         /// </summary>
         /// <param name="archiveName">Name of the archive.</param>
         /// <param name="escapePodJobId">The escape pod job identifier.</param>
-        public GetEscapePodJobRequest(string archiveName, string escapePodJobId)
+        public GetEscapePodJobRequest(string archiveName, Guid escapePodJobId)
         {
             ArchiveName = archiveName;
             EscapePodJobId = escapePodJobId;

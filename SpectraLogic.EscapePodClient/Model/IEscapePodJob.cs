@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using System;
+
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
@@ -26,7 +28,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        string JobId { get; }
+        Guid JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.

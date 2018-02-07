@@ -14,6 +14,7 @@
  */
 
 using Newtonsoft.Json;
+using System;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
@@ -29,7 +30,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "id")] public string JobId { get; }
+        [JsonProperty(Order = 1, PropertyName = "id")] public Guid JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.
@@ -89,7 +90,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <param name="created">The created.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
-        public EscapePodJob(string jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
+        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
         {
             JobId = jobId;
             JobType = jobType;
