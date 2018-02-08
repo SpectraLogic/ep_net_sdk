@@ -56,8 +56,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         private static void CreateDevice()
         {
-            //TODO
             DeviceName = ConfigurationManager.AppSettings["DeviceName"];
+            //TODO implement this after ESCP-131 is done
         }
 
         private static void CreateArchive()

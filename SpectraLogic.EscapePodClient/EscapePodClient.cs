@@ -162,7 +162,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodDevice CreateDevice(CreateDeviceRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"CreateDevice info\n{request}");
                 return new CreateDeviceResponseParser().Parse(_network.Invoke(request));
