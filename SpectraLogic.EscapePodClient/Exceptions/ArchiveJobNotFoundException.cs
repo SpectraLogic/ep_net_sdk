@@ -13,18 +13,14 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.EscapePodClient.Model;
 using System;
 
 namespace SpectraLogic.EscapePodClient.Exceptions
 {
-    internal class ErrorResponseException : Exception
+    public class ArchiveJobNotFoundException : Exception
     {
-        public ErrorResponse ErrorResponse { get; private set; }
-
-        public ErrorResponseException(ErrorResponse errorResponse)
+        public ArchiveJobNotFoundException(string message) : base(message)
         {
-            ErrorResponse = errorResponse;
         }
     }
 }

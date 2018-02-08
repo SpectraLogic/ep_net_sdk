@@ -13,18 +13,22 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.EscapePodClient.Model;
-using System;
 
-namespace SpectraLogic.EscapePodClient.Exceptions
+using Newtonsoft.Json;
+using System.Net;
+
+namespace SpectraLogic.EscapePodClient.Model
 {
-    internal class ErrorResponseException : Exception
+    internal class ErrorResponse
     {
-        public ErrorResponse ErrorResponse { get; private set; }
+        [JsonProperty(Order = 1, PropertyName = "message")] public string ErrorMessage { get; }
+        [JsonProperty(Order = 2, PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
 
-        public ErrorResponseException(ErrorResponse errorResponse)
+        [JsonConstructor]
+        protected ErrorResponse(string errorMessage, HttpStatusCode statusCode)
         {
-            ErrorResponse = errorResponse;
+            ErrorMessage = errorMessage;
+            StatusCode = statusCode;
         }
     }
 }

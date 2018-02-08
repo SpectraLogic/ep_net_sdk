@@ -14,21 +14,11 @@
  */
 
 
-using Newtonsoft.Json;
-using System.Net;
-
-namespace SpectraLogic.EscapePodClient.Exceptions
+namespace SpectraLogic.EscapePodClient.Model
 {
-    internal class ErrorResponse
+    internal enum ResourceType
     {
-        [JsonProperty(Order = 1, PropertyName = "message")] public string ErrorMessage { get; }
-        [JsonProperty(Order = 2, PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
-
-        [JsonConstructor]
-        private ErrorResponse(string errorMessage, HttpStatusCode statusCode)
-        {
-            ErrorMessage = errorMessage;
-            StatusCode = statusCode;
-        }
+        Archive,
+        Bucket
     }
 }

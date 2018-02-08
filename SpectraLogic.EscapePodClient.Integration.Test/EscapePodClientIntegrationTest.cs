@@ -19,6 +19,7 @@ using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -102,10 +103,35 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         }
 
         [Test]
-        public void ArchiveNotFoundExceptionTest()
+        public void ArchiveErrorTests()
         {
-            var archive = new GetArchiveRequest("not_found");
-            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.GetArchive(archive)));
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            var request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
+            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.Archive(request)));
+
+        }
+
+        [Test]
+        public void GetArchiveErrorTests()
+        {
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            var request = new GetArchiveRequest("not_found");
+            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.GetArchive(request)));
+        }
+
+        [Test]
+        public void GetEscapePodJobErrorTests()
+        {
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            var request = new GetEscapePodJobRequest("not_found", Guid.NewGuid());
+            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.GetJob(request)));
+
+            //TODO test this once ESCP-121 is fixed
+            //request = new GetEscapePodJobRequest(ArchiveName, new Guid());
+            //Assert.ThrowsAsync<ArchiveJobNotFoundException>(() => Task.FromResult(EscapePodClient.GetJob(request)));
         }
     }
 }
