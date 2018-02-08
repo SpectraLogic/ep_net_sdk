@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Model;
 using System;
 
 namespace SpectraLogic.EscapePodClient.Exceptions

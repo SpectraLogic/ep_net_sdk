@@ -62,6 +62,7 @@
     <Compile Include="Calls\GetEscapePodJobRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
     <Compile Include="Exceptions\ArchiveAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\BucketDoesNotExistException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
@@ -75,14 +76,16 @@
     <Compile Include="IEscapePodClient.cs" />
     <Compile Include="Model\ByteRange.cs" />
     <Compile Include="Model\DeleteFile.cs" />
-    <Compile Include="Exceptions\ErrorResponse.cs" />
+    <Compile Include="Model\ErrorResponse.cs" />
     <Compile Include="Model\EscapePodArchive.cs" />
     <Compile Include="Model\EscapePodJob.cs" />
     <Compile Include="Model\EscapePodJobStatus.cs" />
     <Compile Include="Model\EscapePodJobType.cs" />
     <Compile Include="Model\IEscapePodArchive.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
+    <Compile Include="Model\NotFoundErrorResponse.cs" />
     <Compile Include="Model\ResolverConfig.cs" />
+    <Compile Include="Model\ResourceType.cs" />
     <Compile Include="Model\RestoreFile.cs" />
     <Compile Include="Model\TimecodeRange.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Calls\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\RestoreResponseParser.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
+    <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Utils\XmlExtensions.cs" />
     <Compile Include="Runtime\EscapePodHttpWebRequest.cs" />
     <Compile Include="Runtime\EscapePodHttpWebResponse.cs" />

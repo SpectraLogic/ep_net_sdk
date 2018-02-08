@@ -1,4 +1,6 @@
 ﻿{
   "message": "archive not found",
-  "statusCode": 404
+  "statusCode": 404,
+  "resourceName": "not_found",
+  "resourceType":  "ARCHIVE"
 }

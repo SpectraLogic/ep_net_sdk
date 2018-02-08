@@ -208,7 +208,7 @@ namespace SpectraLogic.EscapePodClient.Test
         [Test]
         public void GetEscapePodJobWithStatusStringTest()
         {
-            var jobId = new Guid();
+            var jobId = Guid.NewGuid();
             var getEscapePodJobWithStatusRequest = new GetEscapePodJobRequest("archiveName", jobId);
             Assert.AreEqual($"api/archives/archiveName/jobs/{jobId}\nGET", getEscapePodJobWithStatusRequest.ToString());
 

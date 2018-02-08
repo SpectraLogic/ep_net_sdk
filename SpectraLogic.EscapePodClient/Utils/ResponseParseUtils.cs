@@ -20,6 +20,7 @@ using System.Text;
 using log4net;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Exceptions;
+using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
 
 namespace SpectraLogic.EscapePodClient.Utils
@@ -47,7 +48,14 @@ namespace SpectraLogic.EscapePodClient.Utils
             {
                 var responseString = reader.ReadToEnd();
                 LOG.Debug(responseString);
-                return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return JsonConvert.DeserializeObject<NotFoundErrorResponse>(responseString);
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
+                }
             }
         }
     }
