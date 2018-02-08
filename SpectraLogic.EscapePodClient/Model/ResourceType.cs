@@ -19,6 +19,7 @@ namespace SpectraLogic.EscapePodClient.Model
     internal enum ResourceType
     {
         Archive,
+        JOB,
         Bucket
     }
 }

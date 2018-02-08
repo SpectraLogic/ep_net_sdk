@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EscapePodClientIntegrationTest.cs" />
+    <Compile Include="EscapePodClientErrorTests.cs" />
+    <Compile Include="EscapePodClientFixture.cs" />
+    <Compile Include="EscapePodClientIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

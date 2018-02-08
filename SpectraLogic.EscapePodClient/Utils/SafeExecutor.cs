@@ -39,14 +39,14 @@ namespace SpectraLogic.EscapePodClient.Utils
                 {
                     var notFoundErrorResponse = ex.ErrorResponse as NotFoundErrorResponse;
 
-                    if (notFoundErrorResponse.ResourceType == ResourceType.Archive)
+                    switch (notFoundErrorResponse.ResourceType)
                     {
-                        throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage);
-                    }
-
-                    if (notFoundErrorResponse.ResourceType == ResourceType.Bucket)
-                    {
-                        throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage);
+                        case ResourceType.Archive:
+                            throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage);
+                        case ResourceType.JOB:
+                            throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage);
+                        case ResourceType.Bucket:
+                            throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage);
                     }
                 }
 
