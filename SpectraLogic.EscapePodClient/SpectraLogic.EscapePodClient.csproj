@@ -105,7 +105,7 @@
     <Compile Include="Calls\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\RestoreResponseParser.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
-    <Compile Include="Utils\SafeExecutor.cs" />
+    <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Utils\XmlExtensions.cs" />
     <Compile Include="Runtime\EscapePodHttpWebRequest.cs" />
     <Compile Include="Runtime\EscapePodHttpWebResponse.cs" />

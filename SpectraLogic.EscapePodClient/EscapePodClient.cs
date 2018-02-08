@@ -46,7 +46,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodArchive GetArchive(GetArchiveRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"GetArchive info\n{request}");
                 return new GetArchiveResponseParser().Parse(_network.Invoke(request));
@@ -62,7 +62,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodJob GetJob(GetEscapePodJobRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"GetJob info\n{request}");
                 return new GetEscapePodJobParser().Parse(_network.Invoke(request));
@@ -78,7 +78,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodJob Delete(DeleteRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"Delete info\n{request}");
                 return new DeleteResponseParser().Parse(_network.Invoke(request));
@@ -94,7 +94,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodJob Restore(RestoreRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"Retore info\n{request}");
                 return new RestoreResponseParser().Parse(_network.Invoke(request));
@@ -110,7 +110,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodJob Archive(ArchiveRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"Archive info\n{request}");
                 return new ArchiveResponseParser().Parse(_network.Invoke(request));
@@ -126,7 +126,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodJob Cancel(CancelRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"Cancel info\n{request}");
                 return new CancelResponseParser().Parse(_network.Invoke(request));
@@ -144,7 +144,7 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         public IEscapePodArchive CreateArchive(CreateArchiveRequest request)
         {
-            return SafeExecutor.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
                 Log.Debug($"CreateArchive info\n{request}");
                 return new CreateArchiveResponseParser().Parse(_network.Invoke(request));

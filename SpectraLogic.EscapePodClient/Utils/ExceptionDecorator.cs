@@ -20,7 +20,7 @@ using System.Net;
 
 namespace SpectraLogic.EscapePodClient.Utils
 {
-    internal class SafeExecutor
+    internal class ExceptionDecorator
     {
         public static T Run<T>(Func<T> action)
         {
@@ -32,7 +32,7 @@ namespace SpectraLogic.EscapePodClient.Utils
             {
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.Forbidden)
                 {
-                    throw new InvalidEscapePodServerCredentialsException(ex.ErrorResponse.ErrorMessage);
+                    throw new InvalidEscapePodServerCredentialsException(ex.ErrorResponse.ErrorMessage, ex);
                 }
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.NotFound)
@@ -42,11 +42,11 @@ namespace SpectraLogic.EscapePodClient.Utils
                     switch (notFoundErrorResponse.ResourceType)
                     {
                         case ResourceType.Archive:
-                            throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage);
+                            throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                         case ResourceType.JOB:
-                            throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage);
+                            throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                         case ResourceType.Bucket:
-                            throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage);
+                            throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 
