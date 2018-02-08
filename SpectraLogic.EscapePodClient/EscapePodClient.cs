@@ -168,5 +168,19 @@ namespace SpectraLogic.EscapePodClient
                 return new CreateDeviceResponseParser().Parse(_network.Invoke(request));
             });
         }
+
+        /// <summary>
+        /// Gets the device.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        public IEscapePodDevice GetDevice(GetDeviceRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"GetDevice info\n{request}");
+                return new GetDeviceResponseParser().Parse(_network.Invoke(request));
+            });
+        }
     }
 }

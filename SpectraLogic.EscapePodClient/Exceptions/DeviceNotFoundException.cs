@@ -13,36 +13,23 @@
  * ****************************************************************************
  */
 
+using System;
 
-namespace SpectraLogic.EscapePodClient.Model
+namespace SpectraLogic.EscapePodClient.Exceptions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    public interface IEscapePodDevice
+    /// <seealso cref="System.Exception" />
+    public class DeviceNotFoundException : Exception
     {
         /// <summary>
-        /// Gets the name of the device.
+        /// Initializes a new instance of the <see cref="DeviceNotFoundException"/> class.
         /// </summary>
-        /// <value>
-        /// The name of the device.
-        /// </value>
-        string DeviceName { get; }
-
-        /// <summary>
-        /// Gets the endpoint.
-        /// </summary>
-        /// <value>
-        /// The endpoint.
-        /// </value>
-        string Endpoint { get; }
-
-        /// <summary>
-        /// Gets the username.
-        /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
-        string Username { get; }
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        public DeviceNotFoundException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

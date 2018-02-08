@@ -13,13 +13,15 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
 
-namespace SpectraLogic.EscapePodClient.Model
+namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IEscapePodDevice
+    /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
+    public class GetDeviceRequest : RestRequest
     {
         /// <summary>
         /// Gets the name of the device.
@@ -27,22 +29,30 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The name of the device.
         /// </value>
-        string DeviceName { get; }
+        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; private set; }
 
         /// <summary>
-        /// Gets the endpoint.
+        /// Initializes a new instance of the <see cref="GetDeviceRequest"/> class.
         /// </summary>
-        /// <value>
-        /// The endpoint.
-        /// </value>
-        string Endpoint { get; }
+        /// <param name="deviceName">Name of the device.</param>
+        public GetDeviceRequest(string deviceName)
+        {
+            DeviceName = deviceName;
+        }
+
+        internal override HttpVerb Verb => HttpVerb.GET;
+
+        internal override string Path => $"/api/devices/spectra/{DeviceName}";
 
         /// <summary>
-        /// Gets the username.
+        /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
-        string Username { get; }
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return $"{Path}\n{Verb}";
+        }
     }
 }

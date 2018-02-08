@@ -319,7 +319,37 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var device = client.CreateDevice(createDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
-            Assert.AreEqual("2018-01-30T23:00:29.88Z[UTC]", device.CreationDate);
+            Assert.AreEqual("localhost", device.Endpoint);
+            Assert.AreEqual("username", device.Username);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void GetDeviceTest()
+        {
+            var getDeviceRequest = new GetDeviceRequest("device_test");
+            Assert.AreEqual("/api/devices/spectra/device_test\nGET", getDeviceRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getDeviceRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.GetDeviceResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var device = client.GetDevice(getDeviceRequest);
+            Assert.AreEqual("device_test", device.DeviceName);
+            Assert.AreEqual("localhost", device.Endpoint);
+            Assert.AreEqual("username", device.Username);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

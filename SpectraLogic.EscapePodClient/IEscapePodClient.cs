@@ -81,5 +81,12 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodDevice CreateDevice(CreateDeviceRequest request);
+
+        /// <summary>
+        /// Gets the device.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        IEscapePodDevice GetDevice(GetDeviceRequest request);
     }
 }
