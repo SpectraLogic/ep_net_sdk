@@ -119,6 +119,12 @@
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\InvalidEscapePodServerCredentialsExceptionResponse" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\CreateDeviceRequest" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\CreateDeviceResponse" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>

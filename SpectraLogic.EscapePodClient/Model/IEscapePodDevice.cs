@@ -13,23 +13,21 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodArchive" />
-    public class EscapePodArchive : IEscapePodArchive
+    public interface IEscapePodDevice
     {
         /// <summary>
-        /// Gets the name of the archive.
+        /// Gets the name of the device.
         /// </summary>
         /// <value>
-        /// The name of the archive.
+        /// The name of the device.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string ArchiveName { get; }
+        string DeviceName { get; }
 
         /// <summary>
         /// Gets the creation date.
@@ -37,13 +35,6 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "creationDate")] public string CreationDate { get; }
-
-        [JsonConstructor]
-        private EscapePodArchive(string archiveName, string creationDate)
-        {
-            ArchiveName = archiveName;
-            CreationDate = creationDate;
-        }
+        string CreationDate { get; }
     }
 }

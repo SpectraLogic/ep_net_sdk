@@ -19,7 +19,7 @@ using SpectraLogic.EscapePodClient.Model;
 namespace SpectraLogic.EscapePodClient
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IEscapePodClient
     {
@@ -39,40 +39,47 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodJob GetJob(GetEscapePodJobRequest request);
-        
+
         /// <summary>
         /// Deletes the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodJob Delete(DeleteRequest request);
-        
+
         /// <summary>
         /// Restores the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodJob Restore(RestoreRequest request);
-        
+
         /// <summary>
         /// Archives the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodJob Archive(ArchiveRequest request);
-        
+
         /// <summary>
         /// Cancels the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodJob Cancel(CancelRequest request);
-        
+
         /// <summary>
         /// Creates the archive.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodArchive CreateArchive(CreateArchiveRequest request);
+
+        /// <summary>
+        /// Creates the device.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        IEscapePodDevice CreateDevice(CreateDeviceRequest request);
     }
 }

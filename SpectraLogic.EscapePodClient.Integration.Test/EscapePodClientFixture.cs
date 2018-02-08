@@ -14,6 +14,10 @@
  */
 
 using log4net.Config;
+using SpectraLogic.EscapePodClient.Calls;
+using SpectraLogic.EscapePodClient.Exceptions;
+using SpectraLogic.EscapePodClient.Model;
+using System;
 using System.Configuration;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
@@ -21,12 +25,20 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
     public static class EscapePodClientFixture
     {
         public static IEscapePodClient EscapePodClient { get; private set; }
-        public static string ArchiveName = "net_archive_test";
+        public static string ArchiveName { get; private set; }
+        public static string DeviceName { get; private set; }
 
         static EscapePodClientFixture()
         {
             BasicConfigurator.Configure();
 
+            CreateClient();
+            CreateDevice();
+            CreateArchive();
+        }
+
+        private static void CreateClient()
+        {
             var escapePodClientBuilder = new EscapePodClientBuilder(
                 ConfigurationManager.AppSettings["ServerName"],
                 int.Parse(ConfigurationManager.AppSettings["ServerPort"]),
@@ -40,6 +52,33 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             }
 
             EscapePodClient = escapePodClientBuilder.Build();
+        }
+
+        private static void CreateDevice()
+        {
+            //TODO
+            DeviceName = ConfigurationManager.AppSettings["DeviceName"];
+        }
+
+        private static void CreateArchive()
+        {
+            ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
+            var getArchiveRequest = new GetArchiveRequest(ArchiveName);
+            try
+            {
+                var archive = EscapePodClient.GetArchive(getArchiveRequest);
+            }
+            catch(ArchiveNotFoundException)
+            {
+                var resolver = GetResolver();
+                var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
+                EscapePodClient.CreateArchive(createArchiveRequest);
+            }
+        }
+
+        private static ResolverConfig GetResolver()
+        {
+            return new ResolverConfig("bp_resolver", DeviceName, "Administrator", "ep_net_sdk_testing", false);
         }
     }
 }

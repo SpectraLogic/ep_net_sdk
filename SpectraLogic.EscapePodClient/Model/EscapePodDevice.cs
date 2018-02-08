@@ -20,8 +20,8 @@ namespace SpectraLogic.EscapePodClient.Model
     /// <summary>
     /// 
     /// </summary>
-    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodArchive" />
-    public class EscapePodArchive : IEscapePodArchive
+    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodDevice" />
+    public class EscapePodDevice : IEscapePodDevice
     {
         /// <summary>
         /// Gets the name of the archive.
@@ -29,7 +29,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The name of the archive.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string ArchiveName { get; }
+        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; }
 
         /// <summary>
         /// Gets the creation date.
@@ -40,9 +40,9 @@ namespace SpectraLogic.EscapePodClient.Model
         [JsonProperty(Order = 2, PropertyName = "creationDate")] public string CreationDate { get; }
 
         [JsonConstructor]
-        private EscapePodArchive(string archiveName, string creationDate)
+        private EscapePodDevice(string deviceName, string creationDate)
         {
-            ArchiveName = archiveName;
+            DeviceName = deviceName;
             CreationDate = creationDate;
         }
     }
