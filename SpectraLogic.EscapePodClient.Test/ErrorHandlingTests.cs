@@ -45,7 +45,7 @@ namespace SpectraLogic.EscapePodClient.Test
             mockNetwork
                 .SetupSequence(n => n.Invoke(getArchiveRequest))
                 .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.ArchiveNotFoundExceptionResponse",
-                    HttpStatusCode.BadRequest, null))
+                    HttpStatusCode.NotFound, null))
                 .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.InvalidEscapePodServerCredentialsExceptionResponse",
                     HttpStatusCode.Forbidden, null));
 

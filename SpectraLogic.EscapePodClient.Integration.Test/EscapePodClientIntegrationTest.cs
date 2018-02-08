@@ -129,9 +129,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             var request = new GetEscapePodJobRequest("not_found", Guid.NewGuid());
             Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClient.GetJob(request)));
 
-            //TODO test this once ESCP-121 is fixed
-            //request = new GetEscapePodJobRequest(ArchiveName, new Guid());
-            //Assert.ThrowsAsync<ArchiveJobNotFoundException>(() => Task.FromResult(EscapePodClient.GetJob(request)));
+            request = new GetEscapePodJobRequest(ArchiveName, new Guid());
+            Assert.ThrowsAsync<ArchiveJobNotFoundException>(() => Task.FromResult(EscapePodClient.GetJob(request)));
         }
     }
 }
