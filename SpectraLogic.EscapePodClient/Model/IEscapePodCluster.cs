@@ -16,10 +16,12 @@
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IEscapePodCluster
     {
+        #region Properties
+
         /// <summary>
         /// Gets the cluster name.
         /// </summary>
@@ -27,5 +29,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The cluster name.
         /// </value>
         string Name { get; }
+
+        #endregion Properties
     }
 }

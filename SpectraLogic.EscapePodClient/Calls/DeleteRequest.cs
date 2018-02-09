@@ -13,22 +13,28 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
+using System.Collections.Generic;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class DeleteRequest : RestRequest
     {
+        #region Fields
+
         /// <summary>
         /// The files to be deleted
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<DeleteFile> Files;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
@@ -39,8 +45,18 @@ namespace SpectraLogic.EscapePodClient.Calls
             Files = files;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         internal override HttpVerb Verb => HttpVerb.DELETE;
-        internal override string Path => "api/delete"; //TODO use the right path
+        internal override string Path => "api/delete";
+
+        #endregion Properties
+
+        //TODO use the right path
+
+        #region Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -57,5 +73,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return JsonConvert.SerializeObject(this);
         }
+
+        #endregion Methods
     }
 }

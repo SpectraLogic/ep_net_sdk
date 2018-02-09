@@ -18,10 +18,12 @@ using System;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IEscapePodJob
     {
+        #region Properties
+
         /// <summary>
         /// Gets the identifier.
         /// </summary>
@@ -77,5 +79,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The status.
         /// </value>
         EscapePodJobStatus Status { get; }
+
+        #endregion Properties
     }
 }

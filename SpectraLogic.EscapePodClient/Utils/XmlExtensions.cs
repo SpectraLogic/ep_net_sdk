@@ -22,20 +22,11 @@ namespace SpectraLogic.EscapePodClient.Utils
 {
     internal static class XmlExtensions
     {
+        #region Methods
+
         public static XDocument ReadDocument(Stream content)
         {
             return XDocument.Load(new XmlNoNamespaceReader(content));
-        }
-
-        private static XAttribute AttributeOrThrow(this XElement self, string attributeName)
-        {
-            var element = self.Attribute(attributeName);
-            if (element == null)
-            {
-                throw new Exception(attributeName);
-            }
-
-            return element;
         }
 
         public static string AttributeText(this XElement self, string attributeName)
@@ -59,14 +50,39 @@ namespace SpectraLogic.EscapePodClient.Utils
             return element;
         }
 
+        private static XAttribute AttributeOrThrow(this XElement self, string attributeName)
+        {
+            var element = self.Attribute(attributeName);
+            if (element == null)
+            {
+                throw new Exception(attributeName);
+            }
+
+            return element;
+        }
+
+        #endregion Methods
+
+        #region Classes
+
         private class XmlNoNamespaceReader : XmlTextReader
         {
+            #region Constructors
+
             public XmlNoNamespaceReader(Stream stream)
                 : base(stream)
             {
             }
 
+            #endregion Constructors
+
+            #region Properties
+
             public override string NamespaceURI => "";
+
+            #endregion Properties
         }
+
+        #endregion Classes
     }
 }

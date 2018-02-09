@@ -22,8 +22,18 @@ namespace SpectraLogic.EscapePodClient.Runtime
 {
     internal interface IHttpWebResponse : IDisposable
     {
-        Stream GetResponseStream();
+        #region Properties
+
         HttpStatusCode StatusCode { get; }
+
         IDictionary<string, IEnumerable<string>> Headers { get; }
+
+        #endregion Properties
+
+        #region Methods
+
+        Stream GetResponseStream();
+
+        #endregion Methods
     }
 }

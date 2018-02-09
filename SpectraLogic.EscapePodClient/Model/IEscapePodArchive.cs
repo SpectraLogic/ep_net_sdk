@@ -16,10 +16,12 @@
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IEscapePodArchive
     {
+        #region Properties
+
         /// <summary>
         /// Gets the name of the archive.
         /// </summary>
@@ -35,5 +37,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The creation date.
         /// </value>
         string CreationDate { get; }
+
+        #endregion Properties
     }
 }

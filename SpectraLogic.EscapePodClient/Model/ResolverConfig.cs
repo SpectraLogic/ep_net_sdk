@@ -18,10 +18,12 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class ResolverConfig
     {
+        #region Fields
+
         /// <summary>
         /// The name
         /// </summary>
@@ -47,6 +49,10 @@ namespace SpectraLogic.EscapePodClient.Model
         /// </summary>
         [JsonProperty(Order = 5, PropertyName = "https")] public bool Https;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ResolverConfig"/> class.
         /// </summary>
@@ -63,5 +69,7 @@ namespace SpectraLogic.EscapePodClient.Model
             Bucket = bucket;
             Https = https;
         }
+
+        #endregion Constructors
     }
 }

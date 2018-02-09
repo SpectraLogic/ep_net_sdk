@@ -31,12 +31,22 @@ namespace SpectraLogic.EscapePodClient.Test
     [TestFixture]
     internal class EscapePodClientTest
     {
+        #region Fields
+
         private static readonly ILog Log = LogManager.GetLogger("EscapePodClientTest");
+
+        #endregion Fields
+
+        #region Constructors
 
         public EscapePodClientTest()
         {
             BasicConfigurator.Configure();
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         [Test]
         public void ArchiveTest()
@@ -408,5 +418,7 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        #endregion Methods
     }
 }

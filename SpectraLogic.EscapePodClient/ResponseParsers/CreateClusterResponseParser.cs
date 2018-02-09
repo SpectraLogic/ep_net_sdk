@@ -25,7 +25,13 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
     internal class CreateClusterResponseParser : IResponseParser<IEscapePodCluster>
     {
+        #region Fields
+
         private static readonly ILog LOG = LogManager.GetLogger("CreateClusterResponseParser");
+
+        #endregion Fields
+
+        #region Methods
 
         public IEscapePodCluster Parse(IHttpWebResponse response)
         {
@@ -41,5 +47,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                 }
             }
         }
+
+        #endregion Methods
     }
 }

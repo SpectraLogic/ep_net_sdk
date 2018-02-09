@@ -13,17 +13,18 @@
  * ****************************************************************************
  */
 
-
 using System;
 
 namespace SpectraLogic.EscapePodClient.Exceptions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class ArchiveNotFoundException : Exception
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchiveNotFoundException"/> class.
         /// </summary>
@@ -32,5 +33,7 @@ namespace SpectraLogic.EscapePodClient.Exceptions
         public ArchiveNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+        #endregion Constructors
     }
 }

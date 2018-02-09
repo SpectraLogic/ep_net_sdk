@@ -23,6 +23,8 @@ namespace SpectraLogic.EscapePodClient.Calls
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class CreateClusterRequest : RestRequest
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateClusterRequest"/> class.
         /// </summary>
@@ -32,9 +34,17 @@ namespace SpectraLogic.EscapePodClient.Calls
             QueryParams.Add("name", name);
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         internal override HttpVerb Verb => HttpVerb.POST;
 
         internal override string Path => "/api/cluster";
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -46,5 +56,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}";
         }
+
+        #endregion Methods
     }
 }

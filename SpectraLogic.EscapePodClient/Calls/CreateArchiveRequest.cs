@@ -19,11 +19,13 @@ using SpectraLogic.EscapePodClient.Model;
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class CreateArchiveRequest : RestRequest
     {
+        #region Fields
+
         /// <summary>
         /// The name
         /// </summary>
@@ -33,6 +35,10 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// The resolver configuration
         /// </summary>
         [JsonProperty(Order = 2, PropertyName = "resolverConfig")] public ResolverConfig ResolverConfig;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateArchiveRequest" /> class.
@@ -45,8 +51,16 @@ namespace SpectraLogic.EscapePodClient.Calls
             ResolverConfig = resolver;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         internal override HttpVerb Verb => HttpVerb.POST;
         internal override string Path => "/api/archives";
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -63,5 +77,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return JsonConvert.SerializeObject(this);
         }
+
+        #endregion Methods
     }
 }
