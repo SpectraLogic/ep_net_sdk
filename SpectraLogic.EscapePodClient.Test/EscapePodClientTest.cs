@@ -354,5 +354,32 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        [Test]
+        public void CreateClusterTest()
+        {
+            var createClusterRequest = new CreateClusterRequest("ep_net_sdk_tests");
+            Assert.AreEqual("/api/cluster?name=ep_net_sdk_tests\nPOST", createClusterRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(createClusterRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.CreateClusterResponse",
+                    HttpStatusCode.Created, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var cluster = client.CreateCluster(createClusterRequest);
+            Assert.AreEqual("ep_net_sdk_tests", cluster.Name);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
     }
 }

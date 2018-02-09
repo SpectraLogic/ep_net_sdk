@@ -48,13 +48,15 @@ namespace SpectraLogic.EscapePodClient.Utils
             {
                 var responseString = reader.ReadToEnd();
                 LOG.Debug(responseString);
-                if (response.StatusCode == HttpStatusCode.NotFound)
+                switch (response.StatusCode)
                 {
-                    return JsonConvert.DeserializeObject<NotFoundErrorResponse>(responseString);
-                }
-                else
-                {
-                    return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
+                    case HttpStatusCode.NotFound:
+                        return JsonConvert.DeserializeObject<NotFoundErrorResponse>(responseString);
+                    case HttpStatusCode.Conflict:
+                        //TODO wait for Conflict error to be implemented by the server
+                        throw new System.NotImplementedException();
+                    default:
+                        return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
                 }
             }
         }

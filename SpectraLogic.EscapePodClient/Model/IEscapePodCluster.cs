@@ -13,14 +13,19 @@
  * ****************************************************************************
  */
 
-
 namespace SpectraLogic.EscapePodClient.Model
 {
-    internal enum ResourceType
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IEscapePodCluster
     {
-        Archive,
-        JOB,
-        BUCKET,
-        CLUSTER
+        /// <summary>
+        /// Gets the cluster name.
+        /// </summary>
+        /// <value>
+        /// The cluster name.
+        /// </value>
+        string Name { get; }
     }
 }

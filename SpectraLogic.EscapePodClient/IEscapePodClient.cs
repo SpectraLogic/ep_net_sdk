@@ -23,6 +23,8 @@ namespace SpectraLogic.EscapePodClient
     /// </summary>
     public interface IEscapePodClient
     {
+        //TODO update all the comments with the proper exception when the api is done with all error handling exceptions
+
         /// <summary>
         /// Gets the archive.
         /// </summary>
@@ -88,5 +90,12 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodDevice GetDevice(GetDeviceRequest request);
+
+        /// <summary>
+        /// Creates the cluster.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        IEscapePodCluster CreateCluster(CreateClusterRequest request);
     }
 }
