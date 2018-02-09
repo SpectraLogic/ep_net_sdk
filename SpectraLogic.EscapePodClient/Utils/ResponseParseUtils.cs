@@ -52,9 +52,9 @@ namespace SpectraLogic.EscapePodClient.Utils
                 {
                     case HttpStatusCode.NotFound:
                         return JsonConvert.DeserializeObject<NotFoundErrorResponse>(responseString);
+
                     case HttpStatusCode.Conflict:
-                        //TODO wait for Conflict error to be implemented by the server
-                        throw new System.NotImplementedException();
+                    //TODO wait for Conflict error to be implemented by the server in the meanwhile use default behivor
                     default:
                         return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
                 }
