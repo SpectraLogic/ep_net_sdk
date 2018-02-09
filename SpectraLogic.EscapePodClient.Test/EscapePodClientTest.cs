@@ -13,8 +13,6 @@
  * ****************************************************************************
  */
 
-using System;
-using System.Net;
 using log4net;
 using log4net.Config;
 using Moq;
@@ -25,6 +23,8 @@ using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
 using SpectraLogic.EscapePodClient.Test.Mock;
 using SpectraLogic.EscapePodClient.Test.Utils;
+using System;
+using System.Net;
 
 namespace SpectraLogic.EscapePodClient.Test
 {
@@ -291,6 +291,35 @@ namespace SpectraLogic.EscapePodClient.Test
             var archive = client.CreateArchive(createArchiveRequest);
             Assert.AreEqual("archive_test", archive.ArchiveName);
             Assert.AreEqual("2018-01-30T23:00:29.88Z[UTC]", archive.CreationDate);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void CreateDeviceTest()
+        {
+            var createDeviceRequest =
+                JsonConvert.DeserializeObject<CreateDeviceRequest>(ResourceFilesUtils.Read("SpectraLogic.EscapePodClient.Test.TestFiles.CreateDeviceRequest"));
+            Assert.AreEqual("/api/devices/spectra\nPOST\n{\"name\":\"device_test\",\"endpoint\":\"localhost\",\"username\":\"username\",\"password\":\"password\"}", createDeviceRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(createDeviceRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.EscapePodClient.Test.TestFiles.CreateDeviceResponse",
+                    HttpStatusCode.Created, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var device = client.CreateDevice(createDeviceRequest);
+            Assert.AreEqual("device_test", device.DeviceName);
+            Assert.AreEqual("2018-01-30T23:00:29.88Z[UTC]", device.CreationDate);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

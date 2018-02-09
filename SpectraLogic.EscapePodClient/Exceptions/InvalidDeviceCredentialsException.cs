@@ -13,37 +13,22 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
+using System;
 
-namespace SpectraLogic.EscapePodClient.Model
+namespace SpectraLogic.EscapePodClient.Exceptions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodArchive" />
-    public class EscapePodArchive : IEscapePodArchive
+    /// <seealso cref="System.Exception" />
+    public class InvalidDeviceCredentialsException : Exception
     {
         /// <summary>
-        /// Gets the name of the archive.
+        /// Initializes a new instance of the <see cref="InvalidDeviceCredentialsException"/> class.
         /// </summary>
-        /// <value>
-        /// The name of the archive.
-        /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string ArchiveName { get; }
-
-        /// <summary>
-        /// Gets the creation date.
-        /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
-        [JsonProperty(Order = 2, PropertyName = "creationDate")] public string CreationDate { get; }
-
-        [JsonConstructor]
-        private EscapePodArchive(string archiveName, string creationDate)
+        /// <param name="message">The message that describes the error.</param>
+        public InvalidDeviceCredentialsException(string message) : base(message)
         {
-            ArchiveName = archiveName;
-            CreationDate = creationDate;
         }
     }
 }

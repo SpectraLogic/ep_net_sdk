@@ -23,7 +23,7 @@ using SpectraLogic.EscapePodClient.Utils;
 namespace SpectraLogic.EscapePodClient
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.IEscapePodClient" />
     public class EscapePodClient : IEscapePodClient
@@ -139,7 +139,7 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveAlreadyExistsException" />
-        /// /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.BucketDoesNotExistException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.BucketDoesNotExistException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
         public IEscapePodArchive CreateArchive(CreateArchiveRequest request)
@@ -148,6 +148,24 @@ namespace SpectraLogic.EscapePodClient
             {
                 Log.Debug($"CreateArchive info\n{request}");
                 return new CreateArchiveResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Creates the device.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidDeviceCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.UnreachableEndpointException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        /// <returns></returns>
+        public IEscapePodDevice CreateDevice(CreateDeviceRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"CreateDevice info\n{request}");
+                return new CreateDeviceResponseParser().Parse(_network.Invoke(request));
             });
         }
     }
