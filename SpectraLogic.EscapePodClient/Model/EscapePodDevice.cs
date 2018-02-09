@@ -37,13 +37,22 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "creationDate")] public string CreationDate { get; }
+        [JsonProperty(Order = 2, PropertyName = "endpoint")] public string Endpoint { get; }
+
+        /// <summary>
+        /// Gets the endpoint.
+        /// </summary>
+        /// <value>
+        /// The endpoint.
+        /// </value>
+        [JsonProperty(Order = 3, PropertyName = "username")] public string Username { get; }
 
         [JsonConstructor]
-        private EscapePodDevice(string deviceName, string creationDate)
+        private EscapePodDevice(string deviceName, string endpoint, string username)
         {
             DeviceName = deviceName;
-            CreationDate = creationDate;
+            Endpoint = endpoint;
+            Username = username;
         }
     }
 }

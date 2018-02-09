@@ -17,7 +17,6 @@ using log4net.Config;
 using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
-using System;
 using System.Configuration;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
@@ -57,7 +56,21 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         private static void CreateDevice()
         {
             DeviceName = ConfigurationManager.AppSettings["DeviceName"];
-            //TODO implement this after ESCP-131 is done
+            var getDeviceRequest = new GetDeviceRequest(DeviceName);
+            try
+            {
+                EscapePodClient.GetDevice(getDeviceRequest);
+            }
+            catch (DeviceNotFoundException)
+            {
+                var createDeviceRequest = new CreateDeviceRequest(
+                    DeviceName,
+                    ConfigurationManager.AppSettings["Endpoint"],
+                    ConfigurationManager.AppSettings["Username"],
+                    ConfigurationManager.AppSettings["Password"]);
+
+                EscapePodClient.CreateDevice(createDeviceRequest);
+            }
         }
 
         private static void CreateArchive()
@@ -66,9 +79,9 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             var getArchiveRequest = new GetArchiveRequest(ArchiveName);
             try
             {
-                var archive = EscapePodClient.GetArchive(getArchiveRequest);
+                EscapePodClient.GetArchive(getArchiveRequest);
             }
-            catch(ArchiveNotFoundException)
+            catch (ArchiveNotFoundException)
             {
                 var resolver = GetResolver();
                 var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);

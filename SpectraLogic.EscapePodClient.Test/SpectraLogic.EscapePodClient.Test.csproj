@@ -125,6 +125,9 @@
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\CreateDeviceResponse" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\GetDeviceResponse" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>
