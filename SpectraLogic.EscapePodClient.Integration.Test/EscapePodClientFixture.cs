@@ -62,7 +62,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             {
                 EscapePodClient.GetCluster(getClusterRequest);
             }
-            catch (ClusterNotFoundException)
+            catch (ClusterNotConfiguredException)
             {
                 var createClusterRequest = new CreateClusterRequest(clusterName);
                 EscapePodClient.CreateCluster(createClusterRequest);
