@@ -131,6 +131,9 @@
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\CreateClusterResponse" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestFiles\GetClusterResponse" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions />
 </Project>

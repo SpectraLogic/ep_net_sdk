@@ -196,5 +196,19 @@ namespace SpectraLogic.EscapePodClient
                 return new CreateClusterResponseParser().Parse(_network.Invoke(request));
             });
         }
+
+        /// <summary>
+        /// Gets the cluster.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        public IEscapePodCluster GetCluster(GetClusterRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"GetCluster info\n{request}");
+                return new GetClusterResponseParser().Parse(_network.Invoke(request));
+            });
+        }
     }
 }

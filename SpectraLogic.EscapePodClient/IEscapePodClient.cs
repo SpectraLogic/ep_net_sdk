@@ -97,5 +97,12 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodCluster CreateCluster(CreateClusterRequest request);
+
+        /// <summary>
+        /// Gets the cluster.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        IEscapePodCluster GetCluster(GetClusterRequest request);
     }
 }

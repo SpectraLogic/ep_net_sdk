@@ -47,6 +47,8 @@ namespace SpectraLogic.EscapePodClient.Utils
                             throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                         case ResourceType.BUCKET:
                             throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage, ex);
+                        case ResourceType.CLUSTER:
+                            throw new ClusterNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 

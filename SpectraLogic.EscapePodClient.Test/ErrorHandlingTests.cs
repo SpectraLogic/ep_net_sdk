@@ -63,5 +63,7 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        //TODO add more tests for missing api calls
     }
 }

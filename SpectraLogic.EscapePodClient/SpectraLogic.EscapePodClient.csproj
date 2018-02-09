@@ -61,6 +61,7 @@
     <Compile Include="Calls\CreateDeviceRequest.cs" />
     <Compile Include="Calls\DeleteRequest.cs" />
     <Compile Include="Calls\GetArchiveRequest.cs" />
+    <Compile Include="Calls\GetClusterRequest.cs" />
     <Compile Include="Calls\GetDeviceRequest.cs" />
     <Compile Include="Calls\GetEscapePodJobRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\BucketDoesNotExistException.cs" />
     <Compile Include="Exceptions\ClusterAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ClusterNotFoundException.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
     <Compile Include="Exceptions\InvalidDeviceCredentialsException.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="ResponseParsers\CreateDeviceResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteResponseParser.cs" />
     <Compile Include="ResponseParsers\GetArchiveResponseParser.cs" />
+    <Compile Include="ResponseParsers\GetClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\GetDeviceResponseParser.cs" />
     <Compile Include="ResponseParsers\GetEscapePodJobParser.cs" />
     <Compile Include="ResponseParsers\IResponseParser.cs" />
