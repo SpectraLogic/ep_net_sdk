@@ -13,14 +13,15 @@
  * ****************************************************************************
  */
 
-
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IEscapePodDevice
     {
+        #region Properties
+
         /// <summary>
         /// Gets the name of the device.
         /// </summary>
@@ -44,5 +45,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The username.
         /// </value>
         string Username { get; }
+
+        #endregion Properties
     }
 }

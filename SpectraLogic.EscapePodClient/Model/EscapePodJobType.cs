@@ -16,7 +16,7 @@
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum EscapePodJobType
     {

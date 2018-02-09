@@ -18,26 +18,12 @@ using System;
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class GetEscapePodJobRequest : RestRequest
     {
-        /// <summary>
-        /// Gets the name of the archive.
-        /// </summary>
-        /// <value>
-        /// The name of the archive.
-        /// </value>
-        public string ArchiveName { get; private set; }
-        
-        /// <summary>
-        /// Gets the escape pod job identifier.
-        /// </summary>
-        /// <value>
-        /// The escape pod job identifier.
-        /// </value>
-        public Guid EscapePodJobId { get; private set; }
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetEscapePodJobRequest"/> class.
@@ -50,9 +36,33 @@ namespace SpectraLogic.EscapePodClient.Calls
             EscapePodJobId = escapePodJobId;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the name of the archive.
+        /// </summary>
+        /// <value>
+        /// The name of the archive.
+        /// </value>
+        public string ArchiveName { get; private set; }
+
+        /// <summary>
+        /// Gets the escape pod job identifier.
+        /// </summary>
+        /// <value>
+        /// The escape pod job identifier.
+        /// </value>
+        public Guid EscapePodJobId { get; private set; }
+
         internal override HttpVerb Verb => HttpVerb.GET;
         internal override string Path => $"api/archives/{ArchiveName}/jobs/{EscapePodJobId}";
-        
+
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -63,5 +73,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return $"{Path}\n{Verb}";
         }
+
+        #endregion Methods
     }
 }

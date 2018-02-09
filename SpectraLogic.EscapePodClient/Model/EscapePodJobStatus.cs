@@ -18,51 +18,7 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
-    /// </summary>
-    public class EscapePodJobStatus
-    {
-        /// <summary>
-        /// Gets the message.
-        /// </summary>
-        /// <value>
-        /// The message.
-        /// </value>
-        [JsonProperty(Order = 1, PropertyName = "message")] public string Message { get; }
-
-        /// <summary>
-        /// Gets the status.
-        /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
-        [JsonProperty(Order = 2, PropertyName = "status")] public JobStatus Status { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EscapePodJobStatus"/> class.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="status">The status.</param>
-        public EscapePodJobStatus(string message, JobStatus status)
-        {
-            Message = message;
-            Status = status;
-        }
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return string.Format("<message: {0}, status: {1}>", Message, Status);
-        }
-    }
-
-    /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum JobStatus
     {
@@ -90,5 +46,61 @@ namespace SpectraLogic.EscapePodClient.Model
         /// The job has error
         /// </summary>
         ERROR
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public class EscapePodJobStatus
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EscapePodJobStatus"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="status">The status.</param>
+        public EscapePodJobStatus(string message, JobStatus status)
+        {
+            Message = message;
+            Status = status;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the message.
+        /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
+        [JsonProperty(Order = 1, PropertyName = "message")] public string Message { get; }
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        [JsonProperty(Order = 2, PropertyName = "status")] public JobStatus Status { get; }
+
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format("<message: {0}, status: {1}>", Message, Status);
+        }
+
+        #endregion Methods
     }
 }

@@ -13,18 +13,24 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Runtime;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using SpectraLogic.EscapePodClient.Runtime;
 
 namespace SpectraLogic.EscapePodClient.Test.Mock
 {
-    public class MockHttpWebResponse: IHttpWebResponse
+    public class MockHttpWebResponse : IHttpWebResponse
     {
+        #region Fields
+
         private readonly string _resourceName;
+
+        #endregion Fields
+
+        #region Constructors
 
         public MockHttpWebResponse(string resourceName, HttpStatusCode statusCode, IDictionary<string, IEnumerable<string>> headers)
         {
@@ -32,6 +38,18 @@ namespace SpectraLogic.EscapePodClient.Test.Mock
             StatusCode = statusCode;
             Headers = headers;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public HttpStatusCode StatusCode { get; }
+
+        public IDictionary<string, IEnumerable<string>> Headers { get; }
+
+        #endregion Properties
+
+        #region Methods
 
         public void Dispose()
         {
@@ -44,7 +62,6 @@ namespace SpectraLogic.EscapePodClient.Test.Mock
                 Assembly.GetExecutingAssembly().GetManifestResourceStream(_resourceName);
         }
 
-        public HttpStatusCode StatusCode { get; }
-        public IDictionary<string, IEnumerable<string>> Headers { get; }
+        #endregion Methods
     }
 }

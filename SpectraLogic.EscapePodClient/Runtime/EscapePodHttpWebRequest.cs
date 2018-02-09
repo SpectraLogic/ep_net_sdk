@@ -19,16 +19,28 @@ namespace SpectraLogic.EscapePodClient.Runtime
 {
     internal class EscapePodHttpWebRequest : IHttpWebRequest
     {
+        #region Fields
+
         private readonly HttpWebRequest _httpWebRequest;
+
+        #endregion Fields
+
+        #region Constructors
 
         public EscapePodHttpWebRequest(HttpWebRequest httpWebRequest)
         {
             _httpWebRequest = httpWebRequest;
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         public IHttpWebResponse GetResponse()
         {
             return new EscapePodHttpWebResponse((HttpWebResponse)_httpWebRequest.GetResponse());
         }
+
+        #endregion Methods
     }
 }

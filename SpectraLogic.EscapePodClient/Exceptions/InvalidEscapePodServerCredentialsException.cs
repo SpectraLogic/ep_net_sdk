@@ -13,17 +13,18 @@
  * ****************************************************************************
  */
 
-
 using System;
 
 namespace SpectraLogic.EscapePodClient.Exceptions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class InvalidEscapePodServerCredentialsException : Exception
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidEscapePodServerCredentialsException"/> class.
         /// </summary>
@@ -32,5 +33,7 @@ namespace SpectraLogic.EscapePodClient.Exceptions
         public InvalidEscapePodServerCredentialsException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+        #endregion Constructors
     }
 }

@@ -13,22 +13,15 @@
  * ****************************************************************************
  */
 
-
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class GetArchiveRequest : RestRequest
     {
-        /// <summary>
-        /// Gets the name of the archive.
-        /// </summary>
-        /// <value>
-        /// The name of the archive.
-        /// </value>
-        public string ArchiveName { get; private set; }
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetArchiveRequest"/> class.
@@ -39,9 +32,25 @@ namespace SpectraLogic.EscapePodClient.Calls
             ArchiveName = archiveName;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the name of the archive.
+        /// </summary>
+        /// <value>
+        /// The name of the archive.
+        /// </value>
+        public string ArchiveName { get; private set; }
+
         internal override HttpVerb Verb => HttpVerb.GET;
         internal override string Path => $"/api/archives/{ArchiveName}";
-        
+
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -52,5 +61,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return $"{Path}\n{Verb}";
         }
+
+        #endregion Methods
     }
 }

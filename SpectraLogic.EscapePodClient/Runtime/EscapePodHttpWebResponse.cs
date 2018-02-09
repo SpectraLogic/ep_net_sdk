@@ -23,20 +23,29 @@ namespace SpectraLogic.EscapePodClient.Runtime
 {
     internal class EscapePodHttpWebResponse : IHttpWebResponse
     {
-        private HttpWebResponse Response { get; }
+        #region Constructors
 
         public EscapePodHttpWebResponse(HttpWebResponse httpWebResponse)
         {
             Response = httpWebResponse;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public HttpStatusCode StatusCode => Response.StatusCode;
+        public IDictionary<string, IEnumerable<string>> Headers => Response.Headers.AllKeys.ToDictionary<string, string, IEnumerable<string>>(key => key, key => Response.Headers.GetValues(key));
+        private HttpWebResponse Response { get; }
+
+        #endregion Properties
+
+        #region Methods
+
         public Stream GetResponseStream()
         {
             return Response.GetResponseStream();
         }
-
-        public HttpStatusCode StatusCode => Response.StatusCode;
-
-        public IDictionary<string, IEnumerable<string>> Headers => Response.Headers.AllKeys.ToDictionary<string, string, IEnumerable<string>>(key => key, key => Response.Headers.GetValues(key));
 
         public void Dispose()
         {
@@ -48,5 +57,7 @@ namespace SpectraLogic.EscapePodClient.Runtime
         private static void Dispose(bool disposing)
         {
         }
+
+        #endregion Methods
     }
 }

@@ -19,25 +19,27 @@ using System.Collections.Generic;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class ArchiveFile
     {
+        #region Fields
+
         /// <summary>
         /// The name
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
-        
+
         /// <summary>
         /// The URI
         /// </summary>
         [JsonProperty(Order = 2, PropertyName = "uri")] public string Uri;
-        
+
         /// <summary>
         /// The size
         /// </summary>
         [JsonProperty(Order = 3, PropertyName = "size")] public long Size;
-        
+
         /// <summary>
         /// The metadata
         /// </summary>
@@ -53,6 +55,9 @@ namespace SpectraLogic.EscapePodClient.Model
         /// </summary>
         [JsonProperty(Order = 6, PropertyName = "storeFileProperties")] public bool StoreFileProperties;
 
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
@@ -72,5 +77,7 @@ namespace SpectraLogic.EscapePodClient.Model
             IndexMedia = indexMedia;
             StoreFileProperties = storeFileProperties;
         }
+
+        #endregion Constructors
     }
 }

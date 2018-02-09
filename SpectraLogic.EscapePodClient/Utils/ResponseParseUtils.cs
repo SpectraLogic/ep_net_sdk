@@ -13,21 +13,27 @@
  * ****************************************************************************
  */
 
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using log4net;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
 
 namespace SpectraLogic.EscapePodClient.Utils
 {
     internal static class ResponseParseUtils
     {
+        #region Fields
+
         private static readonly ILog LOG = LogManager.GetLogger("ResponseParseUtils");
+
+        #endregion Fields
+
+        #region Methods
 
         internal static void HandleStatusCode(IHttpWebResponse response, params HttpStatusCode[] expectedStatusCodes)
         {
@@ -60,5 +66,7 @@ namespace SpectraLogic.EscapePodClient.Utils
                 }
             }
         }
+
+        #endregion Methods
     }
 }

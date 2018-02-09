@@ -26,6 +26,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
     [TestFixture]
     public class EscapePodClientErrorTests
     {
+        #region Methods
+
         [Test]
         public void ArchiveErrorTests()
         {
@@ -33,7 +35,6 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             var request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
             Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.Archive(request)));
-
         }
 
         [Test]
@@ -56,5 +57,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             request = new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, Guid.NewGuid());
             Assert.ThrowsAsync<ArchiveJobNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request)));
         }
+
+        #endregion Methods
     }
 }

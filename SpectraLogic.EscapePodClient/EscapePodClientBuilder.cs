@@ -13,18 +13,20 @@
  * ****************************************************************************
  */
 
-using System;
 using log4net;
 using SpectraLogic.EscapePodClient.Runtime;
+using System;
 
 namespace SpectraLogic.EscapePodClient
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.IEscapePodClientBuilder" />
     public class EscapePodClientBuilder : IEscapePodClientBuilder
     {
+        #region Fields
+
         private static readonly ILog Log = LogManager.GetLogger("EscapePodClientBuilder");
 
         private readonly string _serverName;
@@ -32,6 +34,10 @@ namespace SpectraLogic.EscapePodClient
         private readonly string _username;
         private readonly string _password;
         private Uri _proxy;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EscapePodClientBuilder"/> class.
@@ -47,6 +53,10 @@ namespace SpectraLogic.EscapePodClient
             _username = username;
             _password = password;
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         /// <summary>
         /// Withes the proxy.
@@ -79,5 +89,7 @@ namespace SpectraLogic.EscapePodClient
             var network = new Network(_serverName, _serverPort, _username, _password, _proxy);
             return new EscapePodClient(network);
         }
+
+        #endregion Methods
     }
 }

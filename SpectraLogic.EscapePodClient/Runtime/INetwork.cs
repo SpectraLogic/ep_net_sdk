@@ -19,6 +19,10 @@ namespace SpectraLogic.EscapePodClient.Runtime
 {
     internal interface INetwork
     {
+        #region Methods
+
         IHttpWebResponse Invoke(RestRequest request);
+
+        #endregion Methods
     }
 }

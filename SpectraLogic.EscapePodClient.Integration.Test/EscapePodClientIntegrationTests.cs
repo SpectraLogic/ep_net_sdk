@@ -26,7 +26,13 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
     [TestFixture]
     public class EscapePodClientIntegrationTests
     {
-        ILog _log = LogManager.GetLogger("EscapePodClientIntegrationTest");
+        #region Fields
+
+        private ILog _log = LogManager.GetLogger("EscapePodClientIntegrationTest");
+
+        #endregion Fields
+
+        #region Methods
 
         [Test]
         public void ArchiveAndRestore()
@@ -75,5 +81,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
         }
+
+        #endregion Methods
     }
 }

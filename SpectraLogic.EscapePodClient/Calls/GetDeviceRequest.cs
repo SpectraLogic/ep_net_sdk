@@ -18,18 +18,12 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class GetDeviceRequest : RestRequest
     {
-        /// <summary>
-        /// Gets the name of the device.
-        /// </summary>
-        /// <value>
-        /// The name of the device.
-        /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; private set; }
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetDeviceRequest"/> class.
@@ -40,9 +34,25 @@ namespace SpectraLogic.EscapePodClient.Calls
             DeviceName = deviceName;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the name of the device.
+        /// </summary>
+        /// <value>
+        /// The name of the device.
+        /// </value>
+        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; private set; }
+
         internal override HttpVerb Verb => HttpVerb.GET;
 
         internal override string Path => $"/api/devices/spectra/{DeviceName}";
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -54,5 +64,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return $"{Path}\n{Verb}";
         }
+
+        #endregion Methods
     }
 }

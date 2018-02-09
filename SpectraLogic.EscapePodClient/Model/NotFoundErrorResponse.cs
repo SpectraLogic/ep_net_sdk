@@ -20,8 +20,7 @@ namespace SpectraLogic.EscapePodClient.Model
 {
     internal class NotFoundErrorResponse : ErrorResponse
     {
-        [JsonProperty(Order = 3, PropertyName = "resourceName")] public string ResourceName { get; }
-        [JsonProperty(Order = 4, PropertyName = "resourceType")] public ResourceType ResourceType { get; }
+        #region Constructors
 
         [JsonConstructor]
         private NotFoundErrorResponse(string errorMessage, HttpStatusCode statusCode, string resourceName, ResourceType resourceType)
@@ -30,5 +29,14 @@ namespace SpectraLogic.EscapePodClient.Model
             ResourceName = resourceName;
             ResourceType = resourceType;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        [JsonProperty(Order = 3, PropertyName = "resourceName")] public string ResourceName { get; }
+        [JsonProperty(Order = 4, PropertyName = "resourceType")] public ResourceType ResourceType { get; }
+
+        #endregion Properties
     }
 }

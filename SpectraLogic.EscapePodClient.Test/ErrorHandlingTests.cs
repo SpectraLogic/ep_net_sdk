@@ -29,12 +29,22 @@ namespace SpectraLogic.EscapePodClient.Test
     [TestFixture]
     internal class ErrorHandlingTests
     {
+        #region Fields
+
         private static readonly ILog Log = LogManager.GetLogger("ErrorHandlingTests");
+
+        #endregion Fields
+
+        #region Constructors
 
         public ErrorHandlingTests()
         {
             BasicConfigurator.Configure();
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         [Test]
         public void GetArchiveExceptionTest()
@@ -63,6 +73,8 @@ namespace SpectraLogic.EscapePodClient.Test
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
+
+        #endregion Methods
 
         //TODO add more tests for missing api calls
     }
