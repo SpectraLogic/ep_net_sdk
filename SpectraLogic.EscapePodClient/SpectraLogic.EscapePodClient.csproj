@@ -70,7 +70,7 @@
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\BucketDoesNotExistException.cs" />
     <Compile Include="Exceptions\ClusterAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\ClusterNotFoundException.cs" />
+    <Compile Include="Exceptions\ClusterNotConfiguredException.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
     <Compile Include="Exceptions\InvalidDeviceCredentialsException.cs" />

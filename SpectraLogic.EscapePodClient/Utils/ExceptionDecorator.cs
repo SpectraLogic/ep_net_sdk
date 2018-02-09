@@ -22,6 +22,8 @@ namespace SpectraLogic.EscapePodClient.Utils
 {
     internal class ExceptionDecorator
     {
+        #region Methods
+
         public static T Run<T>(Func<T> action)
         {
             try
@@ -63,5 +65,7 @@ namespace SpectraLogic.EscapePodClient.Utils
                 throw ex;
             }
         }
+
+        #endregion Methods
     }
 }
