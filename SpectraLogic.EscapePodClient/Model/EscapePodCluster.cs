@@ -13,12 +13,28 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
+
 namespace SpectraLogic.EscapePodClient.Model
 {
-    internal enum ResourceType
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodCluster" />
+    public class EscapePodCluster : IEscapePodCluster
     {
-        Archive,
-        JOB,
-        BUCKET
+        /// <summary>
+        /// Gets the cluster name.
+        /// </summary>
+        /// <value>
+        /// The cluster name.
+        /// </value>
+        [JsonProperty(Order = 1, PropertyName = "name")] public string Name { get; private set; }
+
+        [JsonConstructor]
+        private EscapePodCluster(string name)
+        {
+            Name = name;
+        }
     }
 }

@@ -32,6 +32,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             BasicConfigurator.Configure();
 
             CreateClient();
+            CreateCluster();
             CreateDevice();
             CreateArchive();
         }
@@ -51,6 +52,21 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             }
 
             EscapePodClient = escapePodClientBuilder.Build();
+        }
+
+        private static void CreateCluster()
+        {
+            var clusterName = ConfigurationManager.AppSettings["ClusterName"];
+            var getClusterRequest = new GetClusterRequest();
+            try
+            {
+                EscapePodClient.GetCluster(getClusterRequest);
+            }
+            catch (ClusterNotConfiguredException)
+            {
+                var createClusterRequest = new CreateClusterRequest(clusterName);
+                EscapePodClient.CreateCluster(createClusterRequest);
+            }
         }
 
         private static void CreateDevice()
@@ -91,7 +107,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         private static ResolverConfig GetResolver()
         {
-            return new ResolverConfig("bp_resolver", DeviceName, "Administrator", "ep_net_sdk_testing", false);
+            return new ResolverConfig("bp_resolver", DeviceName, "Administrator", "ep_net_sdk_tests", false);
         }
     }
 }

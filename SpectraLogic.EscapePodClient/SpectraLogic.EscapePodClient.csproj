@@ -57,9 +57,11 @@
   <ItemGroup>
     <Compile Include="Calls\CancelRequest.cs" />
     <Compile Include="Calls\CreateArchiveRequest.cs" />
+    <Compile Include="Calls\CreateClusterRequest.cs" />
     <Compile Include="Calls\CreateDeviceRequest.cs" />
     <Compile Include="Calls\DeleteRequest.cs" />
     <Compile Include="Calls\GetArchiveRequest.cs" />
+    <Compile Include="Calls\GetClusterRequest.cs" />
     <Compile Include="Calls\GetDeviceRequest.cs" />
     <Compile Include="Calls\GetEscapePodJobRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\BucketDoesNotExistException.cs" />
+    <Compile Include="Exceptions\ClusterAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ClusterNotConfiguredException.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
     <Compile Include="Exceptions\InvalidDeviceCredentialsException.cs" />
@@ -83,11 +87,13 @@
     <Compile Include="Model\DeleteFile.cs" />
     <Compile Include="Model\ErrorResponse.cs" />
     <Compile Include="Model\EscapePodArchive.cs" />
+    <Compile Include="Model\EscapePodCluster.cs" />
     <Compile Include="Model\EscapePodDevice.cs" />
     <Compile Include="Model\EscapePodJob.cs" />
     <Compile Include="Model\EscapePodJobStatus.cs" />
     <Compile Include="Model\EscapePodJobType.cs" />
     <Compile Include="Model\IEscapePodArchive.cs" />
+    <Compile Include="Model\IEscapePodCluster.cs" />
     <Compile Include="Model\IEscapePodDevice.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
     <Compile Include="Model\NotFoundErrorResponse.cs" />
@@ -99,9 +105,11 @@
     <Compile Include="ResponseParsers\ArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\CancelResponseParser.cs" />
     <Compile Include="ResponseParsers\CreateArchiveResponseParser.cs" />
+    <Compile Include="ResponseParsers\CreateClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\CreateDeviceResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteResponseParser.cs" />
     <Compile Include="ResponseParsers\GetArchiveResponseParser.cs" />
+    <Compile Include="ResponseParsers\GetClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\GetDeviceResponseParser.cs" />
     <Compile Include="ResponseParsers\GetEscapePodJobParser.cs" />
     <Compile Include="ResponseParsers\IResponseParser.cs" />

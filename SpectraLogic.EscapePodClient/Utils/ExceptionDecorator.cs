@@ -22,6 +22,8 @@ namespace SpectraLogic.EscapePodClient.Utils
 {
     internal class ExceptionDecorator
     {
+        #region Methods
+
         public static T Run<T>(Func<T> action)
         {
             try
@@ -45,13 +47,25 @@ namespace SpectraLogic.EscapePodClient.Utils
                             throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                         case ResourceType.JOB:
                             throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
-                        case ResourceType.Bucket:
+                        case ResourceType.BUCKET:
                             throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage, ex);
                     }
+                }
+
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.Conflict)
+                {
+                    //TODO need to wait for Conflict error response to be implemented in the server
+                }
+
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
+                {
+                    throw new ClusterNotConfiguredException(ex.ErrorResponse.ErrorMessage, ex);
                 }
 
                 throw ex;
             }
         }
+
+        #endregion Methods
     }
 }
