@@ -18,14 +18,20 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class DeleteFile
     {
+        #region Fields
+
         /// <summary>
         /// The name
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteFile"/> class.
@@ -35,5 +41,7 @@ namespace SpectraLogic.EscapePodClient.Model
         {
             Name = name;
         }
+
+        #endregion Constructors
     }
 }

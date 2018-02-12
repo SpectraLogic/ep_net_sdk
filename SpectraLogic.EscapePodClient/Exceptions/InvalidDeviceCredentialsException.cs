@@ -23,6 +23,8 @@ namespace SpectraLogic.EscapePodClient.Exceptions
     /// <seealso cref="System.Exception" />
     public class InvalidDeviceCredentialsException : Exception
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidDeviceCredentialsException"/> class.
         /// </summary>
@@ -30,5 +32,7 @@ namespace SpectraLogic.EscapePodClient.Exceptions
         public InvalidDeviceCredentialsException(string message) : base(message)
         {
         }
+
+        #endregion Constructors
     }
 }

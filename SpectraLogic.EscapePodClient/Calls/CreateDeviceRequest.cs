@@ -18,11 +18,13 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class CreateDeviceRequest : RestRequest
     {
+        #region Fields
+
         /// <summary>
         /// The name
         /// </summary>
@@ -43,6 +45,10 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// </summary>
         [JsonProperty(Order = 4, PropertyName = "password")] public string Password;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateDeviceRequest"/> class.
         /// </summary>
@@ -58,9 +64,17 @@ namespace SpectraLogic.EscapePodClient.Calls
             Password = password;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         internal override HttpVerb Verb => HttpVerb.POST;
 
         internal override string Path => $"/api/devices/spectra";
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -77,5 +91,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return JsonConvert.SerializeObject(this);
         }
+
+        #endregion Methods
     }
 }

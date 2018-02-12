@@ -18,11 +18,24 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodArchive" />
     public class EscapePodArchive : IEscapePodArchive
     {
+        #region Constructors
+
+        [JsonConstructor]
+        private EscapePodArchive(string archiveName, string creationDate)
+        {
+            ArchiveName = archiveName;
+            CreationDate = creationDate;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets the name of the archive.
         /// </summary>
@@ -39,11 +52,6 @@ namespace SpectraLogic.EscapePodClient.Model
         /// </value>
         [JsonProperty(Order = 2, PropertyName = "creationDate")] public string CreationDate { get; }
 
-        [JsonConstructor]
-        private EscapePodArchive(string archiveName, string creationDate)
-        {
-            ArchiveName = archiveName;
-            CreationDate = creationDate;
-        }
+        #endregion Properties
     }
 }

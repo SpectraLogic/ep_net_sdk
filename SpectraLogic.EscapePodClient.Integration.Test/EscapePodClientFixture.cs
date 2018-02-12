@@ -23,9 +23,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 {
     public static class EscapePodClientFixture
     {
-        public static IEscapePodClient EscapePodClient { get; private set; }
-        public static string ArchiveName { get; private set; }
-        public static string DeviceName { get; private set; }
+        #region Constructors
 
         static EscapePodClientFixture()
         {
@@ -36,6 +34,18 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             CreateDevice();
             CreateArchive();
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public static IEscapePodClient EscapePodClient { get; private set; }
+        public static string ArchiveName { get; private set; }
+        public static string DeviceName { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
 
         private static void CreateClient()
         {
@@ -109,5 +119,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         {
             return new ResolverConfig("bp_resolver", DeviceName, "Administrator", "ep_net_sdk_tests", false);
         }
+
+        #endregion Methods
     }
 }

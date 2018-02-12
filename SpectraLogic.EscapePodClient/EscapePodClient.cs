@@ -28,13 +28,23 @@ namespace SpectraLogic.EscapePodClient
     /// <seealso cref="SpectraLogic.EscapePodClient.IEscapePodClient" />
     public class EscapePodClient : IEscapePodClient
     {
+        #region Fields
+
         private static readonly ILog Log = LogManager.GetLogger("EscapePodClient");
         private readonly INetwork _network;
+
+        #endregion Fields
+
+        #region Constructors
 
         internal EscapePodClient(INetwork network)
         {
             _network = network;
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         /// <summary>
         /// Gets the archive.
@@ -210,5 +220,7 @@ namespace SpectraLogic.EscapePodClient
                 return new GetClusterResponseParser().Parse(_network.Invoke(request));
             });
         }
+
+        #endregion Methods
     }
 }

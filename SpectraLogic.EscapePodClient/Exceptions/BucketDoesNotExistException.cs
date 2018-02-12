@@ -18,11 +18,13 @@ using System;
 namespace SpectraLogic.EscapePodClient.Exceptions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class BucketDoesNotExistException : Exception
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BucketDoesNotExistException"/> class.
         /// </summary>
@@ -31,5 +33,7 @@ namespace SpectraLogic.EscapePodClient.Exceptions
         public BucketDoesNotExistException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+        #endregion Constructors
     }
 }

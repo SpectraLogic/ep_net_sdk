@@ -25,7 +25,13 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
     internal class GetDeviceResponseParser : IResponseParser<IEscapePodDevice>
     {
+        #region Fields
+
         private static readonly ILog LOG = LogManager.GetLogger("GetDeviceResponseParser");
+
+        #endregion Fields
+
+        #region Methods
 
         public IEscapePodDevice Parse(IHttpWebResponse response)
         {
@@ -41,5 +47,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                 }
             }
         }
+
+        #endregion Methods
     }
 }

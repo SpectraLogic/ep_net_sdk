@@ -18,18 +18,21 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class RestoreFile
     {
+        #region Fields
+
         [JsonProperty(Order = 1, PropertyName = "name")] private string Name;
         [JsonProperty(Order = 2, PropertyName = "uri")] private string Uri;
         [JsonProperty(Order = 3, PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] private bool? RestoreFileAttributes;
         [JsonProperty(Order = 4, PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] private ByteRange ByteRange;
         [JsonProperty(Order = 5, PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] private TimecodeRange TimeCodeRange;
 
-        [JsonConstructor]
-        private RestoreFile() { }
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreFile"/> class.
@@ -80,5 +83,10 @@ namespace SpectraLogic.EscapePodClient.Model
             Uri = uri;
             TimeCodeRange = timeCodeRange;
         }
+
+        [JsonConstructor]
+        private RestoreFile() { }
+
+        #endregion Constructors
     }
 }

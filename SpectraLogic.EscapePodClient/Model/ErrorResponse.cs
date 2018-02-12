@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-
 using Newtonsoft.Json;
 using System.Net;
 
@@ -21,8 +20,7 @@ namespace SpectraLogic.EscapePodClient.Model
 {
     internal class ErrorResponse
     {
-        [JsonProperty(Order = 1, PropertyName = "message")] public string ErrorMessage { get; }
-        [JsonProperty(Order = 2, PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
+        #region Constructors
 
         [JsonConstructor]
         protected ErrorResponse(string errorMessage, HttpStatusCode statusCode)
@@ -30,5 +28,14 @@ namespace SpectraLogic.EscapePodClient.Model
             ErrorMessage = errorMessage;
             StatusCode = statusCode;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        [JsonProperty(Order = 1, PropertyName = "message")] public string ErrorMessage { get; }
+        [JsonProperty(Order = 2, PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
+
+        #endregion Properties
     }
 }

@@ -20,11 +20,19 @@ namespace SpectraLogic.EscapePodClient.Exceptions
 {
     internal class ErrorResponseException : Exception
     {
-        public ErrorResponse ErrorResponse { get; private set; }
+        #region Constructors
 
         public ErrorResponseException(ErrorResponse errorResponse)
         {
             ErrorResponse = errorResponse;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public ErrorResponse ErrorResponse { get; private set; }
+
+        #endregion Properties
     }
 }

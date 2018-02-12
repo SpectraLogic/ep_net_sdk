@@ -13,31 +13,29 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class RestoreRequest : RestRequest
     {
-        /// <summary>
-        /// Gets the name of the archive.
-        /// </summary>
-        /// <value>
-        /// The name of the archive.
-        /// </value>
-        [JsonIgnore] public string ArchiveName { get; private set; } 
+        #region Fields
 
         /// <summary>
         /// The files to be restored
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<RestoreFile> Files;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreRequest" /> class.
@@ -51,8 +49,24 @@ namespace SpectraLogic.EscapePodClient.Calls
             QueryParams.Add("operation", "restore");
         }
 
+        #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the name of the archive.
+        /// </summary>
+        /// <value>
+        /// The name of the archive.
+        /// </value>
+        [JsonIgnore] public string ArchiveName { get; private set; }
+
         internal override HttpVerb Verb => HttpVerb.POST;
         internal override string Path => $"api/archives/{ArchiveName}/jobs";
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -69,5 +83,7 @@ namespace SpectraLogic.EscapePodClient.Calls
         {
             return JsonConvert.SerializeObject(this);
         }
+
+        #endregion Methods
     }
 }

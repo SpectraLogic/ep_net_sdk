@@ -13,25 +13,25 @@
  * ****************************************************************************
  */
 
+using log4net;
+using SpectraLogic.EscapePodClient.Calls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using log4net;
-using SpectraLogic.EscapePodClient.Calls;
 
 namespace SpectraLogic.EscapePodClient.Runtime
 {
     internal class Network : INetwork
     {
+        #region Fields
+
         private static readonly ILog Log = LogManager.GetLogger("Network");
 
-        private string HostServerName { get; }
-        private int HostServerPort { get; }
-        private string Username { get; }
-        private string Password { get; }
-        private Uri Proxy { get; }
+        #endregion Fields
+
+        #region Constructors
 
         public Network(string hostServerName, int hostServerPort, string username, string password, Uri proxy = null)
         {
@@ -41,6 +41,20 @@ namespace SpectraLogic.EscapePodClient.Runtime
             Password = password;
             Proxy = proxy;
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        private string HostServerName { get; }
+        private int HostServerPort { get; }
+        private string Username { get; }
+        private string Password { get; }
+        private Uri Proxy { get; }
+
+        #endregion Properties
+
+        #region Methods
 
         public IHttpWebResponse Invoke(RestRequest request)
         {
@@ -60,6 +74,19 @@ namespace SpectraLogic.EscapePodClient.Runtime
             }
         }
 
+        private static string BuildQueryParams(Dictionary<string, string> queryParams)
+        {
+            return string.Join(
+                "&",
+                from kvp in queryParams
+                orderby kvp.Key
+                let encodedKey = Uri.EscapeDataString(kvp.Key)
+                select !string.IsNullOrEmpty(kvp.Value)
+                    ? encodedKey + "=" + Uri.EscapeDataString(kvp.Value)
+                    : encodedKey
+            );
+        }
+
         private IHttpWebRequest CreateHttpWebRequest(RestRequest request)
         {
             var uriBuilder = new UriBuilder(HostServerName)
@@ -68,7 +95,6 @@ namespace SpectraLogic.EscapePodClient.Runtime
                 Query = BuildQueryParams(request.QueryParams),
                 Port = HostServerPort
             };
-
 
             var httpRequest = (HttpWebRequest)WebRequest.Create(uriBuilder.Uri);
             httpRequest.Method = request.Verb.ToString();
@@ -110,17 +136,6 @@ namespace SpectraLogic.EscapePodClient.Runtime
             return authorization;
         }
 
-        private static string BuildQueryParams(Dictionary<string, string> queryParams)
-        {
-            return string.Join(
-                "&",
-                from kvp in queryParams
-                orderby kvp.Key
-                let encodedKey = Uri.EscapeDataString(kvp.Key)
-                select !string.IsNullOrEmpty(kvp.Value)
-                    ? encodedKey + "=" + Uri.EscapeDataString(kvp.Value)
-                    : encodedKey
-            );
-        }
+        #endregion Methods
     }
 }

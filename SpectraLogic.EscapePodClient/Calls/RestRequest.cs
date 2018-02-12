@@ -19,15 +19,34 @@ using System.Collections.Generic;
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public abstract class RestRequest
     {
+        #region Properties
+
         internal abstract HttpVerb Verb { get; }
 
         internal abstract string Path { get; }
 
         internal Dictionary<string, string> QueryParams { get; } = new Dictionary<string, string>();
+
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public abstract override string ToString();
+
+        internal virtual string GetBody()
+        {
+            return "";
+        }
 
         /// <summary>
         /// Adds the query parameter.
@@ -47,17 +66,6 @@ namespace SpectraLogic.EscapePodClient.Calls
             }
         }
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public abstract override string ToString();
-
-        internal virtual string GetBody()
-        {
-            return "";
-        }
+        #endregion Methods
     }
 }

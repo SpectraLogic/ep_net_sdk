@@ -18,12 +18,18 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class ByteRange
     {
+        #region Fields
+
         [JsonProperty(Order = 1, PropertyName = "start")] private long Start;
         [JsonProperty(Order = 2, PropertyName = "stop")] private long Stop;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ByteRange"/> class.
@@ -35,5 +41,7 @@ namespace SpectraLogic.EscapePodClient.Model
             Start = start;
             Stop = stop;
         }
+
+        #endregion Constructors
     }
 }

@@ -23,6 +23,8 @@ namespace SpectraLogic.EscapePodClient.Exceptions
     /// <seealso cref="System.Exception" />
     public class DeviceNotFoundException : Exception
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceNotFoundException"/> class.
         /// </summary>
@@ -31,5 +33,7 @@ namespace SpectraLogic.EscapePodClient.Exceptions
         public DeviceNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
+
+        #endregion Constructors
     }
 }

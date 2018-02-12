@@ -19,11 +19,38 @@ using System;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodJob" />
     public class EscapePodJob : IEscapePodJob
     {
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EscapePodJob"/> class.
+        /// </summary>
+        /// <param name="jobId">The job identifier.</param>
+        /// <param name="jobType">Type of the job.</param>
+        /// <param name="numberOfFiles">The number of files.</param>
+        /// <param name="totalSizeInBytes">The total size in bytes.</param>
+        /// <param name="created">The created.</param>
+        /// <param name="progress">The progress.</param>
+        /// <param name="status">The status.</param>
+        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
+        {
+            JobId = jobId;
+            JobType = jobType;
+            NumberOfFiles = numberOfFiles;
+            TotalSizeInBytes = totalSizeInBytes;
+            Created = created;
+            Progress = progress;
+            Status = status;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets the identifier.
         /// </summary>
@@ -80,25 +107,6 @@ namespace SpectraLogic.EscapePodClient.Model
         /// </value>
         [JsonProperty(Order = 7, PropertyName = "status")] public EscapePodJobStatus Status { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EscapePodJob"/> class.
-        /// </summary>
-        /// <param name="jobId">The job identifier.</param>
-        /// <param name="jobType">Type of the job.</param>
-        /// <param name="numberOfFiles">The number of files.</param>
-        /// <param name="totalSizeInBytes">The total size in bytes.</param>
-        /// <param name="created">The created.</param>
-        /// <param name="progress">The progress.</param>
-        /// <param name="status">The status.</param>
-        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
-        {
-            JobId = jobId;
-            JobType = jobType;
-            NumberOfFiles = numberOfFiles;
-            TotalSizeInBytes = totalSizeInBytes;
-            Created = created;
-            Progress = progress;
-            Status = status;
-        }
+        #endregion Properties
     }
 }

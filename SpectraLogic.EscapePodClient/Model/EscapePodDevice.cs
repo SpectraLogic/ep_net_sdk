@@ -18,11 +18,25 @@ using Newtonsoft.Json;
 namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodDevice" />
     public class EscapePodDevice : IEscapePodDevice
     {
+        #region Constructors
+
+        [JsonConstructor]
+        private EscapePodDevice(string deviceName, string endpoint, string username)
+        {
+            DeviceName = deviceName;
+            Endpoint = endpoint;
+            Username = username;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets the name of the archive.
         /// </summary>
@@ -47,12 +61,6 @@ namespace SpectraLogic.EscapePodClient.Model
         /// </value>
         [JsonProperty(Order = 3, PropertyName = "username")] public string Username { get; }
 
-        [JsonConstructor]
-        private EscapePodDevice(string deviceName, string endpoint, string username)
-        {
-            DeviceName = deviceName;
-            Endpoint = endpoint;
-            Username = username;
-        }
+        #endregion Properties
     }
 }

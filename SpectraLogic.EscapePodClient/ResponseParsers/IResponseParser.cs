@@ -19,6 +19,10 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
     internal interface IResponseParser<out TResponse>
     {
+        #region Methods
+
         TResponse Parse(IHttpWebResponse response);
+
+        #endregion Methods
     }
 }

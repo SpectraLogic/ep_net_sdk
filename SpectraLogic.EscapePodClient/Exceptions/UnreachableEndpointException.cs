@@ -18,11 +18,13 @@ using System;
 namespace SpectraLogic.EscapePodClient.Exceptions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class UnreachableEndpointException : Exception
     {
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UnreachableEndpointException"/> class.
         /// </summary>
@@ -30,5 +32,7 @@ namespace SpectraLogic.EscapePodClient.Exceptions
         public UnreachableEndpointException(string message) : base(message)
         {
         }
+
+        #endregion Constructors
     }
 }

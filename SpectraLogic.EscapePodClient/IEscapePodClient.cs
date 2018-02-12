@@ -25,6 +25,8 @@ namespace SpectraLogic.EscapePodClient
     {
         //TODO update all the comments with the proper exception when the api is done with all error handling exceptions
 
+        #region Methods
+
         /// <summary>
         /// Gets the archive.
         /// </summary>
@@ -104,5 +106,7 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <returns></returns>
         IEscapePodCluster GetCluster(GetClusterRequest request);
+
+        #endregion Methods
     }
 }

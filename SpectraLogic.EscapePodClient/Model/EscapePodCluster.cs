@@ -23,6 +23,18 @@ namespace SpectraLogic.EscapePodClient.Model
     /// <seealso cref="SpectraLogic.EscapePodClient.Model.IEscapePodCluster" />
     public class EscapePodCluster : IEscapePodCluster
     {
+        #region Constructors
+
+        [JsonConstructor]
+        private EscapePodCluster(string name)
+        {
+            Name = name;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets the cluster name.
         /// </summary>
@@ -31,10 +43,6 @@ namespace SpectraLogic.EscapePodClient.Model
         /// </value>
         [JsonProperty(Order = 1, PropertyName = "name")] public string Name { get; private set; }
 
-        [JsonConstructor]
-        private EscapePodCluster(string name)
-        {
-            Name = name;
-        }
+        #endregion Properties
     }
 }
