@@ -15,6 +15,8 @@
 
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
+using SpectraLogic.EscapePodClient.Utils;
+using System;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
@@ -45,8 +47,12 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="resolver">The resolver.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public CreateArchiveRequest(string name, ResolverConfig resolver)
         {
+            Contract.Requires<ArgumentNullException>(name != null, "name");
+            Contract.Requires<ArgumentNullException>(resolver != null, "resolver");
+
             Name = name;
             ResolverConfig = resolver;
         }

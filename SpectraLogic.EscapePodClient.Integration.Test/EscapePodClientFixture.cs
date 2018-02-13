@@ -39,13 +39,25 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         #region Properties
 
+        public static string ResolverName = "bp_resolver";
+        public static string BlackPearlUserName = "Administrator";
+        public static string BlackPearlBucket = "ep_net_sdk_tests";
+
         public static IEscapePodClient EscapePodClient { get; private set; }
         public static string ArchiveName { get; private set; }
         public static string DeviceName { get; private set; }
+        public static string Endpoint { get; private set; }
+        public static string Username { get; private set; }
+        public static string Password { get; private set; }
 
         #endregion Properties
 
         #region Methods
+
+        public static ResolverConfig GetResolver()
+        {
+            return new ResolverConfig(ResolverName, DeviceName, BlackPearlUserName, BlackPearlBucket, false);
+        }
 
         private static void CreateClient()
         {
@@ -82,6 +94,10 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         private static void CreateDevice()
         {
             DeviceName = ConfigurationManager.AppSettings["DeviceName"];
+            Endpoint = ConfigurationManager.AppSettings["Endpoint"];
+            Username = ConfigurationManager.AppSettings["Username"];
+            Password = ConfigurationManager.AppSettings["Password"];
+
             var getDeviceRequest = new GetDeviceRequest(DeviceName);
             try
             {
@@ -89,11 +105,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             }
             catch (DeviceNotFoundException)
             {
-                var createDeviceRequest = new CreateDeviceRequest(
-                    DeviceName,
-                    ConfigurationManager.AppSettings["Endpoint"],
-                    ConfigurationManager.AppSettings["Username"],
-                    ConfigurationManager.AppSettings["Password"]);
+                var createDeviceRequest = new CreateDeviceRequest(DeviceName, Endpoint, Username, Password);
 
                 EscapePodClient.CreateDevice(createDeviceRequest);
             }
@@ -113,11 +125,6 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
                 EscapePodClient.CreateArchive(createArchiveRequest);
             }
-        }
-
-        private static ResolverConfig GetResolver()
-        {
-            return new ResolverConfig("bp_resolver", DeviceName, "Administrator", "ep_net_sdk_tests", false);
         }
 
         #endregion Methods

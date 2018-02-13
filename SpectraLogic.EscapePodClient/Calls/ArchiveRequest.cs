@@ -15,6 +15,8 @@
 
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
+using SpectraLogic.EscapePodClient.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,10 +44,15 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// </summary>
         /// <param name="archiveName">Name of the archive.</param>
         /// <param name="files">The files.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public ArchiveRequest(string archiveName, IEnumerable<ArchiveFile> files)
         {
+            Contract.Requires<ArgumentNullException>(archiveName != null, "archiveName");
+            Contract.Requires<ArgumentNullException>(files != null, "files");
+
             ArchiveName = archiveName;
             Files = files;
+
             QueryParams.Add("operation", "archive");
         }
 

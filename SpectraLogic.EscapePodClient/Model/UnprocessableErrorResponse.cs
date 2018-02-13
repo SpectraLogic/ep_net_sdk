@@ -13,12 +13,29 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
+using System.Net;
+using System.Collections.Generic;
+
 namespace SpectraLogic.EscapePodClient.Model
 {
-    internal enum ResourceType
+    internal class UnprocessableErrorResponse : ErrorResponse
     {
-        ARCHIVE,
-        JOB,
-        SPECTRA_DEVICE
+        #region Constructors
+
+        [JsonConstructor]
+        private UnprocessableErrorResponse(string errorMessage, HttpStatusCode statusCode, IEnumerable<UnprocessableError> errors)
+            : base(errorMessage, statusCode)
+        {
+            Errors = errors;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        [JsonProperty(Order = 3, PropertyName = "errors")] public IEnumerable<UnprocessableError> Errors { get; }
+
+        #endregion Properties
     }
 }

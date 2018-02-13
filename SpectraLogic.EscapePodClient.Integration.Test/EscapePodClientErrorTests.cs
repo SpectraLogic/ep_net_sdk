@@ -26,11 +26,14 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
     [TestFixture]
     public class EscapePodClientErrorTests
     {
-        #region Methods
+        #region Tests
 
         [Test]
         public void ArchiveErrorTests()
         {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new ArchiveRequest(null, Enumerable.Empty<ArchiveFile>())));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new ArchiveRequest(string.Empty, null)));
+
             //TODO add test for InvalidEscapePodServerCredentialsException
 
             var request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
@@ -40,6 +43,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         [Test]
         public void GetArchiveErrorTests()
         {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetArchiveRequest(null)));
+
             //TODO add test for InvalidEscapePodServerCredentialsException
 
             var request = new GetArchiveRequest("not_found");
@@ -49,6 +54,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         [Test]
         public void GetEscapePodJobErrorTests()
         {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetEscapePodJobRequest(null, Guid.NewGuid())));
+
             //TODO add test for InvalidEscapePodServerCredentialsException
 
             var request = new GetEscapePodJobRequest("not_found", Guid.NewGuid());
@@ -58,6 +65,72 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Assert.ThrowsAsync<ArchiveJobNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request)));
         }
 
-        #endregion Methods
+        [Test]
+        public void CreateDeviceErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest(null, "endpoint", "username", "password")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", null, "username", "password")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "endpoint", null, "password")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "endpoint", "username", null)));
+
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            var request = new CreateDeviceRequest(EscapePodClientFixture.DeviceName, "localhost", "username", "password");
+            Assert.ThrowsAsync<DeviceAlreadyExistsException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest(string.Empty, "localhost", "username", "password");
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest("name", string.Empty, "username", "password");
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            //TODO can be tested after ESCP-144 is fixed
+            //request = new CreateDeviceRequest("name", "bad url", "username", "password");
+            //Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest("name", "localhost", "username", string.Empty);
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest(string.Empty, string.Empty, string.Empty, string.Empty);
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, EscapePodClientFixture.Username, "wrong_password");
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+
+            request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, "wrong_username", EscapePodClientFixture.Password);
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+        }
+
+        [Test]
+        public void CreateArchiveErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateArchiveRequest(null, EscapePodClientFixture.GetResolver())));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateArchiveRequest(EscapePodClientFixture.ArchiveName, null)));
+
+            var request = new CreateArchiveRequest(EscapePodClientFixture.ArchiveName, EscapePodClientFixture.GetResolver());
+            Assert.ThrowsAsync<ArchiveAlreadyExistsException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+
+            request = new CreateArchiveRequest(string.Empty, EscapePodClientFixture.GetResolver());
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+
+            //TODO can be tests after ESCP-147 is fixed
+            //request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
+            //Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+
+            request = new CreateArchiveRequest("should_fail", new ResolverConfig("name", "bp_name", "username", "bucket", false));
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+
+            request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName, EscapePodClientFixture.DeviceName, "username", "bucket", false));
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+
+            request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName,
+                EscapePodClientFixture.DeviceName, EscapePodClientFixture.BlackPearlUserName, "wrong_bucket", false));
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+        }
+
+        #endregion Tests
     }
 }

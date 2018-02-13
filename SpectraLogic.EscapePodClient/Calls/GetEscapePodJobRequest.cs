@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Utils;
 using System;
 
 namespace SpectraLogic.EscapePodClient.Calls
@@ -30,8 +31,11 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// </summary>
         /// <param name="archiveName">Name of the archive.</param>
         /// <param name="escapePodJobId">The escape pod job identifier.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public GetEscapePodJobRequest(string archiveName, Guid escapePodJobId)
         {
+            Contract.Requires<ArgumentNullException>(archiveName != null, "archiveName");
+
             ArchiveName = archiveName;
             EscapePodJobId = escapePodJobId;
         }

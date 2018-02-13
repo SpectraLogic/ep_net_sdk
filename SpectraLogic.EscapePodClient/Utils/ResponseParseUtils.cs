@@ -60,7 +60,11 @@ namespace SpectraLogic.EscapePodClient.Utils
                         return JsonConvert.DeserializeObject<NotFoundErrorResponse>(responseString);
 
                     case HttpStatusCode.Conflict:
-                    //TODO wait for Conflict error to be implemented by the server in the meanwhile use default behivor
+                        return JsonConvert.DeserializeObject<ConflictErrorResponse>(responseString);
+
+                    case (HttpStatusCode)422:
+                        return JsonConvert.DeserializeObject<UnprocessableErrorResponse>(responseString);
+
                     default:
                         return JsonConvert.DeserializeObject<ErrorResponse>(responseString);
                 }

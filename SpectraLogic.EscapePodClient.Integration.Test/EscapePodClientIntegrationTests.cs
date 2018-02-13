@@ -32,7 +32,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         #endregion Fields
 
-        #region Methods
+        #region Tests
 
         [Test]
         public void ArchiveAndRestore()
@@ -82,6 +82,6 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
         }
 
-        #endregion Methods
+        #endregion Tests
     }
 }

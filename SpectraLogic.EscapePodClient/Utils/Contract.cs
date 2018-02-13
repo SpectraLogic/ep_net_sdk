@@ -15,25 +15,30 @@
 
 using System;
 
-namespace SpectraLogic.EscapePodClient.Exceptions
+namespace SpectraLogic.EscapePodClient.Utils
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="System.Exception" />
-    public class BucketDoesNotExistException : Exception
+    public class Contract
     {
-        #region Constructors
+        #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BucketDoesNotExistException"/> class.
+        /// Requireses the specified predicate.
         /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        public BucketDoesNotExistException(string message, Exception innerException) : base(message, innerException)
+        /// <typeparam name="TException">The type of the exception.</typeparam>
+        /// <param name="predicate">if set to <c>true</c> [predicate].</param>
+        /// <param name="message">The message.</param>
+        public static void Requires<TException>(bool predicate, string message)
+        where TException : Exception
         {
+            if (!predicate)
+            {
+                throw (TException)Activator.CreateInstance(typeof(TException), message);
+            }
         }
 
-        #endregion Constructors
+        #endregion Methods
     }
 }

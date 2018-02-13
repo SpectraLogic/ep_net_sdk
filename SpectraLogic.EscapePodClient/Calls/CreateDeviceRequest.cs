@@ -14,6 +14,8 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.EscapePodClient.Utils;
+using System;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
@@ -56,8 +58,14 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// <param name="endpoint">The endpoint.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public CreateDeviceRequest(string name, string endpoint, string username, string password)
         {
+            Contract.Requires<ArgumentNullException>(name != null, "name");
+            Contract.Requires<ArgumentNullException>(endpoint != null, "endpoint");
+            Contract.Requires<ArgumentNullException>(username != null, "username");
+            Contract.Requires<ArgumentNullException>(password != null, "password");
+
             Name = name;
             Endpoint = endpoint;
             Username = username;
