@@ -68,7 +68,7 @@
     <Compile Include="Exceptions\ArchiveAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
-    <Compile Include="Exceptions\BucketDoesNotExistException.cs" />
+    <Compile Include="Exceptions\DeviceAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ClusterAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ClusterNotConfiguredException.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Exceptions\InvalidDeviceCredentialsException.cs" />
     <Compile Include="Exceptions\InvalidEscapePodServerCredentialsException.cs" />
     <Compile Include="Exceptions\UnreachableEndpointException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IEscapePodClientBuilder.cs" />
     <Compile Include="Model\ArchiveFile.cs" />
     <Compile Include="Calls\ArchiveRequest.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="EscapePodClientBuilder.cs" />
     <Compile Include="IEscapePodClient.cs" />
     <Compile Include="Model\ByteRange.cs" />
+    <Compile Include="Model\UnprocessableError.cs" />
+    <Compile Include="Model\UnprocessableErrorResponse.cs" />
     <Compile Include="Model\DeleteFile.cs" />
     <Compile Include="Model\ErrorResponse.cs" />
     <Compile Include="Model\EscapePodArchive.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Model\IEscapePodCluster.cs" />
     <Compile Include="Model\IEscapePodDevice.cs" />
     <Compile Include="Model\IEscapePodJob.cs" />
+    <Compile Include="Model\ConflictErrorResponse.cs" />
     <Compile Include="Model\NotFoundErrorResponse.cs" />
     <Compile Include="Model\ResolverConfig.cs" />
     <Compile Include="Model\ResourceType.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="ResponseParsers\IResponseParser.cs" />
     <Compile Include="Calls\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\RestoreResponseParser.cs" />
+    <Compile Include="Utils\Contract.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
     <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Utils\XmlExtensions.cs" />

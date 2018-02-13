@@ -44,7 +44,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
         #endregion Constructors
 
-        #region Methods
+        #region Tests
 
         [Test]
         public void GetArchiveExceptionTest()
@@ -74,8 +74,8 @@ namespace SpectraLogic.EscapePodClient.Test
             mockNetwork.VerifyAll();
         }
 
-        #endregion Methods
-
         //TODO add more tests for missing api calls
+
+        #endregion Tests
     }
 }

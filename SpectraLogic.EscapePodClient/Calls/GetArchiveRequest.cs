@@ -13,6 +13,9 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Utils;
+using System;
+
 namespace SpectraLogic.EscapePodClient.Calls
 {
     /// <summary>
@@ -27,8 +30,11 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// Initializes a new instance of the <see cref="GetArchiveRequest"/> class.
         /// </summary>
         /// <param name="archiveName">Name of the archive.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public GetArchiveRequest(string archiveName)
         {
+            Contract.Requires<ArgumentNullException>(archiveName != null, "archiveName");
+
             ArchiveName = archiveName;
         }
 

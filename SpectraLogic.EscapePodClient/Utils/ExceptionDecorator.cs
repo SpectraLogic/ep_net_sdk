@@ -43,23 +43,48 @@ namespace SpectraLogic.EscapePodClient.Utils
 
                     switch (notFoundErrorResponse.ResourceType)
                     {
-                        case ResourceType.Archive:
+                        case ResourceType.ARCHIVE:
                             throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
+
                         case ResourceType.JOB:
                             throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
-                        case ResourceType.BUCKET:
-                            throw new BucketDoesNotExistException(ex.ErrorResponse.ErrorMessage, ex);
+
+                        case ResourceType.SPECTRA_DEVICE:
+                            throw new DeviceNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.Conflict)
                 {
-                    //TODO need to wait for Conflict error response to be implemented in the server
+                    var conflictErrorResponse = ex.ErrorResponse as ConflictErrorResponse;
+
+                    switch (conflictErrorResponse.ResourceType)
+                    {
+                        case ResourceType.SPECTRA_DEVICE:
+                            throw new DeviceAlreadyExistsException(ex.ErrorResponse.ErrorMessage, ex);
+
+                        case ResourceType.ARCHIVE:
+                            throw new ArchiveAlreadyExistsException(ex.ErrorResponse.ErrorMessage, ex);
+                    }
                 }
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {
                     throw new ClusterNotConfiguredException(ex.ErrorResponse.ErrorMessage, ex);
+                }
+
+                if (ex.ErrorResponse.StatusCode == (HttpStatusCode)422)
+                {
+                    throw new ValidationException(ex.ErrorResponse.ErrorMessage, ex);
+                }
+
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    switch (ex.ErrorResponse.ErrorMessage)
+                    {
+                        case "The server must be a member of a cluster":
+                            throw new ClusterNotConfiguredException(ex.ErrorResponse.ErrorMessage, ex);
+                    }
                 }
 
                 throw ex;

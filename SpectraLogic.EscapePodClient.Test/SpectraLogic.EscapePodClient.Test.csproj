@@ -72,11 +72,11 @@
     <Compile Include="Mock\MockHttpWebResponse.cs" />
     <Compile Include="EscapePodClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stubs.cs" />
     <Compile Include="Utils\ResourceFilesUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="TestFiles\ArchiveRequest" />
     <None Include="packages.config" />
     <EmbeddedResource Include="TestFiles\DeleteRequest" />
     <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusCompletedResponse" />
@@ -90,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\ArchiveResponse" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TestFiles\RestoreRequest" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\RestoreResponse" />
@@ -110,7 +107,6 @@
     <EmbeddedResource Include="TestFiles\GetEscapePodJobWithStatusActiveResponse" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestFiles\CreateArchiveRequest" />
     <EmbeddedResource Include="TestFiles\CreateArchiveResponse" />
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\InvalidEscapePodServerCredentialsExceptionResponse" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TestFiles\CreateDeviceRequest" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\CreateDeviceResponse" />
