@@ -21,11 +21,11 @@ using System.Configuration;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
-    public static class EscapePodClientTestsSetup
+    public static class EscapePodClientFixture
     {
         #region Constructors
 
-        static EscapePodClientTestsSetup()
+        static EscapePodClientFixture()
         {
             BasicConfigurator.Configure();
 

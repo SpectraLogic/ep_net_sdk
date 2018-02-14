@@ -42,17 +42,17 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
              ***********/
             var fileName1 = Guid.NewGuid().ToString();
             var fileName2 = Guid.NewGuid().ToString();
-            var archiveRequest = new ArchiveRequest(EscapePodClientTestsSetup.ArchiveName, new List<ArchiveFile>
+            var archiveRequest = new ArchiveRequest(EscapePodClientFixture.ArchiveName, new List<ArchiveFile>
             {
                 new ArchiveFile(fileName1, "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F1.txt", 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
                 new ArchiveFile(fileName2, "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F2.txt", 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false)
             });
 
-            var archiveJob = EscapePodClientTestsSetup.EscapePodClient.Archive(archiveRequest);
+            var archiveJob = EscapePodClientFixture.EscapePodClient.Archive(archiveRequest);
 
             do
             {
-                archiveJob = EscapePodClientTestsSetup.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientTestsSetup.ArchiveName, archiveJob.JobId));
+                archiveJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, archiveJob.JobId));
                 _log.Debug(archiveJob.Status);
                 Thread.Sleep(5000);
             } while (archiveJob.Status.Status == JobStatus.ACTIVE);
@@ -64,17 +64,17 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             ***********/
 
             //TODO create a temp dir for the restore
-            var restoreRequest = new RestoreRequest(EscapePodClientTestsSetup.ArchiveName, new List<RestoreFile>
+            var restoreRequest = new RestoreRequest(EscapePodClientFixture.ArchiveName, new List<RestoreFile>
             {
                 new RestoreFile(fileName1, "file:///C:/Temp/restore/F1_restore.txt"),
                 new RestoreFile(fileName2, "file:///C:/Temp/restore/F2_restore.txt")
             });
 
-            var restoreJob = EscapePodClientTestsSetup.EscapePodClient.Restore(restoreRequest);
+            var restoreJob = EscapePodClientFixture.EscapePodClient.Restore(restoreRequest);
 
             do
             {
-                restoreJob = EscapePodClientTestsSetup.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientTestsSetup.ArchiveName, restoreJob.JobId));
+                restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
                 _log.Debug(restoreJob.Status);
                 Thread.Sleep(5000);
             } while (restoreJob.Status.Status == JobStatus.ACTIVE);
