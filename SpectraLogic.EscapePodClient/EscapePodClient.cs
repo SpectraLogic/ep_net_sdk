@@ -149,7 +149,6 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveAlreadyExistsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.BucketDoesNotExistException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
         public IEscapePodArchive CreateArchive(CreateArchiveRequest request)
@@ -218,6 +217,40 @@ namespace SpectraLogic.EscapePodClient
             {
                 Log.Debug($"GetCluster info\n{request}");
                 return new GetClusterResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Determines whether [is device exist] [the specified device name].
+        /// </summary>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <returns>
+        ///   <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsDeviceExist(string deviceName)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadDeviceRequest(deviceName);
+                Log.Debug($"IsDeviceExist info\n{request}");
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Determines whether [is archive exist] [the specified archive name].
+        /// </summary>
+        /// <param name="archiveName">Name of the archive.</param>
+        /// <returns>
+        ///   <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsArchiveExist(string archiveName)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadArchiveRequest(archiveName);
+                Log.Debug($"IsArchiveExist info\n{request}");
+                return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
 

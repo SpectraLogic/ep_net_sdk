@@ -13,14 +13,34 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.EscapePodClient.Calls
+using log4net;
+using SpectraLogic.EscapePodClient.Runtime;
+using System.Net;
+
+namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
-    internal enum HttpVerb
+    internal class HeadResponseParser : IResponseParser<bool>
     {
-        GET,
-        PUT,
-        POST,
-        DELETE,
-        HEAD
+        #region Fields
+
+        private static ILog LOG = LogManager.GetLogger("HeadResponseParser");
+
+        #endregion Fields
+
+        #region Methods
+
+        public bool Parse(IHttpWebResponse response)
+        {
+            LOG.Debug(response.StatusCode);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        #endregion Methods
     }
 }

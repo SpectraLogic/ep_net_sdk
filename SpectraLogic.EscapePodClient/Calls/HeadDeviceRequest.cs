@@ -13,14 +13,45 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Utils;
+using System;
+
 namespace SpectraLogic.EscapePodClient.Calls
 {
-    internal enum HttpVerb
+    internal class HeadDeviceRequest : RestRequest
     {
-        GET,
-        PUT,
-        POST,
-        DELETE,
-        HEAD
+        #region Fields
+
+        private string DeviceName;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public HeadDeviceRequest(string deviceName)
+        {
+            Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
+
+            DeviceName = deviceName;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        internal override HttpVerb Verb => HttpVerb.HEAD;
+
+        internal override string Path => $"/api/devices/spectra/{DeviceName}";
+
+        #endregion Properties
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return $"{Path}\n{Verb}";
+        }
+
+        #endregion Methods
     }
 }

@@ -107,6 +107,24 @@ namespace SpectraLogic.EscapePodClient
         /// <returns></returns>
         IEscapePodCluster GetCluster(GetClusterRequest request);
 
+        /// <summary>
+        /// Determines whether [is device exist] [the specified device name].
+        /// </summary>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <returns>
+        ///   <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsDeviceExist(string deviceName);
+
+        /// <summary>
+        /// Determines whether [is archive exist] [the specified archive name].
+        /// </summary>
+        /// <param name="archiveName">Name of the archive.</param>
+        /// <returns>
+        ///   <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsArchiveExist(string archiveName);
+
         #endregion Methods
     }
 }
