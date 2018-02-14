@@ -382,6 +382,56 @@ namespace SpectraLogic.EscapePodClient.Test
         }
 
         [Test]
+        public void HeadArchiveTest()
+        {
+            var headArchiveRequest = new HeadArchiveRequest("archiveName");
+            Assert.AreEqual("/api/archives/archiveName\nHEAD", headArchiveRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<HeadArchiveRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            Assert.IsTrue(client.IsArchiveExist("archiveName"));
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void HeadDeviceTest()
+        {
+            var headDeviceRequest = new HeadDeviceRequest("deviceName");
+            Assert.AreEqual("/api/devices/spectra/deviceName\nHEAD", headDeviceRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<HeadDeviceRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            Assert.IsTrue(client.IsDeviceExist("deviceName"));
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void RestoreTest()
         {
             var restoreRequest = new RestoreRequest(Stubs.ArchiveName, Stubs.RestoreFiles);

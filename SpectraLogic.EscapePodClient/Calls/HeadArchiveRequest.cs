@@ -13,14 +13,45 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Utils;
+using System;
+
 namespace SpectraLogic.EscapePodClient.Calls
 {
-    internal enum HttpVerb
+    internal class HeadArchiveRequest : RestRequest
     {
-        GET,
-        PUT,
-        POST,
-        DELETE,
-        HEAD
+        #region Fields
+
+        private string ArchiveName;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public HeadArchiveRequest(string archiveName)
+        {
+            Contract.Requires<ArgumentNullException>(archiveName != null, "archiveName");
+
+            ArchiveName = archiveName;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        internal override HttpVerb Verb => HttpVerb.HEAD;
+
+        internal override string Path => $"/api/archives/{ArchiveName}";
+
+        #endregion Properties
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return $"{Path}\n{Verb}";
+        }
+
+        #endregion Methods
     }
 }

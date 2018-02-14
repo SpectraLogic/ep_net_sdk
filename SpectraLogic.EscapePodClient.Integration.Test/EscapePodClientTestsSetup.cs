@@ -21,11 +21,11 @@ using System.Configuration;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
-    public static class EscapePodClientFixture
+    public static class EscapePodClientTestsSetup
     {
         #region Constructors
 
-        static EscapePodClientFixture()
+        static EscapePodClientTestsSetup()
         {
             BasicConfigurator.Configure();
 
@@ -98,15 +98,9 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Username = ConfigurationManager.AppSettings["Username"];
             Password = ConfigurationManager.AppSettings["Password"];
 
-            var getDeviceRequest = new GetDeviceRequest(DeviceName);
-            try
-            {
-                EscapePodClient.GetDevice(getDeviceRequest);
-            }
-            catch (DeviceNotFoundException)
+            if (!EscapePodClient.IsDeviceExist(DeviceName))
             {
                 var createDeviceRequest = new CreateDeviceRequest(DeviceName, Endpoint, Username, Password);
-
                 EscapePodClient.CreateDevice(createDeviceRequest);
             }
         }
@@ -114,12 +108,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         private static void CreateArchive()
         {
             ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
-            var getArchiveRequest = new GetArchiveRequest(ArchiveName);
-            try
-            {
-                EscapePodClient.GetArchive(getArchiveRequest);
-            }
-            catch (ArchiveNotFoundException)
+
+            if (!EscapePodClient.IsArchiveExist(ArchiveName))
             {
                 var resolver = GetResolver();
                 var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
