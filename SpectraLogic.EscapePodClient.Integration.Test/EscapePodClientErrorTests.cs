@@ -116,9 +116,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             request = new CreateArchiveRequest(string.Empty, EscapePodClientFixture.GetResolver());
             Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
 
-            //TODO can be tests after ESCP-147 is fixed
-            //request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
-            //Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
 
             request = new CreateArchiveRequest("should_fail", new ResolverConfig("name", "bp_name", "username", "bucket", false));
             Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
