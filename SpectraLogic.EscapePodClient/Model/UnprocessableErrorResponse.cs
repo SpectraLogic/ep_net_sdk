@@ -14,12 +14,12 @@
  */
 
 using Newtonsoft.Json;
-using System.Net;
 using System.Collections.Generic;
+using System.Net;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
-    internal class UnprocessableErrorResponse : ErrorResponse
+    public class UnprocessableErrorResponse : ErrorResponse
     {
         #region Constructors
 

@@ -13,26 +13,21 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using System;
 
-namespace SpectraLogic.EscapePodClient.Exceptions
+namespace SpectraLogic.EscapePodClient.Utils
 {
-    public class ErrorResponseException : Exception
+    public static class ExceptionExtensions
     {
-        #region Constructors
+        #region Methods
 
-        public ErrorResponseException(ErrorResponse errorResponse)
+        public static UnprocessableErrorResponse ExtractUnprocessableErrorResponse(this Exception ex)
         {
-            ErrorResponse = errorResponse;
+            return (UnprocessableErrorResponse)((ErrorResponseException)ex.InnerException).ErrorResponse;
         }
 
-        #endregion Constructors
-
-        #region Properties
-
-        public ErrorResponse ErrorResponse { get; private set; }
-
-        #endregion Properties
+        #endregion Methods
     }
 }
