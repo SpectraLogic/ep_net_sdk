@@ -69,6 +69,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
                     EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -80,6 +81,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateArchiveRequest("should_fail", new ResolverConfig("name", "bp_name", "username", "bucket", false));
                     EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -91,6 +93,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName, EscapePodClientFixture.DeviceName, "username", "bucket", false));
                     EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -102,6 +105,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName, EscapePodClientFixture.DeviceName, EscapePodClientFixture.BlackPearlUserName, "wrong_bucket", false));
                     EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -127,6 +131,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest(string.Empty, "localhost", "username", "password");
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -138,6 +143,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest("name", string.Empty, "username", "password");
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -149,6 +155,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest("name", "bad url", "username", "password");
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -160,6 +167,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -171,6 +179,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest("name", "localhost", "username", string.Empty);
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -182,6 +191,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest(string.Empty, string.Empty, string.Empty, string.Empty);
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -196,6 +206,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, EscapePodClientFixture.Username, "wrong_password");
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
@@ -208,6 +219,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, "wrong_username", EscapePodClientFixture.Password);
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
                 },
                 new List<UnprocessableError>
                 {
