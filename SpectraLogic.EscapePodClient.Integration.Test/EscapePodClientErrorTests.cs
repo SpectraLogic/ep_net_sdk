@@ -84,9 +84,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             request = new CreateDeviceRequest("name", string.Empty, "username", "password");
             Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
 
-            //TODO can be tested after ESCP-144 is fixed
-            //request = new CreateDeviceRequest("name", "bad url", "username", "password");
-            //Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            request = new CreateDeviceRequest("name", "bad url", "username", "password");
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
 
             request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
             Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
@@ -116,9 +115,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             request = new CreateArchiveRequest(string.Empty, EscapePodClientFixture.GetResolver());
             Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
 
-            //TODO can be tests after ESCP-147 is fixed
-            //request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
-            //Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
+            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
 
             request = new CreateArchiveRequest("should_fail", new ResolverConfig("name", "bp_name", "username", "bucket", false));
             Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
