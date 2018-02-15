@@ -19,10 +19,18 @@ using System;
 
 namespace SpectraLogic.EscapePodClient.Utils
 {
+    /// <summary>
+    ///
+    /// </summary>
     public static class ExceptionExtensions
     {
         #region Methods
 
+        /// <summary>
+        /// Extracts the unprocessable error response.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <returns></returns>
         public static UnprocessableErrorResponse ExtractUnprocessableErrorResponse(this Exception ex)
         {
             return (UnprocessableErrorResponse)((ErrorResponseException)ex.InnerException).ErrorResponse;
