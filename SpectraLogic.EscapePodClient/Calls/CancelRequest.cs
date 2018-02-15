@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using System;
 using System.Linq;
 
 namespace SpectraLogic.EscapePodClient.Calls
@@ -29,9 +30,9 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// Initializes a new instance of the <see cref="CancelRequest"/> class.
         /// </summary>
         /// <param name="escapePodJobId">The escape pod job identifier.</param>
-        public CancelRequest(string escapePodJobId)
+        public CancelRequest(Guid escapePodJobId)
         {
-            AddQueryParam("id", escapePodJobId);
+            AddQueryParam("id", escapePodJobId.ToString());
         }
 
         #endregion Constructors
@@ -39,11 +40,9 @@ namespace SpectraLogic.EscapePodClient.Calls
         #region Properties
 
         internal override HttpVerb Verb => HttpVerb.PUT;
-        internal override string Path => "api/cancel";
+        internal override string Path => "api/cancel"; //TODO use the right path
 
         #endregion Properties
-
-        //TODO use the right path
 
         #region Methods
 
