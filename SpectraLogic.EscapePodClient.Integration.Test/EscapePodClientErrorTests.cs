@@ -114,6 +114,15 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         }
 
         [Test]
+        public void CreateClusterErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateClusterRequest(null)));
+
+            var request = new CreateClusterRequest(EscapePodClientFixture.ClusterName);
+            Assert.ThrowsAsync<MemberAlreadyPartOfClusterException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateCluster(request)));
+        }
+
+        [Test]
         public void CreateDeviceErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest(null, "endpoint", "username", "password")));
@@ -237,6 +246,19 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             var request = new GetArchiveRequest("not_found");
             Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.GetArchive(request)));
+        }
+
+        [Test]
+        public void GetDeviceErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetDeviceRequest(null)));
+
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            var request = new GetDeviceRequest("not_found");
+            Assert.ThrowsAsync<DeviceNotFoundException>(
+                () =>
+                Task.FromResult(EscapePodClientFixture.EscapePodClient.GetDevice(request)));
         }
 
         [Test]
