@@ -84,6 +84,8 @@ namespace SpectraLogic.EscapePodClient.Utils
                     {
                         case "The server must be a member of a cluster":
                             throw new ClusterNotConfiguredException(ex.ErrorResponse.ErrorMessage, ex);
+                        case "Cannot join another cluster when already a member of one":
+                            throw new MemberAlreadyPartOfClusterException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 

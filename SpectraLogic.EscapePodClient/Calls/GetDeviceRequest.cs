@@ -14,6 +14,8 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.EscapePodClient.Utils;
+using System;
 
 namespace SpectraLogic.EscapePodClient.Calls
 {
@@ -31,6 +33,8 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// <param name="deviceName">Name of the device.</param>
         public GetDeviceRequest(string deviceName)
         {
+            Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
+
             DeviceName = deviceName;
         }
 

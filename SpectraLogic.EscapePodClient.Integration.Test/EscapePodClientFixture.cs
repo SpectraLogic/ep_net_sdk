@@ -18,6 +18,7 @@ using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using System.Configuration;
+using System.Threading;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
@@ -39,16 +40,17 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         #region Properties
 
-        public static string ResolverName = "bp_resolver";
-        public static string BlackPearlUserName = "Administrator";
         public static string BlackPearlBucket = "ep_net_sdk_tests";
+        public static string BlackPearlUserName = "Administrator";
+        public static string ResolverName = "bp_resolver";
 
         public static IEscapePodClient EscapePodClient { get; private set; }
         public static string ArchiveName { get; private set; }
+        public static string ClusterName { get; private set; }
         public static string DeviceName { get; private set; }
         public static string Endpoint { get; private set; }
-        public static string Username { get; private set; }
         public static string Password { get; private set; }
+        public static string Username { get; private set; }
 
         #endregion Properties
 
@@ -78,7 +80,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         private static void CreateCluster()
         {
-            var clusterName = ConfigurationManager.AppSettings["ClusterName"];
+            ClusterName = ConfigurationManager.AppSettings["ClusterName"];
             var getClusterRequest = new GetClusterRequest();
             try
             {
@@ -86,8 +88,11 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             }
             catch (ClusterNotConfiguredException)
             {
-                var createClusterRequest = new CreateClusterRequest(clusterName);
+                var createClusterRequest = new CreateClusterRequest(ClusterName);
                 EscapePodClient.CreateCluster(createClusterRequest);
+
+                //TODO remove this sleep once ESCP-154 is fixed
+                Thread.Sleep(30 * 1000);
             }
         }
 

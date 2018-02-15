@@ -24,11 +24,30 @@ namespace SpectraLogic.EscapePodClient.Model
     {
         #region Fields
 
-        [JsonProperty(Order = 1, PropertyName = "name")] private string Name;
-        [JsonProperty(Order = 2, PropertyName = "uri")] private string Uri;
-        [JsonProperty(Order = 3, PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] private bool? RestoreFileAttributes;
-        [JsonProperty(Order = 4, PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] private ByteRange ByteRange;
-        [JsonProperty(Order = 5, PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] private TimecodeRange TimeCodeRange;
+        /// <summary>
+        /// The name
+        /// </summary>
+        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
+
+        /// <summary>
+        /// The URI
+        /// </summary>
+        [JsonProperty(Order = 2, PropertyName = "uri")] public string Uri;
+
+        /// <summary>
+        /// The restore file attributes
+        /// </summary>
+        [JsonProperty(Order = 3, PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] public bool? RestoreFileAttributes;
+
+        /// <summary>
+        /// The byte range
+        /// </summary>
+        [JsonProperty(Order = 4, PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] public ByteRange ByteRange;
+
+        /// <summary>
+        /// The time code range
+        /// </summary>
+        [JsonProperty(Order = 5, PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public TimecodeRange TimeCodeRange;
 
         #endregion Fields
 
@@ -83,9 +102,6 @@ namespace SpectraLogic.EscapePodClient.Model
             Uri = uri;
             TimeCodeRange = timeCodeRange;
         }
-
-        [JsonConstructor]
-        private RestoreFile() { }
 
         #endregion Constructors
     }

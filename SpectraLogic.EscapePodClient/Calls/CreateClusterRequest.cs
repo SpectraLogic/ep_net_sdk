@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Utils;
+using System;
 using System.Linq;
 
 namespace SpectraLogic.EscapePodClient.Calls
@@ -31,6 +33,8 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// <param name="name">The name.</param>
         public CreateClusterRequest(string name)
         {
+            Contract.Requires<ArgumentNullException>(name != null, "name");
+
             QueryParams.Add("name", name);
         }
 

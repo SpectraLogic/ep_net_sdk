@@ -71,13 +71,12 @@
     <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\DeviceAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\ClusterAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\MemberAlreadyPartOfClusterException.cs" />
     <Compile Include="Exceptions\ClusterNotConfiguredException.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
     <Compile Include="Exceptions\InvalidDeviceCredentialsException.cs" />
     <Compile Include="Exceptions\InvalidEscapePodServerCredentialsException.cs" />
-    <Compile Include="Exceptions\UnreachableEndpointException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IEscapePodClientBuilder.cs" />
     <Compile Include="Model\ArchiveFile.cs" />
@@ -126,7 +125,6 @@
     <Compile Include="Utils\ExceptionExtensions.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
     <Compile Include="Utils\ExceptionDecorator.cs" />
-    <Compile Include="Utils\XmlExtensions.cs" />
     <Compile Include="Runtime\EscapePodHttpWebRequest.cs" />
     <Compile Include="Runtime\EscapePodHttpWebResponse.cs" />
     <Compile Include="Runtime\IHttpWebRequest.cs" />
