@@ -17,7 +17,10 @@ using NUnit.Framework;
 using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
+using SpectraLogic.EscapePodClient.Utils;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,21 +52,65 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             var request = new CreateArchiveRequest(EscapePodClientFixture.ArchiveName, EscapePodClientFixture.GetResolver());
             Assert.ThrowsAsync<ArchiveAlreadyExistsException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
 
-            request = new CreateArchiveRequest(string.Empty, EscapePodClientFixture.GetResolver());
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateArchiveRequest(string.Empty, EscapePodClientFixture.GetResolver());
+                    EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("name", "String", "missing")
+                });
 
-            request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateArchiveRequest("should_fail", new ResolverConfig(string.Empty, "bp_name", "username", "bucket", false));
+                    EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("resolverConfig.name", "String", "missing")
+                });
 
-            request = new CreateArchiveRequest("should_fail", new ResolverConfig("name", "bp_name", "username", "bucket", false));
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateArchiveRequest("should_fail", new ResolverConfig("name", "bp_name", "username", "bucket", false));
+                    EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("blackPearlName", "String", "not_found")
+                });
 
-            request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName, EscapePodClientFixture.DeviceName, "username", "bucket", false));
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName, EscapePodClientFixture.DeviceName, "username", "bucket", false));
+                    EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("username", "String", "not_found")
+                });
 
-            request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName,
-                EscapePodClientFixture.DeviceName, EscapePodClientFixture.BlackPearlUserName, "wrong_bucket", false));
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateArchiveRequest("should_fail", new ResolverConfig(EscapePodClientFixture.ResolverName, EscapePodClientFixture.DeviceName, EscapePodClientFixture.BlackPearlUserName, "wrong_bucket", false));
+                    EscapePodClientFixture.EscapePodClient.CreateArchive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("bucket", "String", "not_found")
+                });
         }
 
         [Test]
@@ -79,29 +126,106 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             var request = new CreateDeviceRequest(EscapePodClientFixture.DeviceName, "localhost", "username", "password");
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
 
-            request = new CreateDeviceRequest(string.Empty, "localhost", "username", "password");
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest(string.Empty, "localhost", "username", "password");
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("name", "String", "missing")
+                });
 
-            request = new CreateDeviceRequest("name", string.Empty, "username", "password");
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("name", string.Empty, "username", "password");
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("endpoint", "String", "missing")
+                });
 
-            request = new CreateDeviceRequest("name", "bad url", "username", "password");
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("name", "bad url", "username", "password");
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("endpoint", "uri", "invalid_uri")
+                });
 
-            request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("username", "String", "missing")
+                });
 
-            request = new CreateDeviceRequest("name", "localhost", "username", string.Empty);
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("name", "localhost", "username", string.Empty);
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("password", "Password", "missing")
+                });
 
-            request = new CreateDeviceRequest(string.Empty, string.Empty, string.Empty, string.Empty);
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest(string.Empty, string.Empty, string.Empty, string.Empty);
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("endpoint", "String", "missing"),
+                    new UnprocessableError("name", "String", "missing"),
+                    new UnprocessableError("username", "String", "missing"),
+                    new UnprocessableError("password", "Password", "missing")
+                });
 
-            request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, EscapePodClientFixture.Username, "wrong_password");
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, EscapePodClientFixture.Username, "wrong_password");
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("username", "String", "invalid_credentials"),
+                    new UnprocessableError("password", "Password", "invalid_credentials")
+                });
 
-            request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, "wrong_username", EscapePodClientFixture.Password);
-            Assert.ThrowsAsync<ValidationException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request)));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, "wrong_username", EscapePodClientFixture.Password);
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("username", "String", "invalid_credentials"),
+                    new UnprocessableError("password", "Password", "invalid_credentials")
+                });
         }
 
         [Test]
@@ -146,5 +270,22 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         }
 
         #endregion Tests
+
+        #region Methods
+
+        private void ValidationExceptionCheck(Action action, IEnumerable expected)
+        {
+            try
+            {
+                action.Invoke();
+            }
+            catch (ValidationException ex)
+            {
+                var unprocessableErrorResponse = ex.ExtractUnprocessableErrorResponse();
+                CollectionAssert.AreEqual(expected, unprocessableErrorResponse.Errors, new UnprocessableErrorComparer());
+            }
+        }
+
+        #endregion Methods
     }
 }

@@ -18,7 +18,7 @@ using System.Net;
 
 namespace SpectraLogic.EscapePodClient.Model
 {
-    internal class ErrorResponse
+    public class ErrorResponse
     {
         #region Constructors
 

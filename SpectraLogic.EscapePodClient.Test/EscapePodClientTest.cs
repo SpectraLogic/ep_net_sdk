@@ -120,7 +120,7 @@ namespace SpectraLogic.EscapePodClient.Test
         public void CreateArchiveTest()
         {
             var createArchiveRequest = new CreateArchiveRequest(Stubs.ArchiveName, Stubs.Resolver);
-            Assert.AreEqual("/api/archives\nPOST\n{\"name\":\"archiveName\",\"resolverConfig\":{\"name\":\"testResolver\",\"blackPearlName\":\"name\",\"userName\":\"user\",\"bucket\":\"bucket\",\"https\":false}}", createArchiveRequest.ToString());
+            Assert.AreEqual("/api/archives\nPOST\n{\"name\":\"archiveName\",\"resolverConfig\":{\"name\":\"testResolver\",\"blackPearlName\":\"name\",\"username\":\"user\",\"bucket\":\"bucket\",\"https\":false}}", createArchiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork

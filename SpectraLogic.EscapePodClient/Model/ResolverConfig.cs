@@ -37,7 +37,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <summary>
         /// The user name
         /// </summary>
-        [JsonProperty(Order = 3, PropertyName = "userName")] public string UserName;
+        [JsonProperty(Order = 3, PropertyName = "username")] public string UserName;
 
         /// <summary>
         /// The bucket

@@ -123,6 +123,7 @@
     <Compile Include="Calls\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\RestoreResponseParser.cs" />
     <Compile Include="Utils\Contract.cs" />
+    <Compile Include="Utils\ExceptionExtensions.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
     <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Utils\XmlExtensions.cs" />
