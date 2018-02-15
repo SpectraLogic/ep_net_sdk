@@ -21,16 +21,16 @@ namespace SpectraLogic.EscapePodClient.Exceptions
     ///
     /// </summary>
     /// <seealso cref="System.Exception" />
-    public class ClusterAlreadyExistsException : Exception
+    public class MemberAlreadyPartOfClusterException : Exception
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClusterAlreadyExistsException"/> class.
+        /// Initializes a new instance of the <see cref="MemberAlreadyPartOfClusterException"/> class.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        public ClusterAlreadyExistsException(string message, Exception innerException) : base(message, innerException)
+        public MemberAlreadyPartOfClusterException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
