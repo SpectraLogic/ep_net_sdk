@@ -85,8 +85,9 @@ namespace SpectraLogic.EscapePodClient.Test
         [Test]
         public void CancelTest()
         {
-            var cancelRequest = new CancelRequest("123456789");
-            Assert.AreEqual("api/cancel?id=123456789\nPUT", cancelRequest.ToString());
+            var jobId = Guid.NewGuid();
+            var cancelRequest = new CancelRequest(jobId);
+            Assert.AreEqual($"api/cancel?id={jobId}\nPUT", cancelRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
