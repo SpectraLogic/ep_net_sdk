@@ -13,46 +13,25 @@
  * ****************************************************************************
  */
 
-using log4net;
-using Newtonsoft.Json;
-using SpectraLogic.EscapePodClient.Exceptions;
-using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
+using SpectraLogic.EscapePodClient.Utils;
 using System.Net;
 
 namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
-    internal class HeadResponseParser : IResponseParser<bool>
+    internal class DeleteClusterResponseParser : IResponseParser<bool>
     {
-        #region Fields
-
-        private static ILog LOG = LogManager.GetLogger("HeadResponseParser");
-
-        #endregion Fields
-
         #region Methods
 
         public bool Parse(IHttpWebResponse response)
         {
             using (response)
             {
-                LOG.Debug(response.StatusCode);
-
-                if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
-                {
-                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>("{\"message\":\"The node is not a member of a cluster\",\"statusCode\":503}");
-                    throw new ErrorResponseException(errorResponse);
-                }
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    return true;
-                }
-
-                return false;
+                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
+                return true;
             }
         }
-
-        #endregion Methods
     }
+
+    #endregion Methods
 }

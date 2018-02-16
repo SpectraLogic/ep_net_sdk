@@ -59,6 +59,7 @@
     <Compile Include="Calls\CreateArchiveRequest.cs" />
     <Compile Include="Calls\CreateClusterRequest.cs" />
     <Compile Include="Calls\CreateDeviceRequest.cs" />
+    <Compile Include="Calls\DeleteClusterRequest.cs" />
     <Compile Include="Calls\DeleteRequest.cs" />
     <Compile Include="Calls\GetArchiveRequest.cs" />
     <Compile Include="Calls\GetClusterRequest.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="ResponseParsers\CreateArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\CreateClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\CreateDeviceResponseParser.cs" />
+    <Compile Include="ResponseParsers\DeleteClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteResponseParser.cs" />
     <Compile Include="ResponseParsers\GetArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\GetClusterResponseParser.cs" />

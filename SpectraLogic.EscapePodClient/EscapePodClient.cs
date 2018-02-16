@@ -166,7 +166,6 @@ namespace SpectraLogic.EscapePodClient
         /// <param name="request">The request.</param>
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidDeviceCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.UnreachableEndpointException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
         public IEscapePodDevice CreateDevice(CreateDeviceRequest request)
@@ -251,6 +250,20 @@ namespace SpectraLogic.EscapePodClient
                 var request = new HeadArchiveRequest(archiveName);
                 Log.Debug($"IsArchiveExist info\n{request}");
                 return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Deletes the cluster.
+        /// </summary>
+        /// <returns></returns>
+        public bool DeleteCluster()
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new DeleteClusterRequest();
+                Log.Debug($"DeleteCluster info\n{request}");
+                return new DeleteClusterResponseParser().Parse(_network.Invoke(request));
             });
         }
 
