@@ -72,8 +72,9 @@ namespace SpectraLogic.EscapePodClient.Utils
                 {
                     switch (ex.ErrorResponse.ErrorMessage)
                     {
+                        case "The service is unavailable":
                         case "The node is not a member of a cluster":
-                            throw new NodeIsNotAMemberOfAClusterException(ex.ErrorResponse.ErrorMessage, ex);
+                            throw new NodeIsNotAClusterMemeberException(ex.ErrorResponse.ErrorMessage, ex);
 
                         case "Cannot join another cluster when already a member of one":
                             throw new AlreadyPartOfClusterException(ex.ErrorResponse.ErrorMessage, ex);

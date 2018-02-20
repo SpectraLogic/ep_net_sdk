@@ -40,7 +40,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 
                 if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {
-                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>("{\"message\":\"The node is not a member of a cluster\",\"statusCode\":503}");
+                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>("{\"message\":\"The service is unavailable\",\"statusCode\":503}");
                     throw new ErrorResponseException(errorResponse);
                 }
 

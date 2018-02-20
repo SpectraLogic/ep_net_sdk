@@ -299,7 +299,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             //{
             //    EscapePodClientFixture.EscapePodClient.DeleteCluster();
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new ArchiveRequest("", Enumerable.Empty<ArchiveFile>());
@@ -307,81 +307,81 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             //        });
 
             //    //TODO uncomment when cancel is supported in the server
-            //    //Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //    //    () =>
             //    //    {
             //    //        var request = new CancelRequest(Guid.NewGuid());
             //    //        return Task.FromResult(EscapePodClientFixture.EscapePodClient.Cancel(request));
             //    //    });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new CreateArchiveRequest("", new ResolverConfig("", "", "", "", false));
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new CreateDeviceRequest("", "", "", "");
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request));
             //        });
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //       () =>
             //       {
             //           return Task.FromResult(EscapePodClientFixture.EscapePodClient.DeleteCluster());
             //       });
 
             //    //TODO uncomment when delete is supported in the server
-            //    //Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //    //    () =>
             //    //    {
             //    //        var request = new DeleteRequest(Enumerable.Empty<DeleteFile>());
             //    //        return Task.FromResult(EscapePodClientFixture.EscapePodClient.Delete(request));
             //    //    });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new GetArchiveRequest("");
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetArchive(request));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new GetClusterRequest();
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetCluster(request));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new GetDeviceRequest("");
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetDevice(request));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new GetEscapePodJobRequest("", Guid.NewGuid());
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsArchiveExist(""));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsDeviceExist(""));
             //        });
 
-            //    Assert.ThrowsAsync<NodeIsNotAMemberOfAClusterException>(
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
             //        () =>
             //        {
             //            var request = new RestoreRequest("", Enumerable.Empty<RestoreFile>());
