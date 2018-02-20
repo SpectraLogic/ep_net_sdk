@@ -377,7 +377,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.RESTORE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
+            Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
+            Assert.AreEqual(10, job.BytesTransferred);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
             Assert.AreEqual(0.5, job.Progress);
             Assert.AreEqual("Active", job.Status.Message);
@@ -387,7 +389,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
+            Assert.AreEqual(1, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
+            Assert.AreEqual(1234, job.BytesTransferred);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
@@ -397,7 +401,9 @@ namespace SpectraLogic.EscapePodClient.Test
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(EscapePodJobType.CANCEL, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
+            Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
+            Assert.AreEqual(10, job.BytesTransferred);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Canceled", job.Status.Message);

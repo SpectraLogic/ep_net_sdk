@@ -32,16 +32,20 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <param name="jobId">The job identifier.</param>
         /// <param name="jobType">Type of the job.</param>
         /// <param name="numberOfFiles">The number of files.</param>
+        /// <param name="filesTransferred">The files transferred.</param>
         /// <param name="totalSizeInBytes">The total size in bytes.</param>
+        /// <param name="bytesTransferred">The bytes transferred.</param>
         /// <param name="created">The created.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
-        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
+        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string created, double progress, EscapePodJobStatus status)
         {
             JobId = jobId;
             JobType = jobType;
             NumberOfFiles = numberOfFiles;
+            FilesTransferred = filesTransferred;
             TotalSizeInBytes = totalSizeInBytes;
+            BytesTransferred = bytesTransferred;
             Created = created;
             Progress = progress;
             Status = status;
