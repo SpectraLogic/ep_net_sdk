@@ -291,7 +291,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsArchiveExist("not_found"));
         }
 
-        //TODO can be tested after ESCP-160 is resolved
+        //TODO can be tested after ESCP-163 is resolved
         [Test]
         public void NotMemberOfAClusterErrorTests()
         {
