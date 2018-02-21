@@ -25,19 +25,19 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
     internal class GetEscapePodJobParser : IResponseParser<IEscapePodJob>
     {
-        #region Fields
+        #region Private Fields
 
         private static readonly ILog LOG = LogManager.GetLogger("GetEscapePodJobParser");
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Methods
+        #region Public Methods
 
         public IEscapePodJob Parse(IHttpWebResponse response)
         {
             using (response)
             {
-                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.OK); //TODO use the right status code
+                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.OK);
                 using (var stream = response.GetResponseStream())
                 using (var textStreamReader = new StreamReader(stream))
                 {
@@ -48,6 +48,6 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
             }
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }
