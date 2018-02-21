@@ -13,22 +13,23 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
 using SpectraLogic.EscapePodClient.Utils;
 using System.Net;
 
 namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
-    internal class DeleteClusterResponseParser : IResponseParser<bool>
+    internal class DeleteClusterResponseParser : IResponseParser<Void>
     {
         #region Methods
 
-        public bool Parse(IHttpWebResponse response)
+        public Void Parse(IHttpWebResponse response)
         {
             using (response)
             {
                 ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
-                return true;
+                return new Void();
             }
         }
     }

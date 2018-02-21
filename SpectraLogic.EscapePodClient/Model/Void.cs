@@ -13,27 +13,23 @@
  * ****************************************************************************
  */
 
-using System;
-
-namespace SpectraLogic.EscapePodClient.Exceptions
+namespace SpectraLogic.EscapePodClient.Model
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="System.Exception" />
-    public class AlreadyPartOfClusterException : Exception
+    public struct Void
     {
-        #region Constructors
+        #region Properties
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AlreadyPartOfClusterException"/> class.
+        /// Gets the default.
         /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        public AlreadyPartOfClusterException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+        /// <value>
+        /// The default.
+        /// </value>
+        public static Void Default { get; }
 
-        #endregion Constructors
+        #endregion Properties
     }
 }

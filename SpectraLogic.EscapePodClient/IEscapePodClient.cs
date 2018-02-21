@@ -128,8 +128,7 @@ namespace SpectraLogic.EscapePodClient
         /// <summary>
         /// Deletes the cluster.
         /// </summary>
-        /// <returns></returns>
-        bool DeleteCluster();
+        void DeleteCluster();
 
         #endregion Methods
     }

@@ -119,7 +119,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateClusterRequest(null)));
 
             var request = new CreateClusterRequest(EscapePodClientFixture.ClusterName);
-            Assert.ThrowsAsync<AlreadyPartOfClusterException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateCluster(request)));
+            Assert.ThrowsAsync<AlreadyAClusterMemberException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateCluster(request)));
         }
 
         [Test]

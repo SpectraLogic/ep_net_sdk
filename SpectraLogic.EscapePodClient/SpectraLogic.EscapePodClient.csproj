@@ -72,7 +72,7 @@
     <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\DeviceAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\MemberAlreadyPartOfClusterException.cs" />
+    <Compile Include="Exceptions\AlreadyAClusterMemberException.cs" />
     <Compile Include="Exceptions\NodeIsNotAClusterMemeberExceptionn.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
@@ -107,6 +107,7 @@
     <Compile Include="Model\ResourceType.cs" />
     <Compile Include="Model\RestoreFile.cs" />
     <Compile Include="Model\TimecodeRange.cs" />
+    <Compile Include="Model\Void.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseParsers\ArchiveResponseParser.cs" />
     <Compile Include="ResponseParsers\CancelResponseParser.cs" />

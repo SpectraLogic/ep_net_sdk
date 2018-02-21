@@ -257,9 +257,9 @@ namespace SpectraLogic.EscapePodClient
         /// Deletes the cluster.
         /// </summary>
         /// <returns></returns>
-        public bool DeleteCluster()
+        public void DeleteCluster()
         {
-            return ExceptionDecorator.Run(() =>
+            ExceptionDecorator.Run(() =>
             {
                 var request = new DeleteClusterRequest();
                 Log.Debug($"DeleteCluster info\n{request}");
