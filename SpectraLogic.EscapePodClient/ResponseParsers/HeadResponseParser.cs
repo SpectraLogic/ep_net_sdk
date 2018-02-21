@@ -44,12 +44,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                     throw new ErrorResponseException(errorResponse);
                 }
 
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    return true;
-                }
-
-                return false;
+                return response.StatusCode == HttpStatusCode.OK;
             }
         }
 
