@@ -18,13 +18,29 @@ using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using System.Configuration;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
 {
     public static class EscapePodClientFixture
     {
-        #region Constructors
+        #region Public Fields
+
+        public static readonly string BlackPearlBucket = "ep_net_sdk_tests";
+        public static readonly string BlackPearlUserName = "Administrator";
+        public static readonly string ResolverName = "bp_resolver";
+
+        #endregion Public Fields
+
+        #region Private Fields
+
+        private static readonly string[] Files = { "F1.txt", "F2.txt" };
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         static EscapePodClientFixture()
         {
@@ -34,31 +50,38 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             CreateCluster();
             CreateDevice();
             CreateArchive();
+
+            SetupTestData();
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Properties
+        #region Public Properties
 
-        public static string BlackPearlBucket = "ep_net_sdk_tests";
-        public static string BlackPearlUserName = "Administrator";
-        public static string ResolverName = "bp_resolver";
-
-        public static IEscapePodClient EscapePodClient { get; private set; }
         public static string ArchiveName { get; private set; }
+        public static string ArchiveTempDir { get; private set; }
         public static string ClusterName { get; private set; }
         public static string DeviceName { get; private set; }
         public static string Endpoint { get; private set; }
+        public static IEscapePodClient EscapePodClient { get; private set; }
         public static string Password { get; private set; }
+        public static string RestoreTempDir { get; private set; }
         public static string Username { get; private set; }
 
-        #endregion Properties
+        #endregion Public Properties
 
-        #region Methods
+        #region Public Methods
 
-        public static ResolverConfig GetResolver()
+        public static void CreateArchive()
         {
-            return new ResolverConfig(ResolverName, DeviceName, BlackPearlUserName, BlackPearlBucket, false);
+            ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
+
+            if (!EscapePodClient.IsArchiveExist(ArchiveName))
+            {
+                var resolver = GetResolver();
+                var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
+                EscapePodClient.CreateArchive(createArchiveRequest);
+            }
         }
 
         public static void CreateCluster()
@@ -93,17 +116,14 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             }
         }
 
-        public static void CreateArchive()
+        public static ResolverConfig GetResolver()
         {
-            ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
-
-            if (!EscapePodClient.IsArchiveExist(ArchiveName))
-            {
-                var resolver = GetResolver();
-                var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
-                EscapePodClient.CreateArchive(createArchiveRequest);
-            }
+            return new ResolverConfig(ResolverName, DeviceName, BlackPearlUserName, BlackPearlBucket, false);
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private static void CreateClient()
         {
@@ -122,6 +142,43 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             EscapePodClient = escapePodClientBuilder.Build();
         }
 
-        #endregion Methods
+        private static void SetupArchiveTestData(string tempDir)
+        {
+            ArchiveTempDir = $"{tempDir}archvie";
+            if (!Directory.Exists(ArchiveTempDir))
+            {
+                Directory.CreateDirectory(ArchiveTempDir);
+            }
+
+            foreach (var file in Files)
+            {
+                var writer = File.OpenWrite(ArchiveTempDir + "/" + file);
+                using (var fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpectraLogic.EscapePodClient.Integration.Test.TestFiles." + file))
+                {
+                    fileStream.CopyTo(writer);
+                    fileStream.Seek(0, SeekOrigin.Begin);
+                }
+                writer.Close();
+            }
+        }
+
+        private static void SetupRestoreTestData(string tempDir)
+        {
+            RestoreTempDir = $"{tempDir}restore";
+            if (!Directory.Exists(RestoreTempDir))
+            {
+                Directory.CreateDirectory(RestoreTempDir);
+            }
+        }
+
+        private static void SetupTestData()
+        {
+            var tempDir = Path.GetTempPath();
+
+            SetupArchiveTestData(tempDir);
+            SetupRestoreTestData(tempDir);
+        }
+
+        #endregion Private Methods
     }
 }
