@@ -22,7 +22,7 @@ namespace SpectraLogic.EscapePodClient.Utils
 {
     internal class ExceptionDecorator
     {
-        #region Methods
+        #region Public Methods
 
         public static T Run<T>(Func<T> action)
         {
@@ -47,7 +47,7 @@ namespace SpectraLogic.EscapePodClient.Utils
                             throw new ArchiveNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
 
                         case ResourceType.JOB:
-                            throw new ArchiveJobNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
+                            throw new EscapePodJobNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
 
                         case ResourceType.SPECTRA_DEVICE:
                             throw new DeviceNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
@@ -95,6 +95,6 @@ namespace SpectraLogic.EscapePodClient.Utils
             }
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

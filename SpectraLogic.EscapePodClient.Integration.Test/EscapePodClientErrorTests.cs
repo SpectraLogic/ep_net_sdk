@@ -272,15 +272,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request)));
 
             request = new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, Guid.NewGuid());
-            Assert.ThrowsAsync<ArchiveJobNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request)));
-        }
-
-        [Test]
-        public void HeadDeviceErrorTests()
-        {
-            //TODO add test for InvalidEscapePodServerCredentialsException
-
-            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsDeviceExist("not_found"));
+            Assert.ThrowsAsync<EscapePodJobNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request)));
         }
 
         [Test]
@@ -289,6 +281,14 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             //TODO add test for InvalidEscapePodServerCredentialsException
 
             Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsArchiveExist("not_found"));
+        }
+
+        [Test]
+        public void HeadDeviceErrorTests()
+        {
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsDeviceExist("not_found"));
         }
 
         [Test]

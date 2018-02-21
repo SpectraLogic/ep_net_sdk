@@ -23,46 +23,16 @@ namespace SpectraLogic.EscapePodClient
     /// </summary>
     public interface IEscapePodClient
     {
-        //TODO update all the comments with the proper exception when the api is done with all error handling exceptions
-
-        #region Methods
-
-        /// <summary>
-        /// Gets the archive.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        /// <returns></returns>
-        IEscapePodArchive GetArchive(GetArchiveRequest request);
-
-        /// <summary>
-        /// Gets the job.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        IEscapePodJob GetJob(GetEscapePodJobRequest request);
-
-        /// <summary>
-        /// Deletes the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        IEscapePodJob Delete(DeleteRequest request);
-
-        /// <summary>
-        /// Restores the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        IEscapePodJob Restore(RestoreRequest request);
+        #region Public Methods
 
         /// <summary>
         /// Archives the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         IEscapePodJob Archive(ArchiveRequest request);
 
         /// <summary>
@@ -70,6 +40,9 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         IEscapePodJob Cancel(CancelRequest request);
 
         /// <summary>
@@ -77,44 +50,96 @@ namespace SpectraLogic.EscapePodClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveAlreadyExistsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ValidationException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         IEscapePodArchive CreateArchive(CreateArchiveRequest request);
-
-        /// <summary>
-        /// Creates the device.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        IEscapePodDevice CreateDevice(CreateDeviceRequest request);
-
-        /// <summary>
-        /// Gets the device.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        IEscapePodDevice GetDevice(GetDeviceRequest request);
 
         /// <summary>
         /// Creates the cluster.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.AlreadyAClusterMemberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         IEscapePodCluster CreateCluster(CreateClusterRequest request);
+
+        /// <summary>
+        /// Creates the device.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidDeviceCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.DeviceAlreadyExistsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ValidationException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        IEscapePodDevice CreateDevice(CreateDeviceRequest request);
+
+        /// <summary>
+        /// Deletes the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        IEscapePodJob Delete(DeleteRequest request);
+
+        /// <summary>
+        /// Deletes the cluster.
+        /// </summary>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        void DeleteCluster();
+
+        /// <summary>
+        /// Gets the archive.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        /// <returns></returns>
+        IEscapePodArchive GetArchive(GetArchiveRequest request);
 
         /// <summary>
         /// Gets the cluster.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         IEscapePodCluster GetCluster(GetClusterRequest request);
 
         /// <summary>
-        /// Determines whether [is device exist] [the specified device name].
+        /// Gets the device.
         /// </summary>
-        /// <param name="deviceName">Name of the device.</param>
-        /// <returns>
-        ///   <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
-        /// </returns>
-        bool IsDeviceExist(string deviceName);
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.DeviceNotFoundException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        IEscapePodDevice GetDevice(GetDeviceRequest request);
+
+        /// <summary>
+        /// Gets the job.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.EscapePodJobNotFoundException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        IEscapePodJob GetJob(GetEscapePodJobRequest request);
 
         /// <summary>
         /// Determines whether [is archive exist] [the specified archive name].
@@ -123,13 +148,33 @@ namespace SpectraLogic.EscapePodClient
         /// <returns>
         ///   <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         bool IsArchiveExist(string archiveName);
 
         /// <summary>
-        /// Deletes the cluster.
+        /// Determines whether [is device exist] [the specified device name].
         /// </summary>
-        void DeleteCluster();
+        /// <param name="deviceName">Name of the device.</param>
+        /// <returns>
+        ///   <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        bool IsDeviceExist(string deviceName);
 
-        #endregion Methods
+        /// <summary>
+        /// Restores the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        IEscapePodJob Restore(RestoreRequest request);
+
+        #endregion Public Methods
     }
 }
