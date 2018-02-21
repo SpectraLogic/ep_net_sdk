@@ -330,7 +330,8 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                    () =>
                    {
-                       return Task.FromResult(EscapePodClientFixture.EscapePodClient.DeleteCluster());
+                       EscapePodClientFixture.EscapePodClient.DeleteCluster();
+                       return null;
                    });
 
                 //TODO uncomment when delete is supported in the server
