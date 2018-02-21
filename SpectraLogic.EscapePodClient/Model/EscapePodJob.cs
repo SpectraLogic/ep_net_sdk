@@ -32,16 +32,20 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <param name="jobId">The job identifier.</param>
         /// <param name="jobType">Type of the job.</param>
         /// <param name="numberOfFiles">The number of files.</param>
+        /// <param name="filesTransferred">The files transferred.</param>
         /// <param name="totalSizeInBytes">The total size in bytes.</param>
+        /// <param name="bytesTransferred">The bytes transferred.</param>
         /// <param name="created">The created.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
-        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, long totalSizeInBytes, string created, double progress, EscapePodJobStatus status)
+        public EscapePodJob(Guid jobId, EscapePodJobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string created, double progress, EscapePodJobStatus status)
         {
             JobId = jobId;
             JobType = jobType;
             NumberOfFiles = numberOfFiles;
+            FilesTransferred = filesTransferred;
             TotalSizeInBytes = totalSizeInBytes;
+            BytesTransferred = bytesTransferred;
             Created = created;
             Progress = progress;
             Status = status;
@@ -76,12 +80,28 @@ namespace SpectraLogic.EscapePodClient.Model
         [JsonProperty(Order = 3, PropertyName = "numberOfFiles")] public int NumberOfFiles { get; }
 
         /// <summary>
+        /// Gets the files transferred.
+        /// </summary>
+        /// <value>
+        /// The files transferred.
+        /// </value>
+        [JsonProperty(Order = 4, PropertyName = "filesTransferred")] public int FilesTransferred { get; }
+
+        /// <summary>
         /// Gets the total size in bytes.
         /// </summary>
         /// <value>
         /// The total size in bytes.
         /// </value>
-        [JsonProperty(Order = 4, PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
+        [JsonProperty(Order = 5, PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
+
+        /// <summary>
+        /// Gets the bytes transferred.
+        /// </summary>
+        /// <value>
+        /// The bytes transferred.
+        /// </value>
+        [JsonProperty(Order = 6, PropertyName = "bytesTransferred")] public long BytesTransferred { get; }
 
         /// <summary>
         /// Gets the created.
@@ -89,7 +109,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The created.
         /// </value>
-        [JsonProperty(Order = 5, PropertyName = "created")] public string Created { get; }
+        [JsonProperty(Order = 7, PropertyName = "created")] public string Created { get; }
 
         /// <summary>
         /// Gets the progress.
@@ -97,7 +117,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The progress.
         /// </value>
-        [JsonProperty(Order = 6, PropertyName = "progress")] public double Progress { get; }
+        [JsonProperty(Order = 8, PropertyName = "progress")] public double Progress { get; }
 
         /// <summary>
         /// Gets the status.
@@ -105,7 +125,7 @@ namespace SpectraLogic.EscapePodClient.Model
         /// <value>
         /// The status.
         /// </value>
-        [JsonProperty(Order = 7, PropertyName = "status")] public EscapePodJobStatus Status { get; }
+        [JsonProperty(Order = 9, PropertyName = "status")] public EscapePodJobStatus Status { get; }
 
         #endregion Properties
     }

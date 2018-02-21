@@ -18,7 +18,7 @@ namespace SpectraLogic.EscapePodClient.Model
     /// <summary>
     ///
     /// </summary>
-    public struct Void
+    internal struct Void
     {
         #region Properties
 

@@ -49,12 +49,28 @@ namespace SpectraLogic.EscapePodClient.Model
         int NumberOfFiles { get; }
 
         /// <summary>
+        /// Gets the files transferred.
+        /// </summary>
+        /// <value>
+        /// The files transferred.
+        /// </value>
+        int FilesTransferred { get; }
+
+        /// <summary>
         /// Gets the total size in bytes.
         /// </summary>
         /// <value>
         /// The total size in bytes.
         /// </value>
         long TotalSizeInBytes { get; }
+
+        /// <summary>
+        /// Gets the bytes transferred.
+        /// </summary>
+        /// <value>
+        /// The bytes transferred.
+        /// </value>
+        long BytesTransferred { get; }
 
         /// <summary>
         /// Gets the created.
