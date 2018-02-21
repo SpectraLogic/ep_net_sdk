@@ -22,7 +22,7 @@ using System.Net;
 
 namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
-    internal class HeadResponseParser : IResponseParser<Void>
+    internal class HeadResponseParser : IResponseParser<bool>
     {
         #region Fields
 
@@ -32,7 +32,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
 
         #region Methods
 
-        public Void Parse(IHttpWebResponse response)
+        public bool Parse(IHttpWebResponse response)
         {
             using (response)
             {
@@ -44,7 +44,7 @@ namespace SpectraLogic.EscapePodClient.ResponseParsers
                     throw new ErrorResponseException(errorResponse);
                 }
 
-                return new Void();
+                return response.StatusCode == HttpStatusCode.OK;
             }
         }
 

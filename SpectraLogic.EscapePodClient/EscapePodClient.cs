@@ -232,9 +232,7 @@ namespace SpectraLogic.EscapePodClient
             {
                 var request = new HeadDeviceRequest(deviceName);
                 Log.Debug($"IsDeviceExist info\n{request}");
-                new HeadResponseParser().Parse(_network.Invoke(request));
-
-                return true;
+                return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
 
@@ -251,9 +249,7 @@ namespace SpectraLogic.EscapePodClient
             {
                 var request = new HeadArchiveRequest(archiveName);
                 Log.Debug($"IsArchiveExist info\n{request}");
-                new HeadResponseParser().Parse(_network.Invoke(request));
-
-                return true;
+                return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
 
@@ -261,9 +257,9 @@ namespace SpectraLogic.EscapePodClient
         /// Deletes the cluster.
         /// </summary>
         /// <returns></returns>
-        public bool DeleteCluster()
+        public void DeleteCluster()
         {
-            return ExceptionDecorator.Run(() =>
+            ExceptionDecorator.Run(() =>
             {
                 var request = new DeleteClusterRequest();
                 Log.Debug($"DeleteCluster info\n{request}");

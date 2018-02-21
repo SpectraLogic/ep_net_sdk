@@ -220,7 +220,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            Assert.IsTrue(client.DeleteCluster());
+            client.DeleteCluster();
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
