@@ -77,7 +77,7 @@ namespace SpectraLogic.EscapePodClient.Utils
                             throw new NodeIsNotAClusterMemeberException(ex.ErrorResponse.ErrorMessage, ex);
 
                         case "Cannot join another cluster when already a member of one":
-                            throw new AlreadyPartOfClusterException(ex.ErrorResponse.ErrorMessage, ex);
+                            throw new AlreadyAClusterMemberException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 

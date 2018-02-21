@@ -72,7 +72,7 @@
     <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\DeviceAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\MemberAlreadyPartOfClusterException.cs" />
+    <Compile Include="Exceptions\AlreadyAClusterMemberException.cs" />
     <Compile Include="Exceptions\NodeIsNotAClusterMemeberExceptionn.cs" />
     <Compile Include="Exceptions\DeviceNotFoundException.cs" />
     <Compile Include="Exceptions\ErrorResponseException.cs" />
