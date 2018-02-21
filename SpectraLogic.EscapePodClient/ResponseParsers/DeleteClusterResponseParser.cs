@@ -13,41 +13,26 @@
  * ****************************************************************************
  */
 
-using log4net;
-using Newtonsoft.Json;
-using SpectraLogic.EscapePodClient.Exceptions;
 using SpectraLogic.EscapePodClient.Model;
 using SpectraLogic.EscapePodClient.Runtime;
+using SpectraLogic.EscapePodClient.Utils;
 using System.Net;
 
 namespace SpectraLogic.EscapePodClient.ResponseParsers
 {
-    internal class HeadResponseParser : IResponseParser<bool>
+    internal class DeleteClusterResponseParser : IResponseParser<Void>
     {
-        #region Fields
-
-        private static ILog LOG = LogManager.GetLogger("HeadResponseParser");
-
-        #endregion Fields
-
         #region Methods
 
-        public bool Parse(IHttpWebResponse response)
+        public Void Parse(IHttpWebResponse response)
         {
             using (response)
             {
-                LOG.Debug(response.StatusCode);
-
-                if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
-                {
-                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>("{\"message\":\"The service is unavailable\",\"statusCode\":503}");
-                    throw new ErrorResponseException(errorResponse);
-                }
-
-                return response.StatusCode == HttpStatusCode.OK;
+                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
+                return new Void();
             }
         }
-
-        #endregion Methods
     }
+
+    #endregion Methods
 }

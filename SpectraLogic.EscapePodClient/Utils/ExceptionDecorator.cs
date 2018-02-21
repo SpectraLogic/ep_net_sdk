@@ -70,7 +70,15 @@ namespace SpectraLogic.EscapePodClient.Utils
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {
-                    throw new ClusterNotConfiguredException(ex.ErrorResponse.ErrorMessage, ex);
+                    switch (ex.ErrorResponse.ErrorMessage)
+                    {
+                        case "The service is unavailable":
+                        case "The node is not a member of a cluster":
+                            throw new NodeIsNotAClusterMemeberException(ex.ErrorResponse.ErrorMessage, ex);
+
+                        case "Cannot join another cluster when already a member of one":
+                            throw new AlreadyAClusterMemberException(ex.ErrorResponse.ErrorMessage, ex);
+                    }
                 }
 
                 if (ex.ErrorResponse.StatusCode == (HttpStatusCode)422)
@@ -80,13 +88,7 @@ namespace SpectraLogic.EscapePodClient.Utils
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    switch (ex.ErrorResponse.ErrorMessage)
-                    {
-                        case "The server must be a member of a cluster":
-                            throw new ClusterNotConfiguredException(ex.ErrorResponse.ErrorMessage, ex);
-                        case "Cannot join another cluster when already a member of one":
-                            throw new MemberAlreadyPartOfClusterException(ex.ErrorResponse.ErrorMessage, ex);
-                    }
+                    //TODO
                 }
 
                 throw ex;

@@ -119,7 +119,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateClusterRequest(null)));
 
             var request = new CreateClusterRequest(EscapePodClientFixture.ClusterName);
-            Assert.ThrowsAsync<MemberAlreadyPartOfClusterException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateCluster(request)));
+            Assert.ThrowsAsync<AlreadyAClusterMemberException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateCluster(request)));
         }
 
         [Test]
@@ -289,6 +289,132 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             //TODO add test for InvalidEscapePodServerCredentialsException
 
             Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsArchiveExist("not_found"));
+        }
+
+        //TODO can be tested after ESCP-160 is resolved
+        [Test]
+        public void NotMemberOfAClusterErrorTests()
+        {
+            //try
+            //{
+            //    EscapePodClientFixture.EscapePodClient.DeleteCluster();
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new ArchiveRequest("", Enumerable.Empty<ArchiveFile>());
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.Archive(request));
+            //        });
+
+            //    //TODO uncomment when cancel is supported in the server
+            //    //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //    //    () =>
+            //    //    {
+            //    //        var request = new CancelRequest(Guid.NewGuid());
+            //    //        return Task.FromResult(EscapePodClientFixture.EscapePodClient.Cancel(request));
+            //    //    });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new CreateArchiveRequest("", new ResolverConfig("", "", "", "", false));
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateArchive(request));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new CreateDeviceRequest("", "", "", "");
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.CreateDevice(request));
+            //        });
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //       () =>
+            //       {
+            //           return Task.FromResult(EscapePodClientFixture.EscapePodClient.DeleteCluster());
+            //       });
+
+            //    //TODO uncomment when delete is supported in the server
+            //    //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //    //    () =>
+            //    //    {
+            //    //        var request = new DeleteRequest(Enumerable.Empty<DeleteFile>());
+            //    //        return Task.FromResult(EscapePodClientFixture.EscapePodClient.Delete(request));
+            //    //    });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new GetArchiveRequest("");
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetArchive(request));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new GetClusterRequest();
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetCluster(request));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new GetDeviceRequest("");
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetDevice(request));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new GetEscapePodJobRequest("", Guid.NewGuid());
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.GetJob(request));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsArchiveExist(""));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsDeviceExist(""));
+            //        });
+
+            //    Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+            //        () =>
+            //        {
+            //            var request = new RestoreRequest("", Enumerable.Empty<RestoreFile>());
+            //            return Task.FromResult(EscapePodClientFixture.EscapePodClient.Restore(request));
+            //        });
+            //}
+            //finally
+            //{
+            //    EscapePodClientFixture.CreateCluster();
+            //    EscapePodClientFixture.CreateDevice();
+            //    EscapePodClientFixture.CreateArchive();
+            //}
+        }
+
+        [Test]
+        public void RestoreErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(
+                () => Task.FromResult(new RestoreRequest(null, Enumerable.Empty<RestoreFile>())));
+            Assert.ThrowsAsync<ArgumentNullException>(
+                () => Task.FromResult(new RestoreRequest(EscapePodClientFixture.ArchiveName, null)));
+
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            var request = new RestoreRequest("should_fail", Enumerable.Empty<RestoreFile>());
+            Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.Restore(request)));
+
+            //TODO test after ESCP-158 is done
+            //EscapePodClientFixture.EscapePodClient.Restore(
+            //    new RestoreRequest(EscapePodClientFixture.ArchiveName, new List<RestoreFile>
+            //    {
+            //        new RestoreFile("not_found", "bad uri")
+            //    }));
         }
 
         #endregion Tests

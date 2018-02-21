@@ -125,6 +125,11 @@ namespace SpectraLogic.EscapePodClient
         /// </returns>
         bool IsArchiveExist(string archiveName);
 
+        /// <summary>
+        /// Deletes the cluster.
+        /// </summary>
+        void DeleteCluster();
+
         #endregion Methods
     }
 }

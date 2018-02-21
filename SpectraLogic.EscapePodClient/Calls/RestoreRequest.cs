@@ -15,6 +15,8 @@
 
 using Newtonsoft.Json;
 using SpectraLogic.EscapePodClient.Model;
+using SpectraLogic.EscapePodClient.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,8 +46,12 @@ namespace SpectraLogic.EscapePodClient.Calls
         /// <param name="files">The files.</param>
         public RestoreRequest(string archiveName, IEnumerable<RestoreFile> files)
         {
+            Contract.Requires<ArgumentNullException>(archiveName != null, "archiveName");
+            Contract.Requires<ArgumentNullException>(files != null, "files");
+
             ArchiveName = archiveName;
             Files = files;
+
             QueryParams.Add("operation", "restore");
         }
 

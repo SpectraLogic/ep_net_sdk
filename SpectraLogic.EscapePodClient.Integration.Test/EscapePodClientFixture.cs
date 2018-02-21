@@ -61,6 +61,50 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             return new ResolverConfig(ResolverName, DeviceName, BlackPearlUserName, BlackPearlBucket, false);
         }
 
+        public static void CreateCluster()
+        {
+            ClusterName = ConfigurationManager.AppSettings["ClusterName"];
+            var getClusterRequest = new GetClusterRequest();
+            try
+            {
+                EscapePodClient.GetCluster(getClusterRequest);
+            }
+            catch (NodeIsNotAClusterMemeberException)
+            {
+                var createClusterRequest = new CreateClusterRequest(ClusterName);
+                EscapePodClient.CreateCluster(createClusterRequest);
+
+                //TODO remove this sleep once ESCP-154 is fixed
+                Thread.Sleep(30 * 1000);
+            }
+        }
+
+        public static void CreateDevice()
+        {
+            DeviceName = ConfigurationManager.AppSettings["DeviceName"];
+            Endpoint = ConfigurationManager.AppSettings["Endpoint"];
+            Username = ConfigurationManager.AppSettings["Username"];
+            Password = ConfigurationManager.AppSettings["Password"];
+
+            if (!EscapePodClient.IsDeviceExist(DeviceName))
+            {
+                var createDeviceRequest = new CreateDeviceRequest(DeviceName, Endpoint, Username, Password);
+                EscapePodClient.CreateDevice(createDeviceRequest);
+            }
+        }
+
+        public static void CreateArchive()
+        {
+            ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
+
+            if (!EscapePodClient.IsArchiveExist(ArchiveName))
+            {
+                var resolver = GetResolver();
+                var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
+                EscapePodClient.CreateArchive(createArchiveRequest);
+            }
+        }
+
         private static void CreateClient()
         {
             var escapePodClientBuilder = new EscapePodClientBuilder(
@@ -76,50 +120,6 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             }
 
             EscapePodClient = escapePodClientBuilder.Build();
-        }
-
-        private static void CreateCluster()
-        {
-            ClusterName = ConfigurationManager.AppSettings["ClusterName"];
-            var getClusterRequest = new GetClusterRequest();
-            try
-            {
-                EscapePodClient.GetCluster(getClusterRequest);
-            }
-            catch (ClusterNotConfiguredException)
-            {
-                var createClusterRequest = new CreateClusterRequest(ClusterName);
-                EscapePodClient.CreateCluster(createClusterRequest);
-
-                //TODO remove this sleep once ESCP-154 is fixed
-                Thread.Sleep(30 * 1000);
-            }
-        }
-
-        private static void CreateDevice()
-        {
-            DeviceName = ConfigurationManager.AppSettings["DeviceName"];
-            Endpoint = ConfigurationManager.AppSettings["Endpoint"];
-            Username = ConfigurationManager.AppSettings["Username"];
-            Password = ConfigurationManager.AppSettings["Password"];
-
-            if (!EscapePodClient.IsDeviceExist(DeviceName))
-            {
-                var createDeviceRequest = new CreateDeviceRequest(DeviceName, Endpoint, Username, Password);
-                EscapePodClient.CreateDevice(createDeviceRequest);
-            }
-        }
-
-        private static void CreateArchive()
-        {
-            ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
-
-            if (!EscapePodClient.IsArchiveExist(ArchiveName))
-            {
-                var resolver = GetResolver();
-                var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
-                EscapePodClient.CreateArchive(createArchiveRequest);
-            }
         }
 
         #endregion Methods

@@ -202,6 +202,31 @@ namespace SpectraLogic.EscapePodClient.Test
         }
 
         [Test]
+        public void DeleteCluster()
+        {
+            var deleteClusterRequest = new DeleteClusterRequest();
+            Assert.AreEqual("/api/cluster\nDELETE", deleteClusterRequest.ToString());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<DeleteClusterRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
+
+            var mockBuilder = new Mock<IEscapePodClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new EscapePodClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            client.DeleteCluster();
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void DeleteTest()
         {
             var deleteRequest =

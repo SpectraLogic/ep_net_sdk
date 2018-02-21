@@ -13,27 +13,33 @@
  * ****************************************************************************
  */
 
-using System;
-
-namespace SpectraLogic.EscapePodClient.Exceptions
+namespace SpectraLogic.EscapePodClient.Calls
 {
-    /// <summary>
-    ///
-    /// </summary>
-    /// <seealso cref="System.Exception" />
-    public class ClusterNotConfiguredException : Exception
+    internal class DeleteClusterRequest : RestRequest
     {
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClusterNotConfiguredException"/> class.
-        /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        public ClusterNotConfiguredException(string message, Exception innerException) : base(message, innerException)
+        public DeleteClusterRequest()
         {
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        internal override HttpVerb Verb => HttpVerb.DELETE;
+
+        internal override string Path => $"/api/cluster";
+
+        #endregion Properties
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return $"{Path}\n{Verb}";
+        }
+
+        #endregion Methods
     }
 }
