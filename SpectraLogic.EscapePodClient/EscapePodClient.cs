@@ -115,7 +115,7 @@ namespace SpectraLogic.EscapePodClient
             return ExceptionDecorator.Run(() =>
             {
                 var request = new HeadArchiveRequest(archiveName);
-                Log.Debug($"IsArchiveExist info\n{request}");
+                Log.Debug($"DoesArchiveExist info\n{request}");
                 return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -125,7 +125,7 @@ namespace SpectraLogic.EscapePodClient
             return ExceptionDecorator.Run(() =>
             {
                 var request = new HeadDeviceRequest(deviceName);
-                Log.Debug($"IsDeviceExist info\n{request}");
+                Log.Debug($"DoesDeviceExist info\n{request}");
                 return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
