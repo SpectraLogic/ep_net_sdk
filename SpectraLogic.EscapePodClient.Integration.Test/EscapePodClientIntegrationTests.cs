@@ -81,6 +81,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
                 var restoreJob = EscapePodClientFixture.EscapePodClient.Restore(restoreRequest);
 
+                pollingAttemps = 0;
                 do
                 {
                     restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
