@@ -432,7 +432,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            Assert.IsTrue(client.IsArchiveExist("archiveName"));
+            Assert.IsTrue(client.DoesArchiveExist("archiveName"));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -457,7 +457,7 @@ namespace SpectraLogic.EscapePodClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            Assert.IsTrue(client.IsDeviceExist("deviceName"));
+            Assert.IsTrue(client.DoesDeviceExist("deviceName"));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
