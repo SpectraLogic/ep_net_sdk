@@ -276,19 +276,19 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         }
 
         [Test]
-        public void HeadDeviceErrorTests()
-        {
-            //TODO add test for InvalidEscapePodServerCredentialsException
-
-            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsDeviceExist("not_found"));
-        }
-
-        [Test]
         public void HeadArchiveErrorTests()
         {
             //TODO add test for InvalidEscapePodServerCredentialsException
 
-            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsArchiveExist("not_found"));
+            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.DoesArchiveExist("not_found"));
+        }
+
+        [Test]
+        public void HeadDeviceErrorTests()
+        {
+            //TODO add test for InvalidEscapePodServerCredentialsException
+
+            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.DoesDeviceExist("not_found"));
         }
 
         [Test]
@@ -373,13 +373,13 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsArchiveExist(""));
+                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.DoesArchiveExist(""));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsDeviceExist(""));
+                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.DoesDeviceExist(""));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(

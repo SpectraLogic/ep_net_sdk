@@ -25,16 +25,16 @@ namespace SpectraLogic.EscapePodClient.Calls
     /// <seealso cref="SpectraLogic.EscapePodClient.Calls.RestRequest" />
     public class DeleteRequest : RestRequest
     {
-        #region Fields
+        #region Public Fields
 
         /// <summary>
         /// The files to be deleted
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<DeleteFile> Files;
 
-        #endregion Fields
+        #endregion Public Fields
 
-        #region Constructors
+        #region Public Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
@@ -45,18 +45,16 @@ namespace SpectraLogic.EscapePodClient.Calls
             Files = files;
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Properties
+        #region Internal Properties
 
+        internal override string Path => "api/delete"; //TODO use the right path
         internal override HttpVerb Verb => HttpVerb.DELETE;
-        internal override string Path => "api/delete";
 
-        #endregion Properties
+        #endregion Internal Properties
 
-        //TODO use the right path
-
-        #region Methods
+        #region Public Methods
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -69,11 +67,15 @@ namespace SpectraLogic.EscapePodClient.Calls
             return $"{Path}\n{Verb}\n{GetBody()}";
         }
 
+        #endregion Public Methods
+
+        #region Internal Methods
+
         internal override string GetBody()
         {
             return JsonConvert.SerializeObject(this);
         }
 
-        #endregion Methods
+        #endregion Internal Methods
     }
 }

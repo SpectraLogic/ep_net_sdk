@@ -19,6 +19,7 @@ using SpectraLogic.EscapePodClient.Calls;
 using SpectraLogic.EscapePodClient.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 
 namespace SpectraLogic.EscapePodClient.Integration.Test
@@ -26,62 +27,80 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
     [TestFixture]
     public class EscapePodClientIntegrationTests
     {
-        #region Fields
+        #region Private Fields
 
         private ILog _log = LogManager.GetLogger("EscapePodClientIntegrationTest");
 
-        #endregion Fields
+        //TODO remove this once Job tracking is done in the server
+        private int MAX_POLLING_ATTEMPS = 10;
 
-        #region Tests
+        private int POLLING_INTERVAL = 10; // in sec
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         [Test]
         public void ArchiveAndRestore()
         {
-            /***********
-             * ARCHIVE *
-             ***********/
-            var fileName1 = Guid.NewGuid().ToString();
-            var fileName2 = Guid.NewGuid().ToString();
-            var archiveRequest = new ArchiveRequest(EscapePodClientFixture.ArchiveName, new List<ArchiveFile>
+            try
             {
-                new ArchiveFile(fileName1, "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F1.txt", 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
-                new ArchiveFile(fileName2, "file:///C:/Users/sharons/Documents/GitHub/ep_net_sdk/SpectraLogic.EscapePodClient.Integration.Test/TestFiles/F2.txt", 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false)
-            });
+                /***********
+                 * ARCHIVE *
+                 ***********/
+                var fileName1 = Guid.NewGuid().ToString();
+                var fileName2 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(EscapePodClientFixture.ArchiveName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{EscapePodClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                    new ArchiveFile(fileName2, $"{EscapePodClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false)
+                });
 
-            var archiveJob = EscapePodClientFixture.EscapePodClient.Archive(archiveRequest);
+                var archiveJob = EscapePodClientFixture.EscapePodClient.Archive(archiveRequest);
 
-            do
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(5000);
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatus.COMPLETED, archiveJob.Status.Status);
+
+                /**********
+                * RESTORE *
+                ***********/
+
+                var restoreRequest = new RestoreRequest(EscapePodClientFixture.ArchiveName, new List<RestoreFile>
+                {
+                    new RestoreFile(fileName1, $"{EscapePodClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                    new RestoreFile(fileName2, $"{EscapePodClientFixture.RestoreTempDir}/F2_restore.txt".ToFileUri())
+                });
+
+                var restoreJob = EscapePodClientFixture.EscapePodClient.Restore(restoreRequest);
+
+                pollingAttemps = 0;
+                do
+                {
+                    restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
+                    _log.Debug(restoreJob.Status);
+                    Thread.Sleep(5000);
+                    pollingAttemps++;
+                } while (restoreJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
+            }
+            finally
             {
-                archiveJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, archiveJob.JobId));
-                _log.Debug(archiveJob.Status);
-                Thread.Sleep(5000);
-            } while (archiveJob.Status.Status == JobStatus.ACTIVE);
-
-            Assert.AreEqual(JobStatus.COMPLETED, archiveJob.Status.Status);
-
-            /**********
-            * RESTORE *
-            ***********/
-
-            //TODO create a temp dir for the restore
-            var restoreRequest = new RestoreRequest(EscapePodClientFixture.ArchiveName, new List<RestoreFile>
-            {
-                new RestoreFile(fileName1, "file:///C:/Temp/restore/F1_restore.txt"),
-                new RestoreFile(fileName2, "file:///C:/Temp/restore/F2_restore.txt")
-            });
-
-            var restoreJob = EscapePodClientFixture.EscapePodClient.Restore(restoreRequest);
-
-            do
-            {
-                restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
-                _log.Debug(restoreJob.Status);
-                Thread.Sleep(5000);
-            } while (restoreJob.Status.Status == JobStatus.ACTIVE);
-
-            Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
+                Directory.Delete(EscapePodClientFixture.ArchiveTempDir, true);
+                Directory.Delete(EscapePodClientFixture.RestoreTempDir, true);
+            }
         }
 
-        #endregion Tests
+        #endregion Public Methods
     }
 }

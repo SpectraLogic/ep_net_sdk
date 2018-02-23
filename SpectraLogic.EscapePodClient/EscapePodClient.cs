@@ -47,71 +47,6 @@ namespace SpectraLogic.EscapePodClient
         #region Methods
 
         /// <summary>
-        /// Gets the archive.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        /// <returns></returns>
-        public IEscapePodArchive GetArchive(GetArchiveRequest request)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                Log.Debug($"GetArchive info\n{request}");
-                return new GetArchiveResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Gets the job.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        /// <returns></returns>
-        public IEscapePodJob GetJob(GetEscapePodJobRequest request)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                Log.Debug($"GetJob info\n{request}");
-                return new GetEscapePodJobParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Deletes the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        /// <returns></returns>
-        public IEscapePodJob Delete(DeleteRequest request)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                Log.Debug($"Delete info\n{request}");
-                return new DeleteResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Restores the specified request.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        /// <returns></returns>
-        public IEscapePodJob Restore(RestoreRequest request)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                Log.Debug($"Retore info\n{request}");
-                return new RestoreResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
         /// Archives the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -161,6 +96,20 @@ namespace SpectraLogic.EscapePodClient
         }
 
         /// <summary>
+        /// Creates the cluster.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        public IEscapePodCluster CreateCluster(CreateClusterRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"CreateCluster info\n{request}");
+                return new CreateClusterResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
         /// Creates the device.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -178,30 +127,83 @@ namespace SpectraLogic.EscapePodClient
         }
 
         /// <summary>
-        /// Gets the device.
+        /// Deletes the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
-        public IEscapePodDevice GetDevice(GetDeviceRequest request)
+        public IEscapePodJob Delete(DeleteRequest request)
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"GetDevice info\n{request}");
-                return new GetDeviceResponseParser().Parse(_network.Invoke(request));
+                Log.Debug($"Delete info\n{request}");
+                return new DeleteResponseParser().Parse(_network.Invoke(request));
             });
         }
 
         /// <summary>
-        /// Creates the cluster.
+        /// Deletes the cluster.
         /// </summary>
-        /// <param name="request">The request.</param>
         /// <returns></returns>
-        public IEscapePodCluster CreateCluster(CreateClusterRequest request)
+        public void DeleteCluster()
+        {
+            ExceptionDecorator.Run(() =>
+            {
+                var request = new DeleteClusterRequest();
+                Log.Debug($"DeleteCluster info\n{request}");
+                return new DeleteClusterResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Determines whether [does archive exist] [the specified archive name].
+        /// </summary>
+        /// <param name="archiveName">Name of the archive.</param>
+        /// <returns>
+        /// <c>true</c> if [does archive exist] [the specified archive name]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool DoesArchiveExist(string archiveName)
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"CreateCluster info\n{request}");
-                return new CreateClusterResponseParser().Parse(_network.Invoke(request));
+                var request = new HeadArchiveRequest(archiveName);
+                Log.Debug($"IsArchiveExist info\n{request}");
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Determines whether [does device exist] [the specified device name].
+        /// </summary>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <returns>
+        /// <c>true</c> if [does device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool DoesDeviceExist(string deviceName)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadDeviceRequest(deviceName);
+                Log.Debug($"IsDeviceExist info\n{request}");
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Gets the archive.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ArchiveNotFoundException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        /// <returns></returns>
+        public IEscapePodArchive GetArchive(GetArchiveRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"GetArchive info\n{request}");
+                return new GetArchiveResponseParser().Parse(_network.Invoke(request));
             });
         }
 
@@ -220,50 +222,48 @@ namespace SpectraLogic.EscapePodClient
         }
 
         /// <summary>
-        /// Determines whether [is device exist] [the specified device name].
+        /// Gets the device.
         /// </summary>
-        /// <param name="deviceName">Name of the device.</param>
-        /// <returns>
-        ///   <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsDeviceExist(string deviceName)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                var request = new HeadDeviceRequest(deviceName);
-                Log.Debug($"IsDeviceExist info\n{request}");
-                return new HeadResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Determines whether [is archive exist] [the specified archive name].
-        /// </summary>
-        /// <param name="archiveName">Name of the archive.</param>
-        /// <returns>
-        ///   <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsArchiveExist(string archiveName)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                var request = new HeadArchiveRequest(archiveName);
-                Log.Debug($"IsArchiveExist info\n{request}");
-                return new HeadResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Deletes the cluster.
-        /// </summary>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        public void DeleteCluster()
+        public IEscapePodDevice GetDevice(GetDeviceRequest request)
         {
-            ExceptionDecorator.Run(() =>
+            return ExceptionDecorator.Run(() =>
             {
-                var request = new DeleteClusterRequest();
-                Log.Debug($"DeleteCluster info\n{request}");
-                return new DeleteClusterResponseParser().Parse(_network.Invoke(request));
+                Log.Debug($"GetDevice info\n{request}");
+                return new GetDeviceResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Gets the job.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        /// <returns></returns>
+        public IEscapePodJob GetJob(GetEscapePodJobRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"GetJob info\n{request}");
+                return new GetEscapePodJobParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Restores the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        /// <returns></returns>
+        public IEscapePodJob Restore(RestoreRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                Log.Debug($"Retore info\n{request}");
+                return new RestoreResponseParser().Parse(_network.Invoke(request));
             });
         }
 
