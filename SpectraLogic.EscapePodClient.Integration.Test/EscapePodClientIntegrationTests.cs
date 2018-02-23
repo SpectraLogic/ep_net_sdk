@@ -31,6 +31,11 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         private ILog _log = LogManager.GetLogger("EscapePodClientIntegrationTest");
 
+        //TODO remove this once Job tracking is done in the server
+        private int MAX_POLLING_ATTEMPS = 10;
+
+        private int POLLING_INTERVAL = 10; // in sec
+
         #endregion Private Fields
 
         #region Public Methods
@@ -53,13 +58,15 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
                 var archiveJob = EscapePodClientFixture.EscapePodClient.Archive(archiveRequest);
 
+                var pollingAttemps = 0;
                 do
                 {
                     archiveJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
                     Thread.Sleep(5000);
-                } while (archiveJob.Status.Status == JobStatus.ACTIVE);
+                } while (archiveJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatus.COMPLETED, archiveJob.Status.Status);
 
                 /**********
@@ -79,8 +86,9 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                     restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
                     Thread.Sleep(5000);
-                } while (restoreJob.Status.Status == JobStatus.ACTIVE);
+                } while (restoreJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatus.COMPLETED, restoreJob.Status.Status);
             }
             finally
