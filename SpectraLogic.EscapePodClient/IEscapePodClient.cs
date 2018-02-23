@@ -99,6 +99,30 @@ namespace SpectraLogic.EscapePodClient
         void DeleteCluster();
 
         /// <summary>
+        /// Determines whether [does archive exist] [the specified archive name].
+        /// </summary>
+        /// <param name="archiveName">Name of the archive.</param>
+        /// <returns>
+        ///   <c>true</c> if [does device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        bool DoesArchiveExist(string archiveName);
+
+        /// <summary>
+        /// Determines whether [does device exist] [the specified device name].
+        /// </summary>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <returns>
+        ///   <c>true</c> if [does device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
+        bool DoesDeviceExist(string deviceName);
+
+        /// <summary>
         /// Gets the archive.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -140,30 +164,6 @@ namespace SpectraLogic.EscapePodClient
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
         /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
         IEscapePodJob GetJob(GetEscapePodJobRequest request);
-
-        /// <summary>
-        /// Determines whether [is archive exist] [the specified archive name].
-        /// </summary>
-        /// <param name="archiveName">Name of the archive.</param>
-        /// <returns>
-        ///   <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        bool IsArchiveExist(string archiveName);
-
-        /// <summary>
-        /// Determines whether [is device exist] [the specified device name].
-        /// </summary>
-        /// <param name="deviceName">Name of the device.</param>
-        /// <returns>
-        ///   <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.InvalidEscapePodServerCredentialsException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.EscapePodClient.Exceptions.ErrorResponseException" />
-        bool IsDeviceExist(string deviceName);
 
         /// <summary>
         /// Restores the specified request.

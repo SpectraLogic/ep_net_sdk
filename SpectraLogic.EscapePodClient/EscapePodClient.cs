@@ -144,6 +144,40 @@ namespace SpectraLogic.EscapePodClient
         }
 
         /// <summary>
+        /// Determines whether [is archive exist] [the specified archive name].
+        /// </summary>
+        /// <param name="archiveName">Name of the archive.</param>
+        /// <returns>
+        /// <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool DoesArchiveExist(string archiveName)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadArchiveRequest(archiveName);
+                Log.Debug($"IsArchiveExist info\n{request}");
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
+        /// Determines whether [is device exist] [the specified device name].
+        /// </summary>
+        /// <param name="deviceName">Name of the device.</param>
+        /// <returns>
+        /// <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool DoesDeviceExist(string deviceName)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadDeviceRequest(deviceName);
+                Log.Debug($"IsDeviceExist info\n{request}");
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <summary>
         /// Gets the archive.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -196,40 +230,6 @@ namespace SpectraLogic.EscapePodClient
             {
                 Log.Debug($"GetJob info\n{request}");
                 return new GetEscapePodJobParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Determines whether [is archive exist] [the specified archive name].
-        /// </summary>
-        /// <param name="archiveName">Name of the archive.</param>
-        /// <returns>
-        /// <c>true</c> if [is archive exist] [the specified archive name]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsArchiveExist(string archiveName)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                var request = new HeadArchiveRequest(archiveName);
-                Log.Debug($"IsArchiveExist info\n{request}");
-                return new HeadResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <summary>
-        /// Determines whether [is device exist] [the specified device name].
-        /// </summary>
-        /// <param name="deviceName">Name of the device.</param>
-        /// <returns>
-        /// <c>true</c> if [is device exist] [the specified device name]; otherwise, <c>false</c>.
-        /// </returns>
-        public bool IsDeviceExist(string deviceName)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                var request = new HeadDeviceRequest(deviceName);
-                Log.Debug($"IsDeviceExist info\n{request}");
-                return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
 

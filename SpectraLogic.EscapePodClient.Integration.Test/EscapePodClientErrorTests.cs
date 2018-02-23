@@ -41,6 +41,21 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             var request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
             Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.Archive(request)));
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new ArchiveRequest(EscapePodClientFixture.ArchiveName, new List<ArchiveFile>
+                    {
+                        new ArchiveFile("not_found", "bad uri", 0, new Dictionary<string, string>(), false, false)
+                    });
+                    EscapePodClientFixture.EscapePodClient.Archive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri"),
+                });
         }
 
         [Test]
@@ -159,17 +174,18 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                     new UnprocessableError("endpoint", "String", "missing")
                 });
 
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new CreateDeviceRequest("name", "bad url", "username", "password");
-                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
-                    Assert.Fail();
-                },
-                new List<UnprocessableError>
-                {
-                    new UnprocessableError("endpoint", "uri", "invalid_uri")
-                });
+            //TODO can be tested after ESCP-183 is fixed
+            //ValidationExceptionCheck(
+            //    () =>
+            //    {
+            //        request = new CreateDeviceRequest("name", "bad url", "username", "password");
+            //        EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+            //        Assert.Fail();
+            //    },
+            //    new List<UnprocessableError>
+            //    {
+            //        new UnprocessableError("endpoint", "uri", "invalid_uri", "bad url")
+            //    });
 
             ValidationExceptionCheck(
                 () =>
@@ -280,7 +296,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         {
             //TODO add test for InvalidEscapePodServerCredentialsException
 
-            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsArchiveExist("not_found"));
+            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.DoesArchiveExist("not_found"));
         }
 
         [Test]
@@ -288,7 +304,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         {
             //TODO add test for InvalidEscapePodServerCredentialsException
 
-            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.IsDeviceExist("not_found"));
+            Assert.IsFalse(EscapePodClientFixture.EscapePodClient.DoesDeviceExist("not_found"));
         }
 
         [Test]
@@ -373,13 +389,13 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsArchiveExist(""));
+                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.DoesArchiveExist(""));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.IsDeviceExist(""));
+                        return Task.FromResult(EscapePodClientFixture.EscapePodClient.DoesDeviceExist(""));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
@@ -410,12 +426,20 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             var request = new RestoreRequest("should_fail", Enumerable.Empty<RestoreFile>());
             Assert.ThrowsAsync<ArchiveNotFoundException>(() => Task.FromResult(EscapePodClientFixture.EscapePodClient.Restore(request)));
 
-            //TODO test after ESCP-158 is done
-            //EscapePodClientFixture.EscapePodClient.Restore(
-            //    new RestoreRequest(EscapePodClientFixture.ArchiveName, new List<RestoreFile>
-            //    {
-            //        new RestoreFile("not_found", "bad uri")
-            //    }));
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest(EscapePodClientFixture.ArchiveName, new List<RestoreFile>
+                    {
+                        new RestoreFile("not_found", "bad uri")
+                    });
+                    EscapePodClientFixture.EscapePodClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri"),
+                });
         }
 
         #endregion Tests

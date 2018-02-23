@@ -76,7 +76,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         {
             ArchiveName = ConfigurationManager.AppSettings["ArchiveName"];
 
-            if (!EscapePodClient.IsArchiveExist(ArchiveName))
+            if (!EscapePodClient.DoesArchiveExist(ArchiveName))
             {
                 var resolver = GetResolver();
                 var createArchiveRequest = new CreateArchiveRequest(ArchiveName, resolver);
@@ -109,7 +109,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Username = ConfigurationManager.AppSettings["Username"];
             Password = ConfigurationManager.AppSettings["Password"];
 
-            if (!EscapePodClient.IsDeviceExist(DeviceName))
+            if (!EscapePodClient.DoesDeviceExist(DeviceName))
             {
                 var createDeviceRequest = new CreateDeviceRequest(DeviceName, Endpoint, Username, Password);
                 EscapePodClient.CreateDevice(createDeviceRequest);
@@ -152,13 +152,12 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
             foreach (var file in Files)
             {
-                var writer = File.OpenWrite(ArchiveTempDir + "/" + file);
+                using (var writer = File.OpenWrite(ArchiveTempDir + "/" + file))
                 using (var fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpectraLogic.EscapePodClient.Integration.Test.TestFiles." + file))
                 {
                     fileStream.CopyTo(writer);
                     fileStream.Seek(0, SeekOrigin.Begin);
                 }
-                writer.Close();
             }
         }
 

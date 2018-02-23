@@ -31,25 +31,35 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
 
         public override int Compare(UnprocessableError x, UnprocessableError y)
         {
+            var ret = 0;
+
             if (!x.ErrorType.Equals(y.ErrorType))
             {
-                LOG.Error($"expected ErrorType to be {x.ErrorType} but was {y.ErrorType}");
-                return 1;
+                LOG.Error($"expected ErrorType to be '{x.ErrorType}' but was '{y.ErrorType}'");
+                ret = 1;
             }
 
             if (!x.FieldName.Equals(y.FieldName))
             {
-                LOG.Error($"expected FieldName to be {x.FieldName} but was {y.FieldName}");
-                return 1;
+                LOG.Error($"expected FieldName to be '{x.FieldName}' but was '{y.FieldName}'");
+                ret = 1;
             }
 
             if (!x.FieldType.Equals(y.FieldType))
             {
-                LOG.Error($"expected FieldType to be {x.FieldType} but was {y.FieldType}");
-                return 1;
+                LOG.Error($"expected FieldType to be '{x.FieldType}' but was '{y.FieldType}'");
+                ret = 1;
             }
 
-            return 0;
+            if ((x.Value == null && y.Value != null) ||
+                (x.Value != null && y.Value == null) ||
+                (x.Value != null && y.Value != null && !x.Value.Equals(y.Value)))
+            {
+                LOG.Error($"expected Value to be '{x.Value}' but was '{y.Value}'");
+                ret = 1;
+            }
+
+            return ret;
         }
 
         #endregion Methods
