@@ -88,6 +88,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                     restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
                     Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
                 } while (restoreJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
