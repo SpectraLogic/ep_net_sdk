@@ -25,6 +25,14 @@ namespace SpectraLogic.EscapePodClient.Model
         #region Properties
 
         /// <summary>
+        /// Gets the type of the error.
+        /// </summary>
+        /// <value>
+        /// The type of the error.
+        /// </value>
+        [JsonProperty(Order = 3, PropertyName = "errorType")] public string ErrorType { get; private set; }
+
+        /// <summary>
         /// Gets the name of the field.
         /// </summary>
         /// <value>
@@ -41,28 +49,30 @@ namespace SpectraLogic.EscapePodClient.Model
         [JsonProperty(Order = 2, PropertyName = "fieldType")] public string FieldType { get; private set; }
 
         /// <summary>
-        /// Gets the type of the error.
+        /// Gets the value.
         /// </summary>
         /// <value>
-        /// The type of the error.
+        /// The value.
         /// </value>
-        [JsonProperty(Order = 3, PropertyName = "errorType")] public string ErrorType { get; private set; }
+        [JsonProperty(Order = 4, PropertyName = "value")] public string Value { get; private set; }
 
         #endregion Properties
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnprocessableError"/> class.
+        /// Initializes a new instance of the <see cref="UnprocessableError" /> class.
         /// </summary>
         /// <param name="fieldName">Name of the field.</param>
         /// <param name="fieldType">Type of the field.</param>
         /// <param name="errorType">Type of the error.</param>
-        public UnprocessableError(string fieldName, string fieldType, string errorType)
+        /// <param name="value">The value.</param>
+        public UnprocessableError(string fieldName, string fieldType, string errorType, string value = null)
         {
             FieldName = fieldName;
             FieldType = fieldType;
             ErrorType = errorType;
+            Value = value;
         }
 
         #endregion Constructors

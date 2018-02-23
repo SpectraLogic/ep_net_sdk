@@ -63,7 +63,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     archiveJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(5000);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
                     pollingAttemps++;
                 } while (archiveJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 
@@ -87,7 +87,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     restoreJob = EscapePodClientFixture.EscapePodClient.GetJob(new GetEscapePodJobRequest(EscapePodClientFixture.ArchiveName, restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
-                    Thread.Sleep(5000);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
                     pollingAttemps++;
                 } while (restoreJob.Status.Status == JobStatus.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 

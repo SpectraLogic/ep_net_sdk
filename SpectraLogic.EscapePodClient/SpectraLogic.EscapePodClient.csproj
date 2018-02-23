@@ -69,7 +69,7 @@
     <Compile Include="Calls\HeadDeviceRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
     <Compile Include="Exceptions\ArchiveAlreadyExistsException.cs" />
-    <Compile Include="Exceptions\ArchiveJobNotFoundException.cs" />
+    <Compile Include="Exceptions\EscapePodJobNotFoundException.cs" />
     <Compile Include="Exceptions\ArchiveNotFoundException.cs" />
     <Compile Include="Exceptions\DeviceAlreadyExistsException.cs" />
     <Compile Include="Exceptions\AlreadyAClusterMemberException.cs" />
