@@ -251,6 +251,18 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                     new UnprocessableError("username", "String", "invalid_credentials"),
                     new UnprocessableError("password", "Password", "invalid_credentials")
                 });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.DataPort, EscapePodClientFixture.Username, EscapePodClientFixture.Password);
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("TBD", "TBD", "TBD")
+                });
         }
 
         [Test]

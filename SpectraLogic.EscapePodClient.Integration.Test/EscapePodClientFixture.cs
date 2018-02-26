@@ -61,6 +61,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         public static string ArchiveName { get; private set; }
         public static string ArchiveTempDir { get; private set; }
         public static string ClusterName { get; private set; }
+        public static string DataPort { get; private set; }
         public static string DeviceName { get; private set; }
         public static string Endpoint { get; private set; }
         public static IEscapePodClient EscapePodClient { get; private set; }
@@ -108,6 +109,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             Endpoint = ConfigurationManager.AppSettings["Endpoint"];
             Username = ConfigurationManager.AppSettings["Username"];
             Password = ConfigurationManager.AppSettings["Password"];
+            DataPort = ConfigurationManager.AppSettings["DataPort"];
 
             if (!EscapePodClient.DoesDeviceExist(DeviceName))
             {
