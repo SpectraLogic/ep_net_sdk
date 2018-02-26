@@ -26,10 +26,10 @@ namespace SpectraLogic.EscapePodClient.Model
         #region Constructors
 
         [JsonConstructor]
-        private EscapePodDevice(string deviceName, string endpoint, string username)
+        private EscapePodDevice(string deviceName, string mgmtInterface, string username)
         {
             DeviceName = deviceName;
-            Endpoint = endpoint;
+            MgmtInterface = mgmtInterface;
             Username = username;
         }
 
@@ -46,18 +46,18 @@ namespace SpectraLogic.EscapePodClient.Model
         [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; }
 
         /// <summary>
-        /// Gets the creation date.
+        /// Gets the MGMT interface.
         /// </summary>
         /// <value>
-        /// The creation date.
+        /// The MGMT interface.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "endpoint")] public string Endpoint { get; }
+        [JsonProperty(Order = 2, PropertyName = "mgmtInterface")] public string MgmtInterface { get; }
 
         /// <summary>
-        /// Gets the endpoint.
+        /// Gets the username.
         /// </summary>
         /// <value>
-        /// The endpoint.
+        /// The username.
         /// </value>
         [JsonProperty(Order = 3, PropertyName = "username")] public string Username { get; }
 
