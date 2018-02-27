@@ -31,12 +31,12 @@ namespace SpectraLogic.EscapePodClient.Model
         string DeviceName { get; }
 
         /// <summary>
-        /// Gets the endpoint.
+        /// Gets the MGMT interface.
         /// </summary>
         /// <value>
-        /// The endpoint.
+        /// The MGMT interface.
         /// </value>
-        string Endpoint { get; }
+        string MgmtInterface { get; }
 
         /// <summary>
         /// Gets the username.

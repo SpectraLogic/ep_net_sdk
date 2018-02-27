@@ -140,10 +140,10 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         [Test]
         public void CreateDeviceErrorTests()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest(null, "endpoint", "username", "password")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest(null, "localhost", "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", null, "username", "password")));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "endpoint", null, "password")));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "endpoint", "username", null)));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "localhost", null, "password")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "localhost", "username", null)));
 
             //TODO add test for InvalidEscapePodServerCredentialsException
 
@@ -171,21 +171,20 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("endpoint", "String", "missing")
+                    new UnprocessableError("mgmtInterface", "String", "missing")
                 });
 
-            //TODO can be tested after ESCP-183 is fixed
-            //ValidationExceptionCheck(
-            //    () =>
-            //    {
-            //        request = new CreateDeviceRequest("name", "bad url", "username", "password");
-            //        EscapePodClientFixture.EscapePodClient.CreateDevice(request);
-            //        Assert.Fail();
-            //    },
-            //    new List<UnprocessableError>
-            //    {
-            //        new UnprocessableError("endpoint", "uri", "invalid_uri", "bad url")
-            //    });
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("name", "bad url", "username", "password");
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("mgmtInterface", "URI", "invalid_uri", "bad url")
+                });
 
             ValidationExceptionCheck(
                 () =>
@@ -220,7 +219,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("endpoint", "String", "missing"),
+                    new UnprocessableError("mgmtInterface", "String", "missing"),
                     new UnprocessableError("name", "String", "missing"),
                     new UnprocessableError("username", "String", "missing"),
                     new UnprocessableError("password", "Password", "missing")
@@ -229,7 +228,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, EscapePodClientFixture.Username, "wrong_password");
+                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.MgmtInterface, EscapePodClientFixture.Username, "wrong_password");
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
                     Assert.Fail();
                 },
@@ -242,7 +241,7 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.Endpoint, "wrong_username", EscapePodClientFixture.Password);
+                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.MgmtInterface, "wrong_username", EscapePodClientFixture.Password);
                     EscapePodClientFixture.EscapePodClient.CreateDevice(request);
                     Assert.Fail();
                 },
@@ -250,6 +249,18 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
                 {
                     new UnprocessableError("username", "String", "invalid_credentials"),
                     new UnprocessableError("password", "Password", "invalid_credentials")
+                });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("should_fail", EscapePodClientFixture.DataInterface, EscapePodClientFixture.Username, EscapePodClientFixture.Password);
+                    EscapePodClientFixture.EscapePodClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("mgmtInterface", "URI", "network_timeout")
                 });
         }
 

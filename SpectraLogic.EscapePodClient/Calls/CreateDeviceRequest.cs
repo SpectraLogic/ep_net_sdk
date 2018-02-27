@@ -28,46 +28,46 @@ namespace SpectraLogic.EscapePodClient.Calls
         #region Fields
 
         /// <summary>
+        /// The MGMT interface
+        /// </summary>
+        [JsonProperty(Order = 2, PropertyName = "mgmtInterface")] public string MgmtInterface;
+
+        /// <summary>
         /// The name
         /// </summary>
         [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
-
-        /// <summary>
-        /// The endpoint
-        /// </summary>
-        [JsonProperty(Order = 2, PropertyName = "endpoint")] public string Endpoint;
-
-        /// <summary>
-        /// The username
-        /// </summary>
-        [JsonProperty(Order = 3, PropertyName = "username")] public string Username;
 
         /// <summary>
         /// The password
         /// </summary>
         [JsonProperty(Order = 4, PropertyName = "password")] public string Password;
 
+        /// <summary>
+        /// The username
+        /// </summary>
+        [JsonProperty(Order = 3, PropertyName = "username")] public string Username;
+
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateDeviceRequest"/> class.
+        /// Initializes a new instance of the <see cref="CreateDeviceRequest" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <param name="endpoint">The endpoint.</param>
+        /// <param name="mgmtInterface">The MGMT interface.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <exception cref="System.ArgumentNullException"></exception>
-        public CreateDeviceRequest(string name, string endpoint, string username, string password)
+        public CreateDeviceRequest(string name, string mgmtInterface, string username, string password)
         {
             Contract.Requires<ArgumentNullException>(name != null, "name");
-            Contract.Requires<ArgumentNullException>(endpoint != null, "endpoint");
+            Contract.Requires<ArgumentNullException>(mgmtInterface != null, "mgmtInterface");
             Contract.Requires<ArgumentNullException>(username != null, "username");
             Contract.Requires<ArgumentNullException>(password != null, "password");
 
             Name = name;
-            Endpoint = endpoint;
+            MgmtInterface = mgmtInterface;
             Username = username;
             Password = password;
         }
@@ -76,9 +76,8 @@ namespace SpectraLogic.EscapePodClient.Calls
 
         #region Properties
 
-        internal override HttpVerb Verb => HttpVerb.POST;
-
         internal override string Path => $"/api/devices/spectra";
+        internal override HttpVerb Verb => HttpVerb.POST;
 
         #endregion Properties
 

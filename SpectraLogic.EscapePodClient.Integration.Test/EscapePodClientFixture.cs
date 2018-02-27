@@ -61,9 +61,10 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         public static string ArchiveName { get; private set; }
         public static string ArchiveTempDir { get; private set; }
         public static string ClusterName { get; private set; }
+        public static string DataInterface { get; private set; }
         public static string DeviceName { get; private set; }
-        public static string Endpoint { get; private set; }
         public static IEscapePodClient EscapePodClient { get; private set; }
+        public static string MgmtInterface { get; private set; }
         public static string Password { get; private set; }
         public static string RestoreTempDir { get; private set; }
         public static string Username { get; private set; }
@@ -105,13 +106,14 @@ namespace SpectraLogic.EscapePodClient.Integration.Test
         public static void CreateDevice()
         {
             DeviceName = ConfigurationManager.AppSettings["DeviceName"];
-            Endpoint = ConfigurationManager.AppSettings["Endpoint"];
+            MgmtInterface = ConfigurationManager.AppSettings["MgmtInterface"];
             Username = ConfigurationManager.AppSettings["Username"];
             Password = ConfigurationManager.AppSettings["Password"];
+            DataInterface = ConfigurationManager.AppSettings["DataInterface"];
 
             if (!EscapePodClient.DoesDeviceExist(DeviceName))
             {
-                var createDeviceRequest = new CreateDeviceRequest(DeviceName, Endpoint, Username, Password);
+                var createDeviceRequest = new CreateDeviceRequest(DeviceName, MgmtInterface, Username, Password);
                 EscapePodClient.CreateDevice(createDeviceRequest);
             }
         }

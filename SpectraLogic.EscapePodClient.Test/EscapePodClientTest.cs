@@ -176,7 +176,7 @@ namespace SpectraLogic.EscapePodClient.Test
         public void CreateDeviceTest()
         {
             var createDeviceRequest = new CreateDeviceRequest("device_test", "localhost", "username", "password");
-            Assert.AreEqual("/api/devices/spectra\nPOST\n{\"name\":\"device_test\",\"endpoint\":\"localhost\",\"username\":\"username\",\"password\":\"password\"}", createDeviceRequest.ToString());
+            Assert.AreEqual("/api/devices/spectra\nPOST\n{\"name\":\"device_test\",\"mgmtInterface\":\"localhost\",\"username\":\"username\",\"password\":\"password\"}", createDeviceRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -194,7 +194,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var device = client.CreateDevice(createDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
-            Assert.AreEqual("localhost", device.Endpoint);
+            Assert.AreEqual("localhost", device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
 
             mockBuilder.VerifyAll();
@@ -338,7 +338,7 @@ namespace SpectraLogic.EscapePodClient.Test
 
             var device = client.GetDevice(getDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
-            Assert.AreEqual("localhost", device.Endpoint);
+            Assert.AreEqual("localhost", device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
 
             mockBuilder.VerifyAll();
