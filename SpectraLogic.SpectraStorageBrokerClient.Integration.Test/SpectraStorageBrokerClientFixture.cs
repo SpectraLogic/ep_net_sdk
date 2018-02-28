@@ -80,8 +80,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             if (!SpectraStorageBrokerClient.DoesBrokerExist(BrokerName))
             {
                 var agentConfig = GetAgentConfig();
-                var createArchiveRequest = new CreateBrokerRequest(BrokerName, agentConfig);
-                SpectraStorageBrokerClient.CreateBroker(createArchiveRequest);
+                var createBrokerRequest = new CreateBrokerRequest(BrokerName, agentConfig);
+                SpectraStorageBrokerClient.CreateBroker(createBrokerRequest);
             }
         }
 

@@ -47,7 +47,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         IJob Cancel(CancelRequest request);
 
         /// <summary>
-        /// Creates the broker.
+        /// Creates a broker.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         ICluster CreateCluster(CreateClusterRequest request);
 
         /// <summary>
-        /// Creates the device.
+        /// Creates a device.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         IDevice CreateDevice(CreateDeviceRequest request);
 
         /// <summary>
-        /// Deletes the specified request.
+        /// Deletes the specified files.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
@@ -100,11 +100,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         void DeleteCluster();
 
         /// <summary>
-        /// Determines whether [does broker exist] [the specified broker name].
+        /// Determines whether brokerName exist.
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <returns>
-        ///   <c>true</c> if [does broker exist] [the specified broker name]; otherwise, <c>false</c>.
+        ///   <c>true</c> if specified brokerName exist; otherwise, <c>false</c>.
         /// </returns>
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.InvalidServerCredentialsException" />
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
@@ -112,11 +112,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         bool DoesBrokerExist(string brokerName);
 
         /// <summary>
-        /// Determines whether [does device exist] [the specified device name].
+        /// Determines whether deviceName exist.
         /// </summary>
         /// <param name="deviceName">Name of the device.</param>
         /// <returns>
-        ///   <c>true</c> if [does device exist] [the specified device name]; otherwise, <c>false</c>.
+        ///   <c>true</c> if specified device exist; otherwise, <c>false</c>.
         /// </returns>
         bool DoesDeviceExist(string deviceName);
 

@@ -59,14 +59,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="TestFiles\F2.txt" />
+    <EmbeddedResource Include="TestFiles\F1.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.SpectraStorageBrokerClient\SpectraLogic.SpectraStorageBrokerClient.csproj">
       <Project>{1a1a6a01-fbac-4260-a3fa-d96aeed9c9e7}</Project>
       <Name>SpectraLogic.SpectraStorageBrokerClient</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TestFiles\F2.txt" />
-    <EmbeddedResource Include="TestFiles\F1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

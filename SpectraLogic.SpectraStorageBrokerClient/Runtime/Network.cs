@@ -17,8 +17,10 @@ using log4net;
 using SpectraLogic.SpectraStorageBrokerClient.Calls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
@@ -111,7 +113,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
             }
 
             httpRequest.Date = DateTime.UtcNow;
-            httpRequest.UserAgent = "Spectra Storage Broker Client";
+            httpRequest.UserAgent = $"Spectra Storage Broker Client v{GetVersion()}";
 
             if (request.Verb == HttpVerb.PUT || request.Verb == HttpVerb.POST)
             {
@@ -125,6 +127,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
             }
 
             return new SpectraStorageBrokerHttpWebRequest(httpRequest);
+        }
+
+        private static string GetVersion()
+        {
+            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
         }
 
         private string GetBasicAuth()
