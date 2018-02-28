@@ -1,0 +1,6 @@
+﻿{
+  "message": "broker not found",
+  "statusCode": 404,
+  "resourceName": "not_found",
+  "resourceType": "BROKER"
+}
