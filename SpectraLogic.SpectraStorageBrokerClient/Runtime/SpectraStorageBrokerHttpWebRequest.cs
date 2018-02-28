@@ -13,7 +13,9 @@
  * ****************************************************************************
  */
 
+using System;
 using System.Net;
+using System.Text;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
 {
@@ -30,6 +32,16 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
         public SpectraStorageBrokerHttpWebRequest(HttpWebRequest httpWebRequest)
         {
             _httpWebRequest = httpWebRequest;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("HttpWebRequest information:");
+            sb.AppendFormat("{0}{1} {2}", Environment.NewLine, _httpWebRequest.Method, _httpWebRequest.Address);
+            sb.AppendFormat("{0}{1}", Environment.NewLine, _httpWebRequest.Headers.ToString().TrimEnd());
+
+            return sb.ToString();
         }
 
         #endregion Constructors

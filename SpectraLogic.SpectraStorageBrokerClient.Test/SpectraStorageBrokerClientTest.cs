@@ -52,7 +52,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void ArchiveTest()
         {
             var archiveRequest = new ArchiveRequest(Stubs.BrokerName, Stubs.ArchiveFiles);
-            Assert.AreEqual("/api/brokers/brokerName/jobs?operation=archive\nPOST\n{\"files\":[{\"name\":\"fileName\",\"uri\":\"uri\",\"size\":1234,\"metadata\":{\"key\":\"value\"},\"indexMedia\":false,\"storeFileProperties\":false}]}", archiveRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -87,7 +86,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         {
             var jobId = Guid.NewGuid();
             var cancelRequest = new CancelRequest(jobId);
-            Assert.AreEqual($"api/cancel?id={jobId}\nPUT", cancelRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -121,7 +119,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void CreateBrokerTest()
         {
             var createBrokerRequest = new CreateBrokerRequest(Stubs.BrokerName, Stubs.AgentConfig);
-            Assert.AreEqual("/api/brokers\nPOST\n{\"name\":\"brokerName\",\"agentConfig\":{\"name\":\"testAgent\",\"blackPearlName\":\"name\",\"username\":\"user\",\"bucket\":\"bucket\",\"https\":false}}", createBrokerRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -149,7 +146,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void CreateClusterTest()
         {
             var createClusterRequest = new CreateClusterRequest("ep_net_sdk_tests");
-            Assert.AreEqual("/api/cluster?name=ep_net_sdk_tests\nPOST", createClusterRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -176,7 +172,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void CreateDeviceTest()
         {
             var createDeviceRequest = new CreateDeviceRequest("device_test", "localhost", "username", "password");
-            Assert.AreEqual("/api/devices/spectra\nPOST\n{\"name\":\"device_test\",\"mgmtInterface\":\"localhost\",\"username\":\"username\",\"password\":\"password\"}", createDeviceRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -205,7 +200,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void DeleteCluster()
         {
             var deleteClusterRequest = new DeleteClusterRequest();
-            Assert.AreEqual("/api/cluster\nDELETE", deleteClusterRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -231,7 +225,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         {
             var deleteRequest =
                 JsonConvert.DeserializeObject<DeleteRequest>(ResourceFilesUtils.Read("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.DeleteRequest"));
-            Assert.AreEqual("api/delete\nDELETE\n{\"files\":[{\"name\":\"file1\"},{\"name\":\"file2\"}]}", deleteRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -265,7 +258,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void GetBrokerTest()
         {
             var getBrokerRequest = new GetBrokerRequest(Stubs.BrokerName);
-            Assert.AreEqual("/api/brokers/brokerName\nGET", getBrokerRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -293,7 +285,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void GetClusterTest()
         {
             var getClusterRequest = new GetClusterRequest();
-            Assert.AreEqual("/api/cluster\nGET", getClusterRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -320,7 +311,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void GetDeviceTest()
         {
             var getDeviceRequest = new GetDeviceRequest("device_test");
-            Assert.AreEqual("/api/devices/spectra/device_test\nGET", getDeviceRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -350,7 +340,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         {
             var jobId = Guid.NewGuid();
             var getJobWithStatusRequest = new GetJobRequest(Stubs.BrokerName, jobId);
-            Assert.AreEqual($"api/brokers/brokerName/jobs/{jobId}\nGET", getJobWithStatusRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -417,7 +406,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void HeadBrokerTest()
         {
             var headBrokerRequest = new HeadBrokerRequest(Stubs.BrokerName);
-            Assert.AreEqual("/api/brokers/brokerName\nHEAD", headBrokerRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -442,7 +430,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void HeadDeviceTest()
         {
             var headDeviceRequest = new HeadDeviceRequest("deviceName");
-            Assert.AreEqual("/api/devices/spectra/deviceName\nHEAD", headDeviceRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -467,7 +454,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void RestoreTest()
         {
             var restoreRequest = new RestoreRequest(Stubs.BrokerName, Stubs.RestoreFiles);
-            Assert.AreEqual("api/brokers/brokerName/jobs?operation=restore\nPOST\n{\"files\":[{\"name\":\"name\",\"uri\":\"dest\",\"restoreFileAttributes\":true},{\"name\":\"name2\",\"uri\":\"dest2\",\"byteRange\":{\"start\":0,\"stop\":10}},{\"name\":\"name3\",\"uri\":\"dest3\",\"timeCodeRange\":{\"start\":10,\"stop\":20}}]}", restoreRequest.ToString());
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork

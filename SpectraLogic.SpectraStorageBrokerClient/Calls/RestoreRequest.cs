@@ -18,7 +18,6 @@ using SpectraLogic.SpectraStorageBrokerClient.Model;
 using SpectraLogic.SpectraStorageBrokerClient.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 {
@@ -73,17 +72,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         #endregion Properties
 
         #region Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}\n{GetBody()}";
-        }
 
         internal override string GetBody()
         {

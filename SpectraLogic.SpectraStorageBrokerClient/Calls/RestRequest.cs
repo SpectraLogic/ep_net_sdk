@@ -33,14 +33,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 
         #region Methods
 
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public abstract override string ToString();
-
         internal virtual string GetBody()
         {
             return "";

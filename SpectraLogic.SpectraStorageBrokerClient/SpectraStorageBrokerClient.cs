@@ -50,7 +50,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"Archive info\n{request}");
                 return new ArchiveResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -59,7 +58,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"Cancel info\n{request}");
                 return new CancelResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -68,7 +66,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"CreateBroker info\n{request}");
                 return new CreateBrokerResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -77,7 +74,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"CreateCluster info\n{request}");
                 return new CreateClusterResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -86,7 +82,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"CreateDevice info\n{request}");
                 return new CreateDeviceResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -95,7 +90,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"Delete info\n{request}");
                 return new DeleteResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -105,7 +99,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             ExceptionDecorator.Run(() =>
             {
                 var request = new DeleteClusterRequest();
-                Log.Debug($"DeleteCluster info\n{request}");
                 return new DeleteClusterResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -115,7 +108,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             return ExceptionDecorator.Run(() =>
             {
                 var request = new HeadBrokerRequest(brokerName);
-                Log.Debug($"DoesBrokerExist info\n{request}");
                 return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -125,7 +117,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             return ExceptionDecorator.Run(() =>
             {
                 var request = new HeadDeviceRequest(deviceName);
-                Log.Debug($"DoesDeviceExist info\n{request}");
                 return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -134,7 +125,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"GetBroker info\n{request}");
                 return new GetBrokerResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -143,7 +133,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"GetCluster info\n{request}");
                 return new GetClusterResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -152,7 +141,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"GetDevice info\n{request}");
                 return new GetDeviceResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -161,7 +149,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"GetJob info\n{request}");
                 return new GetJobParser().Parse(_network.Invoke(request));
             });
         }
@@ -170,7 +157,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                Log.Debug($"Retore info\n{request}");
                 return new RestoreResponseParser().Parse(_network.Invoke(request));
             });
         }

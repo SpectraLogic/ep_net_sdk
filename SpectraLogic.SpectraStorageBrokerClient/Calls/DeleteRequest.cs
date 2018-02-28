@@ -54,21 +54,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 
         #endregion Internal Properties
 
-        #region Public Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}\n{GetBody()}";
-        }
-
-        #endregion Public Methods
-
         #region Internal Methods
 
         internal override string GetBody()
