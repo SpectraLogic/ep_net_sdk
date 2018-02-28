@@ -32,7 +32,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The files to be restored
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<RestoreFile> Files;
+        [JsonProperty(PropertyName = "files")] public IEnumerable<RestoreFile> Files;
 
         #endregion Fields
 

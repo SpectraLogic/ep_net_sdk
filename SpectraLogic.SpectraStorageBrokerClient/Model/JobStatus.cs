@@ -45,7 +45,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The message.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "message")] public string Message { get; }
+        [JsonProperty(PropertyName = "message")] public string Message { get; }
 
         /// <summary>
         /// Gets the status.
@@ -53,7 +53,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The status.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "status")] public JobStatusEnum Status { get; }
+        [JsonProperty(PropertyName = "status")] public JobStatusEnum Status { get; }
 
         #endregion Properties
 

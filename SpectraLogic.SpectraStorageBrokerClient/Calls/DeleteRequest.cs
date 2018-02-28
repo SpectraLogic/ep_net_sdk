@@ -30,7 +30,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The files to be deleted
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<DeleteFile> Files;
+        [JsonProperty(PropertyName = "files")] public IEnumerable<DeleteFile> Files;
 
         #endregion Public Fields
 

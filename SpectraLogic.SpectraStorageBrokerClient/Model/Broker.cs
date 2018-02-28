@@ -42,7 +42,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The name of the broker.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string BrokerName { get; }
+        [JsonProperty(PropertyName = "name")] public string BrokerName { get; }
 
         /// <summary>
         /// Gets the creation date.
@@ -50,7 +50,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "creationDate")] public string CreationDate { get; }
+        [JsonProperty(PropertyName = "creationDate")] public string CreationDate { get; }
 
         #endregion Properties
     }

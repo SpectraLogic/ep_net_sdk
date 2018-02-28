@@ -30,22 +30,22 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The device name
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName;
+        [JsonProperty(PropertyName = "name")] public string DeviceName;
 
         /// <summary>
         /// The MGMT interface
         /// </summary>
-        [JsonProperty(Order = 2, PropertyName = "mgmtInterface")] public string MgmtInterface;
+        [JsonProperty(PropertyName = "mgmtInterface")] public string MgmtInterface;
 
         /// <summary>
         /// The password
         /// </summary>
-        [JsonProperty(Order = 4, PropertyName = "password")] public string Password;
+        [JsonProperty(PropertyName = "password")] public string Password;
 
         /// <summary>
         /// The username
         /// </summary>
-        [JsonProperty(Order = 3, PropertyName = "username")] public string Username;
+        [JsonProperty(PropertyName = "username")] public string Username;
 
         #endregion Public Fields
 

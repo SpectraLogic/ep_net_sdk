@@ -34,8 +34,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
 
         #region Properties
 
-        [JsonProperty(Order = 3, PropertyName = "resourceName")] public string ResourceName { get; }
-        [JsonProperty(Order = 4, PropertyName = "resourceType")] public ResourceType ResourceType { get; }
+        [JsonProperty(PropertyName = "resourceName")] public string ResourceName { get; }
+        [JsonProperty(PropertyName = "resourceType")] public ResourceType ResourceType { get; }
 
         #endregion Properties
     }

@@ -43,7 +43,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The name of the device.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; }
+        [JsonProperty(PropertyName = "name")] public string DeviceName { get; }
 
         /// <summary>
         /// Gets the MGMT interface.
@@ -51,7 +51,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The MGMT interface.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "mgmtInterface")] public string MgmtInterface { get; }
+        [JsonProperty(PropertyName = "mgmtInterface")] public string MgmtInterface { get; }
 
         /// <summary>
         /// Gets the username.
@@ -59,7 +59,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The username.
         /// </value>
-        [JsonProperty(Order = 3, PropertyName = "username")] public string Username { get; }
+        [JsonProperty(PropertyName = "username")] public string Username { get; }
 
         #endregion Properties
     }

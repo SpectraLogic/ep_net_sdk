@@ -24,8 +24,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
     {
         #region Fields
 
-        [JsonProperty(Order = 1, PropertyName = "start")] private long Start;
-        [JsonProperty(Order = 2, PropertyName = "stop")] private long Stop;
+        [JsonProperty(PropertyName = "start")] private long Start;
+        [JsonProperty(PropertyName = "stop")] private long Stop;
 
         #endregion Fields
 

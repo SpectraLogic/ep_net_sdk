@@ -32,7 +32,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The files to be archive
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<ArchiveFile> Files;
+        [JsonProperty(PropertyName = "files")] public IEnumerable<ArchiveFile> Files;
 
         #endregion Public Fields
 
