@@ -48,26 +48,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <value>
         /// The name of the device.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string DeviceName { get; private set; }
+        [JsonProperty(PropertyName = "name")] public string DeviceName { get; private set; }
 
         internal override string Path => $"/api/devices/spectra/{DeviceName}";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Properties
-
-        #region Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}";
-        }
-
-        #endregion Methods
     }
 }

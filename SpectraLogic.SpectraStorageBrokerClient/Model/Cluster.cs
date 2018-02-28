@@ -41,7 +41,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The cluster name.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string Name { get; private set; }
+        [JsonProperty(PropertyName = "name")] public string Name { get; private set; }
 
         #endregion Properties
     }

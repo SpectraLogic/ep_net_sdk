@@ -62,6 +62,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
         {
             var httpWebRequest = CreateHttpWebRequest(request);
 
+            Log.Debug(httpWebRequest.ToString());
+
+            if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
+            {
+                Log.Debug(request.GetBody());
+            }
+
             try
             {
                 return httpWebRequest.GetResponse();
@@ -87,6 +94,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
                     ? encodedKey + "=" + Uri.EscapeDataString(kvp.Value)
                     : encodedKey
             );
+        }
+
+        private static string GetVersion()
+        {
+            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
         }
 
         private IHttpWebRequest CreateHttpWebRequest(RestRequest request)
@@ -127,11 +139,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
             }
 
             return new SpectraStorageBrokerHttpWebRequest(httpRequest);
-        }
-
-        private static string GetVersion()
-        {
-            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
         }
 
         private string GetBasicAuth()

@@ -27,27 +27,27 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <summary>
         /// The black pearl name
         /// </summary>
-        [JsonProperty(Order = 2, PropertyName = "blackPearlName")] public string BlackPearlName;
+        [JsonProperty(PropertyName = "blackPearlName")] public string BlackPearlName;
 
         /// <summary>
         /// The bucket
         /// </summary>
-        [JsonProperty(Order = 4, PropertyName = "bucket")] public string Bucket;
+        [JsonProperty(PropertyName = "bucket")] public string Bucket;
 
         /// <summary>
         /// The HTTPS
         /// </summary>
-        [JsonProperty(Order = 5, PropertyName = "https")] public bool Https;
+        [JsonProperty(PropertyName = "https")] public bool Https;
 
         /// <summary>
         /// The name
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
+        [JsonProperty(PropertyName = "name")] public string Name;
 
         /// <summary>
         /// The user name
         /// </summary>
-        [JsonProperty(Order = 3, PropertyName = "username")] public string UserName;
+        [JsonProperty(PropertyName = "username")] public string UserName;
 
         #endregion Fields
 

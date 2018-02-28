@@ -30,7 +30,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The type of the error.
         /// </value>
-        [JsonProperty(Order = 3, PropertyName = "errorType")] public string ErrorType { get; private set; }
+        [JsonProperty(PropertyName = "errorType")] public string ErrorType { get; private set; }
 
         /// <summary>
         /// Gets the name of the field.
@@ -38,7 +38,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The name of the field.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "fieldName")] public string FieldName { get; private set; }
+        [JsonProperty(PropertyName = "fieldName")] public string FieldName { get; private set; }
 
         /// <summary>
         /// Gets the type of the field.
@@ -46,7 +46,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The type of the field.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "fieldType")] public string FieldType { get; private set; }
+        [JsonProperty(PropertyName = "fieldType")] public string FieldType { get; private set; }
 
         /// <summary>
         /// Gets the value.
@@ -54,7 +54,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The value.
         /// </value>
-        [JsonProperty(Order = 4, PropertyName = "value")] public string Value { get; private set; }
+        [JsonProperty(PropertyName = "value")] public string Value { get; private set; }
 
         #endregion Properties
 

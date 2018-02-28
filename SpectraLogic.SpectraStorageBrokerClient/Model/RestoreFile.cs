@@ -27,27 +27,27 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <summary>
         /// The byte range
         /// </summary>
-        [JsonProperty(Order = 4, PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] public ByteRange ByteRange;
+        [JsonProperty(PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] public ByteRange ByteRange;
 
         /// <summary>
         /// The name
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
+        [JsonProperty(PropertyName = "name")] public string Name;
 
         /// <summary>
         /// The restore file attributes
         /// </summary>
-        [JsonProperty(Order = 3, PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] public bool? RestoreFileAttributes;
+        [JsonProperty(PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] public bool? RestoreFileAttributes;
 
         /// <summary>
         /// The time code range
         /// </summary>
-        [JsonProperty(Order = 5, PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public TimecodeRange TimeCodeRange;
+        [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public TimecodeRange TimeCodeRange;
 
         /// <summary>
         /// The URI
         /// </summary>
-        [JsonProperty(Order = 2, PropertyName = "uri")] public string Uri;
+        [JsonProperty(PropertyName = "uri")] public string Uri;
 
         #endregion Fields
 

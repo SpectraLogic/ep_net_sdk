@@ -27,7 +27,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <summary>
         /// The name
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
+        [JsonProperty(PropertyName = "name")] public string Name;
 
         #endregion Fields
 

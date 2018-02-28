@@ -18,6 +18,9 @@ using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Model
 {
+    /// <summary>
+    ///
+    /// </summary>
     public class ErrorResponse
     {
         #region Constructors
@@ -33,8 +36,21 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
 
         #region Properties
 
-        [JsonProperty(Order = 1, PropertyName = "message")] public string ErrorMessage { get; }
-        [JsonProperty(Order = 2, PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
+        /// <summary>
+        /// Gets the error message.
+        /// </summary>
+        /// <value>
+        /// The error message.
+        /// </value>
+        [JsonProperty(PropertyName = "message")] public string ErrorMessage { get; }
+
+        /// <summary>
+        /// Gets the status code.
+        /// </summary>
+        /// <value>
+        /// The status code.
+        /// </value>
+        [JsonProperty(PropertyName = "statusCode")] public HttpStatusCode StatusCode { get; }
 
         #endregion Properties
     }

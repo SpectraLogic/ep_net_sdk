@@ -31,12 +31,12 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The agent configuration
         /// </summary>
-        [JsonProperty(Order = 2, PropertyName = "agentConfig")] public AgentConfig AgentConfig;
+        [JsonProperty(PropertyName = "agentConfig")] public AgentConfig AgentConfig;
 
         /// <summary>
         /// The broker name
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string BrokerName;
+        [JsonProperty(PropertyName = "name")] public string BrokerName;
 
         #endregion Fields
 
@@ -66,17 +66,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         #endregion Properties
 
         #region Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}\n{GetBody()}";
-        }
 
         internal override string GetBody()
         {

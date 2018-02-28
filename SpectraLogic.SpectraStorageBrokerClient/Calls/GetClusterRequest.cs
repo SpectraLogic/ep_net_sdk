@@ -36,20 +36,5 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Properties
-
-        #region Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}";
-        }
-
-        #endregion Methods
     }
 }

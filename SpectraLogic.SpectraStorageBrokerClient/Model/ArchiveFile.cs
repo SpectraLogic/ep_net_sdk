@@ -28,32 +28,32 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <summary>
         /// The index media
         /// </summary>
-        [JsonProperty(Order = 5, PropertyName = "indexMedia")] public bool IndexMedia;
+        [JsonProperty(PropertyName = "indexMedia")] public bool IndexMedia;
 
         /// <summary>
         /// The metadata
         /// </summary>
-        [JsonProperty(Order = 4, PropertyName = "metadata")] public IDictionary<string, string> Metadata;
+        [JsonProperty(PropertyName = "metadata")] public IDictionary<string, string> Metadata;
 
         /// <summary>
         /// The name
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "name")] public string Name;
+        [JsonProperty(PropertyName = "name")] public string Name;
 
         /// <summary>
         /// The size
         /// </summary>
-        [JsonProperty(Order = 3, PropertyName = "size")] public long Size;
+        [JsonProperty(PropertyName = "size")] public long Size;
 
         /// <summary>
         /// The store file properties
         /// </summary>
-        [JsonProperty(Order = 6, PropertyName = "storeFileProperties")] public bool StoreFileProperties;
+        [JsonProperty(PropertyName = "storeFileProperties")] public bool StoreFileProperties;
 
         /// <summary>
         /// The URI
         /// </summary>
-        [JsonProperty(Order = 2, PropertyName = "uri")] public string Uri;
+        [JsonProperty(PropertyName = "uri")] public string Uri;
 
         #endregion Fields
 

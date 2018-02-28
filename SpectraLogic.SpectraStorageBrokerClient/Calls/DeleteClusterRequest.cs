@@ -31,14 +31,5 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         internal override HttpVerb Verb => HttpVerb.DELETE;
 
         #endregion Internal Properties
-
-        #region Public Methods
-
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}";
-        }
-
-        #endregion Public Methods
     }
 }

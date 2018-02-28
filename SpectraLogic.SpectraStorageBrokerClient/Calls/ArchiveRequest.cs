@@ -18,7 +18,6 @@ using SpectraLogic.SpectraStorageBrokerClient.Model;
 using SpectraLogic.SpectraStorageBrokerClient.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 {
@@ -33,7 +32,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The files to be archive
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<ArchiveFile> Files;
+        [JsonProperty(PropertyName = "files")] public IEnumerable<ArchiveFile> Files;
 
         #endregion Public Fields
 
@@ -76,21 +75,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         internal override HttpVerb Verb => HttpVerb.POST;
 
         #endregion Internal Properties
-
-        #region Public Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}\n{GetBody()}";
-        }
-
-        #endregion Public Methods
 
         #region Internal Methods
 

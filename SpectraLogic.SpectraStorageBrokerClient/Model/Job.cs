@@ -61,7 +61,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The bytes transferred.
         /// </value>
-        [JsonProperty(Order = 6, PropertyName = "bytesTransferred")] public long BytesTransferred { get; }
+        [JsonProperty(PropertyName = "bytesTransferred")] public long BytesTransferred { get; }
 
         /// <summary>
         /// Gets the created.
@@ -69,7 +69,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The created.
         /// </value>
-        [JsonProperty(Order = 7, PropertyName = "created")] public string Created { get; }
+        [JsonProperty(PropertyName = "created")] public string Created { get; }
 
         /// <summary>
         /// Gets the files transferred.
@@ -77,7 +77,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The files transferred.
         /// </value>
-        [JsonProperty(Order = 4, PropertyName = "filesTransferred")] public int FilesTransferred { get; }
+        [JsonProperty(PropertyName = "filesTransferred")] public int FilesTransferred { get; }
 
         /// <summary>
         /// Gets the identifier.
@@ -85,7 +85,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The identifier.
         /// </value>
-        [JsonProperty(Order = 1, PropertyName = "id")] public Guid JobId { get; }
+        [JsonProperty(PropertyName = "id")] public Guid JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.
@@ -93,7 +93,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The type of the job.
         /// </value>
-        [JsonProperty(Order = 2, PropertyName = "jobType")] public JobType JobType { get; }
+        [JsonProperty(PropertyName = "jobType")] public JobType JobType { get; }
 
         /// <summary>
         /// Gets the number of files.
@@ -101,7 +101,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The number of files.
         /// </value>
-        [JsonProperty(Order = 3, PropertyName = "numberOfFiles")] public int NumberOfFiles { get; }
+        [JsonProperty(PropertyName = "numberOfFiles")] public int NumberOfFiles { get; }
 
         /// <summary>
         /// Gets the progress.
@@ -109,7 +109,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The progress.
         /// </value>
-        [JsonProperty(Order = 8, PropertyName = "progress")] public double Progress { get; }
+        [JsonProperty(PropertyName = "progress")] public double Progress { get; }
 
         /// <summary>
         /// Gets the status.
@@ -117,7 +117,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The status.
         /// </value>
-        [JsonProperty(Order = 9, PropertyName = "status")] public JobStatus Status { get; }
+        [JsonProperty(PropertyName = "status")] public JobStatus Status { get; }
 
         /// <summary>
         /// Gets the total size in bytes.
@@ -125,7 +125,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <value>
         /// The total size in bytes.
         /// </value>
-        [JsonProperty(Order = 5, PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
+        [JsonProperty(PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
 
         #endregion Properties
     }

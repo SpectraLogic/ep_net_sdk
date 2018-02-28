@@ -15,7 +15,6 @@
 
 using SpectraLogic.SpectraStorageBrokerClient.Utils;
 using System;
-using System.Linq;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 {
@@ -46,20 +45,5 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         internal override HttpVerb Verb => HttpVerb.POST;
 
         #endregion Internal Properties
-
-        #region Public Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}?{string.Join(";", QueryParams.Select(q => q.Key + "=" + q.Value))}\n{Verb}";
-        }
-
-        #endregion Public Methods
     }
 }

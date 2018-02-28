@@ -19,6 +19,10 @@ using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Model
 {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.Model.ErrorResponse" />
     public class UnprocessableErrorResponse : ErrorResponse
     {
         #region Constructors
@@ -34,7 +38,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
 
         #region Properties
 
-        [JsonProperty(Order = 3, PropertyName = "errors")] public IEnumerable<UnprocessableError> Errors { get; }
+        /// <summary>
+        /// Gets the errors.
+        /// </summary>
+        /// <value>
+        /// The errors.
+        /// </value>
+        [JsonProperty(PropertyName = "errors")] public IEnumerable<UnprocessableError> Errors { get; }
 
         #endregion Properties
     }

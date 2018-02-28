@@ -30,7 +30,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// The files to be deleted
         /// </summary>
-        [JsonProperty(Order = 1, PropertyName = "files")] public IEnumerable<DeleteFile> Files;
+        [JsonProperty(PropertyName = "files")] public IEnumerable<DeleteFile> Files;
 
         #endregion Public Fields
 
@@ -53,21 +53,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         internal override HttpVerb Verb => HttpVerb.DELETE;
 
         #endregion Internal Properties
-
-        #region Public Methods
-
-        /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String" /> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}\n{GetBody()}";
-        }
-
-        #endregion Public Methods
 
         #region Internal Methods
 

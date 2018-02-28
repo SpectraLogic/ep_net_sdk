@@ -43,14 +43,5 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         internal override HttpVerb Verb => HttpVerb.HEAD;
 
         #endregion Properties
-
-        #region Methods
-
-        public override string ToString()
-        {
-            return $"{Path}\n{Verb}";
-        }
-
-        #endregion Methods
     }
 }
