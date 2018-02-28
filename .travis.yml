@@ -1,5 +1,5 @@
 language: csharp
-solution: SpectraLogic.EscapePodClient.sln
+solution: SpectraLogic.SpectraStorageBrokerClient.sln
 script:
   - xbuild /p:Configuration=Release SpectraLogic.SpectraStorageBrokerClient.sln
   - mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./SpectraLogic.SpectraStorageBrokerClient.Test/bin/Release/SpectraLogic.SpectraStorageBrokerClient.Test.dll
