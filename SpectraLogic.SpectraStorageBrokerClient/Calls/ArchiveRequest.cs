@@ -51,8 +51,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 
             BrokerName = brokerName;
             Files = files;
-
-            QueryParams.Add("operation", "archive");
         }
 
         #endregion Public Constructors
@@ -71,7 +69,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 
         #region Internal Properties
 
-        internal override string Path => $"/api/brokers/{BrokerName}/jobs";
+        internal override string Path => $"/api/brokers/{BrokerName}/archive";
         internal override HttpVerb Verb => HttpVerb.POST;
 
         #endregion Internal Properties

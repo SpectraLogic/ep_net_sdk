@@ -291,14 +291,9 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         [Test]
         public void GetJobErrorTests()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetJobRequest(null, Guid.NewGuid())));
-
             //TODO add test for InvalidServerCredentialsException
 
-            var request = new GetJobRequest("not_found", Guid.NewGuid());
-            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(request)));
-
-            request = new GetJobRequest(SpectraStorageBrokerClientFixture.BrokerName, Guid.NewGuid());
+            var request = new GetJobRequest(Guid.NewGuid());
             Assert.ThrowsAsync<JobNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(request)));
         }
 
@@ -393,7 +388,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        var request = new GetJobRequest("", Guid.NewGuid());
+                        var request = new GetJobRequest(Guid.NewGuid());
                         return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(request));
                     });
 

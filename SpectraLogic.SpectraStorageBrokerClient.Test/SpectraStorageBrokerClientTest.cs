@@ -224,7 +224,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void DeleteTest()
         {
             var deleteRequest =
-                JsonConvert.DeserializeObject<DeleteRequest>(ResourceFilesUtils.Read("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.DeleteRequest"));
+                JsonConvert.DeserializeObject<DeleteFilesRequest>(ResourceFilesUtils.Read("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.DeleteRequest"));
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -240,7 +240,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var job = client.Delete(deleteRequest);
+            var job = client.DeleteFiles(deleteRequest);
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
             Assert.AreEqual(JobType.DELETE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
@@ -339,7 +339,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         public void GetJobWithStatusStringTest()
         {
             var jobId = Guid.NewGuid();
-            var getJobWithStatusRequest = new GetJobRequest(Stubs.BrokerName, jobId);
+            var getJobWithStatusRequest = new GetJobRequest(jobId);
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork

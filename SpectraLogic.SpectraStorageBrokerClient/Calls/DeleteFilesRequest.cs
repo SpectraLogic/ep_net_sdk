@@ -23,7 +23,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.Calls.RestRequest" />
-    public class DeleteRequest : RestRequest
+    public class DeleteFilesRequest : RestRequest
     {
         #region Public Fields
 
@@ -37,10 +37,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeleteRequest"/> class.
+        /// Initializes a new instance of the <see cref="DeleteFilesRequest"/> class.
         /// </summary>
         /// <param name="files">The files.</param>
-        public DeleteRequest(IEnumerable<DeleteFile> files)
+        public DeleteFilesRequest(IEnumerable<DeleteFile> files)
         {
             Files = files;
         }
