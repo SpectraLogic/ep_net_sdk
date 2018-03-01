@@ -18,10 +18,18 @@ using System;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Exceptions
 {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.Exception" />
     public class ErrorResponseException : Exception
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class.
+        /// </summary>
+        /// <param name="errorResponse">The error response.</param>
         public ErrorResponseException(ErrorResponse errorResponse)
         {
             ErrorResponse = errorResponse;
@@ -31,6 +39,12 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Exceptions
 
         #region Properties
 
+        /// <summary>
+        /// Gets the error response.
+        /// </summary>
+        /// <value>
+        /// The error response.
+        /// </value>
         public ErrorResponse ErrorResponse { get; private set; }
 
         #endregion Properties
