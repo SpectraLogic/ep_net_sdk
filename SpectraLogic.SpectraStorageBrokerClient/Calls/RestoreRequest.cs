@@ -50,8 +50,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
 
             BrokerName = brokerName;
             Files = files;
-
-            QueryParams.Add("operation", "restore");
         }
 
         #endregion Constructors
@@ -66,7 +64,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// </value>
         [JsonIgnore] public string BrokerName { get; private set; }
 
-        internal override string Path => $"api/brokers/{BrokerName}/jobs";
+        internal override string Path => $"api/brokers/{BrokerName}/restore";
         internal override HttpVerb Verb => HttpVerb.POST;
 
         #endregion Properties

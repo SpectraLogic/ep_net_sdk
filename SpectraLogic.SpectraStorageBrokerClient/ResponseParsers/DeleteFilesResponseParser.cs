@@ -23,11 +23,11 @@ using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
 {
-    internal class DeleteResponseParser : IResponseParser<IJob>
+    internal class DeleteFilesResponseParser : IResponseParser<IJob>
     {
         #region Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("DeleteResponseParser");
+        private static readonly ILog LOG = LogManager.GetLogger("DeleteFilesResponseParser");
 
         #endregion Fields
 

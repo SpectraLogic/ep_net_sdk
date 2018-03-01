@@ -82,6 +82,14 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         IDevice CreateDevice(CreateDeviceRequest request);
 
         /// <summary>
+        /// Deletes the cluster.
+        /// </summary>
+        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.InvalidServerCredentialsException" />
+        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.ErrorResponseException" />
+        void DeleteCluster();
+
+        /// <summary>
         /// Deletes the specified files.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -89,15 +97,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.InvalidServerCredentialsException" />
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.ErrorResponseException" />
-        IJob Delete(DeleteRequest request);
-
-        /// <summary>
-        /// Deletes the cluster.
-        /// </summary>
-        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.InvalidServerCredentialsException" />
-        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.ErrorResponseException" />
-        void DeleteCluster();
+        IJob DeleteFiles(DeleteFilesRequest request);
 
         /// <summary>
         /// Determines whether brokerName exist.

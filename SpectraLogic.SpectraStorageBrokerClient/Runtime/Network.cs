@@ -62,12 +62,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
         {
             var httpWebRequest = CreateHttpWebRequest(request);
 
-            Log.Debug(httpWebRequest.ToString());
-
-            if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
-            {
-                Log.Debug(request.GetBody());
-            }
+            Log.Debug(GetRequestPrettyPrint(request, httpWebRequest));
 
             try
             {
@@ -94,6 +89,18 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
                     ? encodedKey + "=" + Uri.EscapeDataString(kvp.Value)
                     : encodedKey
             );
+        }
+
+        private static string GetRequestPrettyPrint(RestRequest request, IHttpWebRequest httpWebRequest)
+        {
+            var requestPrettyPrint = httpWebRequest.ToString();
+
+            if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
+            {
+                requestPrettyPrint = String.Concat(requestPrettyPrint, String.Concat(Environment.NewLine, request.GetBody()));
+            }
+
+            return requestPrettyPrint;
         }
 
         private static string GetVersion()

@@ -86,20 +86,20 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
-        public IJob Delete(DeleteRequest request)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new DeleteResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
         public void DeleteCluster()
         {
             ExceptionDecorator.Run(() =>
             {
                 var request = new DeleteClusterRequest();
                 return new DeleteClusterResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        public IJob DeleteFiles(DeleteFilesRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new DeleteFilesResponseParser().Parse(_network.Invoke(request));
             });
         }
 

@@ -21,17 +21,26 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
 {
     internal class SpectraStorageBrokerHttpWebRequest : IHttpWebRequest
     {
-        #region Fields
+        #region Private Fields
 
         private readonly HttpWebRequest _httpWebRequest;
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Constructors
+        #region Public Constructors
 
         public SpectraStorageBrokerHttpWebRequest(HttpWebRequest httpWebRequest)
         {
             _httpWebRequest = httpWebRequest;
+        }
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
+        public IHttpWebResponse GetResponse()
+        {
+            return new SpectraStorageBrokerHttpWebResponse((HttpWebResponse)_httpWebRequest.GetResponse());
         }
 
         public override string ToString()
@@ -44,15 +53,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
             return sb.ToString();
         }
 
-        #endregion Constructors
-
-        #region Methods
-
-        public IHttpWebResponse GetResponse()
-        {
-            return new SpectraStorageBrokerHttpWebResponse((HttpWebResponse)_httpWebRequest.GetResponse());
-        }
-
-        #endregion Methods
+        #endregion Public Methods
     }
 }

@@ -61,7 +61,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 var pollingAttemps = 0;
                 do
                 {
-                    archiveJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(new GetJobRequest(SpectraStorageBrokerClientFixture.BrokerName, archiveJob.JobId));
+                    archiveJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
                     Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
                     pollingAttemps++;
@@ -85,7 +86,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 pollingAttemps = 0;
                 do
                 {
-                    restoreJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(new GetJobRequest(SpectraStorageBrokerClientFixture.BrokerName, restoreJob.JobId));
+                    restoreJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(
+                        new GetJobRequest(restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
                     Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
                     pollingAttemps++;

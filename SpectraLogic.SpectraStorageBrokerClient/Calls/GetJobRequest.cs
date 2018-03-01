@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Utils;
 using System;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Calls
@@ -29,28 +28,16 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <summary>
         /// Initializes a new instance of the <see cref="GetJobRequest"/> class.
         /// </summary>
-        /// <param name="brokerName">Name of the broker.</param>
         /// <param name="jobId">The job identifier.</param>
         /// <exception cref="System.ArgumentNullException"></exception>
-        public GetJobRequest(string brokerName, Guid jobId)
+        public GetJobRequest(Guid jobId)
         {
-            Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
-
-            BrokerName = brokerName;
             JobId = jobId;
         }
 
         #endregion Constructors
 
         #region Properties
-
-        /// <summary>
-        /// Gets the name of the broker.
-        /// </summary>
-        /// <value>
-        /// The name of the broker.
-        /// </value>
-        public string BrokerName { get; private set; }
 
         /// <summary>
         /// Gets the job identifier.
@@ -60,7 +47,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// </value>
         public Guid JobId { get; private set; }
 
-        internal override string Path => $"api/brokers/{BrokerName}/jobs/{JobId}";
+        internal override string Path => $"api/jobs/{JobId}";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Properties

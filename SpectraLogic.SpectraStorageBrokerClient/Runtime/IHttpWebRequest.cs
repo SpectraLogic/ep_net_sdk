@@ -17,10 +17,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
 {
     internal interface IHttpWebRequest
     {
-        #region Methods
+        #region Public Methods
 
         IHttpWebResponse GetResponse();
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }
