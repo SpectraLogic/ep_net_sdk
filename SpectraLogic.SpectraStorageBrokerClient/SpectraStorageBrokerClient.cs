@@ -46,6 +46,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
 
         #region Public Methods
 
+        /// <inheritdoc/>
         public IJob Archive(ArchiveRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -54,6 +55,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IJob Cancel(CancelRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -62,6 +64,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IBroker CreateBroker(CreateBrokerRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -70,6 +73,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public ICluster CreateCluster(CreateClusterRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -78,6 +82,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IDevice CreateDevice(CreateDeviceRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -86,6 +91,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public void DeleteCluster()
         {
             ExceptionDecorator.Run(() =>
@@ -95,6 +101,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IJob DeleteFiles(DeleteFilesRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -103,6 +110,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public bool DoesBrokerExist(string brokerName)
         {
             return ExceptionDecorator.Run(() =>
@@ -112,6 +120,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public bool DoesDeviceExist(string deviceName)
         {
             return ExceptionDecorator.Run(() =>
@@ -121,6 +130,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IBroker GetBroker(GetBrokerRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -129,6 +139,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public ICluster GetCluster(GetClusterRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -137,6 +148,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IDevice GetDevice(GetDeviceRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -145,6 +157,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IJob GetJob(GetJobRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -153,6 +166,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
         public IJob Restore(RestoreRequest request)
         {
             return ExceptionDecorator.Run(() =>
