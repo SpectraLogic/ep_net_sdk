@@ -58,10 +58,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
 
         #region Methods
 
-        /// <summary>
-        /// Builds this instance.
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public ISpectraStorageBrokerClient Build()
         {
             var network = new Network(_serverName, _serverPort, _username, _password, _proxy);
