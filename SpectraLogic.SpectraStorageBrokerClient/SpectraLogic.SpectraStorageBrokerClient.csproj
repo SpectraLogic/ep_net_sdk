@@ -17,7 +17,7 @@
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <ApplicationVersion>1.0.0.403</ApplicationVersion>
+    <ApplicationVersion>1.0.0.404</ApplicationVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,6 +85,7 @@
     <Compile Include="Calls\ArchiveRequest.cs" />
     <Compile Include="Calls\RestRequest.cs" />
     <Compile Include="Model\JobStatusEnum.cs" />
+    <Compile Include="ResponseParsers\Parser.cs" />
     <Compile Include="SpectraStorageBrokerClient.cs" />
     <Compile Include="SpectraStorageBrokerClientBuilder.cs" />
     <Compile Include="ISpectraStorageBrokerClient.cs" />

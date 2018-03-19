@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
@@ -76,7 +77,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("name", "String", "missing")
+                    new UnprocessableError("name", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -88,7 +89,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("agentConfig.name", "String", "missing")
+                    new UnprocessableError("agentConfig.name", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -100,7 +101,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("blackPearlName", "String", "not_found")
+                    new UnprocessableError("blackPearlName", "string", "not_found")
                 });
 
             ValidationExceptionCheck(
@@ -112,7 +113,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("username", "String", "not_found")
+                    new UnprocessableError("username", "string", "not_found")
                 });
 
             ValidationExceptionCheck(
@@ -124,7 +125,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("bucket", "String", "not_found")
+                    new UnprocessableError("bucket", "string", "not_found")
                 });
         }
 
@@ -159,7 +160,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("name", "String", "missing")
+                    new UnprocessableError("name", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -171,7 +172,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("mgmtInterface", "String", "missing")
+                    new UnprocessableError("mgmtInterface", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -183,7 +184,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("mgmtInterface", "URI", "invalid_uri", "bad url")
+                    new UnprocessableError("mgmtInterface", "uri", "invalid_uri", "bad url")
                 });
 
             ValidationExceptionCheck(
@@ -195,7 +196,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("username", "String", "missing")
+                    new UnprocessableError("username", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -207,7 +208,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("password", "Password", "missing")
+                    new UnprocessableError("password", "password", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -219,10 +220,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("mgmtInterface", "String", "missing"),
-                    new UnprocessableError("name", "String", "missing"),
-                    new UnprocessableError("username", "String", "missing"),
-                    new UnprocessableError("password", "Password", "missing")
+                    new UnprocessableError("mgmtInterface", "string", "missing"),
+                    new UnprocessableError("name", "string", "missing"),
+                    new UnprocessableError("username", "string", "missing"),
+                    new UnprocessableError("password", "password", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -234,8 +235,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("username", "String", "invalid_credentials"),
-                    new UnprocessableError("password", "Password", "invalid_credentials")
+                    new UnprocessableError("username", "string", "invalid_credentials"),
+                    new UnprocessableError("password", "password", "invalid_credentials")
                 });
 
             ValidationExceptionCheck(
@@ -247,8 +248,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("username", "String", "invalid_credentials"),
-                    new UnprocessableError("password", "Password", "invalid_credentials")
+                    new UnprocessableError("username", "string", "invalid_credentials"),
+                    new UnprocessableError("password", "password", "invalid_credentials")
                 });
 
             ValidationExceptionCheck(
@@ -260,7 +261,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("mgmtInterface", "URI", "network_timeout")
+                    new UnprocessableError("mgmtInterface", "uri", "network_timeout")
                 });
         }
 
@@ -319,6 +320,9 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             try
             {
                 SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteCluster();
+
+                //TODO remove this after ESCP-205 is fixed
+                Thread.Sleep(30 * 1000);
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>

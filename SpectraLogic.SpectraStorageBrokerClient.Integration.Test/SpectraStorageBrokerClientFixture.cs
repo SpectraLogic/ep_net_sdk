@@ -20,7 +20,6 @@ using SpectraLogic.SpectraStorageBrokerClient.Model;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 {
@@ -97,9 +96,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             {
                 var createClusterRequest = new CreateClusterRequest(ClusterName);
                 SpectraStorageBrokerClient.CreateCluster(createClusterRequest);
-
-                //TODO remove this sleep once ESCP-154 is fixed
-                Thread.Sleep(30 * 1000);
             }
         }
 

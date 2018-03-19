@@ -14,35 +14,41 @@
  */
 
 using log4net;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
+using Newtonsoft.Json;
 using SpectraLogic.SpectraStorageBrokerClient.Runtime;
 using SpectraLogic.SpectraStorageBrokerClient.Utils;
+using System.IO;
 using System.Linq;
 using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
 {
-    internal class DeleteClusterResponseParser : IResponseParser<Void>
+    internal class Parser<T>
     {
         #region Private Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("DeleteClusterResponseParser");
+        private static readonly ILog LOG = LogManager.GetLogger("Parser");
 
         #endregion Private Fields
 
-        #region Methods
+        #region Public Methods
 
-        public Void Parse(IHttpWebResponse response)
+        public static T Parse(IHttpWebResponse response, params HttpStatusCode[] expectedStatusCodes)
         {
             using (response)
             {
-                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
-                var requestId = response.Headers["request-id"].First();
-                LOG.Debug($"Request: {requestId}");
-                return new Void();
+                ResponseParseUtils.HandleStatusCode(response, expectedStatusCodes);
+                using (var stream = response.GetResponseStream())
+                using (var textStreamReader = new StreamReader(stream))
+                {
+                    var responseString = textStreamReader.ReadToEnd();
+                    string requestId = response.Headers["request-id"].First();
+                    LOG.Debug($"Request: {requestId}\n{responseString}");
+                    return JsonConvert.DeserializeObject<T>(responseString);
+                }
             }
         }
-    }
 
-    #endregion Methods
+        #endregion Public Methods
+    }
 }
