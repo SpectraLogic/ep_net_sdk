@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using SpectraLogic.SpectraStorageBrokerClient.Exceptions;
 using SpectraLogic.SpectraStorageBrokerClient.Model;
 using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using System.Linq;
 using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
@@ -36,7 +37,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
         {
             using (response)
             {
-                LOG.Debug(response.StatusCode);
+                var requestId = response.Headers["request-id"].First();
+                LOG.Debug($"Request: {requestId} {response.StatusCode}");
 
                 if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {

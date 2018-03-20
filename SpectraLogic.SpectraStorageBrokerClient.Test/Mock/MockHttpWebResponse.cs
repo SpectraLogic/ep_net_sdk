@@ -14,6 +14,7 @@
  */
 
 using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -36,7 +37,17 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test.Mock
         {
             _resourceName = resourceName;
             StatusCode = statusCode;
-            Headers = headers;
+            if (headers != null)
+            {
+                Headers = headers;
+            }
+            else
+            {
+                Headers = new Dictionary<string, IEnumerable<string>>()
+                {
+                    {"request-id", new List<string>(){Guid.NewGuid().ToString()} }
+                };
+            }
         }
 
         #endregion Constructors

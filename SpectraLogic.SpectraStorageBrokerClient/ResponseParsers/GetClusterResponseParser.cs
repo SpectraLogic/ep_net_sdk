@@ -14,11 +14,8 @@
  */
 
 using log4net;
-using Newtonsoft.Json;
 using SpectraLogic.SpectraStorageBrokerClient.Model;
 using SpectraLogic.SpectraStorageBrokerClient.Runtime;
-using SpectraLogic.SpectraStorageBrokerClient.Utils;
-using System.IO;
 using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
@@ -35,17 +32,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
 
         public ICluster Parse(IHttpWebResponse response)
         {
-            using (response)
-            {
-                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.OK);
-                using (var stream = response.GetResponseStream())
-                using (var textStreamReader = new StreamReader(stream))
-                {
-                    var responseString = textStreamReader.ReadToEnd();
-                    LOG.Debug(responseString);
-                    return JsonConvert.DeserializeObject<Cluster>(responseString);
-                }
-            }
+            return Parser<Cluster>.Parse(response, HttpStatusCode.OK);
         }
 
         #endregion Methods

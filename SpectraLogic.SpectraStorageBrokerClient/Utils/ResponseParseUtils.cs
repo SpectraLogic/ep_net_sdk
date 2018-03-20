@@ -53,7 +53,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Utils
             using (var reader = new StreamReader(stream, encoding: Encoding.UTF8))
             {
                 var responseString = reader.ReadToEnd();
-                LOG.Debug(responseString);
+                var requestId = response.Headers["request-id"].First();
+                LOG.Debug($"Request: {requestId}\n{responseString}");
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.NotFound:
