@@ -22,7 +22,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
@@ -320,9 +319,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             try
             {
                 SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteCluster();
-
-                //TODO remove this after ESCP-205 is fixed
-                Thread.Sleep(30 * 1000);
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
