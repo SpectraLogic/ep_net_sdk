@@ -65,6 +65,9 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Utils
 
                         case ResourceType.BROKER:
                             throw new BrokerAlreadyExistsException(ex.ErrorResponse.ErrorMessage, ex);
+
+                        case ResourceType.CLUSTER:
+                            throw new AlreadyAClusterMemberException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 
@@ -75,9 +78,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Utils
                         case "The service is unavailable":
                         case "The node is not a member of a cluster":
                             throw new NodeIsNotAClusterMemeberException(ex.ErrorResponse.ErrorMessage, ex);
-
-                        case "Cannot join another cluster when already a member of one":
-                            throw new AlreadyAClusterMemberException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 

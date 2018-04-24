@@ -19,6 +19,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
     {
         BROKER,
         JOB,
-        SPECTRA_DEVICE
+        SPECTRA_DEVICE,
+        CLUSTER
     }
 }
