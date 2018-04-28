@@ -39,8 +39,23 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
             //TODO add test for InvalidServerCredentialsException
 
-            var request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
+            var request = new ArchiveRequest("not_found", new List<ArchiveFile>
+            {
+                new ArchiveFile("", "", 0L, new Dictionary<string, string>(), false, false)
+            });
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request)));
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
+                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files", "files", "no_files_in_job")
+                });
 
             ValidationExceptionCheck(
                 () =>
@@ -54,7 +69,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri"),
+                    new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri")
                 });
         }
 
@@ -429,8 +444,23 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
             //TODO add test for InvalidServerCredentialsException
 
-            var request = new RestoreRequest("should_fail", Enumerable.Empty<RestoreFile>());
+            var request = new RestoreRequest("should_fail", new List<RestoreFile>
+            {
+                new RestoreFile("", "")
+            });
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request)));
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest("not_found", Enumerable.Empty<RestoreFile>());
+                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files", "files", "no_files_in_job")
+                 });
 
             ValidationExceptionCheck(
                 () =>
