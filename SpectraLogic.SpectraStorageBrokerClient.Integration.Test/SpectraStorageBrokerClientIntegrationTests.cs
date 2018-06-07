@@ -29,14 +29,15 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
     {
         #region Private Fields
 
+        //TODO remove this once Job tracking is done in the server
+        private readonly int MAX_POLLING_ATTEMPS = 10;
+
+        private readonly int POLLING_INTERVAL = 10;
         private ILog _log = LogManager.GetLogger("SpectraStorageBrokerClientIntegrationTest");
 
-        //TODO remove this once Job tracking is done in the server
-        private int MAX_POLLING_ATTEMPS = 10;
-
-        private int POLLING_INTERVAL = 10; // in sec
-
         #endregion Private Fields
+
+        // in sec
 
         #region Public Methods
 
@@ -45,6 +46,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         {
             try
             {
+                SpectraStorageBrokerClientFixture.SetupTestData();
+
                 /***********
                  * ARCHIVE *
                  ***********/
@@ -102,6 +105,87 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 Directory.Delete(SpectraStorageBrokerClientFixture.RestoreTempDir, true);
             }
         }
+
+        [Test, Ignore("Cancel Archive job is not yet supported by the server")]
+        public void CancelArchiveJob()
+        {
+            try
+            {
+                SpectraStorageBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraStorageBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraStorageBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(archiveRequest);
+
+                Assert.AreEqual(JobStatusEnum.ACTIVE, archiveJob.Status.Status);
+
+                var cancelRequest = new CancelRequest(archiveJob.JobId);
+                var cancel = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(cancelRequest);
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
+                Assert.AreEqual("Cancelled", cancel.Status.Message);
+            }
+            finally
+            {
+                Directory.Delete(SpectraStorageBrokerClientFixture.ArchiveTempDir, true);
+                Directory.Delete(SpectraStorageBrokerClientFixture.RestoreTempDir, true);
+            }
+        }
+
+        [Test]
+        public void CancelRestoreJob()
+        {
+            try
+            {
+                SpectraStorageBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraStorageBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraStorageBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                var restoreRequest = new RestoreRequest(SpectraStorageBrokerClientFixture.BrokerName, new List<RestoreFile>
+                {
+                    new RestoreFile(fileName1, $"{SpectraStorageBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                });
+
+                var restoreJob = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(restoreRequest);
+
+                Assert.AreEqual(JobStatusEnum.ACTIVE, restoreJob.Status.Status);
+
+                var cancelRequest = new CancelRequest(restoreJob.JobId);
+                var cancel = SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(cancelRequest);
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
+                Assert.AreEqual("Cancelled", cancel.Status.Message);
+            }
+            finally
+            {
+                Directory.Delete(SpectraStorageBrokerClientFixture.ArchiveTempDir, true);
+                Directory.Delete(SpectraStorageBrokerClientFixture.RestoreTempDir, true);
+            }
+        }
+
 
         #endregion Public Methods
     }

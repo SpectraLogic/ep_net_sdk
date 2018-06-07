@@ -49,8 +49,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             CreateCluster();
             CreateDevice();
             CreateBroker();
-
-            SetupTestData();
         }
 
         #endregion Public Constructors
@@ -123,6 +121,14 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
         #region Private Methods
 
+        public static void SetupTestData()
+        {
+            var tempDir = Path.GetTempPath();
+
+            SetupArchiveTestData(tempDir);
+            SetupRestoreTestData(tempDir);
+        }
+
         private static void CreateClient()
         {
             var spectraStorageBrokerClientBuilder = new SpectraStorageBrokerClientBuilder(
@@ -166,14 +172,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             {
                 Directory.CreateDirectory(RestoreTempDir);
             }
-        }
-
-        private static void SetupTestData()
-        {
-            var tempDir = Path.GetTempPath();
-
-            SetupArchiveTestData(tempDir);
-            SetupRestoreTestData(tempDir);
         }
 
         #endregion Private Methods
