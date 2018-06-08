@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-
 namespace SpectraLogic.SpectraStorageBrokerClient.Model
 {
     /// <summary>
@@ -27,9 +26,19 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         ACTIVE,
 
         /// <summary>
+        /// The job is canceled
+        /// </summary>
+        CANCELED,
+
+        /// <summary>
         /// The job is completed
         /// </summary>
         COMPLETED,
+
+        /// <summary>
+        /// The job has error
+        /// </summary>
+        ERROR,
 
         /// <summary>
         /// The job is paused
@@ -37,13 +46,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         PAUSED,
 
         /// <summary>
-        /// The job is canceled
+        /// The job is retrying
         /// </summary>
-        CANCELED,
-
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR
+        RETRY
     }
 }

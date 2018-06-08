@@ -88,6 +88,7 @@
     <EmbeddedResource Include="TestFiles\DeleteRequest" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCompletedResponse" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCanceledResponse" />
+    <EmbeddedResource Include="TestFiles\RetryResponse" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.SpectraStorageBrokerClient\SpectraLogic.SpectraStorageBrokerClient.csproj">
