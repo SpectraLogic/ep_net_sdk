@@ -31,22 +31,22 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
     [TestFixture]
     internal class SpectraStorageBrokerClientTest
     {
-        #region Fields
+        #region Private Fields
 
         private static readonly ILog Log = LogManager.GetLogger("SpectraStorageBrokerClientTest");
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Constructors
+        #region Public Constructors
 
         public SpectraStorageBrokerClientTest()
         {
             BasicConfigurator.Configure();
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Tests
+        #region Public Methods
 
         [Test]
         public void ArchiveTest()
@@ -108,7 +108,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
             Assert.AreEqual(1.0, job.Progress);
-            Assert.AreEqual("Done", job.Status.Message);
+            Assert.AreEqual("Cancelled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
 
             mockBuilder.VerifyAll();
@@ -483,6 +483,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             mockNetwork.VerifyAll();
         }
 
-        #endregion Tests
+        #endregion Public Methods
     }
 }

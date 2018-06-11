@@ -31,17 +31,29 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Calls
         /// <param name="jobId">The job identifier.</param>
         public CancelRequest(Guid jobId)
         {
-            AddQueryParam("id", jobId.ToString());
+            JobId = jobId;
+            QueryParams.Add("cancel", "true");
         }
 
         #endregion Constructors
 
-        #region Properties
+        #region Public Properties
 
-        internal override string Path => "api/cancel";
+        /// <summary>
+        /// Gets the job identifier.
+        /// </summary>
+        /// <value>
+        /// The job identifier.
+        /// </value>
+        public Guid JobId { get; private set; }
+
+        #endregion Public Properties
+
+        #region Internal Properties
+
+        internal override string Path => $"/api/jobs/{JobId}";
         internal override HttpVerb Verb => HttpVerb.PUT;
-        //TODO use the right path
 
-        #endregion Properties
+        #endregion Internal Properties
     }
 }

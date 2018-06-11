@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
@@ -74,6 +75,23 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         }
 
         [Test]
+        public void CancelErrorTests()
+        {
+            try
+            {
+                var request = new CancelRequest(Guid.Empty);
+                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(request);
+                Assert.Fail();
+
+            }
+            catch(ErrorResponseException e)
+            {
+                Assert.AreEqual("Job 00000000-0000-0000-0000-000000000000 is not currently running and cannot be canceled", e.ErrorResponse.ErrorMessage);
+                Assert.AreEqual(HttpStatusCode.BadRequest, e.ErrorResponse.StatusCode);
+            }
+        }
+
+        [Test]
         public void CreateBrokerErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateBrokerRequest(null, SpectraStorageBrokerClientFixture.GetAgentConfig())));
@@ -115,7 +133,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("blackPearlName", "string", "not_found")
+                    new UnprocessableError("blackPearlName", "string", "not_found", "bp_name")
                 });
 
             ValidationExceptionCheck(
@@ -127,7 +145,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("username", "string", "not_found")
+                    new UnprocessableError("username", "string", "not_found", "username")
                 });
 
             ValidationExceptionCheck(
@@ -139,7 +157,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("bucket", "string", "not_found")
+                    new UnprocessableError("bucket", "string", "not_found", "wrong_bucket")
                 });
         }
 
@@ -342,13 +360,12 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                         return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request));
                     });
 
-                //TODO uncomment when cancel is supported in the server
-                //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                //    () =>
-                //    {
-                //        var request = new CancelRequest(Guid.NewGuid());
-                //        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(request));
-                //    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                    () =>
+                    {
+                        var request = new CancelRequest(Guid.NewGuid());
+                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(request));
+                    });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
