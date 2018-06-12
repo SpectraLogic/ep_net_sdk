@@ -250,7 +250,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
-                Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status); 
 
             }
             finally
