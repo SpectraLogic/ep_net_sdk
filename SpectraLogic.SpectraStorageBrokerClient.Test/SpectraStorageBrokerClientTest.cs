@@ -505,13 +505,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
 
             var job = client.Retry(cancelRequest);
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
-            Assert.AreEqual(JobType.RETRY, job.JobType);
+            Assert.AreEqual(JobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
             Assert.AreEqual(0.0, job.Progress);
             Assert.AreEqual("Retry", job.Status.Message);
-            Assert.AreEqual(JobStatusEnum.RETRY, job.Status.Status);
+            Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
