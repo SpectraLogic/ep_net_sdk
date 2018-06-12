@@ -38,16 +38,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <summary>
         /// The job has error
         /// </summary>
-        ERROR,
-
-        /// <summary>
-        /// The job is paused
-        /// </summary>
-        PAUSED,
-
-        /// <summary>
-        /// The job is retrying
-        /// </summary>
-        RETRY
+        ERROR
     }
 }

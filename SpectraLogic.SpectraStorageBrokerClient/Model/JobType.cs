@@ -38,11 +38,6 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         /// <summary>
         /// The restore
         /// </summary>
-        RESTORE,
-
-        /// <summary>
-        /// The retry
-        /// </summary>
-        RETRY
+        RESTORE
     }
 }

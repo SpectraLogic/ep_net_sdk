@@ -106,7 +106,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Cancel Archive job is not yet supported by the server")]
+        [Test]
         public void CancelArchiveJob()
         {
             try
@@ -131,8 +131,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             }
             finally
             {
-                Directory.Delete(SpectraStorageBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraStorageBrokerClientFixture.RestoreTempDir, true);
+                //Directory.Delete(SpectraStorageBrokerClientFixture.ArchiveTempDir, true);
+                //Directory.Delete(SpectraStorageBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
