@@ -174,6 +174,17 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.ErrorResponseException" />
         IJob Restore(RestoreRequest request);
 
+
+        /// <summary>
+        /// Retries the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.InvalidServerCredentialsException" />
+        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.ErrorResponseException" />
+        IJob Retry(RetryRequest request);
+
         #endregion Public Methods
     }
 }

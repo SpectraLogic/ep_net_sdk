@@ -442,6 +442,14 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                         var request = new RestoreRequest("", Enumerable.Empty<RestoreFile>());
                         return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request));
                     });
+
+                //TODO uncomment when retry is supported in the server
+                //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                //    () =>
+                //    {
+                //        var request = new RetryRequest(Guid.Empty);
+                //        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Retry(request));
+                //    });
             }
             finally
             {
@@ -493,6 +501,23 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 {
                     new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri"),
                 });
+        }
+
+        [Test, Ignore("Retry is not yet implemented in the server")]
+        public void RetryErrorTests()
+        {
+            try
+            {
+                var request = new RetryRequest(Guid.Empty);
+                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Retry(request);
+                Assert.Fail();
+
+            }
+            catch (ErrorResponseException e)
+            {
+                Assert.AreEqual("TBD", e.ErrorResponse.ErrorMessage);
+                Assert.AreEqual(HttpStatusCode.BadRequest, e.ErrorResponse.StatusCode);
+            }
         }
 
         #endregion Tests

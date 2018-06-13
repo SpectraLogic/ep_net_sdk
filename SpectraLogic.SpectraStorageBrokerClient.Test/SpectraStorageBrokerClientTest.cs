@@ -483,6 +483,40 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             mockNetwork.VerifyAll();
         }
 
+        [Test]
+        public void RetryTest()
+        {
+            var jobId = Guid.NewGuid();
+            var cancelRequest = new RetryRequest(jobId);
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(cancelRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.RetryResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var job = client.Retry(cancelRequest);
+            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
+            Assert.AreEqual(JobType.ARCHIVE, job.JobType);
+            Assert.AreEqual(1, job.NumberOfFiles);
+            Assert.AreEqual(1234, job.TotalSizeInBytes);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual(0.0, job.Progress);
+            Assert.AreEqual("Retry", job.Status.Message);
+            Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
         #endregion Public Methods
     }
 }

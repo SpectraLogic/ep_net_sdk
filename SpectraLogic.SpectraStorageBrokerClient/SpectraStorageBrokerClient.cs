@@ -175,6 +175,15 @@ namespace SpectraLogic.SpectraStorageBrokerClient
             });
         }
 
+        /// <inheritdoc/>
+        public IJob Retry(RetryRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new RetryResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
         #endregion Public Methods
     }
 }

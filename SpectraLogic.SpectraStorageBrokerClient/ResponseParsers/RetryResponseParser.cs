@@ -13,31 +13,28 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Model
+using log4net;
+using SpectraLogic.SpectraStorageBrokerClient.Model;
+using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using System.Net;
+
+namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public enum JobStatusEnum
+    internal class RetryResponseParser : IResponseParser<IJob>
     {
-        /// <summary>
-        /// The job is active
-        /// </summary>
-        ACTIVE,
+        #region Fields
 
-        /// <summary>
-        /// The job is canceled
-        /// </summary>
-        CANCELED,
+        private static readonly ILog LOG = LogManager.GetLogger("RetryResponseParser");
 
-        /// <summary>
-        /// The job is completed
-        /// </summary>
-        COMPLETED,
+        #endregion Fields
 
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR
+        #region Methods
+
+        public IJob Parse(IHttpWebResponse response)
+        {
+            return Parser<Job>.Parse(response, HttpStatusCode.OK);
+        }
+
+        #endregion Methods
     }
 }

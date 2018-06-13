@@ -26,9 +26,9 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         ARCHIVE,
 
         /// <summary>
-        /// The restore
+        /// The cancel
         /// </summary>
-        RESTORE,
+        CANCEL,
 
         /// <summary>
         /// The delete
@@ -36,8 +36,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Model
         DELETE,
 
         /// <summary>
-        /// The cancel
+        /// The restore
         /// </summary>
-        CANCEL
+        RESTORE
     }
 }
