@@ -223,14 +223,12 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
         [Test]
         public void DeleteTest()
         {
-            var deleteRequest =
-                JsonConvert.DeserializeObject<DeleteFilesRequest>(ResourceFilesUtils.Read("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.DeleteRequest"));
+            var deleteRequest = new DeleteFileRequest("broker", "test.file");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(deleteRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.DeleteResponse",
-                    HttpStatusCode.OK, null));
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
 
             var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
@@ -240,15 +238,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var job = client.DeleteFiles(deleteRequest);
-            Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
-            Assert.AreEqual(JobType.DELETE, job.JobType);
-            Assert.AreEqual(1, job.NumberOfFiles);
-            Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
-            Assert.AreEqual(1.0, job.Progress);
-            Assert.AreEqual("Completed", job.Status.Message);
-            Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+            client.DeleteFile(deleteRequest);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

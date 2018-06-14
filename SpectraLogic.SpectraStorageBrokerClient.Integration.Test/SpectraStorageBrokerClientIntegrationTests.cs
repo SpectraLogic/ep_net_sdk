@@ -98,6 +98,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, restoreJob.Status.Status);
+
+                var deleteF1Request = new DeleteFileRequest(SpectraStorageBrokerClientFixture.BrokerName, fileName1);
+                var deleteF2Request = new DeleteFileRequest(SpectraStorageBrokerClientFixture.BrokerName, fileName2);
+                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(deleteF1Request);
+                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(deleteF2Request);
             }
             finally
             {
@@ -250,8 +255,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
 
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
-                Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status); 
+                Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
 
+                var deleteF1Request = new DeleteFileRequest(SpectraStorageBrokerClientFixture.BrokerName, fileName1);
+                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(deleteF1Request);
             }
             finally
             {

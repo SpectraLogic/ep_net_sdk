@@ -56,13 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calls\DeleteFileRequest.cs" />
     <Compile Include="Calls\RetryRequest.cs" />
     <Compile Include="Calls\CancelRequest.cs" />
     <Compile Include="Calls\CreateBrokerRequest.cs" />
     <Compile Include="Calls\CreateClusterRequest.cs" />
     <Compile Include="Calls\CreateDeviceRequest.cs" />
     <Compile Include="Calls\DeleteClusterRequest.cs" />
-    <Compile Include="Calls\DeleteFilesRequest.cs" />
     <Compile Include="Calls\GetBrokerRequest.cs" />
     <Compile Include="Calls\GetClusterRequest.cs" />
     <Compile Include="Calls\GetDeviceRequest.cs" />
@@ -94,7 +94,6 @@
     <Compile Include="Model\ByteRange.cs" />
     <Compile Include="Model\UnprocessableError.cs" />
     <Compile Include="Model\UnprocessableErrorResponse.cs" />
-    <Compile Include="Model\DeleteFile.cs" />
     <Compile Include="Model\ErrorResponse.cs" />
     <Compile Include="Model\Broker.cs" />
     <Compile Include="Model\Cluster.cs" />
@@ -120,7 +119,7 @@
     <Compile Include="ResponseParsers\CreateClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\CreateDeviceResponseParser.cs" />
     <Compile Include="ResponseParsers\DeleteClusterResponseParser.cs" />
-    <Compile Include="ResponseParsers\DeleteFilesResponseParser.cs" />
+    <Compile Include="ResponseParsers\DeleteFileResponseParser.cs" />
     <Compile Include="ResponseParsers\GetBrokerResponseParser.cs" />
     <Compile Include="ResponseParsers\GetClusterResponseParser.cs" />
     <Compile Include="ResponseParsers\GetDeviceResponseParser.cs" />

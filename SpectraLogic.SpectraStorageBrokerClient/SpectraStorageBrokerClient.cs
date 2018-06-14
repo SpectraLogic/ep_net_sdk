@@ -102,11 +102,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         }
 
         /// <inheritdoc/>
-        public IJob DeleteFiles(DeleteFilesRequest request)
+        public void DeleteFile(DeleteFileRequest request)
         {
-            return ExceptionDecorator.Run(() =>
+            ExceptionDecorator.Run(() =>
             {
-                return new DeleteFilesResponseParser().Parse(_network.Invoke(request));
+                return new DeleteFileResponseParser().Parse(_network.Invoke(request));
             });
         }
 

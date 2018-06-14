@@ -16,23 +16,28 @@
 using log4net;
 using SpectraLogic.SpectraStorageBrokerClient.Model;
 using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using SpectraLogic.SpectraStorageBrokerClient.Utils;
+using System.Linq;
 using System.Net;
 
 namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
 {
-    internal class DeleteFilesResponseParser : IResponseParser<IJob>
+    internal class DeleteFileResponseParser : IResponseParser<Void>
     {
         #region Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("DeleteFilesResponseParser");
+        private static readonly ILog LOG = LogManager.GetLogger("DeleteFileResponseParser");
 
         #endregion Fields
 
         #region Methods
 
-        public IJob Parse(IHttpWebResponse response)
+        public Void Parse(IHttpWebResponse response)
         {
-            return Parser<Job>.Parse(response, HttpStatusCode.OK);
+            ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
+            var requestId = response.Headers["request-id"].First();
+            LOG.Debug($"Request: {requestId}");
+            return new Void();
         }
 
         #endregion Methods

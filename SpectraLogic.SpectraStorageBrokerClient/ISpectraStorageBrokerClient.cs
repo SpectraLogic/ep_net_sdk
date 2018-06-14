@@ -90,14 +90,14 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         void DeleteCluster();
 
         /// <summary>
-        /// Deletes the specified files.
+        /// Deletes the specified file.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.InvalidServerCredentialsException" />
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
         /// <exception cref="SpectraLogic.SpectraStorageBrokerClient.Exceptions.ErrorResponseException" />
-        IJob DeleteFiles(DeleteFilesRequest request);
+        void DeleteFile(DeleteFileRequest request);
 
         /// <summary>
         /// Determines whether brokerName exist.
