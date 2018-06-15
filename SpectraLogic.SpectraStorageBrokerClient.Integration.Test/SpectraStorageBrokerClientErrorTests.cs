@@ -298,6 +298,19 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         }
 
         [Test]
+        public void DeleteFileErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteFileRequest(null, "file")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteFileRequest("broker", null)));
+
+            var request = new DeleteFileRequest("not_found", "file");
+            Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+
+            request = new DeleteFileRequest(SpectraStorageBrokerClientFixture.BrokerName, "not_found");
+            Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<NotImplementedException>());
+        }
+
+        [Test]
         public void GetBrokerErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRequest(null)));
@@ -388,13 +401,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                        return null;
                    });
 
-                //TODO uncomment when delete is supported in the server
-                //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                //    () =>
-                //    {
-                //        var request = new DeleteRequest(Enumerable.Empty<DeleteFile>());
-                //        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Delete(request));
-                //    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                    () =>
+                    {
+                        var request = new DeleteFileRequest("", "");
+                        SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request);
+                        return null;
+                    });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
