@@ -51,6 +51,9 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Utils
 
                         case ResourceType.SPECTRA_DEVICE:
                             throw new DeviceNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
+
+                        case ResourceType.OBJECT:
+                            throw new FileNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 
