@@ -117,7 +117,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             try
             {
                 SpectraStorageBrokerClientFixture.SetupTestData();
-                Directory.Delete(SpectraStorageBrokerClientFixture.ArchiveTempDir, true);
+
                 var fileName1 = Guid.NewGuid().ToString();
                 var archiveRequest = new ArchiveRequest(SpectraStorageBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {

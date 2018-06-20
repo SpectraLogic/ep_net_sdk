@@ -42,7 +42,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
             var request = new ArchiveRequest("not_found", new List<ArchiveFile>
             {
-                new ArchiveFile("", "", 0L, new Dictionary<string, string>(), false, false)
+                new ArchiveFile("not_found", "uri", 0L, new Dictionary<string, string>(), false, false)
             });
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request)));
 
