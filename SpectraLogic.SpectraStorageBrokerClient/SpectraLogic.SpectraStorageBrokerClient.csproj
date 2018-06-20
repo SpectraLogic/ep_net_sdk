@@ -71,6 +71,7 @@
     <Compile Include="Calls\HeadDeviceRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
     <Compile Include="Exceptions\BrokerAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\FileNotFoundException.cs" />
     <Compile Include="Exceptions\JobNotFoundException.cs" />
     <Compile Include="Exceptions\BrokerNotFoundException.cs" />
     <Compile Include="Exceptions\DeviceAlreadyExistsException.cs" />

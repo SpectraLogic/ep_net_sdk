@@ -253,9 +253,9 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 new List<UnprocessableError>
                 {
                     new UnprocessableError("mgmtInterface", "string", "missing"),
-                    new UnprocessableError("name", "string", "missing"),
                     new UnprocessableError("username", "string", "missing"),
-                    new UnprocessableError("password", "password", "missing")
+                    new UnprocessableError("password", "password", "missing"),
+                    new UnprocessableError("name", "string", "missing"),
                 });
 
             ValidationExceptionCheck(
@@ -307,7 +307,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
             request = new DeleteFileRequest(SpectraStorageBrokerClientFixture.BrokerName, "not_found");
-            Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<NotImplementedException>());
+            Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<FileNotFoundException>());
         }
 
         [Test]
