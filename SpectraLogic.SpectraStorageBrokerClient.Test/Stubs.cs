@@ -13,10 +13,10 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System.Collections.Generic;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Test
 {
     public static class Stubs
     {

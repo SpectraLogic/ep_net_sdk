@@ -15,7 +15,7 @@
 
 using System;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Exceptions
+namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
 {
     /// <summary>
     ///

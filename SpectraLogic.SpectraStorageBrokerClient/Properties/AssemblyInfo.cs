@@ -20,11 +20,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpectraLogic.SpectraStorageBrokerClient")]
-[assembly: AssemblyDescription("Provides a .NET SDK to SpectraStorageBroker REST API")]
+[assembly: AssemblyTitle("SpectraLogic.SpectraRioBrokerClient")]
+[assembly: AssemblyDescription("Provides a .NET SDK to SpectraRioBroker REST API")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spectra Logic Corporation")]
-[assembly: AssemblyProduct("SpectraLogic.SpectraStorageBrokerClient")]
+[assembly: AssemblyProduct("SpectraLogic.SpectraRioBrokerClient")]
 [assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -50,4 +50,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.459")]
 [assembly: AssemblyFileVersion("1.0.0.459")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
-[assembly: InternalsVisibleTo("SpectraLogic.SpectraStorageBrokerClient.Test")]
+[assembly: InternalsVisibleTo("SpectraLogic.SpectraRioBrokerClient.Test")]

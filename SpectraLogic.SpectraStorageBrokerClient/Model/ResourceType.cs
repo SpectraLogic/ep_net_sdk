@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     internal enum ResourceType
     {

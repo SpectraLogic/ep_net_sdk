@@ -13,10 +13,10 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Exceptions
+namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
 {
     /// <summary>
     ///

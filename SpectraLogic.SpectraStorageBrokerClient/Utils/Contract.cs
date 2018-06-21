@@ -15,7 +15,7 @@
 
 using System;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Utils
+namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
     /// <summary>
     ///

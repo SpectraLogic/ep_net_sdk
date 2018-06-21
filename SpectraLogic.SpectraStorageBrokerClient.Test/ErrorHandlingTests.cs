@@ -17,14 +17,14 @@ using log4net;
 using log4net.Config;
 using Moq;
 using NUnit.Framework;
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
-using SpectraLogic.SpectraStorageBrokerClient.Exceptions;
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
-using SpectraLogic.SpectraStorageBrokerClient.Test.Mock;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Test
 {
     [TestFixture]
     internal class ErrorHandlingTests
@@ -54,15 +54,15 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .SetupSequence(n => n.Invoke(getBrokerRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.BrokerNotFoundExceptionResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.BrokerNotFoundExceptionResponse",
                     HttpStatusCode.NotFound, null))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.InvalidServerCredentialsExceptionResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.InvalidServerCredentialsExceptionResponse",
                     HttpStatusCode.Forbidden, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();

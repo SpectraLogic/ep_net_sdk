@@ -15,13 +15,13 @@
 
 using log4net;
 using Newtonsoft.Json;
-using SpectraLogic.SpectraStorageBrokerClient.Exceptions;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System.Linq;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class HeadResponseParser : IResponseParser<bool>
     {

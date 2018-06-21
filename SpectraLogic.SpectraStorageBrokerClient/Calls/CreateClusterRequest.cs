@@ -13,15 +13,15 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.Calls.RestRequest" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
     public class CreateClusterRequest : RestRequest
     {
         #region Public Constructors

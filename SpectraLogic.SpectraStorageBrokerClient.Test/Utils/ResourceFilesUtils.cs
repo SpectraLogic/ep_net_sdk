@@ -16,7 +16,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Test.Utils
+namespace SpectraLogic.SpectraRioBrokerClient.Test.Utils
 {
     internal static class ResourceFilesUtils
     {

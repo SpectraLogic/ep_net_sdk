@@ -13,9 +13,9 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
     internal interface INetwork
     {

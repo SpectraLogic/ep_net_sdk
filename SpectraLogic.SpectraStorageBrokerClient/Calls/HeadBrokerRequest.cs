@@ -13,10 +13,10 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
     internal class HeadBrokerRequest : RestRequest
     {

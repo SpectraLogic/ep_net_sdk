@@ -14,10 +14,10 @@
  */
 
 using log4net;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System.Collections.Generic;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
     public class UnprocessableErrorComparer : Comparer<UnprocessableError>
     {

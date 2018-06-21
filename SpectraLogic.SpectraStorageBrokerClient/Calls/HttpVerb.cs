@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
     internal enum HttpVerb
     {

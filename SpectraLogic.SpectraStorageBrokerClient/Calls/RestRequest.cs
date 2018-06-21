@@ -16,7 +16,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
     /// <summary>
     ///

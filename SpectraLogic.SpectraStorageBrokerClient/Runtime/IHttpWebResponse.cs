@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
     internal interface IHttpWebResponse : IDisposable
     {

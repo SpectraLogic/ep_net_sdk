@@ -16,7 +16,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
     ///

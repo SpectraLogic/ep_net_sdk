@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +21,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Test.Mock
+namespace SpectraLogic.SpectraRioBrokerClient.Test.Mock
 {
     public class MockHttpWebResponse : IHttpWebResponse
     {

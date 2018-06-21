@@ -14,11 +14,11 @@
  */
 
 using log4net;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class GetJobParser : IResponseParser<IJob>
     {

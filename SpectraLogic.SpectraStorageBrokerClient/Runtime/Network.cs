@@ -14,7 +14,7 @@
  */
 
 using log4net;
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,7 +23,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
     internal class Network : INetwork
     {
@@ -74,7 +74,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
                 {
                     throw;
                 }
-                return new SpectraStorageBrokerHttpWebResponse((HttpWebResponse)e.Response);
+                return new SpectraRioBrokerHttpWebResponse((HttpWebResponse)e.Response);
             }
         }
 
@@ -132,7 +132,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
             }
 
             httpRequest.Date = DateTime.UtcNow;
-            httpRequest.UserAgent = $"Spectra Storage Broker Client v{GetVersion()}";
+            httpRequest.UserAgent = $"Spectra Rio Broker Client v{GetVersion()}";
 
             if (request.Verb == HttpVerb.PUT || request.Verb == HttpVerb.POST)
             {
@@ -145,7 +145,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
                 }
             }
 
-            return new SpectraStorageBrokerHttpWebRequest(httpRequest);
+            return new SpectraRioBrokerHttpWebRequest(httpRequest);
         }
 
         private string GetBasicAuth()

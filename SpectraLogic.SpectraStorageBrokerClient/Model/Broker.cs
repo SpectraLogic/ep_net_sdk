@@ -15,12 +15,12 @@
 
 using Newtonsoft.Json;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.Model.IBroker" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IBroker" />
     public class Broker : IBroker
     {
         #region Constructors

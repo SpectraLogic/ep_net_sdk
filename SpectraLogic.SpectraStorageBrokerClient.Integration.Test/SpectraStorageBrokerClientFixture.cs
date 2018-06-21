@@ -14,16 +14,16 @@
  */
 
 using log4net.Config;
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
-using SpectraLogic.SpectraStorageBrokerClient.Exceptions;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
-    public static class SpectraStorageBrokerClientFixture
+    public static class SpectraRioBrokerClientFixture
     {
         #region Public Fields
 
@@ -41,7 +41,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
         #region Public Constructors
 
-        static SpectraStorageBrokerClientFixture()
+        static SpectraRioBrokerClientFixture()
         {
             BasicConfigurator.Configure();
 
@@ -63,7 +63,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         public static string MgmtInterface { get; private set; }
         public static string Password { get; private set; }
         public static string RestoreTempDir { get; private set; }
-        public static ISpectraStorageBrokerClient SpectraStorageBrokerClient { get; private set; }
+        public static ISpectraRioBrokerClient SpectraRioBrokerClient { get; private set; }
         public static string Username { get; private set; }
 
         #endregion Public Properties
@@ -74,11 +74,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         {
             BrokerName = ConfigurationManager.AppSettings["BrokerName"];
 
-            if (!SpectraStorageBrokerClient.DoesBrokerExist(BrokerName))
+            if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName))
             {
                 var agentConfig = GetAgentConfig();
                 var createBrokerRequest = new CreateBrokerRequest(BrokerName, agentConfig);
-                SpectraStorageBrokerClient.CreateBroker(createBrokerRequest);
+                SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
         }
 
@@ -88,12 +88,12 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             var getClusterRequest = new GetClusterRequest();
             try
             {
-                SpectraStorageBrokerClient.GetCluster(getClusterRequest);
+                SpectraRioBrokerClient.GetCluster(getClusterRequest);
             }
             catch (NodeIsNotAClusterMemeberException)
             {
                 var createClusterRequest = new CreateClusterRequest(ClusterName);
-                SpectraStorageBrokerClient.CreateCluster(createClusterRequest);
+                SpectraRioBrokerClient.CreateCluster(createClusterRequest);
             }
         }
 
@@ -105,10 +105,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             Password = ConfigurationManager.AppSettings["Password"];
             DataInterface = ConfigurationManager.AppSettings["DataInterface"];
 
-            if (!SpectraStorageBrokerClient.DoesDeviceExist(DeviceName))
+            if (!SpectraRioBrokerClient.DoesDeviceExist(DeviceName))
             {
                 var createDeviceRequest = new CreateDeviceRequest(DeviceName, MgmtInterface, Username, Password);
-                SpectraStorageBrokerClient.CreateDevice(createDeviceRequest);
+                SpectraRioBrokerClient.CreateDevice(createDeviceRequest);
             }
         }
 
@@ -131,7 +131,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
         private static void CreateClient()
         {
-            var spectraStorageBrokerClientBuilder = new SpectraStorageBrokerClientBuilder(
+            var SpectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
                 ConfigurationManager.AppSettings["ServerName"],
                 int.Parse(ConfigurationManager.AppSettings["ServerPort"]),
                 ConfigurationManager.AppSettings["UserName"],
@@ -140,10 +140,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             var proxy = ConfigurationManager.AppSettings["Proxy"];
             if (!string.IsNullOrWhiteSpace(proxy))
             {
-                spectraStorageBrokerClientBuilder.WithProxy(proxy);
+                SpectraRioBrokerClientBuilder.WithProxy(proxy);
             }
 
-            SpectraStorageBrokerClient = spectraStorageBrokerClientBuilder.Build();
+            SpectraRioBrokerClient = SpectraRioBrokerClientBuilder.Build();
         }
 
         private static void SetupArchiveTestData(string tempDir)
@@ -157,7 +157,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             foreach (var file in Files)
             {
                 using (var writer = File.OpenWrite(ArchiveTempDir + "/" + file))
-                using (var fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpectraLogic.SpectraStorageBrokerClient.Integration.Test.TestFiles." + file))
+                using (var fileStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpectraLogic.SpectraRioBrokerClient.Integration.Test.TestFiles." + file))
                 {
                     fileStream.CopyTo(writer);
                     fileStream.Seek(0, SeekOrigin.Begin);

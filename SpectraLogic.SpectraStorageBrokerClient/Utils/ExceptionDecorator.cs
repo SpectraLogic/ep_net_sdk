@@ -13,12 +13,12 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Exceptions;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Utils
+namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
     internal class ExceptionDecorator
     {

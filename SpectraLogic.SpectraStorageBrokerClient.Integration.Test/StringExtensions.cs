@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
     internal static class StringExtensions
     {

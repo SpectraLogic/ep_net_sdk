@@ -18,28 +18,28 @@ using log4net.Config;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
-using SpectraLogic.SpectraStorageBrokerClient.Test.Mock;
-using SpectraLogic.SpectraStorageBrokerClient.Test.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
+using SpectraLogic.SpectraRioBrokerClient.Test.Utils;
 using System;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Test
 {
     [TestFixture]
-    internal class SpectraStorageBrokerClientTest
+    internal class SpectraRioBrokerClientTest
     {
         #region Private Fields
 
-        private static readonly ILog Log = LogManager.GetLogger("SpectraStorageBrokerClientTest");
+        private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClientTest");
 
         #endregion Private Fields
 
         #region Public Constructors
 
-        public SpectraStorageBrokerClientTest()
+        public SpectraRioBrokerClientTest()
         {
             BasicConfigurator.Configure();
         }
@@ -56,13 +56,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(archiveRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.ArchiveResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.ArchiveResponse",
                     HttpStatusCode.Created, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -90,13 +90,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(cancelRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.CancelResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CancelResponse",
                     HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -123,13 +123,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createBrokerRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.CreateBrokerResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateBrokerResponse",
                     HttpStatusCode.Created, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -150,13 +150,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createClusterRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.CreateClusterResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateClusterResponse",
                     HttpStatusCode.Created, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -176,13 +176,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createDeviceRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.CreateDeviceResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateDeviceResponse",
                     HttpStatusCode.Created, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -206,10 +206,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
                 .Setup(n => n.Invoke(It.IsAny<DeleteClusterRequest>()))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -230,10 +230,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
                 .Setup(n => n.Invoke(deleteRequest))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -252,13 +252,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokerRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.GetBrokerResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerResponse",
                     HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -279,13 +279,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getClusterRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.GetClusterResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetClusterResponse",
                     HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -305,13 +305,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getDeviceRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.GetDeviceResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetDeviceResponse",
                     HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -335,19 +335,19 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             mockNetwork
                 .SetupSequence(n => n.Invoke(getJobWithStatusRequest))
                 .Returns(new MockHttpWebResponse(
-                    "SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.GetJobWithStatusActiveResponse",
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobWithStatusActiveResponse",
                     HttpStatusCode.OK, null))
                 .Returns(new MockHttpWebResponse(
-                    "SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.GetJobWithStatusCompletedResponse",
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobWithStatusCompletedResponse",
                     HttpStatusCode.OK, null))
                 .Returns(new MockHttpWebResponse(
-                    "SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.GetJobWithStatusCanceledResponse",
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobWithStatusCanceledResponse",
                     HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -402,10 +402,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
                 .Setup(n => n.Invoke(It.IsAny<HeadBrokerRequest>()))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -426,10 +426,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
                 .Setup(n => n.Invoke(It.IsAny<HeadDeviceRequest>()))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -448,13 +448,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(restoreRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.RestoreResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.RestoreResponse",
                     HttpStatusCode.Created, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();
@@ -482,13 +482,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(cancelRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraStorageBrokerClient.Test.TestFiles.RetryResponse",
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.RetryResponse",
                     HttpStatusCode.OK, null));
 
-            var mockBuilder = new Mock<ISpectraStorageBrokerClientBuilder>(MockBehavior.Strict);
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
                 .Setup(b => b.Build())
-                .Returns(new SpectraStorageBrokerClient(mockNetwork.Object));
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
 
             var builder = mockBuilder.Object;
             var client = builder.Build();

@@ -17,9 +17,9 @@ using System;
 using System.Net;
 using System.Text;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
-    internal class SpectraStorageBrokerHttpWebRequest : IHttpWebRequest
+    internal class SpectraRioBrokerHttpWebRequest : IHttpWebRequest
     {
         #region Private Fields
 
@@ -29,7 +29,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
 
         #region Public Constructors
 
-        public SpectraStorageBrokerHttpWebRequest(HttpWebRequest httpWebRequest)
+        public SpectraRioBrokerHttpWebRequest(HttpWebRequest httpWebRequest)
         {
             _httpWebRequest = httpWebRequest;
         }
@@ -40,7 +40,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
 
         public IHttpWebResponse GetResponse()
         {
-            return new SpectraStorageBrokerHttpWebResponse((HttpWebResponse)_httpWebRequest.GetResponse());
+            return new SpectraRioBrokerHttpWebResponse((HttpWebResponse)_httpWebRequest.GetResponse());
         }
 
         public override string ToString()

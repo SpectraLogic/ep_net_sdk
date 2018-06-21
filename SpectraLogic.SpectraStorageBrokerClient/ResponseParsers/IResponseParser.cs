@@ -13,9 +13,9 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal interface IResponseParser<out TResponse>
     {

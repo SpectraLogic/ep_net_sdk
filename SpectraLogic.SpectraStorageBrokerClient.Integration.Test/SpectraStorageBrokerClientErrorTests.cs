@@ -14,10 +14,10 @@
  */
 
 using NUnit.Framework;
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
-using SpectraLogic.SpectraStorageBrokerClient.Exceptions;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
-using SpectraLogic.SpectraStorageBrokerClient.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,10 +25,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
+namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
     [TestFixture]
-    public class SpectraStorageBrokerClientErrorTests
+    public class SpectraRioBrokerClientErrorTests
     {
         #region Tests
 
@@ -44,13 +44,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             {
                 new ArchiveFile("not_found", "uri", 0L, new Dictionary<string, string>(), false, false)
             });
-            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request)));
+            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request)));
 
             ValidationExceptionCheck(
                 () =>
                 {
                     request = new ArchiveRequest("not_found", Enumerable.Empty<ArchiveFile>());
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -61,11 +61,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new ArchiveRequest(SpectraStorageBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                    request = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                     {
                         new ArchiveFile("not_found", "bad uri", 0, new Dictionary<string, string>(), false, false)
                     });
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -80,7 +80,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             try
             {
                 var request = new CancelRequest(Guid.Empty);
-                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(request);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(request);
                 Assert.Fail();
 
             }
@@ -94,17 +94,17 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         [Test]
         public void CreateBrokerErrorTests()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateBrokerRequest(null, SpectraStorageBrokerClientFixture.GetAgentConfig())));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateBrokerRequest(SpectraStorageBrokerClientFixture.BrokerName, null)));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateBrokerRequest(null, SpectraRioBrokerClientFixture.GetAgentConfig())));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateBrokerRequest(SpectraRioBrokerClientFixture.BrokerName, null)));
 
-            var request = new CreateBrokerRequest(SpectraStorageBrokerClientFixture.BrokerName, SpectraStorageBrokerClientFixture.GetAgentConfig());
-            Assert.ThrowsAsync<BrokerAlreadyExistsException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request)));
+            var request = new CreateBrokerRequest(SpectraRioBrokerClientFixture.BrokerName, SpectraRioBrokerClientFixture.GetAgentConfig());
+            Assert.ThrowsAsync<BrokerAlreadyExistsException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request)));
 
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateBrokerRequest(string.Empty, SpectraStorageBrokerClientFixture.GetAgentConfig());
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request);
+                    request = new CreateBrokerRequest(string.Empty, SpectraRioBrokerClientFixture.GetAgentConfig());
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -116,7 +116,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateBrokerRequest("should_fail", new AgentConfig(string.Empty, "bp_name", "username", "bucket", false));
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -128,7 +128,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateBrokerRequest("should_fail", new AgentConfig("name", "bp_name", "username", "bucket", false));
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -139,8 +139,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateBrokerRequest("should_fail", new AgentConfig(SpectraStorageBrokerClientFixture.AgentName, SpectraStorageBrokerClientFixture.DeviceName, "username", "bucket", false));
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request);
+                    request = new CreateBrokerRequest("should_fail", new AgentConfig(SpectraRioBrokerClientFixture.AgentName, SpectraRioBrokerClientFixture.DeviceName, "username", "bucket", false));
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -151,8 +151,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateBrokerRequest("should_fail", new AgentConfig(SpectraStorageBrokerClientFixture.AgentName, SpectraStorageBrokerClientFixture.DeviceName, SpectraStorageBrokerClientFixture.BlackPearlUserName, "wrong_bucket", false));
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request);
+                    request = new CreateBrokerRequest("should_fail", new AgentConfig(SpectraRioBrokerClientFixture.AgentName, SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.BlackPearlUserName, "wrong_bucket", false));
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -166,8 +166,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateClusterRequest(null)));
 
-            var request = new CreateClusterRequest(SpectraStorageBrokerClientFixture.ClusterName);
-            Assert.ThrowsAsync<AlreadyAClusterMemberException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateCluster(request)));
+            var request = new CreateClusterRequest(SpectraRioBrokerClientFixture.ClusterName);
+            Assert.ThrowsAsync<AlreadyAClusterMemberException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateCluster(request)));
         }
 
         [Test]
@@ -180,14 +180,14 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
 
             //TODO add test for InvalidServerCredentialsException
 
-            var request = new CreateDeviceRequest(SpectraStorageBrokerClientFixture.DeviceName, "localhost", "username", "password");
-            Assert.ThrowsAsync<DeviceAlreadyExistsException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request)));
+            var request = new CreateDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost", "username", "password");
+            Assert.ThrowsAsync<DeviceAlreadyExistsException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request)));
 
             ValidationExceptionCheck(
                 () =>
                 {
                     request = new CreateDeviceRequest(string.Empty, "localhost", "username", "password");
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -199,7 +199,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateDeviceRequest("name", string.Empty, "username", "password");
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -211,7 +211,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateDeviceRequest("name", "bad url", "username", "password");
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -223,7 +223,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -235,7 +235,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateDeviceRequest("name", "localhost", "username", string.Empty);
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -247,7 +247,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateDeviceRequest(string.Empty, string.Empty, string.Empty, string.Empty);
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -261,8 +261,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", SpectraStorageBrokerClientFixture.MgmtInterface, SpectraStorageBrokerClientFixture.Username, "wrong_password");
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    request = new CreateDeviceRequest("should_fail", SpectraRioBrokerClientFixture.MgmtInterface, SpectraRioBrokerClientFixture.Username, "wrong_password");
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -274,8 +274,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", SpectraStorageBrokerClientFixture.MgmtInterface, "wrong_username", SpectraStorageBrokerClientFixture.Password);
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    request = new CreateDeviceRequest("should_fail", SpectraRioBrokerClientFixture.MgmtInterface, "wrong_username", SpectraRioBrokerClientFixture.Password);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -287,8 +287,8 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", SpectraStorageBrokerClientFixture.DataInterface, SpectraStorageBrokerClientFixture.Username, SpectraStorageBrokerClientFixture.Password);
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request);
+                    request = new CreateDeviceRequest("should_fail", SpectraRioBrokerClientFixture.DataInterface, SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -304,10 +304,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteFileRequest("broker", null)));
 
             var request = new DeleteFileRequest("not_found", "file");
-            Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
-            request = new DeleteFileRequest(SpectraStorageBrokerClientFixture.BrokerName, "not_found");
-            Assert.That(() => SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<FileNotFoundException>());
+            request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, "not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<FileNotFoundException>());
         }
 
         [Test]
@@ -318,7 +318,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             //TODO add test for InvalidServerCredentialsException
 
             var request = new GetBrokerRequest("not_found");
-            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetBroker(request)));
+            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(request)));
         }
 
         [Test]
@@ -331,7 +331,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             var request = new GetDeviceRequest("not_found");
             Assert.ThrowsAsync<DeviceNotFoundException>(
                 () =>
-                Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetDevice(request)));
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(request)));
         }
 
         [Test]
@@ -340,7 +340,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             //TODO add test for InvalidServerCredentialsException
 
             var request = new GetJobRequest(Guid.NewGuid());
-            Assert.ThrowsAsync<JobNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(request)));
+            Assert.ThrowsAsync<JobNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(request)));
         }
 
         [Test]
@@ -348,7 +348,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         {
             //TODO add test for InvalidServerCredentialsException
 
-            Assert.IsFalse(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DoesBrokerExist("not_found"));
+            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerExist("not_found"));
         }
 
         [Test]
@@ -356,7 +356,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         {
             //TODO add test for InvalidServerCredentialsException
 
-            Assert.IsFalse(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DoesDeviceExist("not_found"));
+            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist("not_found"));
         }
 
         [Test]
@@ -364,40 +364,40 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
         {
             try
             {
-                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteCluster();
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteCluster();
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new ArchiveRequest("", Enumerable.Empty<ArchiveFile>());
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Archive(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new CancelRequest(Guid.NewGuid());
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Cancel(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new CreateBrokerRequest("", new AgentConfig("", "", "", "", false));
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateBroker(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new CreateDeviceRequest("", "", "", "");
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.CreateDevice(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                    () =>
                    {
-                       SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteCluster();
+                       SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteCluster();
                        return null;
                    });
 
@@ -405,7 +405,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                     () =>
                     {
                         var request = new DeleteFileRequest("", "");
-                        SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DeleteFile(request);
+                        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request);
                         return null;
                     });
 
@@ -413,47 +413,47 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                     () =>
                     {
                         var request = new GetBrokerRequest("");
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetBroker(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new GetClusterRequest();
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetCluster(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetCluster(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new GetDeviceRequest("");
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetDevice(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new GetJobRequest(Guid.NewGuid());
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.GetJob(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DoesBrokerExist(""));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerExist(""));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.DoesDeviceExist(""));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist(""));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
                         var request = new RestoreRequest("", Enumerable.Empty<RestoreFile>());
-                        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request));
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request));
                     });
 
                 //TODO uncomment when retry is supported in the server
@@ -461,14 +461,14 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
                 //    () =>
                 //    {
                 //        var request = new RetryRequest(Guid.Empty);
-                //        return Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Retry(request));
+                //        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request));
                 //    });
             }
             finally
             {
-                SpectraStorageBrokerClientFixture.CreateCluster();
-                SpectraStorageBrokerClientFixture.CreateDevice();
-                SpectraStorageBrokerClientFixture.CreateBroker();
+                SpectraRioBrokerClientFixture.CreateCluster();
+                SpectraRioBrokerClientFixture.CreateDevice();
+                SpectraRioBrokerClientFixture.CreateBroker();
             }
         }
 
@@ -478,7 +478,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(
                 () => Task.FromResult(new RestoreRequest(null, Enumerable.Empty<RestoreFile>())));
             Assert.ThrowsAsync<ArgumentNullException>(
-                () => Task.FromResult(new RestoreRequest(SpectraStorageBrokerClientFixture.BrokerName, null)));
+                () => Task.FromResult(new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, null)));
 
             //TODO add test for InvalidServerCredentialsException
 
@@ -486,13 +486,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             {
                 new RestoreFile("", "")
             });
-            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request)));
+            Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request)));
 
             ValidationExceptionCheck(
                 () =>
                 {
                     request = new RestoreRequest("not_found", Enumerable.Empty<RestoreFile>());
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -503,11 +503,11 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new RestoreRequest(SpectraStorageBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                     {
                         new RestoreFile("not_found", "bad uri")
                     });
-                    SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Restore(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
                 new List<UnprocessableError>
@@ -522,7 +522,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient.Integration.Test
             try
             {
                 var request = new RetryRequest(Guid.Empty);
-                SpectraStorageBrokerClientFixture.SpectraStorageBrokerClient.Retry(request);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request);
                 Assert.Fail();
 
             }

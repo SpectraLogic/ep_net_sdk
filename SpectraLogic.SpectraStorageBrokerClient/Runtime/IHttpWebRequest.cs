@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
     internal interface IHttpWebRequest
     {

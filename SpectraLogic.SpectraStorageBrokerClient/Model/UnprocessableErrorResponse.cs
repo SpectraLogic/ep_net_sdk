@@ -17,12 +17,12 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.Model.ErrorResponse" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.ErrorResponse" />
     public class UnprocessableErrorResponse : ErrorResponse
     {
         #region Constructors

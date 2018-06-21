@@ -15,12 +15,12 @@
 
 using Newtonsoft.Json;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.Model.ICluster" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.ICluster" />
     public class Cluster : ICluster
     {
         #region Constructors

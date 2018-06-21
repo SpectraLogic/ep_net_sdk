@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpectraLogic.SpectraStorageBrokerClient.Integration.Test")]
+[assembly: AssemblyTitle("SpectraLogic.SpectraRioBrokerClient.Integration.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spectra Logic Corporation")]
-[assembly: AssemblyProduct("SpectraLogic.SpectraStorageBrokerClient.Integration.Test")]
+[assembly: AssemblyProduct("SpectraLogic.SpectraRioBrokerClient.Integration.Test")]
 [assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

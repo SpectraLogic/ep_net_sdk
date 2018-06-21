@@ -14,20 +14,20 @@
  */
 
 using log4net;
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System;
 
-namespace SpectraLogic.SpectraStorageBrokerClient
+namespace SpectraLogic.SpectraRioBrokerClient
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.ISpectraStorageBrokerClientBuilder" />
-    public class SpectraStorageBrokerClientBuilder : ISpectraStorageBrokerClientBuilder
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.ISpectraRioBrokerClientBuilder" />
+    public class SpectraRioBrokerClientBuilder : ISpectraRioBrokerClientBuilder
     {
         #region Fields
 
-        private static readonly ILog Log = LogManager.GetLogger("SpectraStorageBrokerClientBuilder");
+        private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClientBuilder");
 
         private readonly string _password;
         private readonly string _serverName;
@@ -40,13 +40,13 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpectraStorageBrokerClientBuilder"/> class.
+        /// Initializes a new instance of the <see cref="SpectraRioBrokerClientBuilder"/> class.
         /// </summary>
         /// <param name="serverName">Name of the server.</param>
         /// <param name="serverPort">The server port.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        public SpectraStorageBrokerClientBuilder(string serverName, int serverPort, string username, string password)
+        public SpectraRioBrokerClientBuilder(string serverName, int serverPort, string username, string password)
         {
             _serverName = serverName;
             _serverPort = serverPort;
@@ -59,10 +59,10 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         #region Methods
 
         /// <inheritdoc/>
-        public ISpectraStorageBrokerClient Build()
+        public ISpectraRioBrokerClient Build()
         {
             var network = new Network(_serverName, _serverPort, _username, _password, _proxy);
-            return new SpectraStorageBrokerClient(network);
+            return new SpectraRioBrokerClient(network);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         /// </summary>
         /// <param name="proxy">The proxy.</param>
         /// <returns></returns>
-        public SpectraStorageBrokerClientBuilder WithProxy(string proxy)
+        public SpectraRioBrokerClientBuilder WithProxy(string proxy)
         {
             _proxy = new Uri(proxy);
             return this;
@@ -81,7 +81,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         /// </summary>
         /// <param name="proxy">The proxy.</param>
         /// <returns></returns>
-        public SpectraStorageBrokerClientBuilder WithProxy(Uri proxy)
+        public SpectraRioBrokerClientBuilder WithProxy(Uri proxy)
         {
             _proxy = proxy;
             return this;

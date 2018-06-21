@@ -14,30 +14,30 @@
  */
 
 using log4net;
-using SpectraLogic.SpectraStorageBrokerClient.Calls;
-using SpectraLogic.SpectraStorageBrokerClient.Model;
-using SpectraLogic.SpectraStorageBrokerClient.ResponseParsers;
-using SpectraLogic.SpectraStorageBrokerClient.Runtime;
-using SpectraLogic.SpectraStorageBrokerClient.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraStorageBrokerClient
+namespace SpectraLogic.SpectraRioBrokerClient
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraStorageBrokerClient.ISpectraStorageBrokerClient" />
-    public class SpectraStorageBrokerClient : ISpectraStorageBrokerClient
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.ISpectraRioBrokerClient" />
+    public class SpectraRioBrokerClient : ISpectraRioBrokerClient
     {
         #region Private Fields
 
-        private static readonly ILog Log = LogManager.GetLogger("SpectraStorageBrokerClient");
+        private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClient");
         private readonly INetwork _network;
 
         #endregion Private Fields
 
         #region Internal Constructors
 
-        internal SpectraStorageBrokerClient(INetwork network)
+        internal SpectraRioBrokerClient(INetwork network)
         {
             _network = network;
         }

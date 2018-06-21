@@ -19,13 +19,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 
-namespace SpectraLogic.SpectraStorageBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
-    internal class SpectraStorageBrokerHttpWebResponse : IHttpWebResponse
+    internal class SpectraRioBrokerHttpWebResponse : IHttpWebResponse
     {
         #region Constructors
 
-        public SpectraStorageBrokerHttpWebResponse(HttpWebResponse httpWebResponse)
+        public SpectraRioBrokerHttpWebResponse(HttpWebResponse httpWebResponse)
         {
             Response = httpWebResponse;
         }
