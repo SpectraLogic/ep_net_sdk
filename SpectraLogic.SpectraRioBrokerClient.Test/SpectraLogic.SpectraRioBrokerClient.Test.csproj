@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="ErrorHandlingTests.cs" />
     <Compile Include="Mock\MockHttpWebResponse.cs" />
-    <Compile Include="SpectraStorageBrokerClientTest.cs" />
+    <Compile Include="SpectraRioBrokerClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stubs.cs" />
     <Compile Include="Utils\ResourceFilesUtils.cs" />
