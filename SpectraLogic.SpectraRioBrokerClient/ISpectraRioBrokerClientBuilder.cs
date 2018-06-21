@@ -23,7 +23,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         #region Methods
 
         /// <summary>
-        /// Builds a SpectraStorageClient instance.
+        /// Builds this instance.
         /// </summary>
         /// <returns></returns>
         ISpectraRioBrokerClient Build();
