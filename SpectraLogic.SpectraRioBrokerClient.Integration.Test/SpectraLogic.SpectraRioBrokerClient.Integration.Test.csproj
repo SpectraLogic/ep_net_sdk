@@ -8,8 +8,8 @@
     <ProjectGuid>{5EE70381-47E5-44D6-B627-DAA6B62731BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpectraLogic.SpectraStorageBrokerClient.Integration.Test</RootNamespace>
-    <AssemblyName>SpectraLogic.SpectraStorageBrokerClient.Integration.Test</AssemblyName>
+    <RootNamespace>SpectraLogic.SpectraRioBrokerClient.Integration.Test</RootNamespace>
+    <AssemblyName>SpectraLogic.SpectraRioBrokerClient.Integration.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationVersion>0.0.0.1</ApplicationVersion>
@@ -67,9 +67,9 @@
     <EmbeddedResource Include="TestFiles\F1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SpectraLogic.SpectraStorageBrokerClient\SpectraLogic.SpectraStorageBrokerClient.csproj">
+    <ProjectReference Include="..\SpectraLogic.SpectraRioBrokerClient\SpectraLogic.SpectraRioBrokerClient.csproj">
       <Project>{1a1a6a01-fbac-4260-a3fa-d96aeed9c9e7}</Project>
-      <Name>SpectraLogic.SpectraStorageBrokerClient</Name>
+      <Name>SpectraLogic.SpectraRioBrokerClient</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

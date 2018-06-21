@@ -13,12 +13,12 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraStorageBrokerClient
+namespace SpectraLogic.SpectraRioBrokerClient
 {
     /// <summary>
     ///
     /// </summary>
-    public interface ISpectraStorageBrokerClientBuilder
+    public interface ISpectraRioBrokerClientBuilder
     {
         #region Methods
 
@@ -26,7 +26,7 @@ namespace SpectraLogic.SpectraStorageBrokerClient
         /// Builds a SpectraStorageClient instance.
         /// </summary>
         /// <returns></returns>
-        ISpectraStorageBrokerClient Build();
+        ISpectraRioBrokerClient Build();
 
         #endregion Methods
     }
