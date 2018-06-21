@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nuget pack SpectraLogic.SpectraStorageBrokerClient/SpectraLogic.SpectraStorageBrokerClient.csproj -Prop Configuration=Release
+nuget pack SpectraLogic.SpectraRioBrokerClient/SpectraLogic.SpectraRioBrokerClient.csproj -Prop Configuration=Release

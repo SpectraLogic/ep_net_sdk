@@ -1,5 +1,5 @@
 language: csharp
-solution: SpectraLogic.SpectraStorageBrokerClient.sln
+solution: SpectraLogic.SpectraRioBrokerClient.sln
 script:
-  - xbuild /p:Configuration=Release SpectraLogic.SpectraStorageBrokerClient.sln
-  - mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./SpectraLogic.SpectraStorageBrokerClient.Test/bin/Release/SpectraLogic.SpectraStorageBrokerClient.Test.dll
+  - xbuild /p:Configuration=Release SpectraLogic.SpectraRioBrokerClient.sln
+  - mono ./packages/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./SpectraLogic.SpectraRioBrokerClient.Test/bin/Release/SpectraLogic.SpectraRioBrokerClient.Test.dll
