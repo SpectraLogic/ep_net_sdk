@@ -15,6 +15,7 @@
 
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -27,7 +28,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Job"/> class.
+        /// Initializes a new instance of the <see cref="Job" /> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
         /// <param name="jobType">Type of the job.</param>
@@ -38,7 +39,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="created">The created.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
-        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string created, double progress, JobStatus status)
+        /// <param name="files">The files.</param>
+        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string created, double progress, JobStatus status, IList<JobFileStatus> files)
         {
             JobId = jobId;
             JobType = jobType;
@@ -49,6 +51,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Created = created;
             Progress = progress;
             Status = status;
+            Files = files;
         }
 
         #endregion Constructors
@@ -126,6 +129,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The total size in bytes.
         /// </value>
         [JsonProperty(PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
+
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>
+        /// The files.
+        /// </value>
+        /// <exception cref="NotImplementedException"></exception>
+        [JsonProperty(PropertyName = "files")] public IList<JobFileStatus> Files { get; }
 
         #endregion Properties
     }

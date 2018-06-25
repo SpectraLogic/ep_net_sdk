@@ -10,5 +10,12 @@
   "status": {
     "message": "Active",
     "status": "ACTIVE"
-  }
+  },
+  "files": [
+    {
+      "name": "test",
+      "status": "Transferring",
+      "statusMessage": "Transferring"
+    }
+  ]
 }

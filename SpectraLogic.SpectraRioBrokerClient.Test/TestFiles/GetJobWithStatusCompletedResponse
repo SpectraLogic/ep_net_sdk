@@ -10,5 +10,12 @@
   "status": {
     "message": "Completed",
     "status": "COMPLETED"
-  }
+  },
+  "files": [
+    {
+      "name": "test",
+      "status": "Completed",
+      "statusMessage": "Completed"
+    }
+  ]
 }

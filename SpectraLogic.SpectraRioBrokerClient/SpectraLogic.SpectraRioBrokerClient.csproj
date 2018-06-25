@@ -86,6 +86,7 @@
     <Compile Include="Model\ArchiveFile.cs" />
     <Compile Include="Calls\ArchiveRequest.cs" />
     <Compile Include="Calls\RestRequest.cs" />
+    <Compile Include="Model\JobFileStatus.cs" />
     <Compile Include="Model\JobStatusEnum.cs" />
     <Compile Include="ResponseParsers\RetryResponseParser.cs" />
     <Compile Include="ResponseParsers\Parser.cs" />

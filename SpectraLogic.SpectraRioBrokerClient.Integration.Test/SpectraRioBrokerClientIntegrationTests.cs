@@ -74,6 +74,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+                Assert.AreEqual("Archive job completed successfully", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Completed", file.Status);
+                }
+
                 /**********
                 * RESTORE *
                 ***********/
@@ -98,6 +107,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, restoreJob.Status.Status);
+
+                job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+                Assert.AreEqual("Restore job completed successfully", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Completed", file.Status);
+                }
 
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
@@ -132,7 +150,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var cancel = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(cancelRequest);
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
-                Assert.AreEqual("Cancelled", cancel.Status.Message);
+                Assert.AreEqual("Canceled", cancel.Status.Message);
+
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
+                Assert.AreEqual("Canceled", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Canceled", file.Status);
+                }
+                
             }
             finally
             {
@@ -182,7 +210,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var cancel = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(cancelRequest);
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
-                Assert.AreEqual("Cancelled", cancel.Status.Message);
+                Assert.AreEqual("Canceled", cancel.Status.Message);
+
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
+                Assert.AreEqual("Canceled", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Canceled", file.Status);
+                }
             }
             finally
             {
@@ -191,13 +228,77 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Cancel Archive job is not yet supported by the server ; Retry is not yet implemented in the server")]
-        public void RetryArchiveCancelledJob()
+        [Test, Ignore("Retry is not yet implemented in the server")]
+        public void RetryArchiveCanceledJob()
         {
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var cancelRequest = new CancelRequest(archiveJob.JobId);
+                var cancel = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(cancelRequest);
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
+                Assert.AreEqual("Canceled", cancel.Status.Message);
+
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
+                Assert.AreEqual("Canceled", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Canceled", file.Status);
+                }
+
+
+                var retryRequest = new RetryRequest(archiveJob.JobId);
+                var retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(retryRequest);
+
+                Assert.AreNotEqual(retryJob.JobId, archiveJob.JobId);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(retryJob.JobId));
+                    _log.Debug(retryJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
+
+                job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+                Assert.AreEqual("Compleated", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Archive job completed successfully", file.Status);
+                }
+
+
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+            finally
+            {
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
+            }
         }
 
         [Test, Ignore("Retry is not yet implemented in the server")]
-        public void RetryRestoreCancelledJob()
+        public void RetryRestoreCanceledJob()
         {
             try
             {
@@ -237,7 +338,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var cancel = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(cancelRequest);
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
-                Assert.AreEqual("Cancelled", cancel.Status.Message);
+                Assert.AreEqual("Canceled", cancel.Status.Message);
+
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
+                Assert.AreEqual("Canceled", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Canceled", file.Status);
+                }
 
                 var retryRequest = new RetryRequest(restoreJob.JobId);
                 var retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(retryRequest);
@@ -256,6 +366,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
+
+                job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+                Assert.AreEqual("Compleated", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Restore job completed successfully", file.Status);
+                }
+
 
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
