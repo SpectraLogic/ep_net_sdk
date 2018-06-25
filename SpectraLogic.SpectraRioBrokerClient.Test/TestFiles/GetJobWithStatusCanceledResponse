@@ -10,5 +10,12 @@
   "status": {
     "message": "Canceled",
     "status": "CANCELED"
-  }
+  },
+  "files": [
+    {
+      "name": "test",
+      "status": "Canceled",
+      "statusMessage": "Canceled"
+    }
+  ]
 }

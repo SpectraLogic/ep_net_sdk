@@ -108,7 +108,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
             Assert.AreEqual(1.0, job.Progress);
-            Assert.AreEqual("Cancelled", job.Status.Message);
+            Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
 
             mockBuilder.VerifyAll();
@@ -363,6 +363,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0.5, job.Progress);
             Assert.AreEqual("Active", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
+            foreach (var file in job.Files)
+            {
+                Assert.AreEqual("Transferring", file.Status);
+            }
 
             job = client.GetJob(getJobWithStatusRequest);
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
@@ -375,6 +379,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+            foreach (var file in job.Files)
+            {
+                Assert.AreEqual("Completed", file.Status);
+            }
 
             job = client.GetJob(getJobWithStatusRequest);
             Assert.AreEqual(new Guid("101bddb7-8b34-4b35-9ef5-3c829d561e19"), job.JobId);
@@ -387,6 +395,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
+            foreach (var file in job.Files)
+            {
+                Assert.AreEqual("Canceled", file.Status);
+            }
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

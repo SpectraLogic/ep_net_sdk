@@ -14,6 +14,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -95,6 +96,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The total size in bytes.
         /// </value>
         long TotalSizeInBytes { get; }
+
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>
+        /// The files.
+        /// </value>
+        IList<JobFileStatus> Files { get; }
 
         #endregion Properties
     }
