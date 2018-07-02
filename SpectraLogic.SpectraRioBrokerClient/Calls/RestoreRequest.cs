@@ -43,13 +43,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="files">The files.</param>
-        public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files)
+        /// <param name="ignoreDuplicates">if set ignore duplicate items in a restore job if they appear in multiple brokers when doing a search then restore operation.</param>
+        public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files, bool ignoreDuplicates=false)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(files != null, "files");
 
             BrokerName = brokerName;
             Files = files;
+
+            QueryParams.Add("ignore-duplicates", ignoreDuplicates.ToString());
         }
 
         #endregion Constructors

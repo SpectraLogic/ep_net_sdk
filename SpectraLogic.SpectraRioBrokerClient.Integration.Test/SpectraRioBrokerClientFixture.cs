@@ -28,7 +28,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         #region Public Fields
 
         public static readonly string AgentName = "bp_agent";
+        //public static readonly string AgentName2 = "bp_agent_2";
         public static readonly string BlackPearlBucket = "ep_net_sdk_tests";
+        public static readonly string BlackPearlBucket2 = "ep_net_sdk_tests_2";
         public static readonly string BlackPearlUserName = "Administrator";
 
         #endregion Public Fields
@@ -48,7 +50,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             CreateClient();
             CreateCluster();
             CreateDevice();
-            CreateBroker();
+            CreateBrokers();
         }
 
         #endregion Public Constructors
@@ -57,6 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         public static string ArchiveTempDir { get; private set; }
         public static string BrokerName { get; private set; }
+        public static string BrokerName2 { get; private set; }
         public static string ClusterName { get; private set; }
         public static string DataInterface { get; private set; }
         public static string DeviceName { get; private set; }
@@ -70,7 +73,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         #region Public Methods
 
-        public static void CreateBroker()
+        public static void CreateBrokers()
         {
             BrokerName = ConfigurationManager.AppSettings["BrokerName"];
 
@@ -78,6 +81,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var agentConfig = GetAgentConfig();
                 var createBrokerRequest = new CreateBrokerRequest(BrokerName, agentConfig);
+                SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
+            }
+
+            BrokerName2 = ConfigurationManager.AppSettings["BrokerName2"];
+
+            if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName2))
+            {
+                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, new AgentConfig(AgentName, DeviceName, BlackPearlUserName, BlackPearlBucket2, false));
                 SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
         }
