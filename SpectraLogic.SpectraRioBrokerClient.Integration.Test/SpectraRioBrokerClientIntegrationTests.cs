@@ -516,6 +516,43 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
+        [Test]
+        public void SearchAndDeleteTest()
+        {
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                var deleteF1Request = new DeleteFileRequest("*", fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+            finally
+            {
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+            }
+        }
+
         #endregion Public Methods
 
         #region Private Methods
@@ -581,45 +618,5 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         #endregion Private Methods
-
-        [Test]
-        public void SearchAndDeleteTest()
-        {
-            try
-            {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
-                var fileName1 = Guid.NewGuid().ToString();
-                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
-                });
-
-                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
-
-                var pollingAttemps = 0;
-                do
-                {
-                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
-                        new GetJobRequest(archiveJob.JobId));
-                    _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
-
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
-                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
-
-
-                var deleteF1Request = new DeleteFileRequest("*", fileName1);
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-            }
-            finally
-            {
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-            }
-        }
-
-
     }
 }
