@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
@@ -21,8 +22,10 @@ using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
@@ -30,9 +33,19 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     [TestFixture]
     public class SpectraRioBrokerClientErrorTests
     {
-        #region Tests
+        #region Private Fields
 
-        [Test]
+        //TODO remove this once Job tracking is done in the server
+        private readonly int MAX_POLLING_ATTEMPS = 10;
+
+        private readonly int POLLING_INTERVAL = 10;
+        private ILog _log = LogManager.GetLogger("SpectraRioBrokerClientErrorTests");
+
+        #endregion Private Fields
+
+        #region Public Methods
+
+        [Test, Ignore("https://jira.spectralogic.com/browse/ESCP-372")]
         public void ArchiveErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new ArchiveRequest(null, Enumerable.Empty<ArchiveFile>())));
@@ -82,9 +95,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var request = new CancelRequest(Guid.Empty);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(request);
                 Assert.Fail();
-
             }
-            catch(ErrorResponseException e)
+            catch (ErrorResponseException e)
             {
                 Assert.AreEqual("Job 00000000-0000-0000-0000-000000000000 is not currently running and cannot be canceled", e.ErrorResponse.ErrorMessage);
                 Assert.AreEqual(HttpStatusCode.BadRequest, e.ErrorResponse.StatusCode);
@@ -133,7 +145,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("blackPearlName", "string", "not_found", "bp_name")
+                    new UnprocessableError("blackPearlName", "string", "spectra_device_registration_not_found", "bp_name")
                 });
 
             ValidationExceptionCheck(
@@ -307,7 +319,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
             request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, "not_found");
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<FileNotFoundException>());
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<Exceptions.FileNotFoundException>());
         }
 
         [Test]
@@ -468,7 +480,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 SpectraRioBrokerClientFixture.CreateCluster();
                 SpectraRioBrokerClientFixture.CreateDevice();
-                SpectraRioBrokerClientFixture.CreateBroker();
+                SpectraRioBrokerClientFixture.CreateBrokers();
             }
         }
 
@@ -516,6 +528,82 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 });
         }
 
+        [Test]
+        public void RestoreJobWithIgnoreDuplicates()
+        {
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName2, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                ValidationExceptionCheck(
+                    () =>
+                    {
+                        //Using search and restore
+                        var restoreRequest = new RestoreRequest("*", new List<RestoreFile>
+                        {
+                            new RestoreFile(fileName1, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                        });
+                        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
+                        Assert.Fail();
+                    },
+                    new List<UnprocessableError>
+                    {
+                        new UnprocessableError(fileName1, "file", "duplicate_file_brokers"),
+                    });
+
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+                deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName2, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+            finally
+            {
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
+            }
+        }
+
         [Test, Ignore("Retry is not yet implemented in the server")]
         public void RetryErrorTests()
         {
@@ -524,7 +612,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var request = new RetryRequest(Guid.Empty);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request);
                 Assert.Fail();
-
             }
             catch (ErrorResponseException e)
             {
@@ -533,7 +620,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        #endregion Tests
+        #endregion Public Methods
 
         #region Private Methods
 
