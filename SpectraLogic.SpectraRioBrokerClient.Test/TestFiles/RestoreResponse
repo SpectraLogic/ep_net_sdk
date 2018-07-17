@@ -3,7 +3,8 @@
   "jobType": "RESTORE",
   "numberOfFiles": 1,
   "totalSizeInBytes": 1234,
-  "created": "2018-01-23T03:52:46.869Z[UTC]",
+  "creationDate": "2018-01-23T03:52:46.869Z[UTC]",
+  "lastUpdated": "2018-01-23T03:52:46.869Z[UTC]",
   "progress": 1.0,
   "status": {
     "message": "Completed",

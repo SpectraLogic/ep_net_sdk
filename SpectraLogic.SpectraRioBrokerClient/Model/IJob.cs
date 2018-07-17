@@ -34,12 +34,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         long BytesTransferred { get; }
 
         /// <summary>
-        /// Gets the created.
+        /// Gets the creation date.
         /// </summary>
         /// <value>
-        /// The created.
+        /// The creation date.
         /// </value>
-        string Created { get; }
+        string CreationDate { get; }
+
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>
+        /// The files.
+        /// </value>
+        IList<JobFileStatus> Files { get; }
 
         /// <summary>
         /// Gets the files transferred.
@@ -64,6 +72,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The type of the job.
         /// </value>
         JobType JobType { get; }
+
+        /// <summary>
+        /// Gets the last updated.
+        /// </summary>
+        /// <value>
+        /// The last updated.
+        /// </value>
+        string LastUpdated { get; }
 
         /// <summary>
         /// Gets the number of files.
@@ -96,14 +112,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The total size in bytes.
         /// </value>
         long TotalSizeInBytes { get; }
-
-        /// <summary>
-        /// Gets the files.
-        /// </summary>
-        /// <value>
-        /// The files.
-        /// </value>
-        IList<JobFileStatus> Files { get; }
 
         #endregion Properties
     }

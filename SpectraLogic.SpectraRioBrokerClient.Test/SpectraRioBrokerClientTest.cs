@@ -16,13 +16,11 @@
 using log4net;
 using log4net.Config;
 using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
-using SpectraLogic.SpectraRioBrokerClient.Test.Utils;
 using System;
 using System.Net;
 
@@ -72,7 +70,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(0.0, job.Progress);
             Assert.AreEqual("Initializing", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
@@ -106,7 +105,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.CANCEL, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
@@ -359,7 +359,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual(10, job.BytesTransferred);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(0.5, job.Progress);
             Assert.AreEqual("Active", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
@@ -375,7 +376,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual(1234, job.BytesTransferred);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
@@ -391,7 +393,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
             Assert.AreEqual(10, job.BytesTransferred);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
@@ -476,7 +479,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.RESTORE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
@@ -510,7 +514,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.Created);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
+            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(0.0, job.Progress);
             Assert.AreEqual("Retry", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);

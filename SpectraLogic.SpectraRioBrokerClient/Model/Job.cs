@@ -36,11 +36,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="filesTransferred">The files transferred.</param>
         /// <param name="totalSizeInBytes">The total size in bytes.</param>
         /// <param name="bytesTransferred">The bytes transferred.</param>
-        /// <param name="created">The created.</param>
+        /// <param name="creationDate">The created.</param>
+        /// <param name="lastUpdated">The last updated.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
         /// <param name="files">The files.</param>
-        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string created, double progress, JobStatus status, IList<JobFileStatus> files)
+        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string creationDate, string lastUpdated, double progress, JobStatus status, IList<JobFileStatus> files)
         {
             JobId = jobId;
             JobType = jobType;
@@ -48,7 +49,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             FilesTransferred = filesTransferred;
             TotalSizeInBytes = totalSizeInBytes;
             BytesTransferred = bytesTransferred;
-            Created = created;
+            CreationDate = creationDate;
+            LastUpdated = lastUpdated;
             Progress = progress;
             Status = status;
             Files = files;
@@ -67,12 +69,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         [JsonProperty(PropertyName = "bytesTransferred")] public long BytesTransferred { get; }
 
         /// <summary>
-        /// Gets the created.
+        /// Gets the creation date.
         /// </summary>
         /// <value>
-        /// The created.
+        /// The creation date.
         /// </value>
-        [JsonProperty(PropertyName = "created")] public string Created { get; }
+        [JsonProperty(PropertyName = "creationDate")] public string CreationDate { get; }
+
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>
+        /// The files.
+        /// </value>
+        [JsonProperty(PropertyName = "files")] public IList<JobFileStatus> Files { get; }
 
         /// <summary>
         /// Gets the files transferred.
@@ -97,6 +107,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The type of the job.
         /// </value>
         [JsonProperty(PropertyName = "jobType")] public JobType JobType { get; }
+
+        /// <summary>
+        /// Gets the last updated.
+        /// </summary>
+        /// <value>
+        /// The last updated.
+        /// </value>
+        [JsonProperty(PropertyName = "lastUpdated")] public string LastUpdated { get; }
 
         /// <summary>
         /// Gets the number of files.
@@ -129,15 +147,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The total size in bytes.
         /// </value>
         [JsonProperty(PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
-
-        /// <summary>
-        /// Gets the files.
-        /// </summary>
-        /// <value>
-        /// The files.
-        /// </value>
-        /// <exception cref="NotImplementedException"></exception>
-        [JsonProperty(PropertyName = "files")] public IList<JobFileStatus> Files { get; }
 
         #endregion Properties
     }
