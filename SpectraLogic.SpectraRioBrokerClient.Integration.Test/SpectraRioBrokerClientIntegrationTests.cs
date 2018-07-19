@@ -32,12 +32,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         //TODO remove this once Job tracking is done in the server
         private readonly int MAX_POLLING_ATTEMPS = 10;
 
-        private readonly int POLLING_INTERVAL = 10;
+        private readonly int POLLING_INTERVAL = 10;  // in sec
         private ILog _log = LogManager.GetLogger("SpectraRioBrokerClientIntegrationTest");
 
         #endregion Private Fields
-
-        // in sec
 
         #region Public Methods
 
@@ -129,7 +127,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("https://jira.spectralogic.com/browse/ESCP-371")]
+        [Test]
         public void ArchiveNewFilesOnlyTest_1()
         {
             SpectraRioBrokerClientFixture.SetupTestData();
@@ -147,7 +145,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
                     new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false)
-                });
+                },
+                "All files already exist. Nothing to archive.");
         }
 
         [Test]
@@ -167,7 +166,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
                     new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false)
-                });
+                },
+                "Archive job completed successfully");
         }
 
         [Test, Ignore("Not working yet")]
@@ -557,7 +557,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         #region Private Methods
 
-        private void ArchiveNewFilesOnlyTest(List<ArchiveFile> list1, List<ArchiveFile> list2)
+        private void ArchiveNewFilesOnlyTest(List<ArchiveFile> list1, List<ArchiveFile> list2, string message)
         {
             try
             {
@@ -605,7 +605,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
-                Assert.AreEqual("Archive job completed successfully", job.Status.Message);
+                Assert.AreEqual(message, job.Status.Message);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
