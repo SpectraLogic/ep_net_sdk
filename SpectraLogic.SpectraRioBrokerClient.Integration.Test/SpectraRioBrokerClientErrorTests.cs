@@ -45,7 +45,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         #region Public Methods
 
-        [Test, Ignore("https://jira.spectralogic.com/browse/ESCP-372")]
+        [Test]
         public void ArchiveErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new ArchiveRequest(null, Enumerable.Empty<ArchiveFile>())));
