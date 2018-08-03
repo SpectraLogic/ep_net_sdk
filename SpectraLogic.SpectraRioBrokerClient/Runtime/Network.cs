@@ -15,6 +15,7 @@
 
 using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -97,7 +98,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
             if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
             {
-                requestPrettyPrint = String.Concat(requestPrettyPrint, String.Concat(Environment.NewLine, request.GetBody()));
+                requestPrettyPrint = String.Concat(requestPrettyPrint, String.Concat(Environment.NewLine, request.GetBody().JsonFormat()));
             }
 
             return requestPrettyPrint;

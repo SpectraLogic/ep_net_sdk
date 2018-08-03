@@ -140,6 +140,7 @@
     <Compile Include="Runtime\IHttpWebResponse.cs" />
     <Compile Include="Runtime\INetwork.cs" />
     <Compile Include="Runtime\Network.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
