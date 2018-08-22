@@ -88,7 +88,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
                     new RestoreFile(fileName1, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
-                    new RestoreFile(fileName2, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F2_restore.txt".ToFileUri())
+                    new RestoreFile(fileName2, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F2_restore.txt".ToFileUri(), new ByteRange(0, 10))
                 });
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -110,6 +110,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Restore job completed successfully", job.Status.Message);
+                Assert.AreEqual(14 + 11, job.BytesTransferred);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);

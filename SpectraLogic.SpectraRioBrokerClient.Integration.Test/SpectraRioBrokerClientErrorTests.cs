@@ -526,6 +526,51 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri"),
                 });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    {
+                        new RestoreFile("name", "uri", new ByteRange(-1, 10))
+                    });
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files.byteRange", "object", "invalid", reason:"The startingIndex must be positive"),
+                });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    {
+                        new RestoreFile("name", "uri", new ByteRange(0, -10))
+                    });
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files.byteRange", "object", "invalid", reason:"The endingIndex must be positive"),
+                });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    {
+                        new RestoreFile("name", "uri", new ByteRange(11, 10))
+                    });
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("files.byteRange", "object", "invalid", reason:"startingIndex must be lower than endingIndex"),
+                });
         }
 
         [Test]

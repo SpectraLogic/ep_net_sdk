@@ -59,6 +59,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 ret = 1;
             }
 
+            if ((x.Reason == null && y.Reason != null) ||
+                (x.Reason != null && y.Reason == null) ||
+                (x.Reason != null && y.Reason != null && !x.Reason.Equals(y.Reason)))
+            {
+                LOG.Error($"expected Reason to be '{x.Reason}' but was '{y.Reason}'");
+                ret = 1;
+            }
+
             return ret;
         }
 
