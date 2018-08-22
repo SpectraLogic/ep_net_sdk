@@ -56,6 +56,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </value>
         [JsonProperty(PropertyName = "value")] public string Value { get; private set; }
 
+        /// <summary>
+        /// Gets the reason.
+        /// </summary>
+        /// <value>
+        /// The reason.
+        /// </value>
+        [JsonProperty(PropertyName = "reason")] public string Reason { get; private set; }
+
         #endregion Properties
 
         #region Constructors
@@ -67,12 +75,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="fieldType">Type of the field.</param>
         /// <param name="errorType">Type of the error.</param>
         /// <param name="value">The value.</param>
-        public UnprocessableError(string fieldName, string fieldType, string errorType, string value = null)
+        /// <param name="reason">The reason.</param>
+        public UnprocessableError(string fieldName, string fieldType, string errorType, string value = null, string reason = null)
         {
             FieldName = fieldName;
             FieldType = fieldType;
             ErrorType = errorType;
             Value = value;
+            Reason = reason;
         }
 
         #endregion Constructors

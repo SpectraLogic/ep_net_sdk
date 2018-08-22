@@ -24,22 +24,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Fields
 
-        [JsonProperty(PropertyName = "start")] private long Start;
-        [JsonProperty(PropertyName = "stop")] private long Stop;
+        [JsonProperty(PropertyName = "startingIndex")] private long StartingIndex;
+        [JsonProperty(PropertyName = "endingIndex")] private long EndingIndex;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ByteRange"/> class.
+        /// Initializes a new instance of the <see cref="ByteRange" /> class.
         /// </summary>
-        /// <param name="start">The start.</param>
-        /// <param name="stop">The stop.</param>
-        public ByteRange(long start, long stop)
+        /// <param name="startingIndex">Index of the starting.</param>
+        /// <param name="endingIndex">Index of the ending.</param>
+        public ByteRange(long startingIndex, long endingIndex)
         {
-            Start = start;
-            Stop = stop;
+            StartingIndex = startingIndex;
+            EndingIndex = endingIndex;
         }
 
         #endregion Constructors
