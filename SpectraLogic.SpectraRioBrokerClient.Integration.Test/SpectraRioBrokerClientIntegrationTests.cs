@@ -20,6 +20,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
@@ -111,6 +112,106 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Restore job completed successfully", job.Status.Message);
                 Assert.AreEqual(14 + 11, job.BytesTransferred);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Completed", file.Status);
+                }
+
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF2Request);
+            }
+            finally
+            {
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
+            }
+        }
+
+        [Test]
+        public void ArchiveAndRestoreWithRelationship()
+        {
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+
+                /***********
+                 * ARCHIVE *
+                 ***********/
+                var fileName1 = Guid.NewGuid().ToString();
+                var fileName2 = Guid.NewGuid().ToString();
+                var relationship = "relation1";
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false, new HashSet<string>(){relationship}),
+                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false, new HashSet<string>(){relationship})
+                });
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+                Assert.AreEqual("Archive job completed successfully", job.Status.Message);
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Completed", file.Status);
+                }
+
+                var relationshipObjectsRequest = new GetBrokerRelationshipObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, relationship);
+                var relationshipObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationshipObjects(relationshipObjectsRequest);
+
+                Assert.AreEqual(2, relationshipObjects.Objects.Count());
+                foreach (var obj in relationshipObjects.Objects)
+                {
+                    Assert.AreEqual(1, obj.Relationships.Count);
+                    Assert.AreEqual(relationship, obj.Relationships.First());
+                }
+
+                /**********
+                * RESTORE *
+                ***********/
+
+                var restoreList = relationshipObjects.Objects.Select(obj =>
+                {
+                    return new RestoreFile(obj.Name, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/{obj.Name}".ToFileUri());
+                });
+
+                var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, restoreList);
+                var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
+
+                pollingAttemps = 0;
+                do
+                {
+                    restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(restoreJob.JobId));
+                    _log.Debug(restoreJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, restoreJob.Status.Status);
+
+                job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+                Assert.AreEqual("Restore job completed successfully", job.Status.Message);
+                Assert.AreEqual(28, job.BytesTransferred);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);

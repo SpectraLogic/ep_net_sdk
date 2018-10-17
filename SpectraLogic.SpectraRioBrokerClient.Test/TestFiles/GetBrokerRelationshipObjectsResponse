@@ -1,0 +1,46 @@
+﻿{
+  "objects": [
+    {
+      "name": "1de0068c-9619-421f-bb1e-00e03de3701c",
+      "size": "1024",
+      "broker": "broker",
+      "creationDate": "2018-10-17T16:11:48.167Z[UTC]",
+      "metadata": {},
+      "relationships": [
+        "relation1"
+      ],
+      "checksum": {
+        "hash": "",
+        "type": "NONE"
+      }
+    },
+    {
+      "name": "7b79065d-4dc3-4b4c-8737-c3707a710509",
+      "size": "1024",
+      "broker": "broker",
+      "creationDate": "2018-10-17T16:11:25.472Z[UTC]",
+      "metadata": {},
+      "relationships": [
+        "relation1"
+      ],
+      "checksum": {
+        "hash": "",
+        "type": "NONE"
+      }
+    },
+    {
+      "name": "d9a7b435-5ff3-430b-8767-4d3f9fb9117f",
+      "size": "1024",
+      "broker": "broker",
+      "creationDate": "2018-10-17T16:11:49.605Z[UTC]",
+      "metadata": {},
+      "relationships": [
+        "relation1"
+      ],
+      "checksum": {
+        "hash": "",
+        "type": "NONE"
+      }
+    }
+  ]
+}

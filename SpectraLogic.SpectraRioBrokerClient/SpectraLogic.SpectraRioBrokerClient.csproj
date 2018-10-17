@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calls\DeleteFileRequest.cs" />
+    <Compile Include="Calls\GetBrokerRelationshipObjectsRequest.cs" />
     <Compile Include="Calls\RetryRequest.cs" />
     <Compile Include="Calls\CancelRequest.cs" />
     <Compile Include="Calls\CreateBrokerRequest.cs" />
@@ -86,8 +87,12 @@
     <Compile Include="Model\ArchiveFile.cs" />
     <Compile Include="Calls\ArchiveRequest.cs" />
     <Compile Include="Calls\RestRequest.cs" />
+    <Compile Include="Model\IRelationshipObjects.cs" />
     <Compile Include="Model\JobFileStatus.cs" />
     <Compile Include="Model\JobStatusEnum.cs" />
+    <Compile Include="Model\RelationshipObject.cs" />
+    <Compile Include="Model\RelationshipObjects.cs" />
+    <Compile Include="ResponseParsers\GetBrokerRelationshipObjectsResponseParser.cs" />
     <Compile Include="ResponseParsers\RetryResponseParser.cs" />
     <Compile Include="ResponseParsers\Parser.cs" />
     <Compile Include="SpectraRioBrokerClient.cs" />

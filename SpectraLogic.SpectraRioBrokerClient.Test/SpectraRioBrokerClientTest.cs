@@ -22,6 +22,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
 using System;
+using System.Linq;
 using System.Net;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Test
@@ -118,7 +119,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void CreateBrokerTest()
         {
-            var createBrokerRequest = new CreateBrokerRequest(Stubs.BrokerName, Stubs.AgentConfig);
+            var createBrokerRequest = new CreateBrokerRequest(Stubs.BrokerName, Stubs.AgentName, Stubs.AgentConfig);
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -405,6 +406,33 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void GetRelationshipObjects()
+        {
+            var getRelationshipObjectRequest = new GetBrokerRelationshipObjectsRequest("brokerName", "relationship");
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getRelationshipObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerRelationshipObjectsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var relationshipObjects = client.GetBrokerRelationshipObjects(getRelationshipObjectRequest);
+            Assert.AreEqual(3, relationshipObjects.Objects.Count);
+            foreach (var obj in relationshipObjects.Objects)
+            {
+                Assert.AreEqual(1, obj.Relationships.Count);
+                Assert.AreEqual("relation1", obj.Relationships.First());
+            }
         }
 
         [Test]

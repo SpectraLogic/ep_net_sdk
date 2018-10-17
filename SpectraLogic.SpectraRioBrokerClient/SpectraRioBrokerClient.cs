@@ -167,6 +167,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IRelationshipObjects GetBrokerRelationshipObjects(GetBrokerRelationshipObjectsRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new GetBrokerRelationshipObjectsResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public IJob Restore(RestoreRequest request)
         {
             return ExceptionDecorator.Run(() =>
