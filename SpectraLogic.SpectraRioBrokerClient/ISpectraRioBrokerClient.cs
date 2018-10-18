@@ -164,6 +164,16 @@ namespace SpectraLogic.SpectraRioBrokerClient
         IJob GetJob(GetJobRequest request);
 
         /// <summary>
+        /// Gets the relationship objects.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.InvalidServerCredentialsException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IRelationshipObjects GetBrokerRelationshipObjects(GetBrokerRelationshipObjectsRequest request);
+
+        /// <summary>
         /// Restores the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -173,7 +183,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IJob Restore(RestoreRequest request);
-
 
         /// <summary>
         /// Retries the specified request.

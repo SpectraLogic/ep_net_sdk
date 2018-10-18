@@ -38,6 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         };
 
         public static string BrokerName = "brokerName";
+        public static string AgentName = "agentName";
 
         public static IEnumerable<RestoreFile> RestoreFiles = new List<RestoreFile>
         {

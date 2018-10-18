@@ -79,7 +79,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName))
             {
                 var agentConfig = GetAgentConfig();
-                var createBrokerRequest = new CreateBrokerRequest(BrokerName, agentConfig);
+                var createBrokerRequest = new CreateBrokerRequest(BrokerName, AgentName, agentConfig);
                 SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
 
@@ -87,7 +87,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName2))
             {
-                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, new AgentConfig(AgentName, DeviceName, BlackPearlUserName, BlackPearlBucket2, false));
+                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, AgentName, new AgentConfig(AgentName, DeviceName, BlackPearlUserName, BlackPearlBucket2, false));
                 SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
         }

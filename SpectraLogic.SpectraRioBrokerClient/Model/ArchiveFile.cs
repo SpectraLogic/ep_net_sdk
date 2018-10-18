@@ -41,6 +41,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         [JsonProperty(PropertyName = "name")] public string Name;
 
         /// <summary>
+        /// The relationships
+        /// </summary>
+        [JsonProperty(PropertyName = "relationships")] public ISet<string> Relationships = new HashSet<string>();
+
+        /// <summary>
         /// The size
         /// </summary>
         [JsonProperty(PropertyName = "size")] public long Size;
@@ -76,6 +81,27 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Metadata = metadata;
             IndexMedia = indexMedia;
             StoreFileProperties = storeFileProperties;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="uri">The URI.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="indexMedia">if set to <c>true</c> [index media].</param>
+        /// <param name="storeFileProperties">if set to <c>true</c> [store file properties].</param>
+        /// <param name="relationships">The relationships.</param>
+        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia, bool storeFileProperties, ISet<string> relationships)
+        {
+            Name = name;
+            Uri = uri;
+            Size = size;
+            Metadata = metadata;
+            IndexMedia = indexMedia;
+            StoreFileProperties = storeFileProperties;
+            Relationships = relationships;
         }
 
         #endregion Constructors

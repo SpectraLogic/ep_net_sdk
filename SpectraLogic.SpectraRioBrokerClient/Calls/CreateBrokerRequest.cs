@@ -34,6 +34,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         [JsonProperty(PropertyName = "agentConfig")] public AgentConfig AgentConfig;
 
         /// <summary>
+        /// The agent name
+        /// </summary>
+        [JsonProperty(PropertyName = "agentName")] public string AgentName;
+
+        /// <summary>
         /// The broker name
         /// </summary>
         [JsonProperty(PropertyName = "name")] public string BrokerName;
@@ -43,16 +48,19 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateBrokerRequest"/> class.
+        /// Initializes a new instance of the <see cref="CreateBrokerRequest" /> class.
         /// </summary>
         /// <param name="brokerName">The broker name.</param>
+        /// <param name="agentName">Name of the agent.</param>
         /// <param name="agentConfig">The agent configuration.</param>
-        public CreateBrokerRequest(string brokerName, AgentConfig agentConfig)
+        public CreateBrokerRequest(string brokerName, string agentName, AgentConfig agentConfig)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(agentConfig != null, "agent");
+            Contract.Requires<ArgumentNullException>(agentName != null, "agentName");
 
             BrokerName = brokerName;
+            AgentName = agentName;
             AgentConfig = agentConfig;
         }
 
