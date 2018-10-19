@@ -13,18 +13,21 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
+using System.Net;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
-    internal interface INetwork
+    internal class CreateTokenResponseParser : IResponseParser<IToken>
     {
-        #region Methods
+        #region Public Methods
 
-        IHttpWebResponse Invoke(RestRequest request);
+        public IToken Parse(IHttpWebResponse response)
+        {
+            return Parser<BearerToken>.Parse(response, HttpStatusCode.Created);
+        }
 
-        void UpdateToken(string token);
-
-        #endregion Methods
+        #endregion Public Methods
     }
 }

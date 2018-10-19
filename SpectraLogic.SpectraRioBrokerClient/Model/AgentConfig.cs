@@ -40,11 +40,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         [JsonProperty(PropertyName = "https")] public bool Https;
 
         /// <summary>
-        /// The name
-        /// </summary>
-        [JsonProperty(PropertyName = "name")] public string Name;
-
-        /// <summary>
         /// The user name
         /// </summary>
         [JsonProperty(PropertyName = "username")] public string UserName;
@@ -56,14 +51,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AgentConfig"/> class.
         /// </summary>
-        /// <param name="name">The name.</param>
         /// <param name="blackPearlName">Name of the black pearl.</param>
         /// <param name="userName">Name of the user.</param>
         /// <param name="bucket">The bucket.</param>
         /// <param name="https">if set to <c>true</c> [HTTPS].</param>
-        public AgentConfig(string name, string blackPearlName, string userName, string bucket, bool https)
+        public AgentConfig(string blackPearlName, string userName, string bucket, bool https)
         {
-            Name = name;
             BlackPearlName = blackPearlName;
             UserName = userName;
             Bucket = bucket;

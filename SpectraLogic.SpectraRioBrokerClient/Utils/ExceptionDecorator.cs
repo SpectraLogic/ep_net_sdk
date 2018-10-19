@@ -32,9 +32,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
             }
             catch (ErrorResponseException ex)
             {
-                if (ex.ErrorResponse.StatusCode == HttpStatusCode.Forbidden)
+                if (ex.ErrorResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    throw new InvalidServerCredentialsException(ex.ErrorResponse.ErrorMessage, ex);
+                    throw new AuthenticationFailureException(ex.ErrorResponse.ErrorMessage, ex);
                 }
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.NotFound)
@@ -91,7 +91,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
 
                 if (ex.ErrorResponse.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    //TODO
+                    switch (ex.ErrorResponse.ErrorMessage)
+                    {
+                        case "Missing Authorization Header":
+                            throw new MissingAuthorizationHeaderException(ex.ErrorResponse.ErrorMessage, ex);
+                    }
                 }
 
                 throw ex;

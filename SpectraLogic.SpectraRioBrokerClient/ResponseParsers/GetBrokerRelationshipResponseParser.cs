@@ -19,13 +19,13 @@ using System.Net;
 
 namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
-    internal class GetBrokerRelationshipObjectsResponseParser : IResponseParser<IRelationshipObjects>
+    internal class GetBrokerRelationshipResponseParser : IResponseParser<IRelationship>
     {
         #region Public Methods
 
-        public IRelationshipObjects Parse(IHttpWebResponse response)
+        public IRelationship Parse(IHttpWebResponse response)
         {
-            return Parser<RelationshipObjects>.Parse(response, HttpStatusCode.OK);
+            return Parser<Relationship>.Parse(response, HttpStatusCode.OK);
         }
 
         #endregion Public Methods

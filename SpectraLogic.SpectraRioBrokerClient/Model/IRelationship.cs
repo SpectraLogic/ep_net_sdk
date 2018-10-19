@@ -13,27 +13,33 @@
  * ****************************************************************************
  */
 
-using System;
+using System.Collections.Generic;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="System.Exception" />
-    public class InvalidServerCredentialsException : Exception
+    public interface IRelationship
     {
-        #region Constructors
+        #region Public Properties
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidServerCredentialsException"/> class.
+        /// Gets the results.
         /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        public InvalidServerCredentialsException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
+        /// <value>
+        /// The results.
+        /// </value>
+        IList<RelationshipResult> Results { get; }
 
-        #endregion Constructors
+        /// <summary>
+        /// Gets the page.
+        /// </summary>
+        /// <value>
+        /// The page.
+        /// </value>
+        RelationshipPage Page { get; }
+
+        #endregion Public Properties
     }
 }

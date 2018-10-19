@@ -29,10 +29,9 @@ namespace SpectraLogic.SpectraRioBrokerClient
 
         private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClientBuilder");
 
-        private readonly string _password;
         private readonly string _serverName;
         private readonly int _serverPort;
-        private readonly string _username;
+        private readonly string _token = null;
         private Uri _proxy;
 
         #endregion Fields
@@ -40,18 +39,27 @@ namespace SpectraLogic.SpectraRioBrokerClient
         #region Constructors
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="SpectraRioBrokerClientBuilder" /> class.
+        /// </summary>
+        /// <param name="serverName">Name of the server.</param>
+        /// <param name="serverPort">The server port.</param>
+        /// <param name="token">The token.</param>
+        public SpectraRioBrokerClientBuilder(string serverName, int serverPort, string token)
+        {
+            _serverName = serverName;
+            _serverPort = serverPort;
+            _token = token;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SpectraRioBrokerClientBuilder"/> class.
         /// </summary>
         /// <param name="serverName">Name of the server.</param>
         /// <param name="serverPort">The server port.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        public SpectraRioBrokerClientBuilder(string serverName, int serverPort, string username, string password)
+        public SpectraRioBrokerClientBuilder(string serverName, int serverPort)
         {
             _serverName = serverName;
             _serverPort = serverPort;
-            _username = username;
-            _password = password;
         }
 
         #endregion Constructors
@@ -61,7 +69,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <inheritdoc/>
         public ISpectraRioBrokerClient Build()
         {
-            var network = new Network(_serverName, _serverPort, _username, _password, _proxy);
+            var network = new Network(_serverName, _serverPort, _token, _proxy);
             return new SpectraRioBrokerClient(network);
         }
 

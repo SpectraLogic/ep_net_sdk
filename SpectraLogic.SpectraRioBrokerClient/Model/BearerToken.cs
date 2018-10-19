@@ -13,24 +13,38 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
+    /// 
     /// </summary>
-    public interface IRelationshipObjects
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IToken" />
+    public class BearerToken : IToken
     {
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Token"/> class.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        public BearerToken(string token)
+        {
+            Token = token;
+        }
+
+        #endregion Public Constructors
+
         #region Public Properties
 
         /// <summary>
-        /// Gets the objects.
+        /// Gets the token.
         /// </summary>
         /// <value>
-        /// The objects.
+        /// The token.
         /// </value>
-        IList<RelationshipObject> Objects { get; }
+        [JsonProperty(PropertyName = "token")] public string Token { get; }
 
         #endregion Public Properties
     }

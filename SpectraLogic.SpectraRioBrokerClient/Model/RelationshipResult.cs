@@ -62,12 +62,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    public class RelationshipObject
+    public class RelationshipResult
     {
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelationshipObject"/> class.
+        /// Initializes a new instance of the <see cref="RelationshipResult"/> class.
         /// </summary>
         /// <param name="broker">The broker.</param>
         /// <param name="checksum">The checksum.</param>
@@ -76,7 +76,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="name">The name.</param>
         /// <param name="relationships">The relationships.</param>
         /// <param name="size">The size.</param>
-        public RelationshipObject(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, IList<string> relationships, long size)
+        public RelationshipResult(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, IList<string> relationships, long size)
         {
             Broker = broker;
             Checksum = checksum;

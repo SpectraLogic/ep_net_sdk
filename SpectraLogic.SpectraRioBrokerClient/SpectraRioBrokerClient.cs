@@ -19,6 +19,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient
 {
@@ -92,6 +93,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IToken CreateToken(CreateTokenRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new CreateTokenResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public void DeleteCluster()
         {
             ExceptionDecorator.Run(() =>
@@ -140,6 +150,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IRelationship GetBrokerRelationship(GetBrokerRelationshipRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new GetBrokerRelationshipResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public ICluster GetCluster(GetClusterRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -167,15 +186,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
-        public IRelationshipObjects GetBrokerRelationshipObjects(GetBrokerRelationshipObjectsRequest request)
-        {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokerRelationshipObjectsResponseParser().Parse(_network.Invoke(request));
-            });
-        }
-
-        /// <inheritdoc/>
         public IJob Restore(RestoreRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -191,6 +201,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
             {
                 return new RetryResponseParser().Parse(_network.Invoke(request));
             });
+        }
+
+        /// <inheritdoc/>
+        public void UpdateToken(string token)
+        {
+            Contract.Requires<ArgumentNullException>(token != null, "token");
+
+            _network.UpdateToken(token);
         }
 
         #endregion Public Methods

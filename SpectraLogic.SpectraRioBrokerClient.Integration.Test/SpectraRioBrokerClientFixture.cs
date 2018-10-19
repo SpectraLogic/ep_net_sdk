@@ -87,7 +87,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName2))
             {
-                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, AgentName, new AgentConfig(AgentName, DeviceName, BlackPearlUserName, BlackPearlBucket2, false));
+                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, AgentName, new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket2, false));
                 SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
         }
@@ -124,7 +124,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         public static AgentConfig GetAgentConfig()
         {
-            return new AgentConfig(AgentName, DeviceName, BlackPearlUserName, BlackPearlBucket, false);
+            return new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket, false);
         }
 
         #endregion Public Methods
@@ -143,9 +143,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             var SpectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
                 ConfigurationManager.AppSettings["ServerName"],
-                int.Parse(ConfigurationManager.AppSettings["ServerPort"]),
-                ConfigurationManager.AppSettings["UserName"],
-                ConfigurationManager.AppSettings["Password"]);
+                int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
 
             var proxy = ConfigurationManager.AppSettings["Proxy"];
             if (!string.IsNullOrWhiteSpace(proxy))
@@ -154,6 +152,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
 
             SpectraRioBrokerClient = SpectraRioBrokerClientBuilder.Build();
+            var token = SpectraRioBrokerClient.CreateToken(new CreateTokenRequest(ConfigurationManager.AppSettings["RioUsername"], ConfigurationManager.AppSettings["RioPassword"])).Token;
+            SpectraRioBrokerClient.UpdateToken(token);
         }
 
         private static void SetupArchiveTestData(string tempDir)
