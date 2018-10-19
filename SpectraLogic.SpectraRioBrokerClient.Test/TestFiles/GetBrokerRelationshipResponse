@@ -1,10 +1,15 @@
 ﻿{
-  "objects": [
+  "page": {
+    "number": 0,
+    "pageSize": 100,
+    "totalPages": 1
+  },
+  "result": [
     {
-      "name": "1de0068c-9619-421f-bb1e-00e03de3701c",
+      "name": "5ac04144-bd37-4ee0-a661-09d4db08e9af",
       "size": "1024",
       "broker": "broker",
-      "creationDate": "2018-10-17T16:11:48.167Z[UTC]",
+      "creationDate": "2018-10-18T21:38:53.337Z[UTC]",
       "metadata": {},
       "relationships": [
         "relation1"
@@ -15,10 +20,10 @@
       }
     },
     {
-      "name": "7b79065d-4dc3-4b4c-8737-c3707a710509",
+      "name": "a7b632e7-8a9c-41c7-8917-c41d25e14a26",
       "size": "1024",
       "broker": "broker",
-      "creationDate": "2018-10-17T16:11:25.472Z[UTC]",
+      "creationDate": "2018-10-18T21:40:47.659Z[UTC]",
       "metadata": {},
       "relationships": [
         "relation1"
@@ -29,10 +34,10 @@
       }
     },
     {
-      "name": "d9a7b435-5ff3-430b-8767-4d3f9fb9117f",
+      "name": "baaba42d-e852-4e4f-8c30-899381abf55f",
       "size": "1024",
       "broker": "broker",
-      "creationDate": "2018-10-17T16:11:49.605Z[UTC]",
+      "creationDate": "2018-10-18T21:40:49.553Z[UTC]",
       "metadata": {},
       "relationships": [
         "relation1"

@@ -22,6 +22,7 @@ using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -50,8 +51,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new ArchiveRequest(null, Enumerable.Empty<ArchiveFile>())));
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new ArchiveRequest(string.Empty, null)));
-
-            //TODO add test for InvalidServerCredentialsException
 
             var request = new ArchiveRequest("not_found", new List<ArchiveFile>
             {
@@ -129,7 +128,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             //ValidationExceptionCheck(
             //    () =>
             //    {
-            //        request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig(string.Empty, SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.BlackPearlBucket, false));
+            //        request = new CreateBrokerRequest("should_fail", string.Empty, new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.BlackPearlBucket, false));
             //        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
             //        Assert.Fail();
             //    },
@@ -141,7 +140,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig("name", "bp_name", "username", "bucket", false));
+                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig("bp_name", "username", "bucket", false));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
@@ -153,7 +152,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig(SpectraRioBrokerClientFixture.AgentName, SpectraRioBrokerClientFixture.DeviceName, "username", "bucket", false));
+                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, "username", "bucket", false));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
@@ -165,7 +164,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig(SpectraRioBrokerClientFixture.AgentName, SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.BlackPearlUserName, "wrong_bucket", false));
+                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName, new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.BlackPearlUserName, "wrong_bucket", false));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
@@ -191,8 +190,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", null, "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "localhost", null, "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "localhost", "username", null)));
-
-            //TODO add test for InvalidServerCredentialsException
 
             var request = new CreateDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost", "username", "password");
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request)));
@@ -312,6 +309,64 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void CreateTokenErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateTokenRequest(null, "password")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateTokenRequest("username", null)));
+
+            var request = new CreateTokenRequest("wrong_username", "spectra");
+            Assert.ThrowsAsync<AuthenticationFailureException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request)));
+
+            request = new CreateTokenRequest("spectra", "wrong_password");
+            Assert.ThrowsAsync<AuthenticationFailureException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request)));
+
+            request = new CreateTokenRequest("wrong_username", "wrong_password");
+            Assert.ThrowsAsync<AuthenticationFailureException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request)));
+
+            var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
+                ConfigurationManager.AppSettings["ServerName"],
+                int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
+            var noAuthClient = spectraRioBrokerClientBuilder.Build();
+
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Archive(new ArchiveRequest("", Enumerable.Empty<ArchiveFile>()))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Cancel(new CancelRequest(Guid.Empty))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.CreateBroker(new CreateBrokerRequest("", "", new AgentConfig("", "", "", false)))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.CreateDevice(new CreateDeviceRequest("", "", "", ""))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBrokerRelationship(new GetBrokerRelationshipRequest("", ""))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(""))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetDevice(new GetDeviceRequest(""))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJob(new GetJobRequest(Guid.Empty))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest(Guid.Empty))));
+
+            //TODO uncomment once ESCP-628 is fixed
+            //ValidationExceptionCheck(
+            //    () =>
+            //    {
+            //        request = new CreateTokenRequest(string.Empty, "password");
+            //        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
+            //        Assert.Fail();
+            //    },
+            //    new List<UnprocessableError>
+            //    {
+            //        new UnprocessableError("username", "string", "missing")
+            //    });
+
+            //TODO uncomment once ESCP-628 is fixed
+            //ValidationExceptionCheck(
+            //    () =>
+            //    {
+            //        request = new CreateTokenRequest("username", string.Empty);
+            //        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
+            //        Assert.Fail();
+            //    },
+            //    new List<UnprocessableError>
+            //    {
+            //        new UnprocessableError("password", "string", "missing")
+            //    });
+        }
+
+        [Test]
         public void DeleteFileErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteFileRequest(null, "file")));
@@ -329,31 +384,27 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRequest(null)));
 
-            //TODO add test for InvalidServerCredentialsException
-
             var request = new GetBrokerRequest("not_found");
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(request)));
         }
 
         [Test]
-        public void GetBrokerRelationshipObjectsErrorTests()
+        public void GetBrokerRelationshipErrorTests()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipObjectsRequest(null, "relationship")));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipObjectsRequest("broker", null)));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipRequest(null, "relationship")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipRequest("broker", null)));
 
-            var request = new GetBrokerRelationshipObjectsRequest("not_found", "relationship");
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationshipObjects(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            var request = new GetBrokerRelationshipRequest("not_found", "relationship");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
-            request = new GetBrokerRelationshipObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, "relationship_not_found");
-            Assert.AreEqual(0, SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationshipObjects(request).Objects.Count());
+            request = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, "relationship_not_found");
+            Assert.AreEqual(0, SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request).Results.Count());
         }
 
         [Test]
         public void GetDeviceErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetDeviceRequest(null)));
-
-            //TODO add test for InvalidServerCredentialsException
 
             var request = new GetDeviceRequest("not_found");
             Assert.ThrowsAsync<DeviceNotFoundException>(
@@ -364,8 +415,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetJobErrorTests()
         {
-            //TODO add test for InvalidServerCredentialsException
-
             var request = new GetJobRequest(Guid.NewGuid());
             Assert.ThrowsAsync<JobNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(request)));
         }
@@ -373,16 +422,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void HeadBrokerErrorTests()
         {
-            //TODO add test for InvalidServerCredentialsException
-
             Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerExist("not_found"));
         }
 
         [Test]
         public void HeadDeviceErrorTests()
         {
-            //TODO add test for InvalidServerCredentialsException
-
             Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist("not_found"));
         }
 
@@ -410,7 +455,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        var request = new CreateBrokerRequest("", "", new AgentConfig("", "", "", "", false));
+                        var request = new CreateBrokerRequest("", "", new AgentConfig("", "", "", false));
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request));
                     });
 
@@ -494,8 +539,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        var request = new GetBrokerRelationshipObjectsRequest("", "");
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationshipObjects(request));
+                        var request = new GetBrokerRelationshipRequest("", "");
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request));
                     });
             }
             finally
@@ -513,8 +558,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 () => Task.FromResult(new RestoreRequest(null, Enumerable.Empty<RestoreFile>())));
             Assert.ThrowsAsync<ArgumentNullException>(
                 () => Task.FromResult(new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, null)));
-
-            //TODO add test for InvalidServerCredentialsException
 
             var request = new RestoreRequest("should_fail", new List<RestoreFile>
             {

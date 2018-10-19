@@ -89,7 +89,8 @@
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCompletedResponse" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCanceledResponse" />
     <EmbeddedResource Include="TestFiles\RetryResponse" />
-    <EmbeddedResource Include="TestFiles\GetBrokerRelationshipObjectsResponse" />
+    <EmbeddedResource Include="TestFiles\GetBrokerRelationshipResponse" />
+    <EmbeddedResource Include="TestFiles\CreateTokenResponse" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.SpectraRioBrokerClient\SpectraLogic.SpectraRioBrokerClient.csproj">
@@ -117,9 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\BrokerNotFoundExceptionResponse" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TestFiles\InvalidServerCredentialsExceptionResponse" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\CreateDeviceResponse" />

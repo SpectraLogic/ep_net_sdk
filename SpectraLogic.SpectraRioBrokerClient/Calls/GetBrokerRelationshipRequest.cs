@@ -22,17 +22,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
     /// 
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
-    public class GetBrokerRelationshipObjectsRequest : RestRequest
+    public class GetBrokerRelationshipRequest : RestRequest
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetBrokerRelationshipObjectsRequest"/> class.
+        /// Initializes a new instance of the <see cref="GetBrokerRelationshipRequest"/> class.
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="relationshipName">Name of the relationship.</param>
         /// <exception cref="System.ArgumentNullException"></exception>
-        public GetBrokerRelationshipObjectsRequest(string brokerName, string relationshipName)
+        public GetBrokerRelationshipRequest(string brokerName, string relationshipName)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(relationshipName != null, "relationshipName");

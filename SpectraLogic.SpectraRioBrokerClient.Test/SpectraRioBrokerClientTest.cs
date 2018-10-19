@@ -198,6 +198,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void CreateToken()
+        {
+            var createTokenRequest = new CreateTokenRequest("username", "password");
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(createTokenRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateTokenResponse",
+                    HttpStatusCode.Created, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var token = client.CreateToken(createTokenRequest).Token;
+            Assert.AreEqual("token123", token);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void DeleteCluster()
         {
             var deleteClusterRequest = new DeleteClusterRequest();
@@ -409,13 +435,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void GetRelationshipObjects()
+        public void GetBrokerRelationship()
         {
-            var getRelationshipObjectRequest = new GetBrokerRelationshipObjectsRequest("brokerName", "relationship");
+            var getRelationshipRequest = new GetBrokerRelationshipRequest("brokerName", "relationship");
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(getRelationshipObjectRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerRelationshipObjectsResponse",
+                .Setup(n => n.Invoke(getRelationshipRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerRelationshipResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -426,9 +452,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var relationshipObjects = client.GetBrokerRelationshipObjects(getRelationshipObjectRequest);
-            Assert.AreEqual(3, relationshipObjects.Objects.Count);
-            foreach (var obj in relationshipObjects.Objects)
+            var relationship = client.GetBrokerRelationship(getRelationshipRequest);
+            Assert.AreEqual(3, relationship.Results.Count);
+            foreach (var obj in relationship.Results)
             {
                 Assert.AreEqual(1, obj.Relationships.Count);
                 Assert.AreEqual("relation1", obj.Relationships.First());

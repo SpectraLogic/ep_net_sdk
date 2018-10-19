@@ -55,9 +55,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             mockNetwork
                 .SetupSequence(n => n.Invoke(getBrokerRequest))
                 .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.BrokerNotFoundExceptionResponse",
-                    HttpStatusCode.NotFound, null))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.InvalidServerCredentialsExceptionResponse",
-                    HttpStatusCode.Forbidden, null));
+                    HttpStatusCode.NotFound, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
@@ -68,7 +66,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var client = builder.Build();
 
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(client.GetBroker(getBrokerRequest)));
-            Assert.ThrowsAsync<InvalidServerCredentialsException>(() => Task.FromResult(client.GetBroker(getBrokerRequest)));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

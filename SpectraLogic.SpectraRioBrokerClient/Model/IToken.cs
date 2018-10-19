@@ -13,18 +13,14 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Calls;
-
-namespace SpectraLogic.SpectraRioBrokerClient.Runtime
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    internal interface INetwork
+    public interface IToken
     {
-        #region Methods
+        #region Public Properties
 
-        IHttpWebResponse Invoke(RestRequest request);
+        string Token { get; }
 
-        void UpdateToken(string token);
-
-        #endregion Methods
+        #endregion Public Properties
     }
 }

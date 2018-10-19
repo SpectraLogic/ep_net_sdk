@@ -141,11 +141,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                  ***********/
                 var fileName1 = Guid.NewGuid().ToString();
                 var fileName2 = Guid.NewGuid().ToString();
-                var relationship = "relation1";
+                var relationshipName = "relation1";
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false, new HashSet<string>(){relationship}),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false, new HashSet<string>(){relationship})
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false, new HashSet<string>(){relationshipName}),
+                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, false, new HashSet<string>(){relationshipName})
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -172,21 +172,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     Assert.AreEqual("Completed", file.Status);
                 }
 
-                var relationshipObjectsRequest = new GetBrokerRelationshipObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, relationship);
-                var relationshipObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationshipObjects(relationshipObjectsRequest);
+                var relationshipRequest = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, relationshipName);
+                var relationship = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(relationshipRequest);
 
-                Assert.AreEqual(2, relationshipObjects.Objects.Count());
-                foreach (var obj in relationshipObjects.Objects)
+                Assert.AreEqual(2, relationship.Results.Count());
+                foreach (var obj in relationship.Results)
                 {
                     Assert.AreEqual(1, obj.Relationships.Count);
-                    Assert.AreEqual(relationship, obj.Relationships.First());
+                    Assert.AreEqual(relationshipName, obj.Relationships.First());
                 }
 
                 /**********
                 * RESTORE *
                 ***********/
 
-                var restoreList = relationshipObjects.Objects.Select(obj =>
+                var restoreList = relationship.Results.Select(obj =>
                 {
                     return new RestoreFile(obj.Name, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/{obj.Name}".ToFileUri());
                 });

@@ -36,12 +36,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         #region Constructors
 
-        public Network(string hostServerName, int hostServerPort, string username, string password, Uri proxy = null)
+        public Network(string hostServerName, int hostServerPort, string token, Uri proxy = null)
         {
             HostServerName = hostServerName;
             HostServerPort = hostServerPort;
-            Username = username;
-            Password = password;
+            Token = token;
             Proxy = proxy;
         }
 
@@ -51,13 +50,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         private string HostServerName { get; }
         private int HostServerPort { get; }
-        private string Password { get; }
         private Uri Proxy { get; }
-        private string Username { get; }
+        private string Token { get; set; }
 
         #endregion Properties
 
-        #region Methods
+        #region Public Methods
 
         public IHttpWebResponse Invoke(RestRequest request)
         {
@@ -78,6 +76,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
                 return new SpectraRioBrokerHttpWebResponse((HttpWebResponse)e.Response);
             }
         }
+
+        public void UpdateToken(string token) => Token = token;
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private static string BuildQueryParams(Dictionary<string, string> queryParams)
         {
@@ -120,7 +124,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
             var httpRequest = (HttpWebRequest)WebRequest.Create(uriBuilder.Uri);
             httpRequest.Method = request.Verb.ToString();
-            httpRequest.Headers.Add("Authorization", GetBasicAuth());
+            if (Token != null)
+            {
+                httpRequest.Headers.Add("Authorization", GetBearerAuth());
+            }
             httpRequest.ContentType = "application/json";
 
             if (Proxy != null)
@@ -149,15 +156,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
             return new SpectraRioBrokerHttpWebRequest(httpRequest);
         }
 
-        private string GetBasicAuth()
-        {
-            var credentials = $"{Username}:{Password}";
-            var bytes = Encoding.ASCII.GetBytes(credentials);
-            var base64 = Convert.ToBase64String(bytes);
-            var authorization = string.Concat("Basic ", base64);
-            return authorization;
-        }
+        private string GetBearerAuth() => string.Concat("Bearer ", Token);
 
-        #endregion Methods
+        #endregion Private Methods
     }
 }
