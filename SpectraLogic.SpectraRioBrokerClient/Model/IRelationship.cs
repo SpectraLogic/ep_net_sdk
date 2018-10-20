@@ -25,12 +25,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #region Public Properties
 
         /// <summary>
-        /// Gets the results.
+        /// Gets the objects.
         /// </summary>
         /// <value>
-        /// The results.
+        /// The objects.
         /// </value>
-        IList<RelationshipResult> Results { get; }
+        IList<RelationshipObject> Objects { get; }
 
         /// <summary>
         /// Gets the page.

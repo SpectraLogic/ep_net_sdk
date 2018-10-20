@@ -96,7 +96,7 @@
     <Compile Include="Model\JobStatusEnum.cs" />
     <Compile Include="Model\Relationship.cs" />
     <Compile Include="Model\RelationshipPage.cs" />
-    <Compile Include="Model\RelationshipResult.cs" />
+    <Compile Include="Model\RelationshipObject.cs" />
     <Compile Include="ResponseParsers\CreateTokenResponseParser.cs" />
     <Compile Include="ResponseParsers\GetBrokerRelationshipResponseParser.cs" />
     <Compile Include="ResponseParsers\RetryResponseParser.cs" />

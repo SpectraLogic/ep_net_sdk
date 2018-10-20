@@ -141,7 +141,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                  ***********/
                 var fileName1 = Guid.NewGuid().ToString();
                 var fileName2 = Guid.NewGuid().ToString();
-                var relationshipName = "relation1";
+                var relationshipName = "ep_net_test";
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false, new HashSet<string>(){relationshipName}),
@@ -175,8 +175,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var relationshipRequest = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, relationshipName);
                 var relationship = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(relationshipRequest);
 
-                Assert.AreEqual(2, relationship.Results.Count());
-                foreach (var obj in relationship.Results)
+                Assert.AreEqual(2, relationship.Objects.Count());
+                foreach (var obj in relationship.Objects)
                 {
                     Assert.AreEqual(1, obj.Relationships.Count);
                     Assert.AreEqual(relationshipName, obj.Relationships.First());
@@ -186,7 +186,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 * RESTORE *
                 ***********/
 
-                var restoreList = relationship.Results.Select(obj =>
+                var restoreList = relationship.Objects.Select(obj =>
                 {
                     return new RestoreFile(obj.Name, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/{obj.Name}".ToFileUri());
                 });
