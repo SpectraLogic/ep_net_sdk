@@ -339,31 +339,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest(Guid.Empty))));
 
-            //TODO uncomment once ESCP-628 is fixed
-            //ValidationExceptionCheck(
-            //    () =>
-            //    {
-            //        request = new CreateTokenRequest(string.Empty, "password");
-            //        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
-            //        Assert.Fail();
-            //    },
-            //    new List<UnprocessableError>
-            //    {
-            //        new UnprocessableError("username", "string", "missing")
-            //    });
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateTokenRequest(string.Empty, "password");
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("username", "string", "missing", reason:"username cannot be empty")
+                });
 
-            //TODO uncomment once ESCP-628 is fixed
-            //ValidationExceptionCheck(
-            //    () =>
-            //    {
-            //        request = new CreateTokenRequest("username", string.Empty);
-            //        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
-            //        Assert.Fail();
-            //    },
-            //    new List<UnprocessableError>
-            //    {
-            //        new UnprocessableError("password", "string", "missing")
-            //    });
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateTokenRequest("username", string.Empty);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("password", "string", "missing", reason:"password cannot be empty")
+                });
         }
 
         [Test]
@@ -398,7 +396,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
             request = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, "relationship_not_found");
-            Assert.AreEqual(0, SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request).Results.Count());
+            Assert.AreEqual(0, SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request).Objects.Count());
         }
 
         [Test]

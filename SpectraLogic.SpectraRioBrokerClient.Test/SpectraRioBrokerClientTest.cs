@@ -453,8 +453,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var client = builder.Build();
 
             var relationship = client.GetBrokerRelationship(getRelationshipRequest);
-            Assert.AreEqual(3, relationship.Results.Count);
-            foreach (var obj in relationship.Results)
+            Assert.AreEqual(3, relationship.Objects.Count);
+            foreach (var obj in relationship.Objects)
             {
                 Assert.AreEqual(1, obj.Relationships.Count);
                 Assert.AreEqual("relation1", obj.Relationships.First());

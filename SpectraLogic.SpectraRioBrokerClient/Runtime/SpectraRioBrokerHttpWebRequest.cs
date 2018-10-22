@@ -48,7 +48,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
             StringBuilder sb = new StringBuilder();
             sb.Append("HttpWebRequest information:");
             sb.AppendFormat("{0}{1} {2}", Environment.NewLine, _httpWebRequest.Method, _httpWebRequest.Address);
-            sb.AppendFormat("{0}{1}", Environment.NewLine, _httpWebRequest.Headers.ToString().TrimEnd());
+            sb.AppendFormat("{0}{1}", Environment.NewLine, _httpWebRequest.Headers.ToString().TrimEnd());//TODO remove auth header from the log
 
             return sb.ToString();
         }
