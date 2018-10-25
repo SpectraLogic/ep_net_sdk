@@ -14,6 +14,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -24,6 +26,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
         #region Private Fields
 
         private readonly HttpWebRequest _httpWebRequest;
+        private readonly IList<string> FILTER_HEADERS = new List<string>() { "Authorization" };
 
         #endregion Private Fields
 
@@ -48,11 +51,43 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
             StringBuilder sb = new StringBuilder();
             sb.Append("HttpWebRequest information:");
             sb.AppendFormat("{0}{1} {2}", Environment.NewLine, _httpWebRequest.Method, _httpWebRequest.Address);
-            sb.AppendFormat("{0}{1}", Environment.NewLine, _httpWebRequest.Headers.ToString().TrimEnd());//TODO remove auth header from the log
+            sb.AppendFormat("{0}{1}", Environment.NewLine, GetHeaders());
 
             return sb.ToString();
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private string GetHeaders()
+        {
+            var headers = _httpWebRequest.Headers
+                .ToString()
+                .Split(Environment.NewLine.ToCharArray())
+                .Where(key => !string.IsNullOrEmpty(key))
+                .Where(key => !FILTER_HEADERS.Contains(key, new StartWithComparer()));
+
+            return string.Join(Environment.NewLine, headers);
+        }
+
+        #endregion Private Methods
     }
+}
+
+internal class StartWithComparer : IEqualityComparer<string>
+{
+    #region Public Methods
+
+    public bool Equals(string x, string y)
+    {
+        return y.StartsWith(x);
+    }
+
+    public int GetHashCode(string obj)
+    {
+        return int.Parse(obj).ToString().GetHashCode();
+    }
+
+    #endregion Public Methods
 }
