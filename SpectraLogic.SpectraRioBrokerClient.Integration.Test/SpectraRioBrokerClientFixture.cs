@@ -48,6 +48,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             CreateClient();
             CreateCluster();
+            UpdateClientToken();
             CreateDevice();
             CreateBrokers();
         }
@@ -152,8 +153,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
 
             SpectraRioBrokerClient = SpectraRioBrokerClientBuilder.Build();
-            var token = SpectraRioBrokerClient.CreateToken(new CreateTokenRequest(ConfigurationManager.AppSettings["RioUsername"], ConfigurationManager.AppSettings["RioPassword"])).Token;
-            SpectraRioBrokerClient.UpdateToken(token);
         }
 
         private static void SetupArchiveTestData(string tempDir)
@@ -182,6 +181,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 Directory.CreateDirectory(RestoreTempDir);
             }
+        }
+
+        private static void UpdateClientToken()
+        {
+            var token = SpectraRioBrokerClient.CreateToken(new CreateTokenRequest(ConfigurationManager.AppSettings["RioUsername"], ConfigurationManager.AppSettings["RioPassword"])).Token;
+            SpectraRioBrokerClient.UpdateToken(token);
         }
 
         #endregion Private Methods
