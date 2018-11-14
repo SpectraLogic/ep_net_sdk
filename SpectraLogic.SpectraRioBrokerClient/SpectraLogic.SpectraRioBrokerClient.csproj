@@ -59,6 +59,7 @@
     <Compile Include="Calls\CreateTokenRequest.cs" />
     <Compile Include="Calls\DeleteFileRequest.cs" />
     <Compile Include="Calls\GetBrokerRelationshipRequest.cs" />
+    <Compile Include="Calls\GetSystemRequest.cs" />
     <Compile Include="Calls\RetryRequest.cs" />
     <Compile Include="Calls\CancelRequest.cs" />
     <Compile Include="Calls\CreateBrokerRequest.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Calls\ArchiveRequest.cs" />
     <Compile Include="Calls\RestRequest.cs" />
     <Compile Include="Model\BearerToken.cs" />
+    <Compile Include="Model\IRioSystem.cs" />
     <Compile Include="Model\IRelationship.cs" />
     <Compile Include="Model\IToken.cs" />
     <Compile Include="Model\JobFileStatus.cs" />
@@ -97,8 +99,10 @@
     <Compile Include="Model\Relationship.cs" />
     <Compile Include="Model\RelationshipPage.cs" />
     <Compile Include="Model\RelationshipObject.cs" />
+    <Compile Include="Model\RioSystem.cs" />
     <Compile Include="ResponseParsers\CreateTokenResponseParser.cs" />
     <Compile Include="ResponseParsers\GetBrokerRelationshipResponseParser.cs" />
+    <Compile Include="ResponseParsers\GetSystemResponseParser.cs" />
     <Compile Include="ResponseParsers\RetryResponseParser.cs" />
     <Compile Include="ResponseParsers\Parser.cs" />
     <Compile Include="SpectraRioBrokerClient.cs" />

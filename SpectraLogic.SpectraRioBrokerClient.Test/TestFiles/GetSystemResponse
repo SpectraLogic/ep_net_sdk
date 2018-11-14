@@ -1,0 +1,26 @@
+﻿{
+  "version": "0.2.9-dev",
+  "apiVersion": "0.9.0",
+  "gitCommitHash": "d5951ad383319d62b5f7233fcebbdf1d68b53f96",
+  "buildDate": "2018-11-13T18:19:52.504Z[UTC]",
+  "server": {
+    "jvm": {
+      "version": "1.8.0_192",
+      "vendor": "Oracle Corporation",
+      "vmVersion": "25.192-b12",
+      "vmName": "Java HotSpot(TM) 64-Bit Server VM"
+    },
+    "operatingSystem": {
+      "name": "Windows 10",
+      "arch": "amd64",
+      "version": "10.0",
+      "cores": 4
+    }
+  },
+  "runtimeStats": {
+    "uptime": 8,
+    "totalMemory": 573046784,
+    "usedMemory": 149654152,
+    "freeMemory": 423392632
+  }
+}

@@ -371,6 +371,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void GetSystemTest()
+        {
+            Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));
+        }
+
+        [Test]
         public void RestoreJobWithIgnoreDuplicates()
         {
             try

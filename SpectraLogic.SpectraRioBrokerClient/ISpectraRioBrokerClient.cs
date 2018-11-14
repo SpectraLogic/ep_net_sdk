@@ -191,6 +191,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         IJob GetJob(GetJobRequest request);
 
         /// <summary>
+        /// Gets the system info.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        IRioSystem GetSystem(GetSystemRequest request);
+
+        /// <summary>
         /// Restores the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
