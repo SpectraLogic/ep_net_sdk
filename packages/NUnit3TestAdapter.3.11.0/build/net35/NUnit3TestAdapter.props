@@ -6,7 +6,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)NUnit3.TestAdapter.pdb">
+    <Content Include="$(MSBuildThisFileDirectory)NUnit3.TestAdapter.pdb" Condition="Exists('$(MSBuildThisFileDirectory)NUnit3.TestAdapter.pdb')">
       <Link>NUnit3.TestAdapter.pdb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
@@ -18,11 +18,6 @@
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)nunit.engine.api.dll">
       <Link>nunit.engine.api.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Visible>False</Visible>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Mono.Cecil.dll">
-      <Link>Mono.Cecil.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </Content>

@@ -15,10 +15,19 @@
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IToken
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets the token.
+        /// </summary>
+        /// <value>
+        /// The token.
+        /// </value>
         string Token { get; }
 
         #endregion Public Properties

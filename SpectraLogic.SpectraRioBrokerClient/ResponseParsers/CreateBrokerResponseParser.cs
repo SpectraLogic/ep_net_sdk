@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System.Net;
@@ -22,19 +21,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class CreateBrokerResponseParser : IResponseParser<IBroker>
     {
-        #region Fields
-
-        private static readonly ILog LOG = LogManager.GetLogger("CreateBrokerResponseParser");
-
-        #endregion Fields
-
-        #region Methods
+        #region Public Methods
 
         public IBroker Parse(IHttpWebResponse response)
         {
             return Parser<Broker>.Parse(response, HttpStatusCode.Created);
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

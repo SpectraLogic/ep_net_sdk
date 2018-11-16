@@ -25,13 +25,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class HeadResponseParser : IResponseParser<bool>
     {
-        #region Fields
+        #region Private Fields
 
         private static ILog LOG = LogManager.GetLogger("HeadResponseParser");
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Methods
+        #region Public Methods
 
         public bool Parse(IHttpWebResponse response)
         {
@@ -50,6 +50,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
             }
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }
