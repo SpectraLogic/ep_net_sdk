@@ -24,13 +24,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class DeleteFileResponseParser : IResponseParser<Void>
     {
-        #region Fields
+        #region Private Fields
 
         private static readonly ILog LOG = LogManager.GetLogger("DeleteFileResponseParser");
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Methods
+        #region Public Methods
 
         public Void Parse(IHttpWebResponse response)
         {
@@ -40,6 +40,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
             return new Void();
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

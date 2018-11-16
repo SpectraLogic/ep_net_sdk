@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System.Net;
@@ -22,12 +21,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class GetJobParser : IResponseParser<IJob>
     {
-        #region Private Fields
-
-        private static readonly ILog LOG = LogManager.GetLogger("GetJobParser");
-
-        #endregion Private Fields
-
         #region Public Methods
 
         public IJob Parse(IHttpWebResponse response)

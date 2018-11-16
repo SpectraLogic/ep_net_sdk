@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System.Net;
@@ -22,19 +21,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal class GetClusterResponseParser : IResponseParser<ICluster>
     {
-        #region Fields
-
-        private static readonly ILog LOG = LogManager.GetLogger("GetClusterResponseParser");
-
-        #endregion Fields
-
-        #region Methods
+        #region Public Methods
 
         public ICluster Parse(IHttpWebResponse response)
         {
             return Parser<Cluster>.Parse(response, HttpStatusCode.OK);
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

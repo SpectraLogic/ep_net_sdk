@@ -99,12 +99,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
         private static string GetRequestPrettyPrint(RestRequest request, IHttpWebRequest httpWebRequest)
         {
             var requestPrettyPrint = httpWebRequest.ToString();
-
+#if DEBUG
             if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
             {
                 requestPrettyPrint = String.Concat(requestPrettyPrint, String.Concat(Environment.NewLine, request.GetBody().JsonFormat()));
             }
-
+#endif
             return requestPrettyPrint;
         }
 

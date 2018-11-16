@@ -19,10 +19,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
     internal interface IResponseParser<out TResponse>
     {
-        #region Methods
+        #region Public Methods
 
         TResponse Parse(IHttpWebResponse response);
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

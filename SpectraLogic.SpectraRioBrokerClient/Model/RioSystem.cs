@@ -24,6 +24,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Jvm"/> class.
+        /// </summary>
+        /// <param name="vendor">The vendor.</param>
+        /// <param name="version">The version.</param>
+        /// <param name="vmName">Name of the vm.</param>
+        /// <param name="vmVersion">The vm version.</param>
         public Jvm(string vendor, string version, string vmName, string vmVersion)
         {
             Vendor = vendor;
@@ -78,6 +85,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RioOperatingSystem"/> class.
+        /// </summary>
+        /// <param name="arch">The arch.</param>
+        /// <param name="cores">The cores.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="version">The version.</param>
         public RioOperatingSystem(string arch, int cores, string name, string version)
         {
             Arch = arch;
@@ -133,6 +147,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RioSystem"/> class.
+        /// </summary>
+        /// <param name="apiVersion">The API version.</param>
+        /// <param name="buildDate">The build date.</param>
+        /// <param name="gitCommitHash">The git commit hash.</param>
+        /// <param name="runtimeStats">The runtime stats.</param>
+        /// <param name="server">The server.</param>
+        /// <param name="version">The version.</param>
         public RioSystem(string apiVersion, string buildDate, string gitCommitHash, RuntimeStats runtimeStats, Server server, string version)
         {
             ApiVersion = apiVersion;
@@ -205,6 +228,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RuntimeStats"/> class.
+        /// </summary>
+        /// <param name="freeMemory">The free memory.</param>
+        /// <param name="totalMemory">The total memory.</param>
+        /// <param name="uptime">The uptime.</param>
+        /// <param name="usedMemory">The used memory.</param>
         public RuntimeStats(long freeMemory, long totalMemory, long uptime, long usedMemory)
         {
             FreeMemory = freeMemory;
@@ -259,6 +289,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Server" /> class.
+        /// </summary>
+        /// <param name="jvm">The JVM.</param>
+        /// <param name="rioOperatingSystem">The rio operating system.</param>
         public Server(Jvm jvm, RioOperatingSystem rioOperatingSystem)
         {
             Jvm = jvm;
