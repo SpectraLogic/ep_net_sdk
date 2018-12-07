@@ -430,6 +430,24 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void HttpErrorTests()
+        {
+            var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
+                ConfigurationManager.AppSettings["ServerName"].Replace("https", "http"),
+                int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
+
+            var proxy = ConfigurationManager.AppSettings["Proxy"];
+            if (!string.IsNullOrWhiteSpace(proxy))
+            {
+                spectraRioBrokerClientBuilder.WithProxy(proxy);
+            }
+
+            var spectraRioBrokerClient = spectraRioBrokerClientBuilder.Build();
+
+            Assert.ThrowsAsync<WebException>(() => Task.FromResult(spectraRioBrokerClient.GetSystem(new GetSystemRequest())));
+        }
+
+        [Test]
         public void NodeIsNotAClusterMemeberErrorTests()
         {
             try

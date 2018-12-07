@@ -20,6 +20,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
@@ -49,6 +50,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             CreateClient();
             CreateCluster();
             UpdateClientToken();
+            Thread.Sleep(500); //we need this sleep to let the server create the default user after the cluster gets created
             CreateDevice();
             CreateBrokers();
         }
@@ -128,10 +130,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             return new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket, false);
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         public static void SetupTestData()
         {
             var tempDir = Path.GetTempPath();
@@ -139,6 +137,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             SetupArchiveTestData(tempDir);
             SetupRestoreTestData(tempDir);
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private static void CreateClient()
         {
@@ -152,7 +154,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 SpectraRioBrokerClientBuilder.WithProxy(proxy);
             }
 
-            SpectraRioBrokerClient = SpectraRioBrokerClientBuilder.Build();
+            SpectraRioBrokerClient = SpectraRioBrokerClientBuilder.DisableSslValidation().Build();
         }
 
         private static void SetupArchiveTestData(string tempDir)

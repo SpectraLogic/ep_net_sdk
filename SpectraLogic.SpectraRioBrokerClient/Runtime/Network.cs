@@ -15,7 +15,11 @@
 
 using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
+
+#if DEBUG
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,32 +32,34 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 {
     internal class Network : INetwork
     {
-        #region Fields
+        #region Private Fields
 
         private static readonly ILog Log = LogManager.GetLogger("Network");
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Constructors
+        #region Public Constructors
 
-        public Network(string hostServerName, int hostServerPort, string token, Uri proxy = null)
+        public Network(string hostServerName, int hostServerPort, string token, bool disableSslValidation, Uri proxy = null)
         {
             HostServerName = hostServerName;
             HostServerPort = hostServerPort;
             Token = token;
             Proxy = proxy;
+            DisableSslValidation = disableSslValidation;
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Properties
+        #region Private Properties
 
+        private bool DisableSslValidation { get; set; }
         private string HostServerName { get; }
         private int HostServerPort { get; }
         private Uri Proxy { get; }
         private string Token { get; set; }
 
-        #endregion Properties
+        #endregion Private Properties
 
         #region Public Methods
 
@@ -65,6 +71,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
             try
             {
+                if (DisableSslValidation)
+                {
+                    ServerCertificateValidation.OverrideValidation();
+                }
+
                 return httpWebRequest.GetResponse();
             }
             catch (WebException e)

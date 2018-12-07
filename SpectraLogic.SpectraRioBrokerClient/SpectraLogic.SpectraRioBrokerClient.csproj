@@ -105,6 +105,7 @@
     <Compile Include="ResponseParsers\GetSystemResponseParser.cs" />
     <Compile Include="ResponseParsers\RetryResponseParser.cs" />
     <Compile Include="ResponseParsers\Parser.cs" />
+    <Compile Include="Runtime\ServerCertificateValidation.cs" />
     <Compile Include="SpectraRioBrokerClient.cs" />
     <Compile Include="SpectraRioBrokerClientBuilder.cs" />
     <Compile Include="ISpectraRioBrokerClient.cs" />

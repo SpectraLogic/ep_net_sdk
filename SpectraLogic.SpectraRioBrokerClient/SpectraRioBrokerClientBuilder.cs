@@ -25,18 +25,19 @@ namespace SpectraLogic.SpectraRioBrokerClient
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.ISpectraRioBrokerClientBuilder" />
     public class SpectraRioBrokerClientBuilder : ISpectraRioBrokerClientBuilder
     {
-        #region Fields
+        #region Private Fields
 
         private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClientBuilder");
 
         private readonly string _serverName;
         private readonly int _serverPort;
         private readonly string _token = null;
+        private bool _disableSslValidation = false;
         private Uri _proxy;
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Constructors
+        #region Public Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpectraRioBrokerClientBuilder" /> class.
@@ -62,15 +63,25 @@ namespace SpectraLogic.SpectraRioBrokerClient
             _serverPort = serverPort;
         }
 
-        #endregion Constructors
+        #endregion Public Constructors
 
-        #region Methods
+        #region Public Methods
 
         /// <inheritdoc/>
         public ISpectraRioBrokerClient Build()
         {
-            var network = new Network(_serverName, _serverPort, _token, _proxy);
+            var network = new Network(_serverName, _serverPort, _token, _disableSslValidation, _proxy);
             return new SpectraRioBrokerClient(network);
+        }
+
+        /// <summary>
+        /// Disables the SSL validation.
+        /// </summary>
+        /// <returns></returns>
+        public SpectraRioBrokerClientBuilder DisableSslValidation()
+        {
+            _disableSslValidation = true;
+            return this;
         }
 
         /// <summary>
@@ -95,6 +106,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
             return this;
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }
