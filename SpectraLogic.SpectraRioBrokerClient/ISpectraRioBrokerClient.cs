@@ -127,6 +127,16 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         bool DoesBrokerExist(string brokerName);
 
+        /// <summary>Determines whether the broker object exist.</summary>
+        /// <param name="brokerName">Name of the broker.</param>
+        /// <param name="objectName">Name of the object.</param>
+        /// <returns><c>true</c> if specified objectName exist in brokerName; otherwise, <c>false</c>.</returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        bool DoesBrokerObjectExist(string brokerName, string objectName);
+
         /// <summary>
         /// Determines whether deviceName exist.
         /// </summary>
@@ -134,6 +144,10 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <returns>
         ///   <c>true</c> if specified device exist; otherwise, <c>false</c>.
         /// </returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         bool DoesDeviceExist(string deviceName);
 
         /// <summary>

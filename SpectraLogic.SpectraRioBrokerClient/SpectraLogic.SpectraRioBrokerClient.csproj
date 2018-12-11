@@ -61,6 +61,7 @@
     <Compile Include="Calls\GetBrokerRelationshipRequest.cs" />
     <Compile Include="Calls\GetBrokerObjectRequest.cs" />
     <Compile Include="Calls\GetSystemRequest.cs" />
+    <Compile Include="Calls\HeadBrokerObjectRequest.cs" />
     <Compile Include="Calls\RetryRequest.cs" />
     <Compile Include="Calls\CancelRequest.cs" />
     <Compile Include="Calls\CreateBrokerRequest.cs" />

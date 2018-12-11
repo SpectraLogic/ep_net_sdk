@@ -82,17 +82,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     Assert.AreEqual("Completed", file.Status);
                 }
 
-                /*************
-                * GET OBJECT *
-                **************/
-
-                var getBrokerObjectRequest = new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
-                var brokerObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
-
-                Assert.AreEqual(SpectraRioBrokerClientFixture.BrokerName, brokerObject.Broker);
-                Assert.AreEqual(fileName1, brokerObject.Name);
-                Assert.AreEqual(14, brokerObject.Size);
-
                 /**********
                 * RESTORE *
                 ***********/
@@ -378,6 +367,89 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
                 Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
+            }
+        }
+
+        [Test]
+        public void DoesBrokerObjectExistTest()
+        {
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                Assert.IsTrue(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerObjectExist(SpectraRioBrokerClientFixture.BrokerName, fileName1));
+
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+            finally
+            {
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+            }
+        }
+
+        [Test]
+        public void GetBrokerObjectTest()
+        {
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+
+                var fileName1 = Guid.NewGuid().ToString();
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                });
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                var getBrokerObjectRequest = new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                var brokerObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
+
+                Assert.AreEqual(SpectraRioBrokerClientFixture.BrokerName, brokerObject.Broker);
+                Assert.AreEqual(fileName1, brokerObject.Name);
+                Assert.AreEqual(14, brokerObject.Size);
+
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+            finally
+            {
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
 

@@ -131,6 +131,16 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public bool DoesBrokerObjectExist(string brokerName, string objectName)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadBrokerObjectRequest(brokerName, objectName);
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public bool DoesDeviceExist(string deviceName)
         {
             return ExceptionDecorator.Run(() =>
