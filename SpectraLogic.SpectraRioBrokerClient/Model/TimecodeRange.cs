@@ -24,8 +24,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Fields
 
-        [JsonProperty(PropertyName = "start")] private long Start;
-        [JsonProperty(PropertyName = "stop")] private long Stop;
+        [JsonProperty(PropertyName = "start")] private string Start;
+        [JsonProperty(PropertyName = "stop")] private string Stop;
 
         #endregion Fields
 
@@ -36,7 +36,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <param name="start">The start.</param>
         /// <param name="stop">The stop.</param>
-        public TimecodeRange(long start, long stop)
+        public TimecodeRange(string start, string stop)
         {
             Start = start;
             Stop = stop;

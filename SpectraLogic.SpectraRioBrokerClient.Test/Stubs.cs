@@ -44,7 +44,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         {
             new RestoreFile("name", "dest", true),
             new RestoreFile("name2", "dest2", new ByteRange(0, 10)),
-            new RestoreFile("name3", "dest3", new TimecodeRange(10, 20))
+            new RestoreFile("name3", "dest3", new TimecodeRange("01:00:00;00", "02:00:00;00"))
         };
 
         #endregion Public Fields
