@@ -510,14 +510,41 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void HeadBrokerObjectTest()
+        {
+            var headBrokerObjectRequest = new HeadBrokerObjectRequest(Stubs.BrokerName, "objectName");
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .SetupSequence(n => n.Invoke(It.IsAny<HeadBrokerObjectRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NotFound, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            Assert.IsTrue(client.DoesBrokerObjectExist("brokerName", "objectName"));
+            Assert.IsFalse(client.DoesBrokerObjectExist("brokerName", "objectNameNotFound"));
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void HeadBrokerTest()
         {
             var headBrokerRequest = new HeadBrokerRequest(Stubs.BrokerName);
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(It.IsAny<HeadBrokerRequest>()))
-                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null));
+                .SetupSequence(n => n.Invoke(It.IsAny<HeadBrokerRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NotFound, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
@@ -528,6 +555,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var client = builder.Build();
 
             Assert.IsTrue(client.DoesBrokerExist("brokerName"));
+            Assert.IsFalse(client.DoesBrokerExist("brokerNameNotFound"));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -540,8 +568,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(It.IsAny<HeadDeviceRequest>()))
-                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null));
+                .SetupSequence(n => n.Invoke(It.IsAny<HeadDeviceRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NotFound, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
             mockBuilder
@@ -552,6 +581,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var client = builder.Build();
 
             Assert.IsTrue(client.DoesDeviceExist("deviceName"));
+            Assert.IsFalse(client.DoesDeviceExist("deviceNameNotFound"));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

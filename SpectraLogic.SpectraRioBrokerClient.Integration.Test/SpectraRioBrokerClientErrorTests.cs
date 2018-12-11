@@ -433,12 +433,25 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void HeadBrokerErrorTests()
         {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerExist(null)));
+
             Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerExist("not_found"));
+        }
+
+        [Test]
+        public void HeadBrokerObjectErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerObjectExist(null, "objectName")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerObjectExist("brokerName", null)));
+
+            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerObjectExist("broker", "not_found"));
         }
 
         [Test]
         public void HeadDeviceErrorTests()
         {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist(null)));
+
             Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist("not_found"));
         }
 
