@@ -40,7 +40,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         #region Public Methods
 
-        [Test]
+        [Test, Ignore("ESCP-750 - Successful Restore job has 'bytesTransferred':0")]
         public void ArchiveAndRestore()
         {
             try
@@ -81,6 +81,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     Assert.AreEqual("Completed", file.Status);
                 }
+
+                /*************
+                * GET OBJECT *
+                **************/
+
+                var getBrokerObjectRequest = new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                var brokerObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
+
+                Assert.AreEqual(SpectraRioBrokerClientFixture.BrokerName, brokerObject.Broker);
+                Assert.AreEqual(fileName1, brokerObject.Name);
+                Assert.AreEqual(14, brokerObject.Size);
 
                 /**********
                 * RESTORE *
@@ -129,7 +140,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test]
+        [Test, Ignore("ESCP-750 - Successful Restore job has 'bytesTransferred':0")]
         public void ArchiveAndRestoreWithRelationship()
         {
             try

@@ -11,13 +11,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Relationship"/> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="Relationship"/> class.</summary>
         /// <param name="objects">The objects.</param>
-        public Relationship(IList<RelationshipObject> objects)
+        /// <param name="page">The page.</param>
+        public Relationship(IList<BrokerObject> objects, PageResult page)
         {
             Objects = objects;
+            Page = page;
         }
 
         #endregion Public Constructors
@@ -30,7 +30,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The objects.
         /// </value>
-        [JsonProperty(PropertyName = "objects")] public IList<RelationshipObject> Objects { get; }
+        [JsonProperty(PropertyName = "objects")] public IList<BrokerObject> Objects { get; }
 
         /// <summary>
         /// Gets the page.
@@ -38,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The page.
         /// </value>
-        [JsonProperty(PropertyName = "page")] public RelationshipPage Page { get; }
+        [JsonProperty(PropertyName = "page")] public PageResult Page { get; }
 
         #endregion Public Properties
     }

@@ -374,7 +374,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
             request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, "not_found");
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<Exceptions.FileNotFoundException>());
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
         }
 
         [Test]
@@ -384,6 +384,19 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var request = new GetBrokerRequest("not_found");
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(request)));
+        }
+
+        [Test]
+        public void GetBrokerObjectErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerObjectRequest(null, "objectName")));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipRequest("broker", null)));
+
+            var request = new GetBrokerObjectRequest("not_found", "objectName");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+
+            request = new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, "objectName_not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(request), Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
         }
 
         [Test]
@@ -655,7 +668,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
-        public void RestoreJobWithIgnoreDuplicates()
+        public void RestoreJobWithIgnoreDuplicatesTests()
         {
             try
             {

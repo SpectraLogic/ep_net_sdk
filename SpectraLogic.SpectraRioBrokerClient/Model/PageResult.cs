@@ -5,17 +5,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    public class RelationshipPage
+    public class PageResult
     {
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RelationshipPage"/> class.
+        /// Initializes a new instance of the <see cref="PageResult"/> class.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="totalPages">The total pages.</param>
-        public RelationshipPage(long number, long pageSize, long totalPages)
+        public PageResult(long number, long pageSize, long totalPages)
         {
             Number = number;
             PageSize = pageSize;

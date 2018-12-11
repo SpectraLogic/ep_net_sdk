@@ -21,16 +21,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
     ///
     /// </summary>
     /// <seealso cref="System.Exception" />
-    public class FileNotFoundException : Exception
+    public class BrokerObjectNotFoundException : Exception
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileNotFoundException"/> class.
+        /// Initializes a new instance of the <see cref="BrokerObjectNotFoundException"/> class.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (<see langword="Nothing" /> in Visual Basic) if no inner exception is specified.</param>
-        public FileNotFoundException(string message, Exception innerException) : base(message, innerException)
+        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        public BrokerObjectNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
 
