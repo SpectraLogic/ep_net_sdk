@@ -13,33 +13,21 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
+using System.Net;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public interface IRelationship
+    internal class GetBrokerObjectResponseParser : IResponseParser<IBrokerObject>
     {
-        #region Public Properties
+        #region Public Methods
 
-        /// <summary>
-        /// Gets the objects.
-        /// </summary>
-        /// <value>
-        /// The objects.
-        /// </value>
-        IList<BrokerObject> Objects { get; }
+        public IBrokerObject Parse(IHttpWebResponse response)
+        {
+            return Parser<BrokerObject>.Parse(response, HttpStatusCode.OK);
+        }
 
-        /// <summary>
-        /// Gets the page.
-        /// </summary>
-        /// <value>
-        /// The page.
-        /// </value>
-        PageResult Page { get; }
-
-        #endregion Public Properties
+        #endregion Public Methods
     }
 }

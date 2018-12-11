@@ -53,7 +53,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                             throw new DeviceNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
 
                         case ResourceType.OBJECT:
-                            throw new FileNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
+                            throw new BrokerObjectNotFoundException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 

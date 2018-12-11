@@ -198,7 +198,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void CreateToken()
+        public void CreateTokenTest()
         {
             var createTokenRequest = new CreateTokenRequest("username", "password");
 
@@ -224,7 +224,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void DeleteCluster()
+        public void DeleteClusterTest()
         {
             var deleteClusterRequest = new DeleteClusterRequest();
 
@@ -272,7 +272,30 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void GetBrokerRelationship()
+        public void GetBrokerObjectTest()
+        {
+            var getBrokerObjectRequest = new GetBrokerObjectRequest("brokerName", "objectName");
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getBrokerObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObject = client.GetBrokerObject(getBrokerObjectRequest);
+            Assert.AreEqual("broker", brokerObject.Broker);
+            Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+        }
+
+        [Test]
+        public void GetBrokerRelationshipTest()
         {
             var getRelationshipRequest = new GetBrokerRelationshipRequest("brokerName", "relationship");
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
@@ -296,6 +319,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
                 Assert.AreEqual(1, obj.Relationships.Count);
                 Assert.AreEqual("relation1", obj.Relationships.First());
             }
+            Assert.AreEqual(0, relationship.Page.Number);
+            Assert.AreEqual(100, relationship.Page.PageSize);
+            Assert.AreEqual(1, relationship.Page.TotalPages);
         }
 
         [Test]
@@ -462,7 +488,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void GetSystem()
+        public void GetSystemTest()
         {
             var getSystemRequest = new GetSystemRequest();
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);

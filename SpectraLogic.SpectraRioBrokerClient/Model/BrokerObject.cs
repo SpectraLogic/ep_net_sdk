@@ -21,53 +21,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    public class Checksum
+    public class BrokerObject : IBrokerObject
     {
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Checksum"/> class.
-        /// </summary>
-        /// <param name="hash">The hash.</param>
-        /// <param name="type">The type.</param>
-        public Checksum(string hash, string type)
-        {
-            Hash = hash;
-            Type = type;
-        }
-
-        #endregion Public Constructors
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets the hash.
-        /// </summary>
-        /// <value>
-        /// The hash.
-        /// </value>
-        [JsonProperty(PropertyName = "hash")] public string Hash { get; }
-
-        /// <summary>
-        /// Gets the type.
-        /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
-        [JsonProperty(PropertyName = "type")] public string Type { get; }
-
-        #endregion Public Properties
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    public class RelationshipObject
-    {
-        #region Public Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RelationshipObject"/> class.
+        /// Initializes a new instance of the <see cref="BrokerObject"/> class.
         /// </summary>
         /// <param name="broker">The broker.</param>
         /// <param name="checksum">The checksum.</param>
@@ -76,7 +35,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="name">The name.</param>
         /// <param name="relationships">The relationships.</param>
         /// <param name="size">The size.</param>
-        public RelationshipObject(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, IList<string> relationships, long size)
+        public BrokerObject(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, IList<string> relationships, long size)
         {
             Broker = broker;
             Checksum = checksum;
@@ -146,6 +105,47 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The size.
         /// </value>
         [JsonProperty(PropertyName = "size")] public long Size { get; }
+
+        #endregion Public Properties
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public class Checksum
+    {
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Checksum"/> class.
+        /// </summary>
+        /// <param name="hash">The hash.</param>
+        /// <param name="type">The type.</param>
+        public Checksum(string hash, string type)
+        {
+            Hash = hash;
+            Type = type;
+        }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the hash.
+        /// </summary>
+        /// <value>
+        /// The hash.
+        /// </value>
+        [JsonProperty(PropertyName = "hash")] public string Hash { get; }
+
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
+        [JsonProperty(PropertyName = "type")] public string Type { get; }
 
         #endregion Public Properties
     }

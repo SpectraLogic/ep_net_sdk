@@ -109,6 +109,8 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         void DeleteFile(DeleteFileRequest request);
 
@@ -146,6 +148,17 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <returns></returns>
         IBroker GetBroker(GetBrokerRequest request);
 
+        /// <summary>Gets the object.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IBrokerObject GetBrokerObject(GetBrokerObjectRequest request);
+
         /// <summary>
         /// Gets the relationship objects.
         /// </summary>
@@ -154,6 +167,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IRelationship GetBrokerRelationship(GetBrokerRelationshipRequest request);
 

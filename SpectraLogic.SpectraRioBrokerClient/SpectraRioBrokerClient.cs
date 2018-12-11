@@ -150,6 +150,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IBrokerObject GetBrokerObject(GetBrokerObjectRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new GetBrokerObjectResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public IRelationship GetBrokerRelationship(GetBrokerRelationshipRequest request)
         {
             return ExceptionDecorator.Run(() =>
