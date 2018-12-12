@@ -6,15 +6,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IRelationship" />
-    public class Relationship : IRelationship
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IBrokerObjects" />
+    public class BrokerObjects : IBrokerObjects
     {
         #region Public Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="Relationship"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="BrokerObjects"/> class.</summary>
         /// <param name="objects">The objects.</param>
         /// <param name="page">The page.</param>
-        public Relationship(IList<BrokerObject> objects, PageResult page)
+        public BrokerObjects(IList<BrokerObject> objects, PageResult page)
         {
             Objects = objects;
             Page = page;

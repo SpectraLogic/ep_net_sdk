@@ -400,6 +400,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void GetBrokerObjectsErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerObjectsRequest(null)));
+
+            var request = new GetBrokerObjectsRequest("not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+        }
+
+        [Test]
         public void GetBrokerRelationshipErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipRequest(null, "relationship")));

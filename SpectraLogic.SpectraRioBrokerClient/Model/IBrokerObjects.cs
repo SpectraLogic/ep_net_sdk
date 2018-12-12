@@ -20,7 +20,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    public interface IRelationship
+    public interface IBrokerObjects
     {
         #region Public Properties
 

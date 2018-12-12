@@ -173,6 +173,16 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IBrokerObject GetBrokerObject(GetBrokerObjectRequest request);
 
+        /// <summary>Gets the broker objects.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IBrokerObjects GetBrokerObjects(GetBrokerObjectsRequest request);
+
         /// <summary>
         /// Gets the relationship objects.
         /// </summary>
@@ -183,7 +193,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
-        IRelationship GetBrokerRelationship(GetBrokerRelationshipRequest request);
+        IBrokerObjects GetBrokerRelationship(GetBrokerRelationshipRequest request);
 
         /// <summary>
         /// Gets the cluster.

@@ -13,21 +13,25 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Net;
-
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    internal class GetBrokerRelationshipResponseParser : IResponseParser<IBrokerObjects>
+    /// <summary></summary>
+    public static class SortBy
     {
-        #region Public Methods
+        #region Public Fields
 
-        public IBrokerObjects Parse(IHttpWebResponse response)
-        {
-            return Parser<BrokerObjects>.Parse(response, HttpStatusCode.OK);
-        }
+        /// <summary>Sort the results by the creation date.</summary>
+        public static string CreationDate = "CREATION_DATE";
 
-        #endregion Public Methods
+        /// <summary>Sort the results by name.</summary>
+        public static string Name = "NAME";
+
+        /// <summary>Do no sorting, and let the Metadata sort by the most relevant search.  This is the DEFAULT value.</summary>
+        public static string None = "NONE";
+
+        /// <summary>Sort the results by the size of the file.</summary>
+        public static string Size = "SIZE";
+
+        #endregion Public Fields
     }
 }
