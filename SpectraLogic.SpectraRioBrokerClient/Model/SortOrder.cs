@@ -13,21 +13,19 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Net;
-
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    internal class GetBrokerRelationshipResponseParser : IResponseParser<IBrokerObjects>
+    /// <summary></summary>
+    public static class SortOrder
     {
-        #region Public Methods
+        #region Public Fields
 
-        public IBrokerObjects Parse(IHttpWebResponse response)
-        {
-            return Parser<BrokerObjects>.Parse(response, HttpStatusCode.OK);
-        }
+        /// <summary>The ASC</summary>
+        public static string Asc = "ASC";
 
-        #endregion Public Methods
+        /// <summary>The DESC</summary>
+        public static string Desc = "DESC";
+
+        #endregion Public Fields
     }
 }

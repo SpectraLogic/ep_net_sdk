@@ -19,7 +19,7 @@ using System.Net;
 
 namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
-    internal class GetBrokerRelationshipResponseParser : IResponseParser<IBrokerObjects>
+    internal class GetBrokerObjectsResponseParser : IResponseParser<IBrokerObjects>
     {
         #region Public Methods
 

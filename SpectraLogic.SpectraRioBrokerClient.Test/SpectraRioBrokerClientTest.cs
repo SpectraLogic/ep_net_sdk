@@ -272,6 +272,31 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetBrokerObjectsTest()
+        {
+            var getBrokerObjectsRequest = new GetBrokerObjectsRequest("brokerName");
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getBrokerObjectsRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObjects = client.GetBrokerObjects(getBrokerObjectsRequest);
+            Assert.AreEqual(3, brokerObjects.Objects.Count);
+            Assert.AreEqual(0, brokerObjects.Page.Number);
+            Assert.AreEqual(100, brokerObjects.Page.PageSize);
+            Assert.AreEqual(1, brokerObjects.Page.TotalPages);
+        }
+
+        [Test]
         public void GetBrokerObjectTest()
         {
             var getBrokerObjectRequest = new GetBrokerObjectRequest("brokerName", "objectName");

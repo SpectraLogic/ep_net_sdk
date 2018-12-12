@@ -93,6 +93,7 @@
     <EmbeddedResource Include="TestFiles\CreateTokenResponse" />
     <EmbeddedResource Include="TestFiles\GetSystemResponse" />
     <EmbeddedResource Include="TestFiles\GetBrokerObjectResponse" />
+    <EmbeddedResource Include="TestFiles\GetBrokerObjectsResponse" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.SpectraRioBrokerClient\SpectraLogic.SpectraRioBrokerClient.csproj">

@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Calls\CreateTokenRequest.cs" />
     <Compile Include="Calls\DeleteFileRequest.cs" />
+    <Compile Include="Calls\GetBrokerObjectsRequest.cs" />
     <Compile Include="Calls\GetBrokerRelationshipRequest.cs" />
     <Compile Include="Calls\GetBrokerObjectRequest.cs" />
     <Compile Include="Calls\GetSystemRequest.cs" />
@@ -95,15 +96,18 @@
     <Compile Include="Model\BearerToken.cs" />
     <Compile Include="Model\IBrokerObject.cs" />
     <Compile Include="Model\IRioSystem.cs" />
-    <Compile Include="Model\IRelationship.cs" />
+    <Compile Include="Model\IBrokerObjects.cs" />
     <Compile Include="Model\IToken.cs" />
     <Compile Include="Model\JobFileStatus.cs" />
     <Compile Include="Model\JobStatusEnum.cs" />
-    <Compile Include="Model\Relationship.cs" />
+    <Compile Include="Model\BrokerObjects.cs" />
     <Compile Include="Model\PageResult.cs" />
     <Compile Include="Model\BrokerObject.cs" />
     <Compile Include="Model\RioSystem.cs" />
+    <Compile Include="Model\SortBy.cs" />
+    <Compile Include="Model\SortOrder.cs" />
     <Compile Include="ResponseParsers\CreateTokenResponseParser.cs" />
+    <Compile Include="ResponseParsers\GetBrokerObjectsResponseParser.cs" />
     <Compile Include="ResponseParsers\GetBrokerRelationshipResponseParser.cs" />
     <Compile Include="ResponseParsers\GetBrokerObjectResponseParser.cs" />
     <Compile Include="ResponseParsers\GetSystemResponseParser.cs" />
