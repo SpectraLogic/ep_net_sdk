@@ -584,6 +584,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void GetBrokersTest()
+        {
+            var brokers = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokers(new GetBrokersRequest());
+            Assert.AreEqual(2, brokers.BrokerList.Count());
+        }
+
+        [Test]
         public void GetSystemTest()
         {
             Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));
