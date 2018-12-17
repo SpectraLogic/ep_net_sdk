@@ -65,17 +65,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         public IHttpWebResponse Invoke(RestRequest request)
         {
+            if (DisableSslValidation)
+            {
+                ServerCertificateValidation.OverrideValidation();
+            }
+
             var httpWebRequest = CreateHttpWebRequest(request);
 
             Log.Debug(GetRequestPrettyPrint(request, httpWebRequest));
 
             try
             {
-                if (DisableSslValidation)
-                {
-                    ServerCertificateValidation.OverrideValidation();
-                }
-
                 return httpWebRequest.GetResponse();
             }
             catch (WebException e)
