@@ -34,6 +34,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IJob Archive(ArchiveRequest request);
 
@@ -194,6 +195,17 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IBrokerObjects GetBrokerRelationship(GetBrokerRelationshipRequest request);
+
+        /// <summary>
+        /// Gets the brokers.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <returns></returns>
+        IBrokers GetBrokers(GetBrokersRequest request);
 
         /// <summary>
         /// Gets the cluster.
