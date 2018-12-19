@@ -15,6 +15,7 @@
 
 using SpectraLogic.SpectraRioBrokerClient.Calls;
 using SpectraLogic.SpectraRioBrokerClient.Model;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient
 {
@@ -150,6 +151,19 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         bool DoesDeviceExist(string deviceName);
+
+        /// <summary>
+        /// Determines whether jobId exist.
+        /// </summary>
+        /// <param name="jobId">The job id.</param>
+        /// <returns>
+        ///   <c>true</c> if specified job exist; otherwise, <c>false</c>.
+        /// </returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        bool DoesJobExist(Guid jobId);
 
         /// <summary>
         /// Gets the broker.

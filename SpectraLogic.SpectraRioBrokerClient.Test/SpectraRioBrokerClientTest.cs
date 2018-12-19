@@ -666,6 +666,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void HeadJobTest()
+        {
+            var headJobRequest = new HeadJobRequest(new Guid());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .SetupSequence(n => n.Invoke(It.IsAny<HeadJobRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NotFound, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            Assert.IsTrue(client.DoesJobExist(new Guid()));
+            Assert.IsFalse(client.DoesJobExist(new Guid()));
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void RestoreTest()
         {
             var restoreRequest = new RestoreRequest(Stubs.BrokerName, Stubs.RestoreFiles);

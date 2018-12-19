@@ -467,6 +467,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void HeadJobErrorTests()
+        {
+            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesJobExist(new Guid()));
+        }
+
+        [Test]
         public void HttpErrorTests()
         {
             var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(

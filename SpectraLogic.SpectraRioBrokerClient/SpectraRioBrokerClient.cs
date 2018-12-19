@@ -151,6 +151,16 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public bool DoesJobExist(Guid jobId)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new HeadJobRequest(jobId);
+                return new HeadResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public IBroker GetBroker(GetBrokerRequest request)
         {
             return ExceptionDecorator.Run(() =>
