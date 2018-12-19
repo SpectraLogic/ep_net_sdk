@@ -397,6 +397,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var broker = client.GetBroker(getBrokerRequest);
             Assert.AreEqual("brokerName", broker.BrokerName);
             Assert.AreEqual("2018-01-24T19:10:22.819Z[UTC]", broker.CreationDate);
+            Assert.AreEqual(10, broker.ObjectCount);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
