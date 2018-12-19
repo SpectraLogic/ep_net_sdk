@@ -223,6 +223,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IJobs GetJobs(GetJobsRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new GetJobsParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public IRioSystem GetSystem(GetSystemRequest request)
         {
             return ExceptionDecorator.Run(() =>

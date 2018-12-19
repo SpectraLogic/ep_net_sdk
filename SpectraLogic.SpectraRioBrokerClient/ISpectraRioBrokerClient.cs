@@ -241,6 +241,17 @@ namespace SpectraLogic.SpectraRioBrokerClient
         IJob GetJob(GetJobRequest request);
 
         /// <summary>
+        /// Gets the jobs.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IJobs GetJobs(GetJobsRequest request);
+
+        /// <summary>
         /// Gets the system info.
         /// </summary>
         /// <param name="request">The request.</param>

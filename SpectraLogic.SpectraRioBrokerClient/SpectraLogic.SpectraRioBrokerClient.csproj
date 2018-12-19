@@ -62,6 +62,7 @@
     <Compile Include="Calls\Broker\GetBrokerRelationshipRequest.cs" />
     <Compile Include="Calls\Broker\GetBrokerObjectRequest.cs" />
     <Compile Include="Calls\Broker\GetBrokersRequest.cs" />
+    <Compile Include="Calls\Jobs\GetJobsRequest.cs" />
     <Compile Include="Calls\System\GetSystemRequest.cs" />
     <Compile Include="Calls\Broker\HeadBrokerObjectRequest.cs" />
     <Compile Include="Calls\Broker\RetryRequest.cs" />
@@ -98,10 +99,13 @@
     <Compile Include="Model\Brokers.cs" />
     <Compile Include="Model\IBrokers.cs" />
     <Compile Include="Model\IBrokerObject.cs" />
+    <Compile Include="Model\IJobs.cs" />
     <Compile Include="Model\IRioSystem.cs" />
     <Compile Include="Model\IBrokerObjects.cs" />
     <Compile Include="Model\IToken.cs" />
     <Compile Include="Model\JobFileStatus.cs" />
+    <Compile Include="Model\Jobs.cs" />
+    <Compile Include="Model\JobTypeEnum.cs" />
     <Compile Include="Model\JobStatusEnum.cs" />
     <Compile Include="Model\BrokerObjects.cs" />
     <Compile Include="Model\PageResult.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="ResponseParsers\Broker\GetBrokerRelationshipResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerObjectResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokersResponseParser.cs" />
+    <Compile Include="ResponseParsers\Jobs\GetJobsParser.cs" />
     <Compile Include="ResponseParsers\System\GetSystemResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\RetryResponseParser.cs" />
     <Compile Include="ResponseParsers\Parser.cs" />

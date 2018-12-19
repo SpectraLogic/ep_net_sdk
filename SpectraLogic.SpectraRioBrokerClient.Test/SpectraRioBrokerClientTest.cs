@@ -457,6 +457,33 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetJobsTest()
+        {
+            var getJobsRequest = new GetJobsRequest();
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobsRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobs = client.GetJobs(getJobsRequest);
+            Assert.AreEqual(2, jobs.JobsList.Count());
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void GetJobWithStatusStringTest()
         {
             var jobId = Guid.NewGuid();
