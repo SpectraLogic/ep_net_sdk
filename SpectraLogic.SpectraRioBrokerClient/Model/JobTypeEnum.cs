@@ -18,29 +18,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    public enum JobStatusEnum
+    public enum JobTypeEnum
     {
-        /// <summary>
-        /// The job is active
-        /// </summary>
-        ACTIVE,
+        /// <summary>Archive job</summary>
+        ARCHIVE,
 
-        /// <summary>
-        /// The job is canceled
-        /// </summary>
-        CANCELED,
+        /// <summary>Restore job</summary>
+        RESTORE,
 
-        /// <summary>
-        /// The job is completed
-        /// </summary>
-        COMPLETED,
-
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR,
-
-        /// <summary>The job is paused</summary>
-        PAUSED
+        /// <summary>Migration job</summary>
+        MIGRATION
     }
 }

@@ -1,0 +1,34 @@
+﻿{
+  "jobs": [
+    {
+      "id": "173e8530-5805-4a1c-a57b-969331e49683",
+      "creationDate": "2018-12-17T22:00:34.625Z[UTC]",
+      "lastUpdated": "2018-12-17T22:00:45.31Z[UTC]",
+      "status": {
+        "message": "",
+        "status": "COMPLETED"
+      },
+      "jobType": "ARCHIVE",
+      "numberOfFiles": 1,
+      "filesTransferred": 1,
+      "totalSizeInBytes": 14,
+      "bytesTransferred": 14,
+      "progress": 1
+    },
+    {
+      "id": "173e8530-5805-4a1c-a57b-969331e49683",
+      "creationDate": "2018-12-17T22:00:34.625Z[UTC]",
+      "lastUpdated": "2018-12-17T22:00:45.31Z[UTC]",
+      "status": {
+        "message": "",
+        "status": "COMPLETED"
+      },
+      "jobType": "RESTORE",
+      "numberOfFiles": 1,
+      "filesTransferred": 1,
+      "totalSizeInBytes": 14,
+      "bytesTransferred": 14,
+      "progress": 1
+    }
+  ]
+}

@@ -13,34 +13,19 @@
  * ****************************************************************************
  */
 
+using System.Collections.Generic;
+
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public enum JobStatusEnum
+    /// <summary></summary>
+    public interface IJobs
     {
-        /// <summary>
-        /// The job is active
-        /// </summary>
-        ACTIVE,
+        #region Public Properties
 
-        /// <summary>
-        /// The job is canceled
-        /// </summary>
-        CANCELED,
+        /// <summary>Gets the jobs.</summary>
+        /// <value>The jobs.</value>
+        IList<Job> JobsList { get; }
 
-        /// <summary>
-        /// The job is completed
-        /// </summary>
-        COMPLETED,
-
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR,
-
-        /// <summary>The job is paused</summary>
-        PAUSED
+        #endregion Public Properties
     }
 }

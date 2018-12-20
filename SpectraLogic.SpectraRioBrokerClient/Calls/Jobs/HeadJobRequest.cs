@@ -13,34 +13,32 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraRioBrokerClient.Model
+using System;
+
+namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public enum JobStatusEnum
+    internal class HeadJobRequest : RestRequest
     {
-        /// <summary>
-        /// The job is active
-        /// </summary>
-        ACTIVE,
+        #region Private Fields
 
-        /// <summary>
-        /// The job is canceled
-        /// </summary>
-        CANCELED,
+        private Guid JobId;
 
-        /// <summary>
-        /// The job is completed
-        /// </summary>
-        COMPLETED,
+        #endregion Private Fields
 
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR,
+        #region Public Constructors
 
-        /// <summary>The job is paused</summary>
-        PAUSED
+        public HeadJobRequest(Guid jobId)
+        {
+            JobId = jobId;
+        }
+
+        #endregion Public Constructors
+
+        #region Internal Properties
+
+        internal override string Path => $"/api/jobs/{JobId}";
+        internal override HttpVerb Verb => HttpVerb.HEAD;
+
+        #endregion Internal Properties
     }
 }

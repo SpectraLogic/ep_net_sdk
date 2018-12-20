@@ -13,34 +13,31 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public enum JobStatusEnum
+    /// <summary></summary>
+    public class Jobs : IJobs
     {
-        /// <summary>
-        /// The job is active
-        /// </summary>
-        ACTIVE,
+        #region Public Constructors
 
-        /// <summary>
-        /// The job is canceled
-        /// </summary>
-        CANCELED,
+        /// <summary>Initializes a new instance of the <see cref="Jobs"/> class.</summary>
+        /// <param name="jobsList">The jobs list.</param>
+        public Jobs(IList<Job> jobsList)
+        {
+            JobsList = jobsList;
+        }
 
-        /// <summary>
-        /// The job is completed
-        /// </summary>
-        COMPLETED,
+        #endregion Public Constructors
 
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR,
+        #region Public Properties
 
-        /// <summary>The job is paused</summary>
-        PAUSED
+        /// <summary>Gets the jobs.</summary>
+        /// <value>The jobs.</value>
+        [JsonProperty(PropertyName = "jobs")] public IList<Job> JobsList { get; }
+
+        #endregion Public Properties
     }
 }
