@@ -25,7 +25,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 
         public IJob Parse(IHttpWebResponse response)
         {
-            return Parser<Job>.Parse(response, HttpStatusCode.OK);
+            return Parser<Job>.Parse(response, HttpStatusCode.OK, HttpStatusCode.Created);
         }
 
         #endregion Public Methods

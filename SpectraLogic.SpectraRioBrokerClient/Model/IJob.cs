@@ -26,14 +26,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #region Properties
 
         /// <summary>
-        /// Gets the bytes transferred.
-        /// </summary>
-        /// <value>
-        /// The bytes transferred.
-        /// </value>
-        long BytesTransferred { get; }
-
-        /// <summary>
         /// Gets the creation date.
         /// </summary>
         /// <value>

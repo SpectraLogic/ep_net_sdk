@@ -35,20 +35,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="numberOfFiles">The number of files.</param>
         /// <param name="filesTransferred">The files transferred.</param>
         /// <param name="totalSizeInBytes">The total size in bytes.</param>
-        /// <param name="bytesTransferred">The bytes transferred.</param>
         /// <param name="creationDate">The created.</param>
         /// <param name="lastUpdated">The last updated.</param>
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
         /// <param name="files">The files.</param>
-        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, long bytesTransferred, string creationDate, string lastUpdated, double progress, JobStatus status, IList<JobFileStatus> files)
+        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, string creationDate, string lastUpdated, double progress, JobStatus status, IList<JobFileStatus> files)
         {
             JobId = jobId;
             JobType = jobType;
             NumberOfFiles = numberOfFiles;
             FilesTransferred = filesTransferred;
             TotalSizeInBytes = totalSizeInBytes;
-            BytesTransferred = bytesTransferred;
             CreationDate = creationDate;
             LastUpdated = lastUpdated;
             Progress = progress;
@@ -59,14 +57,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #endregion Constructors
 
         #region Properties
-
-        /// <summary>
-        /// Gets the bytes transferred.
-        /// </summary>
-        /// <value>
-        /// The bytes transferred.
-        /// </value>
-        [JsonProperty(PropertyName = "bytesTransferred")] public long BytesTransferred { get; }
 
         /// <summary>
         /// Gets the creation date.
