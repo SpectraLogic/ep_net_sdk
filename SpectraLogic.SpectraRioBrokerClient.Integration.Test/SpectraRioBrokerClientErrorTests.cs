@@ -335,6 +335,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetDevice(new GetDeviceRequest(""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJob(new GetJobRequest(Guid.Empty))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJobs(new GetJobsRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest("", Guid.Empty, JobType.ARCHIVE))));
 
@@ -464,6 +465,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void HeadJobErrorTests()
+        {
+            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesJobExist(new Guid()));
+        }
+
+        [Test]
         public void HttpErrorTests()
         {
             var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
@@ -564,6 +571,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     {
                         var request = new GetJobRequest(Guid.NewGuid());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(request));
+                    });
+
+                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                    () =>
+                    {
+                        var request = new GetJobsRequest();
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(

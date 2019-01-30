@@ -397,6 +397,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var broker = client.GetBroker(getBrokerRequest);
             Assert.AreEqual("brokerName", broker.BrokerName);
             Assert.AreEqual("2018-01-24T19:10:22.819Z[UTC]", broker.CreationDate);
+            Assert.AreEqual(10, broker.ObjectCount);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -451,6 +452,33 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual("device_test", device.DeviceName);
             Assert.AreEqual("localhost", device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void GetJobsTest()
+        {
+            var getJobsRequest = new GetJobsRequest();
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobsRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobs = client.GetJobs(getJobsRequest);
+            Assert.AreEqual(2, jobs.JobsList.Count());
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -630,6 +658,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             Assert.IsTrue(client.DoesDeviceExist("deviceName"));
             Assert.IsFalse(client.DoesDeviceExist("deviceNameNotFound"));
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void HeadJobTest()
+        {
+            var headJobRequest = new HeadJobRequest(new Guid());
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .SetupSequence(n => n.Invoke(It.IsAny<HeadJobRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NotFound, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            Assert.IsTrue(client.DoesJobExist(new Guid()));
+            Assert.IsFalse(client.DoesJobExist(new Guid()));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

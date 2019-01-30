@@ -23,35 +23,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IBroker" />
     public class Broker : IBroker
     {
-        #region Constructors
+        #region Private Constructors
 
         [JsonConstructor]
-        private Broker(string brokerName, string creationDate)
+        private Broker(string brokerName, string creationDate, long objectCount)
         {
             BrokerName = brokerName;
             CreationDate = creationDate;
+            ObjectCount = objectCount;
         }
 
-        #endregion Constructors
+        #endregion Private Constructors
 
-        #region Properties
+        #region Public Properties
 
-        /// <summary>
-        /// Gets the name of the broker.
-        /// </summary>
-        /// <value>
-        /// The name of the broker.
-        /// </value>
+        /// <summary>Gets the name of the broker.</summary>
+        /// <value>The name of the broker.</value>
         [JsonProperty(PropertyName = "name")] public string BrokerName { get; }
 
-        /// <summary>
-        /// Gets the creation date.
-        /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
+        /// <summary>Gets the creation date.</summary>
+        /// <value>The creation date.</value>
         [JsonProperty(PropertyName = "creationDate")] public string CreationDate { get; }
 
-        #endregion Properties
+        /// <summary>Gets the object count.</summary>
+        /// <value>The object count.</value>
+        [JsonProperty(PropertyName = "objectCount")] public long ObjectCount { get; }
+
+        #endregion Public Properties
     }
 }
