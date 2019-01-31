@@ -140,7 +140,6 @@
     <Compile Include="Model\AgentConfig.cs" />
     <Compile Include="Model\ResourceType.cs" />
     <Compile Include="Model\RestoreFile.cs" />
-    <Compile Include="Model\TimecodeRange.cs" />
     <Compile Include="Model\Void.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseParsers\Broker\ArchiveResponseParser.cs" />
