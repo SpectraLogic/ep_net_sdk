@@ -517,7 +517,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual(10, job.BytesTransferred);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(0.5, job.Progress);
@@ -534,7 +533,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual(1234, job.BytesTransferred);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(1.0, job.Progress);
@@ -551,7 +549,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual(10, job.BytesTransferred);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
             Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
             Assert.AreEqual(1.0, job.Progress);
@@ -729,8 +726,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void RetryTest()
         {
-            var jobId = Guid.NewGuid();
-            var cancelRequest = new RetryRequest(jobId);
+            var cancelRequest = new RetryRequest("", Guid.NewGuid(), JobType.ARCHIVE);
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork

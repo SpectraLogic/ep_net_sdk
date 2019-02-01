@@ -28,23 +28,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     [TestFixture]
     public class SpectraRioBrokerClientIntegrationTests
     {
-        #region Private Fields
+        #region Fields
 
-        //TODO remove this once Job tracking is done in the server
         private readonly int MAX_POLLING_ATTEMPS = 10;
 
         private readonly int POLLING_INTERVAL = 10;  // in sec
         private ILog _log = LogManager.GetLogger("SpectraRioBrokerClientIntegrationTest");
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Methods
+        #region Methods
 
-        [Test, Ignore("ESCP-750 - Successful Restore job has 'bytesTransferred':0")]
+        [Test]
         public void ArchiveAndRestore()
         {
-            var fileName1 = Guid.NewGuid().ToString();
-            var fileName2 = Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveAndRestore_" + Guid.NewGuid().ToString();
+            var fileName2 = "ArchiveAndRestore_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -78,12 +77,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
+                Assert.AreEqual(2, job.FilesTransferred);
+                Assert.AreEqual(1, job.Progress);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
                 }
 
-                /**********
+                /*********
                 * RESTORE *
                 ***********/
 
@@ -112,7 +113,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Restore job completed successfully", job.Status.Message);
-                Assert.AreEqual(14 + 11, job.BytesTransferred);
+                Assert.AreEqual(2, job.FilesTransferred);
+                Assert.AreEqual(1, job.Progress);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
@@ -130,11 +132,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("ESCP-750 - Successful Restore job has 'bytesTransferred':0")]
+        [Test]
         public void ArchiveAndRestoreWithRelationship()
         {
-            var fileName1 = Guid.NewGuid().ToString();
-            var fileName2 = Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveAndRestoreWithRelationship_" + Guid.NewGuid().ToString();
+            var fileName2 = "ArchiveAndRestoreWithRelationship_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -169,6 +171,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
+                Assert.AreEqual(2, job.FilesTransferred);
+                Assert.AreEqual(1, job.Progress);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
@@ -213,7 +217,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Restore job completed successfully", job.Status.Message);
-                Assert.AreEqual(28, job.BytesTransferred);
+                Assert.AreEqual(2, job.FilesTransferred);
+                Assert.AreEqual(1, job.Progress);
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
@@ -234,8 +239,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveNewFilesOnlyTest_1()
         {
-            var fileName1 = Guid.NewGuid().ToString();
-            var fileName2 = Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid().ToString();
+            var fileName2 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -266,8 +271,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveNewFilesOnlyTest_2()
         {
-            var fileName1 = Guid.NewGuid().ToString();
-            var fileName2 = Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveNewFilesOnlyTest_2_" + Guid.NewGuid().ToString();
+            var fileName2 = "ArchiveNewFilesOnlyTest_2_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -294,14 +299,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Not working yet")]
+        [Test]
         public void CancelArchiveJob()
         {
             try
             {
                 SpectraRioBrokerClientFixture.SetupTestData();
 
-                var fileName1 = Guid.NewGuid().ToString();
+                var fileName1 = "CancelArchiveJob_" + Guid.NewGuid().ToString();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
@@ -321,10 +326,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
-                foreach (var file in job.Files)
-                {
-                    Assert.AreEqual("Canceled", file.Status);
-                }
+
+                //TODO can be tested after ESCP-1023 is fixed
+                //foreach (var file in job.Files)
+                //{
+                //    Assert.AreEqual("Canceled", file.Status);
+                //}
             }
             finally
             {
@@ -333,14 +340,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Not working yet")]
+        [Test]
         public void CancelRestoreJob()
         {
+            var fileName1 = "CancelRestoreJob_" + Guid.NewGuid().ToString();
+
             try
             {
                 SpectraRioBrokerClientFixture.SetupTestData();
 
-                var fileName1 = Guid.NewGuid().ToString();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
@@ -380,13 +388,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
-                foreach (var file in job.Files)
-                {
-                    Assert.AreEqual("Canceled", file.Status);
-                }
+                //TODO can be tested after ESCP-1023 is fixed
+                //foreach (var file in job.Files)
+                //{
+                //    Assert.AreEqual("Canceled", file.Status);
+                //}
             }
             finally
             {
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+
                 Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
                 Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
@@ -395,7 +407,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void DoesBrokerObjectExistTest()
         {
-            var fileName1 = Guid.NewGuid().ToString();
+            var fileName1 = "DoesBrokerObjectExistTest_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -475,8 +487,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetBrokerObjectsTest()
         {
-            var fileName1 = "a" + Guid.NewGuid().ToString();
-            var fileName2 = "b" + Guid.NewGuid().ToString();
+            var fileName1 = "a_" + "GetBrokerObjectsTest_" + Guid.NewGuid().ToString();
+            var fileName2 = "b_" + "GetBrokerObjectsTest_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -581,7 +593,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetBrokerObjectTest()
         {
-            var fileName1 = Guid.NewGuid().ToString();
+            var fileName1 = "GetBrokerObjectTest_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -684,7 +696,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void RestoreJobWithIgnoreDuplicates()
         {
-            var fileName1 = Guid.NewGuid().ToString();
+            var fileName1 = "RestoreJobWithIgnoreDuplicates_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -774,10 +786,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Retry is not yet implemented in the server")]
+        [Test]
         public void RetryArchiveCanceledJob()
         {
-            var fileName1 = Guid.NewGuid().ToString();
+            var fileName1 = "RetryArchiveCanceledJob_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -800,12 +812,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
-                foreach (var file in job.Files)
-                {
-                    Assert.AreEqual("Canceled", file.Status);
-                }
 
-                var retryRequest = new RetryRequest(archiveJob.JobId);
+                //TODO can be tested after ESCP-1023 is fixed
+                //foreach (var file in job.Files)
+                //{
+                //    Assert.AreEqual("Canceled", file.Status);
+                //}
+
+                var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, archiveJob.JobId, JobType.ARCHIVE);
                 var retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(retryRequest);
 
                 Assert.AreNotEqual(retryJob.JobId, archiveJob.JobId);
@@ -826,10 +840,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
-                Assert.AreEqual("Compleated", job.Status.Message);
+                Assert.AreEqual("Archive job completed successfully", job.Status.Message);
                 foreach (var file in job.Files)
                 {
-                    Assert.AreEqual("Archive job completed successfully", file.Status);
+                    Assert.AreEqual("Completed", file.Status);
                 }
             }
             finally
@@ -842,10 +856,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Retry is not yet implemented in the server")]
+        [Test]
         public void RetryRestoreCanceledJob()
         {
-            var fileName1 = Guid.NewGuid().ToString();
+            var fileName1 = "RetryRestoreCanceledJob_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -890,12 +904,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
-                foreach (var file in job.Files)
-                {
-                    Assert.AreEqual("Canceled", file.Status);
-                }
 
-                var retryRequest = new RetryRequest(restoreJob.JobId);
+                //TODO can be tested after ESCP-1023 is fixed
+                //foreach (var file in job.Files)
+                //{
+                //    Assert.AreEqual("Canceled", file.Status);
+                //}
+
+                var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, restoreJob.JobId, JobType.RESTORE);
                 var retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(retryRequest);
 
                 Assert.AreNotEqual(retryJob.JobId, restoreJob.JobId);
@@ -916,10 +932,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
-                Assert.AreEqual("Compleated", job.Status.Message);
+                Assert.AreEqual("Restore job completed successfully", job.Status.Message);
                 foreach (var file in job.Files)
                 {
-                    Assert.AreEqual("Restore job completed successfully", file.Status);
+                    Assert.AreEqual("Completed", file.Status);
                 }
             }
             finally
@@ -935,7 +951,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void SearchAndDeleteTest()
         {
-            var fileName1 = Guid.NewGuid().ToString();
+            var fileName1 = "SearchAndDeleteTest_" + Guid.NewGuid().ToString();
 
             try
             {
@@ -969,10 +985,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private void ArchiveNewFilesOnlyTest(List<ArchiveFile> list1, List<ArchiveFile> list2, string message)
         {
@@ -1034,6 +1046,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }

@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls
@@ -29,31 +31,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         /// Initializes a new instance of the <see cref="RetryRequest"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        public RetryRequest(Guid jobId)
+        public RetryRequest(String brokerName, Guid jobId, JobType retryJobType)
         {
-            JobId = jobId;
-            QueryParams.Add("retry", "true");
+            Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
+            Contract.Requires<InvalidOperationException>(retryJobType == JobType.ARCHIVE || retryJobType == JobType.RESTORE, "retryJobType");
+
+            BrokerName = brokerName;
+            RetryJobType = retryJobType;
+
+            QueryParams.Add("retry", jobId.ToString());
         }
 
         #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
-        /// <summary>
-        /// Gets the job identifier.
-        /// </summary>
-        /// <value>
-        /// The job identifier.
-        /// </value>
-        public Guid JobId { get; private set; }
+        /// <summary>Gets the name of the broker.</summary>
+        /// <value>The name of the broker.</value>
+        public String BrokerName { get; private set; }
 
-        #endregion Public Properties
+        /// <summary>Gets the type of the retry job.</summary>
+        /// <value>The type of the retry job.</value>
+        public JobType RetryJobType { get; private set; }
+        
+        internal override string Path => $"/api/brokers/{BrokerName}/{RetryJobType.ToString().ToLower()}";
+        internal override HttpVerb Verb => HttpVerb.POST;
 
-        #region Internal Properties
-
-        internal override string Path => $"/api/jobs/{JobId}";
-        internal override HttpVerb Verb => HttpVerb.PUT;
-
-        #endregion Internal Properties
+        #endregion Properties
     }
 }

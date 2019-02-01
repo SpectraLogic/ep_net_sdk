@@ -42,7 +42,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The time code range
         /// </summary>
-        [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public TimecodeRange TimeCodeRange;
+        [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public string TimeCodeRange;
 
         /// <summary>
         /// The URI
@@ -95,8 +95,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="uri">The destination.</param>
-        /// <param name="timeCodeRange">The time code range.</param>
-        public RestoreFile(string name, string uri, TimecodeRange timeCodeRange)
+        /// <param name="timeCodeRange">Beginning and ending frame of the desired clip separated by '-'. Format: hh:mm:ss:ff for non-drop frame rates and hh:mm:ss;ff for drop frame rates. Example: 01:00:00;12-01:00:10;13 for drop frame rate.</param>
+        public RestoreFile(string name, string uri, string timeCodeRange)
         {
             Name = name;
             Uri = uri;

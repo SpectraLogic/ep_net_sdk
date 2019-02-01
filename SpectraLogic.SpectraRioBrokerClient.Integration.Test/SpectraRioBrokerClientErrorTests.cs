@@ -36,7 +36,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Private Fields
 
-        //TODO remove this once Job tracking is done in the server
         private readonly int MAX_POLLING_ATTEMPS = 10;
 
         private readonly int POLLING_INTERVAL = 10;
@@ -124,18 +123,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     new UnprocessableError("name", "string", "missing")
                 });
 
-            //TODO can be tested after ESCP-623 is fixed
-            //ValidationExceptionCheck(
-            //    () =>
-            //    {
-            //        request = new CreateBrokerRequest("should_fail", string.Empty, new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.BlackPearlBucket, false));
-            //        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
-            //        Assert.Fail();
-            //    },
-            //    new List<UnprocessableError>
-            //    {
-            //        new UnprocessableError("agentConfig.name", "string", "missing")
-            //    });
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateBrokerRequest("should_fail", string.Empty, new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.BlackPearlBucket, false));
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
+                    Assert.Fail();
+                },
+                new List<UnprocessableError>
+                {
+                    new UnprocessableError("agentName", "string", "missing")
+                });
 
             ValidationExceptionCheck(
                 () =>
@@ -146,7 +144,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("blackPearlName", "string", "spectra_device_registration_not_found", "bp_name")
+                    new UnprocessableError("agentConfig.blackPearlName", "string", "spectra_device_registration_not_found", "bp_name")
                 });
 
             ValidationExceptionCheck(
@@ -158,7 +156,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("username", "string", "not_found", "username")
+                    new UnprocessableError("agentConfig.username", "string", "not_found", "username")
                 });
 
             ValidationExceptionCheck(
@@ -170,7 +168,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<UnprocessableError>
                 {
-                    new UnprocessableError("bucket", "string", "not_found", "wrong_bucket")
+                    new UnprocessableError("agentConfig.bucket", "string", "not_found", "wrong_bucket")
                 });
         }
 
@@ -339,7 +337,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJob(new GetJobRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJobs(new GetJobsRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest(Guid.Empty))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest("", Guid.Empty, JobType.ARCHIVE))));
 
             ValidationExceptionCheck(
                 () =>
@@ -601,13 +599,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request));
                     });
 
-                //TODO uncomment when retry is supported in the server
-                //Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                //    () =>
-                //    {
-                //        var request = new RetryRequest(Guid.Empty);
-                //        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request));
-                //    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                    () =>
+                    {
+                        var request = new RetryRequest("", Guid.Empty, JobType.ARCHIVE);
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request));
+                    });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
@@ -634,7 +631,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var request = new RestoreRequest("should_fail", new List<RestoreFile>
             {
-                new RestoreFile("", "")
+                new RestoreFile("should_fail", "file://uri")
             });
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request)));
 
@@ -712,7 +709,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
-        public void RestoreJobWithIgnoreDuplicatesTests()
+        public void RestoreJobWithIgnoreDuplicatesErrorTests()
         {
             try
             {
@@ -787,20 +784,24 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Retry is not yet implemented in the server")]
+        [Test]
         public void RetryErrorTests()
         {
-            try
-            {
-                var request = new RetryRequest(Guid.Empty);
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request);
-                Assert.Fail();
-            }
-            catch (ErrorResponseException e)
-            {
-                Assert.AreEqual("TBD", e.ErrorResponse.ErrorMessage);
-                Assert.AreEqual(HttpStatusCode.BadRequest, e.ErrorResponse.StatusCode);
-            }
+            Assert.ThrowsAsync<ArgumentNullException>(
+                () => Task.FromResult(new RetryRequest(null, Guid.Empty, JobType.ARCHIVE)));
+
+            Assert.ThrowsAsync<InvalidOperationException>(
+                () => Task.FromResult(new RetryRequest("", Guid.Empty, JobType.DELETE)));
+
+            Assert.ThrowsAsync<InvalidOperationException>(
+                () => Task.FromResult(new RetryRequest("", Guid.Empty, JobType.CANCEL)));
+
+
+            var request = new RetryRequest("should_fail", Guid.Empty, JobType.ARCHIVE);
+            Assert.ThrowsAsync<JobNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request)));
+
+            request = new RetryRequest("should_fail", Guid.Empty, JobType.RESTORE);
+            Assert.ThrowsAsync<JobNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request)));
         }
 
         #endregion Public Methods
