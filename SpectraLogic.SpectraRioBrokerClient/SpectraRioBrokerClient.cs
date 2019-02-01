@@ -228,7 +228,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                return new GetJobParser().Parse(_network.Invoke(request));
+                return new GetJobResponseParser().Parse(_network.Invoke(request));
             });
         }
 
@@ -237,7 +237,17 @@ namespace SpectraLogic.SpectraRioBrokerClient
         {
             return ExceptionDecorator.Run(() =>
             {
-                return new GetJobsParser().Parse(_network.Invoke(request));
+                return new GetJobsResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
+        public IClusterMember GetMaster()
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new GetMasterRequest();
+                return new GetMasterResponseParser().Parse(_network.Invoke(request));
             });
         }
 

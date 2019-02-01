@@ -13,35 +13,31 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
-
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
     ///
     /// </summary>
-    public class ByteRange
+    public interface IClusterMember
     {
-        #region Fields
+        #region Properties
 
-        [JsonProperty(PropertyName = "endingIndex")] private long EndingIndex;
-        [JsonProperty(PropertyName = "startingIndex")] private long StartingIndex;
+        /// <summary>Gets the cluster port.</summary>
+        /// <value>The cluster port.</value>
+        int ClusterPort { get; }
 
-        #endregion Fields
+        /// <summary>Gets the HTTP port.</summary>
+        /// <value>The HTTP port.</value>
+        int HttpPort { get; }
 
-        #region Constructors
+        /// <summary>Gets the ip address.</summary>
+        /// <value>The ip address.</value>
+        string IpAddress { get; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ByteRange" /> class.
-        /// </summary>
-        /// <param name="startingIndex">Index of the starting.</param>
-        /// <param name="endingIndex">Index of the ending.</param>
-        public ByteRange(long startingIndex, long endingIndex)
-        {
-            StartingIndex = startingIndex;
-            EndingIndex = endingIndex;
-        }
+        /// <summary>Gets the role.</summary>
+        /// <value>The role.</value>
+        string Role { get; }
 
-        #endregion Constructors
+        #endregion Properties
     }
 }

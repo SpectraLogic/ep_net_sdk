@@ -688,6 +688,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void GetMasterTest()
+        {
+            var master = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster();
+            Assert.AreEqual("127.0.0.1", master.IpAddress);
+            Assert.AreEqual(5701, master.ClusterPort);
+            Assert.AreEqual(5050, master.HttpPort);
+            Assert.AreEqual("master", master.Role);
+        }
+
+        [Test]
         public void GetSystemTest()
         {
             Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));

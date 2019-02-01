@@ -564,6 +564,33 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetMasterTest()
+        {
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<GetMasterRequest>()))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetMasterResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var master = client.GetMaster();
+            Assert.AreEqual("127.0.0.1", master.IpAddress);
+            Assert.AreEqual(5701, master.ClusterPort);
+            Assert.AreEqual(5050, master.HttpPort);
+            Assert.AreEqual("master", master.Role);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void GetSystemTest()
         {
             var getSystemRequest = new GetSystemRequest();
