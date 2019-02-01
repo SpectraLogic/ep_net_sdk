@@ -20,24 +20,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// </summary>
     public interface IBroker
     {
-        #region Properties
+        #region Public Properties
 
-        /// <summary>
-        /// Gets the name of the broker.
-        /// </summary>
-        /// <value>
-        /// The name of the broker.
-        /// </value>
+        /// <summary>Gets the name of the broker.</summary>
+        /// <value>The name of the broker.</value>
         string BrokerName { get; }
 
-        /// <summary>
-        /// Gets the creation date.
-        /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
+        /// <summary>Gets the creation date.</summary>
+        /// <value>The creation date.</value>
         string CreationDate { get; }
 
-        #endregion Properties
+        /// <summary>Gets the object count.</summary>
+        /// <value>The object count.</value>
+        long ObjectCount { get; }
+
+        #endregion Public Properties
     }
 }

@@ -13,34 +13,21 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraRioBrokerClient.Model
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
+using System.Net;
+
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public enum JobStatusEnum
+    internal class GetJobsParser : IResponseParser<IJobs>
     {
-        /// <summary>
-        /// The job is active
-        /// </summary>
-        ACTIVE,
+        #region Public Methods
 
-        /// <summary>
-        /// The job is canceled
-        /// </summary>
-        CANCELED,
+        public IJobs Parse(IHttpWebResponse response)
+        {
+            return Parser<Jobs>.Parse(response, HttpStatusCode.OK);
+        }
 
-        /// <summary>
-        /// The job is completed
-        /// </summary>
-        COMPLETED,
-
-        /// <summary>
-        /// The job has error
-        /// </summary>
-        ERROR,
-
-        /// <summary>The job is paused</summary>
-        PAUSED
+        #endregion Public Methods
     }
 }

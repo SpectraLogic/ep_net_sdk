@@ -2,11 +2,13 @@
   "brokers": [
     {
       "name": "brokerName",
-      "creationDate": "2018-01-24T19:10:22.819Z[UTC]"
+      "creationDate": "2018-01-24T19:10:22.819Z[UTC]",
+      "objectCount": 10
     },
     {
       "name": "brokerName2",
-      "creationDate": "2018-01-24T19:10:23.819Z[UTC]"
+      "creationDate": "2018-01-24T19:10:23.819Z[UTC]",
+      "objectCount": 20
     }
   ]
 }
