@@ -591,6 +591,42 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetMembersTest()
+        {
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<GetMembersRequest>()))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetMembersResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var members = client.GetMembers();
+            Assert.AreEqual(2, members.Members.Count);
+
+            var master = members.Members[0];
+            Assert.AreEqual("127.0.0.1", master.IpAddress);
+            Assert.AreEqual(5701, master.ClusterPort);
+            Assert.AreEqual(5050, master.HttpPort);
+            Assert.AreEqual("master", master.Role);
+
+            var node = members.Members[1];
+            Assert.AreEqual("127.0.0.1", node.IpAddress);
+            Assert.AreEqual(5702, node.ClusterPort);
+            Assert.AreEqual(5051, node.HttpPort);
+            Assert.AreEqual("node", node.Role);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void GetSystemTest()
         {
             var getSystemRequest = new GetSystemRequest();

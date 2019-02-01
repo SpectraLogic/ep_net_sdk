@@ -252,6 +252,16 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IClusterMembers GetMembers()
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new GetMembersRequest();
+                return new GetMembersResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public IRioSystem GetSystem(GetSystemRequest request)
         {
             return ExceptionDecorator.Run(() =>

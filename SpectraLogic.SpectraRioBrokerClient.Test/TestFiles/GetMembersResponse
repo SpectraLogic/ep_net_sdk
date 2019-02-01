@@ -1,0 +1,16 @@
+﻿{
+  "members": [
+    {
+      "ipAddress": "127.0.0.1",
+      "clusterPort": 5701,
+      "httpPort": 5050,
+      "role": "master"
+    },
+    {
+      "ipAddress": "127.0.0.1",
+      "clusterPort": 5702,
+      "httpPort": 5051,
+      "role": "node"
+    }
+  ]
+}
