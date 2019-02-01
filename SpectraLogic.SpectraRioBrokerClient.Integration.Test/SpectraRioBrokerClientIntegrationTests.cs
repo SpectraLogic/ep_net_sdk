@@ -28,16 +28,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     [TestFixture]
     public class SpectraRioBrokerClientIntegrationTests
     {
-        #region Private Fields
+        #region Fields
 
         private readonly int MAX_POLLING_ATTEMPS = 10;
 
         private readonly int POLLING_INTERVAL = 10;  // in sec
         private ILog _log = LogManager.GetLogger("SpectraRioBrokerClientIntegrationTest");
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Methods
+        #region Methods
 
         [Test]
         public void ArchiveAndRestore()
@@ -84,7 +84,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     Assert.AreEqual("Completed", file.Status);
                 }
 
-                /**********
+                /*********
                 * RESTORE *
                 ***********/
 
@@ -727,7 +727,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
-                
+
                 //TODO can be tested after ESCP-1023 is fixed
                 //foreach (var file in job.Files)
                 //{
@@ -753,7 +753,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
 
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
- 
+
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
                 foreach (var file in job.Files)
@@ -901,10 +901,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         private void ArchiveNewFilesOnlyTest(List<ArchiveFile> list1, List<ArchiveFile> list2, string message)
         {
             try
@@ -965,6 +961,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }
