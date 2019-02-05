@@ -274,6 +274,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         IClusterMember GetMaster();
 
         /// <summary>
+        /// Gets a list of all the members of the cluster
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IClusterMembers GetMembers();
+
+        /// <summary>
         /// Gets the system info.
         /// </summary>
         /// <param name="request">The request.</param>

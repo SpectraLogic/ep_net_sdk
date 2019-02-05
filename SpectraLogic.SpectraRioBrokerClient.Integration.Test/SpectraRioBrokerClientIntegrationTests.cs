@@ -698,6 +698,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void GetMembersTest()
+        {
+            var members = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMembers();
+            Assert.AreEqual(1, members.Members.Count());
+            var node = members.Members[0];
+            Assert.AreEqual("127.0.0.1", node.IpAddress);
+            Assert.AreEqual(5701, node.ClusterPort);
+            Assert.AreEqual(5050, node.HttpPort);
+            Assert.AreEqual("master", node.Role);
+        }
+
+        [Test]
         public void GetSystemTest()
         {
             Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));

@@ -560,10 +560,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                () =>
-                {
-                    return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster());
-                });
+                    () =>
+                    {
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster());
+                    });
+
+                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                    () =>
+                    {
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMembers());
+                    });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
