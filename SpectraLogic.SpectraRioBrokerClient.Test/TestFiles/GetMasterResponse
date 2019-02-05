@@ -1,0 +1,6 @@
+﻿{
+  "ipAddress": "127.0.0.1",
+  "clusterPort": 5701,
+  "httpPort": 5050,
+  "role": "master"
+}

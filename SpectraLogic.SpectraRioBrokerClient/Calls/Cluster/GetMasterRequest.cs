@@ -13,21 +13,28 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Net;
-
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
-    internal class GetJobParser : IResponseParser<IJob>
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
+    internal class GetMasterRequest : RestRequest
     {
-        #region Public Methods
+        #region Constructors
 
-        public IJob Parse(IHttpWebResponse response)
-        {
-            return Parser<Job>.Parse(response, HttpStatusCode.OK);
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetMasterRequest"/> class.
+        /// </summary>
+        public GetMasterRequest() { }
 
-        #endregion Public Methods
+        #endregion Constructors
+
+        #region Properties
+
+        internal override string Path => "/api/cluster/master";
+        internal override HttpVerb Verb => HttpVerb.GET;
+
+        #endregion Properties
     }
 }

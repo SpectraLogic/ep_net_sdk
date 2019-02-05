@@ -266,6 +266,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         IJobs GetJobs(GetJobsRequest request);
 
         /// <summary>
+        /// Gets details about the master node in the cluster
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IClusterMember GetMaster();
+
+        /// <summary>
         /// Gets the system info.
         /// </summary>
         /// <param name="request">The request.</param>
