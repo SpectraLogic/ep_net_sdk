@@ -51,11 +51,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         [JsonProperty(PropertyName = "size")] public long Size;
 
         /// <summary>
-        /// The store file properties
-        /// </summary>
-        [JsonProperty(PropertyName = "storeFileProperties")] public bool StoreFileProperties;
-
-        /// <summary>
         /// The URI
         /// </summary>
         [JsonProperty(PropertyName = "uri")] public string Uri;
@@ -72,15 +67,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="size">The size.</param>
         /// <param name="metadata">The metadata.</param>
         /// <param name="indexMedia">if set to <c>true</c> [index media].</param>
-        /// <param name="storeFileProperties">if set to <c>true</c> [store file properties].</param>
-        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia, bool storeFileProperties)
+        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia)
         {
             Name = name;
             Uri = uri;
             Size = size;
             Metadata = metadata;
             IndexMedia = indexMedia;
-            StoreFileProperties = storeFileProperties;
         }
 
         /// <summary>
@@ -91,16 +84,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="size">The size.</param>
         /// <param name="metadata">The metadata.</param>
         /// <param name="indexMedia">if set to <c>true</c> [index media].</param>
-        /// <param name="storeFileProperties">if set to <c>true</c> [store file properties].</param>
         /// <param name="relationships">The relationships.</param>
-        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia, bool storeFileProperties, ISet<string> relationships)
+        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia, ISet<string> relationships)
         {
             Name = name;
             Uri = uri;
             Size = size;
             Metadata = metadata;
             IndexMedia = indexMedia;
-            StoreFileProperties = storeFileProperties;
             Relationships = relationships;
         }
 

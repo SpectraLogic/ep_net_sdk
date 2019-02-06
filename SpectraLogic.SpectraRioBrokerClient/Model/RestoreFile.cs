@@ -35,11 +35,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         [JsonProperty(PropertyName = "name")] public string Name;
 
         /// <summary>
-        /// The restore file attributes
-        /// </summary>
-        [JsonProperty(PropertyName = "restoreFileAttributes", NullValueHandling = NullValueHandling.Ignore)] public bool? RestoreFileAttributes;
-
-        /// <summary>
         /// The time code range
         /// </summary>
         [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public string TimeCodeRange;
@@ -62,19 +57,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         {
             Name = name;
             Uri = uri;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RestoreFile"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="uri">The destination.</param>
-        /// <param name="restoreFileAttributes">if set to <c>true</c> [restore file attributes].</param>
-        public RestoreFile(string name, string uri, bool restoreFileAttributes)
-        {
-            Name = name;
-            Uri = uri;
-            RestoreFileAttributes = restoreFileAttributes;
         }
 
         /// <summary>

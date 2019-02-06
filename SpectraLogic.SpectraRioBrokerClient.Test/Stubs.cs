@@ -33,7 +33,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
                 new Dictionary<string, string> {
                     { "key", "value" }
                 },
-                false,
                 false)
         };
 
@@ -42,7 +41,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
         public static IEnumerable<RestoreFile> RestoreFiles = new List<RestoreFile>
         {
-            new RestoreFile("name", "dest", true),
+            new RestoreFile("name", "dest"),
             new RestoreFile("name2", "dest2", new ByteRange(0, 10)),
             new RestoreFile("name3", "dest3", "01:00:00;00-02:00:00;00")
         };
