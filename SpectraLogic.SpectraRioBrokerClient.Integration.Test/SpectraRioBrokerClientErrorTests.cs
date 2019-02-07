@@ -53,7 +53,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var request = new ArchiveRequest("not_found", new List<ArchiveFile>
             {
-                new ArchiveFile("not_found", "uri", 0L, new Dictionary<string, string>(), false, false)
+                new ArchiveFile("not_found", "uri", 0L, new Dictionary<string, string>(), false)
             });
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request)));
 
@@ -74,7 +74,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     request = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                     {
-                        new ArchiveFile("not_found", "bad uri", 0, new Dictionary<string, string>(), false, false)
+                        new ArchiveFile("not_found", "bad uri", 0, new Dictionary<string, string>(), false)
                     });
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
                     Assert.Fail();
@@ -730,7 +730,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var fileName1 = Guid.NewGuid().ToString();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -750,7 +750,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName2, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
                 });
 
                 archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
