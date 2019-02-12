@@ -457,9 +457,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipsRequest(null)));
 
-            //TODO https://jira.spectralogic.com/browse/ESCP-1129
-            //var request = new GetBrokerRelationshipsRequest("not_found");
-            //Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationships(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            var request = new GetBrokerRelationshipsRequest("not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationships(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
         }
 
         [Test]
