@@ -338,6 +338,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJobs(new GetJobsRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest("", Guid.Empty, JobType.ARCHIVE))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => { noAuthClient.DeleteBroker(new DeleteBrokerRequest("")); return null; });
 
             ValidationExceptionCheck(
                 () =>
@@ -375,6 +376,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, "not_found");
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request), Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
+        }
+
+        [Test]
+        public void DeleteBrokerErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteBrokerRequest(null)));
+
+            var request = new DeleteBrokerRequest("not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
         }
 
         [Test]
@@ -623,6 +633,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     {
                         var request = new GetBrokerRelationshipRequest("", "");
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request));
+                    });
+
+                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                    () =>
+                    {
+                        var request = new DeleteBrokerRequest("");
+                        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(request);
+                        return null;
                     });
             }
             finally

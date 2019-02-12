@@ -16,6 +16,7 @@
 using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 using System.Collections.Generic;
@@ -640,6 +641,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             var brokers = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokers(new GetBrokersRequest());
             Assert.AreEqual(2, brokers.BrokerList.Count());
+        }
+
+        [Test]
+        public void DeleteBrokersTest()
+        {
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            SpectraRioBrokerClientFixture.CreateBroker_1();
         }
 
         [Test]

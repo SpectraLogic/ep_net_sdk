@@ -224,6 +224,30 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void DeleteBrokerTest()
+        {
+            var deleteBrokerRequest = new DeleteBrokerRequest("broker");
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<DeleteBrokerRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            client.DeleteBroker(deleteBrokerRequest);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void DeleteClusterTest()
         {
             var deleteClusterRequest = new DeleteClusterRequest();
@@ -248,13 +272,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void DeleteTest()
+        public void DeleteFileTest()
         {
-            var deleteRequest = new DeleteFileRequest("broker", "test.file");
+            var deleteFileRequest = new DeleteFileRequest("broker", "test.file");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(deleteRequest))
+                .Setup(n => n.Invoke(deleteFileRequest))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -265,7 +289,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            client.DeleteFile(deleteRequest);
+            client.DeleteFile(deleteFileRequest);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

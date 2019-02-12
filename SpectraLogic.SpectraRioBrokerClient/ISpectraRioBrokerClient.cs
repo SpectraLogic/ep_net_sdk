@@ -96,6 +96,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IToken CreateToken(CreateTokenRequest request);
 
+        /// <summary>Deletes the broker.</summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        void DeleteBroker(DeleteBrokerRequest request);
+
         /// <summary>
         /// Deletes the cluster.
         /// </summary>
