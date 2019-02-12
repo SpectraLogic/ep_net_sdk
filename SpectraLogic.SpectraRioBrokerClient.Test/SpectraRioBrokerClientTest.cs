@@ -30,22 +30,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
     [TestFixture]
     internal class SpectraRioBrokerClientTest
     {
-        #region Private Fields
+        #region Fields
 
         private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClientTest");
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Constructors
+        #region Constructors
 
         public SpectraRioBrokerClientTest()
         {
             BasicConfigurator.Configure();
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Methods
+        #region Methods
 
         [Test]
         public void ArchiveTest()
@@ -341,6 +341,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var brokerObject = client.GetBrokerObject(getBrokerObjectRequest);
             Assert.AreEqual("broker", brokerObject.Broker);
             Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+        }
+
+        [Test]
+        public void GetBrokerRelationshipsTest()
+        {
+            var getRelationshipsRequest = new GetBrokerRelationshipsRequest("brokerName");
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getRelationshipsRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerRelationshipsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var relationships = client.GetBrokerRelationships(getRelationshipsRequest);
+            Assert.AreEqual(3, relationships.Relationships.Count);
+
+            Assert.AreEqual(0, relationships.Page.Number);
+            Assert.AreEqual(100, relationships.Page.PageSize);
+            Assert.AreEqual(1, relationships.Page.TotalPages);
         }
 
         [Test]
@@ -844,6 +870,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             mockNetwork.VerifyAll();
         }
 
-        #endregion Public Methods
+        #endregion Methods
     }
 }
