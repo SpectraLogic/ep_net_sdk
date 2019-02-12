@@ -64,6 +64,7 @@
     <Compile Include="Calls\Broker\GetBrokerObjectRequest.cs" />
     <Compile Include="Calls\Broker\GetBrokersRequest.cs" />
     <Compile Include="Calls\Broker\DeleteBrokerRequest.cs" />
+    <Compile Include="Calls\Broker\UpdateBrokerObjectRequest.cs" />
     <Compile Include="Calls\Cluster\GetMembersRequest.cs" />
     <Compile Include="Calls\Cluster\GetMasterRequest.cs" />
     <Compile Include="Calls\Jobs\HeadJobRequest.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Model\SortBy.cs" />
     <Compile Include="Model\SortOrder.cs" />
     <Compile Include="ResponseParsers\Authentication\CreateTokenResponseParser.cs" />
+    <Compile Include="ResponseParsers\Broker\UpdateBrokerObjectResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerObjectsResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerRelationshipsResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerRelationshipResponseParser.cs" />

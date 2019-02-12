@@ -22,6 +22,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -868,6 +869,31 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateBrokerObjectTest()
+        {
+            var updateBrokerObjectRequest = new UpdateBrokerObjectRequest("brokerName", "objectName", new Dictionary<string, string>(), new HashSet<string>());
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(updateBrokerObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.UpdateBrokerObjectResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObject = client.UpdateBrokerObject(updateBrokerObjectRequest);
+            Assert.AreEqual("broker", brokerObject.Broker);
+            Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+            Assert.AreEqual(1, brokerObject.Metadata.Count);
+            Assert.AreEqual(1, brokerObject.Relationships.Count);
         }
 
         #endregion Methods

@@ -230,6 +230,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     Assert.AreEqual("Completed", file.Status);
                 }
+
+                var updatedMetadata = new Dictionary<string, string> { { "test", "update" } };
+                var updatedRelationships = new HashSet<string> { "test1", "test2" };
+                var updateBrokerObjectRequest = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1, updatedMetadata, updatedRelationships);
+                var updatedObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(updateBrokerObjectRequest);
+
+                Assert.AreEqual(1, updatedObject.Metadata.Count);
+                Assert.AreEqual(updatedMetadata, updatedObject.Metadata);
+
+                Assert.AreEqual(2, updatedObject.Relationships.Count);
+                Assert.AreEqual(updatedRelationships, updatedObject.Relationships);
             }
             finally
             {
@@ -409,6 +420,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
                 Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
+        }
+
+        [Test]
+        public void DeleteBrokersTest()
+        {
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            SpectraRioBrokerClientFixture.CreateBroker_1();
         }
 
         [Test]
@@ -647,14 +666,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             var brokers = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokers(new GetBrokersRequest());
             Assert.AreEqual(2, brokers.BrokerList.Count());
-        }
-
-        [Test]
-        public void DeleteBrokersTest()
-        {
-            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)), Throws.Exception.TypeOf<BrokerNotFoundException>());
-            SpectraRioBrokerClientFixture.CreateBroker_1();
         }
 
         [Test]

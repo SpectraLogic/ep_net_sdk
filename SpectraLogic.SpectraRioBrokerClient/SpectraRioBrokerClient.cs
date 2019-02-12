@@ -307,6 +307,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IBrokerObject UpdateBrokerObject(UpdateBrokerObjectRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new UpdateBrokerObjectResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public void UpdateToken(string token)
         {
             Contract.Requires<ArgumentNullException>(token != null, "token");
