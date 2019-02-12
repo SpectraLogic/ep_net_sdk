@@ -421,8 +421,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new UpdateBrokerObjectRequest("broker", "objectName", null, relationships)));
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new UpdateBrokerObjectRequest("broker", "objectName", metadata, null)));
 
-            var request = new UpdateBrokerObjectRequest("not_found", "objectName", metadata, relationships);
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            //TODO https://jira.spectralogic.com/browse/ESCP-1131
+            //var request = new UpdateBrokerObjectRequest("not_found", "objectName", metadata, relationships);
+            //Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request), Throws.Exception.TypeOf<BrokerNotFoundException>());
 
             //TODO https://jira.spectralogic.com/browse/ESCP-1131
             //request = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, "objectName_not_found", metadata, relationships);
