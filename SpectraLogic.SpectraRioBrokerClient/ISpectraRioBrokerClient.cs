@@ -24,7 +24,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
     /// </summary>
     public interface ISpectraRioBrokerClient
     {
-        #region Public Methods
+        #region Methods
 
         /// <summary>
         /// Archives the specified request.
@@ -95,6 +95,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IToken CreateToken(CreateTokenRequest request);
+
+        /// <summary>Deletes the broker.</summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        void DeleteBroker(DeleteBrokerRequest request);
 
         /// <summary>
         /// Deletes the cluster.
@@ -211,6 +219,18 @@ namespace SpectraLogic.SpectraRioBrokerClient
         IBrokerObjects GetBrokerRelationship(GetBrokerRelationshipRequest request);
 
         /// <summary>
+        /// Gets a paginated list of all the relationships for this broker.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        IBrokerRelationships GetBrokerRelationships(GetBrokerRelationshipsRequest request);
+
+        /// <summary>
         /// Gets the brokers.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -312,6 +332,17 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         IJob Retry(RetryRequest request);
 
+        /// <summary>Updates the broker object.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        IBrokerObject UpdateBrokerObject(UpdateBrokerObjectRequest request);
+
         /// <summary>
         /// Updates the token.
         /// </summary>
@@ -319,6 +350,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="System.ArgumentNullException"></exception>
         void UpdateToken(string token);
 
-        #endregion Public Methods
+        #endregion Methods
     }
 }

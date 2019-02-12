@@ -77,6 +77,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         public static void CreateBrokers()
         {
+            CreateBroker_1();
+            CreateBroker_2();
+        }
+
+        public static void CreateBroker_1()
+        {
             BrokerName = ConfigurationManager.AppSettings["BrokerName"];
 
             if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName))
@@ -85,7 +91,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var createBrokerRequest = new CreateBrokerRequest(BrokerName, AgentName, agentConfig);
                 SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
+        }
 
+        public static void CreateBroker_2()
+        {
             BrokerName2 = ConfigurationManager.AppSettings["BrokerName2"];
 
             if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName2))

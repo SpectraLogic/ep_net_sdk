@@ -16,6 +16,7 @@
 using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 using System.Collections.Generic;
@@ -178,6 +179,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     Assert.AreEqual("Completed", file.Status);
                 }
 
+                var relationshipsRequest = new GetBrokerRelationshipsRequest(SpectraRioBrokerClientFixture.BrokerName);
+                var relationships = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationships(relationshipsRequest);
+
+                Assert.AreEqual(1, relationships.Relationships.Count());
+                Assert.AreEqual(new List<string>() { relationshipName }, relationships.Relationships);
+
                 var relationshipRequest = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, relationshipName);
                 var relationship = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(relationshipRequest);
 
@@ -223,6 +230,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     Assert.AreEqual("Completed", file.Status);
                 }
+
+                var updatedMetadata = new Dictionary<string, string> { { "test", "update" } };
+                var updatedRelationships = new HashSet<string> { "test1", "test2" };
+                var updateBrokerObjectRequest = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1, updatedMetadata, updatedRelationships);
+                var updatedObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(updateBrokerObjectRequest);
+
+                Assert.AreEqual(1, updatedObject.Metadata.Count);
+                Assert.AreEqual(updatedMetadata, updatedObject.Metadata);
+
+                Assert.AreEqual(2, updatedObject.Relationships.Count);
+                Assert.AreEqual(updatedRelationships, updatedObject.Relationships);
             }
             finally
             {
@@ -402,6 +420,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
                 Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
+        }
+
+        [Test]
+        public void DeleteBrokersTest()
+        {
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            SpectraRioBrokerClientFixture.CreateBroker_1();
         }
 
         [Test]
