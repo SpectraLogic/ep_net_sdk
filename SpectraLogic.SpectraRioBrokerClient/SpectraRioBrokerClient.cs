@@ -29,23 +29,23 @@ namespace SpectraLogic.SpectraRioBrokerClient
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.ISpectraRioBrokerClient" />
     public class SpectraRioBrokerClient : ISpectraRioBrokerClient
     {
-        #region Private Fields
+        #region Fields
 
         private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClient");
         private readonly INetwork _network;
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Internal Constructors
+        #region Constructors
 
         internal SpectraRioBrokerClient(INetwork network)
         {
             _network = network;
         }
 
-        #endregion Internal Constructors
+        #endregion Constructors
 
-        #region Public Methods
+        #region Methods
 
         /// <inheritdoc/>
         public IJob Archive(ArchiveRequest request)
@@ -98,6 +98,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
             return ExceptionDecorator.Run(() =>
             {
                 return new CreateTokenResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
+        public void DeleteBroker(DeleteBrokerRequest request)
+        {
+            ExceptionDecorator.Run(() =>
+            {
+                return new DeleteBrokerResponseParser().Parse(_network.Invoke(request));
             });
         }
 
@@ -197,6 +206,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IBrokerRelationships GetBrokerRelationships(GetBrokerRelationshipsRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new GetBrokerRelationshipsResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public IBrokers GetBrokers(GetBrokersRequest request)
         {
             return ExceptionDecorator.Run(() =>
@@ -289,6 +307,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IBrokerObject UpdateBrokerObject(UpdateBrokerObjectRequest request)
+        {
+            return ExceptionDecorator.Run(() =>
+            {
+                return new UpdateBrokerObjectResponseParser().Parse(_network.Invoke(request));
+            });
+        }
+
+        /// <inheritdoc/>
         public void UpdateToken(string token)
         {
             Contract.Requires<ArgumentNullException>(token != null, "token");
@@ -296,6 +323,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
             _network.UpdateToken(token);
         }
 
-        #endregion Public Methods
+        #endregion Methods
     }
 }

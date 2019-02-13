@@ -22,6 +22,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -30,22 +31,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
     [TestFixture]
     internal class SpectraRioBrokerClientTest
     {
-        #region Private Fields
+        #region Fields
 
         private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClientTest");
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Constructors
+        #region Constructors
 
         public SpectraRioBrokerClientTest()
         {
             BasicConfigurator.Configure();
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Methods
+        #region Methods
 
         [Test]
         public void ArchiveTest()
@@ -224,6 +225,30 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void DeleteBrokerTest()
+        {
+            var deleteBrokerRequest = new DeleteBrokerRequest("broker");
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(It.IsAny<DeleteBrokerRequest>()))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            client.DeleteBroker(deleteBrokerRequest);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void DeleteClusterTest()
         {
             var deleteClusterRequest = new DeleteClusterRequest();
@@ -248,13 +273,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void DeleteTest()
+        public void DeleteFileTest()
         {
-            var deleteRequest = new DeleteFileRequest("broker", "test.file");
+            var deleteFileRequest = new DeleteFileRequest("broker", "test.file");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(deleteRequest))
+                .Setup(n => n.Invoke(deleteFileRequest))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -265,7 +290,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            client.DeleteFile(deleteRequest);
+            client.DeleteFile(deleteFileRequest);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -317,6 +342,32 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var brokerObject = client.GetBrokerObject(getBrokerObjectRequest);
             Assert.AreEqual("broker", brokerObject.Broker);
             Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+        }
+
+        [Test]
+        public void GetBrokerRelationshipsTest()
+        {
+            var getRelationshipsRequest = new GetBrokerRelationshipsRequest("brokerName");
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getRelationshipsRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerRelationshipsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var relationships = client.GetBrokerRelationships(getRelationshipsRequest);
+            Assert.AreEqual(3, relationships.Relationships.Count);
+
+            Assert.AreEqual(0, relationships.Page.Number);
+            Assert.AreEqual(100, relationships.Page.PageSize);
+            Assert.AreEqual(1, relationships.Page.TotalPages);
         }
 
         [Test]
@@ -820,6 +871,31 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             mockNetwork.VerifyAll();
         }
 
-        #endregion Public Methods
+        [Test]
+        public void UpdateBrokerObjectTest()
+        {
+            var updateBrokerObjectRequest = new UpdateBrokerObjectRequest("brokerName", "objectName", new Dictionary<string, string>(), new HashSet<string>());
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(updateBrokerObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.UpdateBrokerObjectResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObject = client.UpdateBrokerObject(updateBrokerObjectRequest);
+            Assert.AreEqual("broker", brokerObject.Broker);
+            Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+            Assert.AreEqual(1, brokerObject.Metadata.Count);
+            Assert.AreEqual(1, brokerObject.Relationships.Count);
+        }
+
+        #endregion Methods
     }
 }
