@@ -64,7 +64,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                         return JsonConvert.DeserializeObject<ConflictErrorResponse>(responseString);
 
                     case (HttpStatusCode)422:
-                        return JsonConvert.DeserializeObject<UnprocessableErrorResponse>(responseString);
+                        return JsonConvert.DeserializeObject<ValidationErrorResponse>(responseString);
 
                     default:
                         return JsonConvert.DeserializeObject<ErrorResponse>(responseString);

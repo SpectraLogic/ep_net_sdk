@@ -23,12 +23,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.ErrorResponse" />
-    public class UnprocessableErrorResponse : ErrorResponse
+    public class ValidationErrorResponse : ErrorResponse
     {
         #region Constructors
 
         [JsonConstructor]
-        private UnprocessableErrorResponse(string errorMessage, HttpStatusCode statusCode, IEnumerable<UnprocessableError> errors)
+        private ValidationErrorResponse(string errorMessage, HttpStatusCode statusCode, IEnumerable<ValidationError> errors)
             : base(errorMessage, statusCode)
         {
             Errors = errors;
@@ -44,7 +44,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The errors.
         /// </value>
-        [JsonProperty(PropertyName = "errors")] public IEnumerable<UnprocessableError> Errors { get; }
+        [JsonProperty(PropertyName = "errors")] public IEnumerable<ValidationError> Errors { get; }
 
         #endregion Properties
     }

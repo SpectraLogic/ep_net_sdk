@@ -13,7 +13,9 @@
  * ****************************************************************************
  */
 
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
 {
@@ -32,8 +34,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
         /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public ValidationException(string message, Exception innerException) : base(message, innerException)
         {
+            ValidationErrors = ExtractValidationErrors(innerException);
         }
 
         #endregion Constructors
+
+        #region Properties
+
+        /// <summary>Gets the validation errors.</summary>
+        /// <value>The validation errors.</value>
+        public IEnumerable<ValidationError> ValidationErrors { get; private set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        private IEnumerable<ValidationError> ExtractValidationErrors(Exception ex)
+        {
+            var errorResponseException = ex as ErrorResponseException;
+            var validationErrorResponse = errorResponseException.ErrorResponse as ValidationErrorResponse;
+
+            return validationErrorResponse.Errors;
+        }
+
+        #endregion Methods
     }
 }

@@ -19,17 +19,17 @@ using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
-    public class UnprocessableErrorComparer : Comparer<UnprocessableError>
+    public class ValidationErrorComparer : Comparer<ValidationError>
     {
         #region Fields
 
-        private static ILog LOG = LogManager.GetLogger("UnprocessableErrorComparer");
+        private static ILog LOG = LogManager.GetLogger("ValidationErrorComparer");
 
         #endregion Fields
 
         #region Methods
 
-        public override int Compare(UnprocessableError x, UnprocessableError y)
+        public override int Compare(ValidationError x, ValidationError y)
         {
             var ret = 0;
 
