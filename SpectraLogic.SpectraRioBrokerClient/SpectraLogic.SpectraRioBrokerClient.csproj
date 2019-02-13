@@ -144,8 +144,8 @@
     <Compile Include="SpectraRioBrokerClientBuilder.cs" />
     <Compile Include="ISpectraRioBrokerClient.cs" />
     <Compile Include="Model\ByteRange.cs" />
-    <Compile Include="Model\UnprocessableError.cs" />
-    <Compile Include="Model\UnprocessableErrorResponse.cs" />
+    <Compile Include="Model\ValidationError.cs" />
+    <Compile Include="Model\ValidationErrorResponse.cs" />
     <Compile Include="Model\ErrorResponse.cs" />
     <Compile Include="Model\Broker.cs" />
     <Compile Include="Model\Cluster.cs" />
@@ -180,7 +180,6 @@
     <Compile Include="Calls\Broker\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\Broker\RestoreResponseParser.cs" />
     <Compile Include="Utils\Contract.cs" />
-    <Compile Include="Utils\ExceptionExtensions.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
     <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Runtime\SpectraRioBrokerHttpWebRequest.cs" />

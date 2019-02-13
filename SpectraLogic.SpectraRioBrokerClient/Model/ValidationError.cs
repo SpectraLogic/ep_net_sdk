@@ -20,7 +20,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    public class UnprocessableError
+    public class ValidationError
     {
         #region Properties
 
@@ -69,14 +69,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnprocessableError" /> class.
+        /// Initializes a new instance of the <see cref="ValidationError" /> class.
         /// </summary>
         /// <param name="fieldName">Name of the field.</param>
         /// <param name="fieldType">Type of the field.</param>
         /// <param name="errorType">Type of the error.</param>
         /// <param name="value">The value.</param>
         /// <param name="reason">The reason.</param>
-        public UnprocessableError(string fieldName, string fieldType, string errorType, string value = null, string reason = null)
+        public ValidationError(string fieldName, string fieldType, string errorType, string value = null, string reason = null)
         {
             FieldName = fieldName;
             FieldType = fieldType;

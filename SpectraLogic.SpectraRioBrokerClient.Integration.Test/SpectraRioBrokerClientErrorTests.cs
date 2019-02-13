@@ -18,7 +18,6 @@ using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,9 +63,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files", "files", "no_files_in_job")
+                    new ValidationError("files", "files", "no_files_in_job")
                 });
 
             ValidationExceptionCheck(
@@ -79,9 +78,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri")
+                    new ValidationError("files.uri", "URI", "invalid_format", "bad uri")
                 });
         }
 
@@ -118,9 +117,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("name", "string", "missing")
+                    new ValidationError("name", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -130,9 +129,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("agentName", "string", "missing")
+                    new ValidationError("agentName", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -142,9 +141,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("agentConfig.blackPearlName", "string", "spectra_device_registration_not_found", "bp_name")
+                    new ValidationError("agentConfig.blackPearlName", "string", "spectra_device_registration_not_found", "bp_name")
                 });
 
             ValidationExceptionCheck(
@@ -154,9 +153,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("agentConfig.username", "string", "not_found", "username")
+                    new ValidationError("agentConfig.username", "string", "not_found", "username")
                 });
 
             ValidationExceptionCheck(
@@ -166,9 +165,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("agentConfig.bucket", "string", "not_found", "wrong_bucket")
+                    new ValidationError("agentConfig.bucket", "string", "not_found", "wrong_bucket")
                 });
         }
 
@@ -199,9 +198,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("name", "string", "missing")
+                    new ValidationError("name", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -211,9 +210,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("mgmtInterface", "string", "missing")
+                    new ValidationError("mgmtInterface", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -223,9 +222,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("mgmtInterface", "uri", "invalid_uri", "bad url")
+                    new ValidationError("mgmtInterface", "uri", "invalid_uri", "bad url")
                 });
 
             ValidationExceptionCheck(
@@ -235,9 +234,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("username", "string", "missing")
+                    new ValidationError("username", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -247,9 +246,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("password", "password", "missing")
+                    new ValidationError("password", "password", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -259,12 +258,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("mgmtInterface", "string", "missing"),
-                    new UnprocessableError("username", "string", "missing"),
-                    new UnprocessableError("password", "password", "missing"),
-                    new UnprocessableError("name", "string", "missing"),
+                    new ValidationError("mgmtInterface", "string", "missing"),
+                    new ValidationError("username", "string", "missing"),
+                    new ValidationError("password", "password", "missing"),
+                    new ValidationError("name", "string", "missing"),
                 });
 
             ValidationExceptionCheck(
@@ -274,10 +273,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("username", "string", "invalid_credentials"),
-                    new UnprocessableError("password", "password", "invalid_credentials")
+                    new ValidationError("username", "string", "invalid_credentials"),
+                    new ValidationError("password", "password", "invalid_credentials")
                 });
 
             ValidationExceptionCheck(
@@ -287,10 +286,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("username", "string", "invalid_credentials"),
-                    new UnprocessableError("password", "password", "invalid_credentials")
+                    new ValidationError("username", "string", "invalid_credentials"),
+                    new ValidationError("password", "password", "invalid_credentials")
                 });
 
             ValidationExceptionCheck(
@@ -300,9 +299,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("mgmtInterface", "uri", "data_interface_specified")
+                    new ValidationError("mgmtInterface", "uri", "data_interface_specified")
                 });
         }
 
@@ -349,9 +348,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("username", "string", "missing", reason:"username cannot be empty")
+                    new ValidationError("username", "string", "missing", reason:"username cannot be empty")
                 });
 
             ValidationExceptionCheck(
@@ -361,9 +360,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateToken(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("password", "string", "missing", reason:"password cannot be empty")
+                    new ValidationError("password", "string", "missing", reason:"password cannot be empty")
                 });
         }
 
@@ -698,9 +697,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files", "files", "no_files_in_job")
+                    new ValidationError("files", "files", "no_files_in_job")
                  });
 
             ValidationExceptionCheck(
@@ -713,9 +712,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files.uri", "URI", "invalid_format", "bad uri"),
+                    new ValidationError("files.uri", "URI", "invalid_format", "bad uri"),
                 });
 
             ValidationExceptionCheck(
@@ -728,9 +727,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files.byteRange", "object", "invalid", reason:"The startingIndex must be positive"),
+                    new ValidationError("files.byteRange", "object", "invalid", reason:"The startingIndex must be positive"),
                 });
 
             ValidationExceptionCheck(
@@ -743,9 +742,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files.byteRange", "object", "invalid", reason:"The endingIndex must be positive"),
+                    new ValidationError("files.byteRange", "object", "invalid", reason:"The endingIndex must be positive"),
                 });
 
             ValidationExceptionCheck(
@@ -758,9 +757,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
-                new List<UnprocessableError>
+                new List<ValidationError>
                 {
-                    new UnprocessableError("files.byteRange", "object", "invalid", reason:"startingIndex must be lower than endingIndex"),
+                    new ValidationError("files.byteRange", "object", "invalid", reason:"startingIndex must be lower than endingIndex"),
                 });
         }
 
@@ -823,9 +822,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
                         Assert.Fail();
                     },
-                    new List<UnprocessableError>
+                    new List<ValidationError>
                     {
-                        new UnprocessableError(fileName1, "file", "duplicate_file_brokers"),
+                        new ValidationError(fileName1, "file", "duplicate_file_brokers"),
                     });
 
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
@@ -884,8 +883,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
             catch (ValidationException ex)
             {
-                var unprocessableErrorResponse = ex.ExtractUnprocessableErrorResponse();
-                CollectionAssert.AreEqual(expected, unprocessableErrorResponse.Errors, new UnprocessableErrorComparer());
+                CollectionAssert.AreEqual(expected, ex.ValidationErrors, new ValidationErrorComparer());
             }
         }
 
