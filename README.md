@@ -55,5 +55,46 @@ SDK documentation can be found here [Documentation](http://spectralogic.github.i
 The example below shows how to configure and instantiate `ISpectraRioBrokerClient`
 
 ```csharp
-TBD
+using SpectraLogic.SpectraRioBrokerClient;
+
+namespace application
+{
+    class Class1
+    {
+        public ISpectraRioBrokerClient CreateClient()
+        {
+            var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder("localhost", 5050);
+            return spectraRioBrokerClientBuilder.DisableSslValidation().Build();
+        }
+    }
+}
 ```
+
+The example below shows how to use `ISpectraRioBrokerClient` and send a request to Spectra Rio Broker Server (ex. CreateToken)
+
+```csharp
+using SpectraLogic.SpectraRioBrokerClient;
+using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+
+namespace your.application
+{
+    class Class1
+    {
+        public ISpectraRioBrokerClient CreateClient()
+        {
+            var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder("localhost", 5050);
+            return spectraRioBrokerClientBuilder.DisableSslValidation().Build();
+        }
+
+        public IToken CreateToken()
+        {
+            var client = CreateClient();
+
+            var request = new CreateTokenRequest("username", "password");
+            return client.CreateToken(request);
+        }
+    }
+}
+```
+For more examples and uses of the SDK [SpectraLogic.SpectraRioBrokerClient.Integration.Test](../../tree/master/SpectraLogic.SpectraRioBrokerClient.Integration.Test)
