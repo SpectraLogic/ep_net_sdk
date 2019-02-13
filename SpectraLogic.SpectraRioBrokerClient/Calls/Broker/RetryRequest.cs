@@ -27,10 +27,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
     {
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RetryRequest"/> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="RetryRequest"/> class.</summary>
+        /// <param name="brokerName">Name of the broker.</param>
         /// <param name="jobId">The job identifier.</param>
+        /// <param name="retryJobType">Type of the retry job.</param>
         public RetryRequest(String brokerName, Guid jobId, JobType retryJobType)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");

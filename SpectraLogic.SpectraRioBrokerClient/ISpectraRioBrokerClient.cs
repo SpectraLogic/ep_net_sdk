@@ -26,310 +26,260 @@ namespace SpectraLogic.SpectraRioBrokerClient
     {
         #region Methods
 
-        /// <summary>
-        /// Archives the specified request.
-        /// </summary>
+        /// <summary>Archives the specified request.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJob Archive(ArchiveRequest request);
 
-        /// <summary>
-        /// Cancels the specified request.
-        /// </summary>
+        /// <summary>Cancels the specified request.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJob Cancel(CancelRequest request);
 
-        /// <summary>
-        /// Creates a broker.
-        /// </summary>
+        /// <summary>Creates a broker.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerAlreadyExistsException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerAlreadyExistsException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBroker CreateBroker(CreateBrokerRequest request);
 
-        /// <summary>
-        /// Creates the cluster.
-        /// </summary>
+        /// <summary>Creates the cluster.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AlreadyAClusterMemberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AlreadyAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         ICluster CreateCluster(CreateClusterRequest request);
 
-        /// <summary>
-        /// Creates a device.
-        /// </summary>
+        /// <summary>Creates a device.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.InvalidDeviceCredentialsException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.DeviceAlreadyExistsException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.InvalidDeviceCredentialsException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.DeviceAlreadyExistsException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IDevice CreateDevice(CreateDeviceRequest request);
 
-        /// <summary>
-        /// Creates the token.
-        /// </summary>
+        /// <summary>Creates the token.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IToken CreateToken(CreateTokenRequest request);
 
         /// <summary>Deletes the broker.</summary>
         /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         void DeleteBroker(DeleteBrokerRequest request);
 
-        /// <summary>
-        /// Deletes the cluster.
-        /// </summary>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <summary>Deletes the cluster.</summary>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         void DeleteCluster();
 
-        /// <summary>
-        /// Deletes the specified file.
-        /// </summary>
+        /// <summary>Deletes the specified file.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         void DeleteFile(DeleteFileRequest request);
 
-        /// <summary>
-        /// Determines whether brokerName exist.
-        /// </summary>
+        /// <summary>Determines whether brokerName exist.</summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <returns>
-        ///   <c>true</c> if specified brokerName exist; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        ///   <c>true</c> if specified brokerName exist; otherwise, <c>false</c>.</returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         bool DoesBrokerExist(string brokerName);
 
         /// <summary>Determines whether the broker object exist.</summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="objectName">Name of the object.</param>
-        /// <returns><c>true</c> if specified objectName exist in brokerName; otherwise, <c>false</c>.</returns>
+        /// <returns>
+        ///   <c>true</c> if specified objectName exist in brokerName; otherwise, <c>false</c>.</returns>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         bool DoesBrokerObjectExist(string brokerName, string objectName);
 
-        /// <summary>
-        /// Determines whether deviceName exist.
-        /// </summary>
+        /// <summary>Determines whether deviceName exist.</summary>
         /// <param name="deviceName">Name of the device.</param>
         /// <returns>
-        ///   <c>true</c> if specified device exist; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        ///   <c>true</c> if specified device exist; otherwise, <c>false</c>.</returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         bool DoesDeviceExist(string deviceName);
 
-        /// <summary>
-        /// Determines whether jobId exist.
-        /// </summary>
+        /// <summary>Determines whether jobId exist.</summary>
         /// <param name="jobId">The job id.</param>
         /// <returns>
-        ///   <c>true</c> if specified job exist; otherwise, <c>false</c>.
-        /// </returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        ///   <c>true</c> if specified job exist; otherwise, <c>false</c>.</returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         bool DoesJobExist(Guid jobId);
 
-        /// <summary>
-        /// Gets the broker.
-        /// </summary>
+        /// <summary>Gets the broker.</summary>
         /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBroker GetBroker(GetBrokerRequest request);
 
         /// <summary>Gets the object.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerObjectNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerObject GetBrokerObject(GetBrokerObjectRequest request);
 
         /// <summary>Gets the broker objects.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerObjects GetBrokerObjects(GetBrokerObjectsRequest request);
 
-        /// <summary>
-        /// Gets the relationship objects.
-        /// </summary>
+        /// <summary>Gets the relationship objects.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerObjects GetBrokerRelationship(GetBrokerRelationshipRequest request);
 
-        /// <summary>
-        /// Gets a paginated list of all the relationships for this broker.
-        /// </summary>
+        /// <summary>Gets a paginated list of all the relationships for this broker.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerRelationships GetBrokerRelationships(GetBrokerRelationshipsRequest request);
 
-        /// <summary>
-        /// Gets the brokers.
-        /// </summary>
+        /// <summary>Gets the brokers.</summary>
         /// <param name="request">The request.</param>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
         /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokers GetBrokers(GetBrokersRequest request);
 
-        /// <summary>
-        /// Gets the cluster.
-        /// </summary>
+        /// <summary>Gets the cluster.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         ICluster GetCluster(GetClusterRequest request);
 
-        /// <summary>
-        /// Gets the device.
-        /// </summary>
+        /// <summary>Gets the device.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.DeviceNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.DeviceNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IDevice GetDevice(GetDeviceRequest request);
 
-        /// <summary>
-        /// Gets the job.
-        /// </summary>
+        /// <summary>Gets the job.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.JobNotFoundException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.JobNotFoundException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJob GetJob(GetJobRequest request);
 
-        /// <summary>
-        /// Gets the jobs.
-        /// </summary>
+        /// <summary>Gets the jobs.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJobs GetJobs(GetJobsRequest request);
 
-        /// <summary>
-        /// Gets details about the master node in the cluster
-        /// </summary>
+        /// <summary>Gets details about the master node in the cluster</summary>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IClusterMember GetMaster();
 
-        /// <summary>
-        /// Gets a list of all the members of the cluster
-        /// </summary>
+        /// <summary>Gets a list of all the members of the cluster</summary>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IClusterMembers GetMembers();
 
-        /// <summary>
-        /// Gets the system info.
-        /// </summary>
+        /// <summary>Gets the system info.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IRioSystem GetSystem(GetSystemRequest request);
 
-        /// <summary>
-        /// Restores the specified request.
-        /// </summary>
+        /// <summary>Restores the specified request.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJob Restore(RestoreRequest request);
 
-        /// <summary>
-        /// Retries the specified request.
-        /// </summary>
+        /// <summary>Retries the specified request.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException" />
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException" />
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemeberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJob Retry(RetryRequest request);
 
         /// <summary>Updates the broker object.</summary>
@@ -343,9 +293,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerObject UpdateBrokerObject(UpdateBrokerObjectRequest request);
 
-        /// <summary>
-        /// Updates the token.
-        /// </summary>
+        /// <summary>Updates the token.</summary>
         /// <param name="token">The token.</param>
         /// <exception cref="System.ArgumentNullException"></exception>
         void UpdateToken(string token);
