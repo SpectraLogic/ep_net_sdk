@@ -1,0 +1,26 @@
+var namespace_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls =
+[
+    [ "ArchiveRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_archive_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_archive_request" ],
+    [ "CancelRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cancel_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cancel_request" ],
+    [ "CreateBrokerRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_broker_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_broker_request" ],
+    [ "CreateClusterRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_cluster_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_cluster_request" ],
+    [ "CreateDeviceRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_device_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_device_request" ],
+    [ "CreateTokenRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_token_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_token_request" ],
+    [ "DeleteBrokerRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_delete_broker_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_delete_broker_request" ],
+    [ "DeleteFileRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_delete_file_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_delete_file_request" ],
+    [ "GetBrokerObjectRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_object_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_object_request" ],
+    [ "GetBrokerObjectsRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_objects_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_objects_request" ],
+    [ "GetBrokerRelationshipRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_relationship_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_relationship_request" ],
+    [ "GetBrokerRelationshipsRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_relationships_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_relationships_request" ],
+    [ "GetBrokerRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_broker_request" ],
+    [ "GetBrokersRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_brokers_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_brokers_request" ],
+    [ "GetClusterRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_cluster_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_cluster_request" ],
+    [ "GetDeviceRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_device_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_device_request" ],
+    [ "GetJobRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_job_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_job_request" ],
+    [ "GetJobsRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_jobs_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_jobs_request" ],
+    [ "GetSystemRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_system_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_get_system_request" ],
+    [ "RestoreRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_restore_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_restore_request" ],
+    [ "RestRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_rest_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_rest_request" ],
+    [ "RetryRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_retry_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_retry_request" ],
+    [ "UpdateBrokerObjectRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_update_broker_object_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_update_broker_object_request" ]
+];

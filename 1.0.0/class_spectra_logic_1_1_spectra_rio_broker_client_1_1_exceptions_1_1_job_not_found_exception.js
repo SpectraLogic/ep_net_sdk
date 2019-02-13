@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_job_not_found_exception =
+[
+    [ "JobNotFoundException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_job_not_found_exception.html#a2d66e347bc0b3b24dc020b4eaffd0ba3", null ]
+];

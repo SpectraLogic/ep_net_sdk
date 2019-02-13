@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_device_already_exists_exception =
+[
+    [ "DeviceAlreadyExistsException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_device_already_exists_exception.html#ab90c318ead3912e77e9adcd49aba8012", null ]
+];

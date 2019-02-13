@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['uri',['Uri',['../class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_archive_file.html#a4c7c05b605bff73edd5c753163616d70',1,'SpectraLogic.SpectraRioBrokerClient.Model.ArchiveFile.Uri()'],['../class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file.html#a6ed7b60575d4341690d53d244cea6847',1,'SpectraLogic.SpectraRioBrokerClient.Model.RestoreFile.Uri()']]],
+  ['username',['Username',['../class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_token_request.html#a4dbe832afa3ecf13eda25cae1578e0a7',1,'SpectraLogic.SpectraRioBrokerClient.Calls.CreateTokenRequest.Username()'],['../class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_create_device_request.html#afd21af76ab2961031dcba07d2d64e8c3',1,'SpectraLogic.SpectraRioBrokerClient.Calls.CreateDeviceRequest.Username()'],['../class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_agent_config.html#a99fb1f1c8d061a19b51c9e3814d0958b',1,'SpectraLogic.SpectraRioBrokerClient.Model.AgentConfig.UserName()']]]
+];

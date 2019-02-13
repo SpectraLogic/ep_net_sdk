@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_broker_object_not_found_exception =
+[
+    [ "BrokerObjectNotFoundException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_broker_object_not_found_exception.html#a0e2df8d2ecd465aa9fe4d1ed21c0f1ff", null ]
+];
