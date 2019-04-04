@@ -21,7 +21,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IClusterMemebers" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IClusterMembers" />
     public class ClusterMembers : IClusterMembers
     {
         #region Constructors
