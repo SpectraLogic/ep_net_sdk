@@ -28,12 +28,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The index media
         /// </summary>
-        [JsonProperty(PropertyName = "indexMedia")] public bool IndexMedia;
+        [JsonProperty(PropertyName = "indexMedia", NullValueHandling = NullValueHandling.Ignore)] public bool? IndexMedia;
 
         /// <summary>
         /// The metadata
         /// </summary>
-        [JsonProperty(PropertyName = "metadata")] public IDictionary<string, string> Metadata;
+        [JsonProperty(PropertyName = "metadata", NullValueHandling = NullValueHandling.Ignore)] public IDictionary<string, string> Metadata;
 
         /// <summary>
         /// The name
@@ -43,12 +43,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The relationships
         /// </summary>
-        [JsonProperty(PropertyName = "relationships")] public ISet<string> Relationships = new HashSet<string>();
+        [JsonProperty(PropertyName = "relationships", NullValueHandling = NullValueHandling.Ignore)] public ISet<string> Relationships;
 
         /// <summary>
         /// The size
         /// </summary>
-        [JsonProperty(PropertyName = "size")] public long Size;
+        [JsonProperty(PropertyName = "size", NullValueHandling = NullValueHandling.Ignore)] public long? Size;
 
         /// <summary>
         /// The URI
@@ -62,30 +62,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="uri">The URI.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="metadata">The metadata.</param>
-        /// <param name="indexMedia">if set to <c>true</c> [index media].</param>
-        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia)
-        {
-            Name = name;
-            Uri = uri;
-            Size = size;
-            Metadata = metadata;
-            IndexMedia = indexMedia;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ArchiveFile"/> class.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="uri">The URI.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="metadata">The metadata.</param>
-        /// <param name="indexMedia">if set to <c>true</c> [index media].</param>
-        /// <param name="relationships">The relationships.</param>
-        public ArchiveFile(string name, string uri, long size, IDictionary<string, string> metadata, bool indexMedia, ISet<string> relationships)
+        /// <param name="name">The name of the file that will appear in RIO Broker.</param>
+        /// <param name="uri">The source URI where the file can be retrieved.</param>
+        /// <param name="size">The size of the file to be archived. This is optional</param>
+        /// <param name="metadata">Key value pairs of metadata to associate with the file. This is optional</param>
+        /// <param name="indexMedia">If enabled, if the file is a media file, it will be indexed to allow for time based partial file restores. This is optional and defaults to false</param>
+        /// <param name="relationships">The list of relationships. This is optional</param>
+        public ArchiveFile(string name, string uri, long? size = null, IDictionary<string, string> metadata = null, bool? indexMedia = null, ISet<string> relationships = null)
         {
             Name = name;
             Uri = uri;
