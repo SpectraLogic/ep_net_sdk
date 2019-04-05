@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_sort_order.html":[1,0,0,0,2,40],
 "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_sort_order.html#a79e22141bfc390466c35dc5a388701d5":[1,0,0,0,2,40,0],
 "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_sort_order.html#ab22b3d101b1087121f92574ffd299709":[1,0,0,0,2,40,1],
 "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_validation_error.html":[1,0,0,0,2,41],
@@ -57,8 +56,8 @@ var NAVTREEINDEX1 =
 "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_utils_1_1_string_extensions.html":[1,0,0,0,4,1],
 "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_utils_1_1_string_extensions.html#a12e92c760077d4e15082b86c4aca1728":[1,0,0,0,4,1,0],
 "classes.html":[1,1],
-"functions.html":[1,3,0,0],
 "functions.html":[1,3,0],
+"functions.html":[1,3,0,0],
 "functions_b.html":[1,3,0,1],
 "functions_c.html":[1,3,0,2],
 "functions_d.html":[1,3,0,3],
