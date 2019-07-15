@@ -731,8 +731,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             var fileName1 = Guid.NewGuid().ToString();
             try
             {
-                var archiveJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(new GetJobsRequest(jobType: JobTypeEnum.ARCHIVE.ToString(), jobStatus: JobStatusEnum.COMPLETED.ToString())).JobsList.Count();
-                var restoreJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(new GetJobsRequest(jobType: JobTypeEnum.RESTORE.ToString())).JobsList.Count();
+                var archiveJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(
+                        jobTypes: new List<string>() { JobTypeEnum.ARCHIVE.ToString() },
+                        jobStatuses: new List<string>() { JobStatusEnum.COMPLETED.ToString() })
+                        ).JobsList.Count();
+                var restoreJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobTypes: new List<string>() { JobTypeEnum.RESTORE.ToString() })
+                    ).JobsList.Count();
 
                 SpectraRioBrokerClientFixture.SetupTestData();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
@@ -755,10 +761,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(new GetJobsRequest(jobType: JobTypeEnum.ARCHIVE.ToString(), jobStatus: JobStatusEnum.COMPLETED.ToString()));
+                var jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(
+                        jobTypes: new List<string>() { JobTypeEnum.ARCHIVE.ToString() },
+                        jobStatuses: new List<string>() { JobStatusEnum.COMPLETED.ToString() }));
                 Assert.AreEqual(archiveJobsBefore + 1, jobs.JobsList.Count());
 
-                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(new GetJobsRequest(jobType: JobTypeEnum.RESTORE.ToString()));
+                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobTypes: new List<string>() { JobTypeEnum.RESTORE.ToString() }));
                 Assert.AreEqual(restoreJobsBefore, jobs.JobsList.Count());
             }
             finally
