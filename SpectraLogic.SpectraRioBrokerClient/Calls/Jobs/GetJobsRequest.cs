@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Model;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls
 {
@@ -26,24 +26,33 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         #region Public Constructors
 
         /// <summary>Initializes a new instance of the <see cref="GetJobsRequest"/> class.</summary>
-        /// <param name="broker">The broker.</param>
-        /// <param name="jobType">Type of the job.</param>
-        /// <param name="jobStatus">The job status.</param>
-        public GetJobsRequest(string broker = null, string jobType = null, string jobStatus = null)
+        /// <param name="brokers">The brokers.</param>
+        /// <param name="jobTypes">Types of the job.</param>
+        /// <param name="jobStatuses">The job statuses.</param>
+        public GetJobsRequest(IList<string> brokers = null, IList<string> jobTypes = null, IList<string> jobStatuses = null)
         {
-            if (broker != null)
+            if (brokers != null)
             {
-                QueryParams.Add("broker", broker);
+                foreach (string broker in brokers)
+                {
+                    QueryParams.Add("broker", broker);
+                }
             }
 
-            if (jobType != null)
+            if (jobTypes != null)
             {
-                QueryParams.Add("job_type", jobType);
+                foreach (string jobType in jobTypes)
+                {
+                    QueryParams.Add("job_type", jobType);
+                }
             }
 
-            if (broker != null)
+            if (jobStatuses != null)
             {
-                QueryParams.Add("status", jobStatus);
+                foreach(string jobStatus in jobStatuses)
+                {
+                    QueryParams.Add("status", jobStatus);
+                }
             }
         }
 
