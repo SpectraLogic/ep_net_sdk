@@ -72,8 +72,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(0.0, job.Progress);
             Assert.AreEqual("Initializing", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
@@ -107,8 +107,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.CANCEL, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
@@ -138,7 +138,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var broker = client.CreateBroker(createBrokerRequest);
             Assert.AreEqual("brokerName", broker.BrokerName);
-            Assert.AreEqual("2018-01-30T23:00:29.88Z[UTC]", broker.CreationDate);
+            Assert.AreEqual("1/30/2018 11:00:29 PM", broker.CreationDate.ToString());
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -447,7 +447,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var broker = client.GetBroker(getBrokerRequest);
             Assert.AreEqual("brokerName", broker.BrokerName);
-            Assert.AreEqual("2018-01-24T19:10:22.819Z[UTC]", broker.CreationDate);
+            Assert.AreEqual("1/24/2018 7:10:22 PM", broker.CreationDate.ToString());
             Assert.AreEqual(10, broker.ObjectCount);
 
             mockBuilder.VerifyAll();
@@ -568,8 +568,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(0.5, job.Progress);
             Assert.AreEqual("Active", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
@@ -584,8 +584,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
@@ -600,8 +600,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Canceled", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
@@ -697,6 +697,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var system = client.GetSystem(getSystemRequest);
             Assert.AreEqual("0.2.9-dev", system.Version);
+            Assert.AreEqual("11/13/2018 6:19:52 PM", system.BuildDate.ToString());
         }
 
         [Test]
@@ -827,8 +828,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.RESTORE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
@@ -861,8 +862,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(JobType.ARCHIVE, job.JobType);
             Assert.AreEqual(1, job.NumberOfFiles);
             Assert.AreEqual(1234, job.TotalSizeInBytes);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.CreationDate);
-            Assert.AreEqual("2018-01-23T03:52:46.869Z[UTC]", job.LastUpdated);
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.CreationDate.ToString());
+            Assert.AreEqual("1/23/2018 3:52:46 AM", job.LastUpdated.ToString());
             Assert.AreEqual(0.0, job.Progress);
             Assert.AreEqual("Retry", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);

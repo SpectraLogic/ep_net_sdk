@@ -14,6 +14,7 @@
  */
 
 using Newtonsoft.Json;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
@@ -32,5 +33,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
             dynamic json = JsonConvert.DeserializeObject(str);
             return JsonConvert.SerializeObject(json, Formatting.Indented);
         }
+
+        /// <summary>Converts to universal DateTime object.</summary>
+        /// <param name="str">The string.</param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string str) => DateTime.Parse(str.Replace("[UTC]", "")).ToUniversalTime();
     }
 }

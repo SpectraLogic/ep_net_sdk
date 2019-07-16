@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using System;
 using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
@@ -42,7 +43,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        string CreationDate { get; }
+        DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the metadata.
