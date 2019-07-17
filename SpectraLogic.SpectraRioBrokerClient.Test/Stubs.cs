@@ -20,9 +20,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 {
     public static class Stubs
     {
-        #region Public Fields
+        #region Fields
 
         public static AgentConfig AgentConfig = new AgentConfig("name", "user", "bucket", false);
+
+        public static string AgentName = "agentName";
 
         public static IEnumerable<ArchiveFile> ArchiveFiles = new List<ArchiveFile>
         {
@@ -37,15 +39,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         };
 
         public static string BrokerName = "brokerName";
-        public static string AgentName = "agentName";
 
         public static IEnumerable<RestoreFile> RestoreFiles = new List<RestoreFile>
         {
             new RestoreFile("name", "dest"),
             new RestoreFile("name2", "dest2", new ByteRange(0, 10)),
-            new RestoreFile("name3", "dest3", "01:00:00;00-02:00:00;00")
+            new RestoreFile("name3", "dest3", new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
         };
 
-        #endregion Public Fields
+        #endregion Fields
     }
 }
