@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using System;
+
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
 
         /// <summary>Gets the creation date.</summary>
         /// <value>The creation date.</value>
-        string CreationDate { get; }
+        DateTime CreationDate { get; }
 
         /// <summary>Gets the object count.</summary>
         /// <value>The object count.</value>

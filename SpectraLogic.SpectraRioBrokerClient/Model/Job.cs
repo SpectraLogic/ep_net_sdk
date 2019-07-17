@@ -14,6 +14,7 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections.Generic;
 
@@ -47,8 +48,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             NumberOfFiles = numberOfFiles;
             FilesTransferred = filesTransferred;
             TotalSizeInBytes = totalSizeInBytes;
-            CreationDate = creationDate;
-            LastUpdated = lastUpdated;
+            CreationDate = creationDate.ToDateTime();
+            LastUpdated = lastUpdated.ToDateTime();
             Progress = progress;
             Status = status;
             Files = files;
@@ -64,7 +65,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [JsonProperty(PropertyName = "creationDate")] public string CreationDate { get; }
+        [JsonProperty(PropertyName = "creationDate")] public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the files.
@@ -104,7 +105,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The last updated.
         /// </value>
-        [JsonProperty(PropertyName = "lastUpdated")] public string LastUpdated { get; }
+        [JsonProperty(PropertyName = "lastUpdated")] public DateTime LastUpdated { get; }
 
         /// <summary>
         /// Gets the number of files.

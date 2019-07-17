@@ -14,6 +14,8 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
@@ -39,7 +41,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         {
             Broker = broker;
             Checksum = checksum;
-            CreationDate = creationDate;
+            CreationDate = creationDate.ToDateTime();
             Metadata = metadata;
             Name = name;
             Relationships = relationships;
@@ -72,7 +74,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [JsonProperty(PropertyName = "creationDate")] public string CreationDate { get; }
+        [JsonProperty(PropertyName = "creationDate")] public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the metadata.

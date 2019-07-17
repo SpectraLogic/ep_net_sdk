@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using System;
+
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
@@ -36,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The build date.
         /// </value>
-        string BuildDate { get; }
+        DateTime BuildDate { get; }
 
         /// <summary>
         /// Gets the git commit hash.

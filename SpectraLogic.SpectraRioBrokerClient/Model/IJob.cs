@@ -31,7 +31,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        string CreationDate { get; }
+        DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the files.
@@ -71,7 +71,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The last updated.
         /// </value>
-        string LastUpdated { get; }
+        DateTime LastUpdated { get; }
 
         /// <summary>
         /// Gets the number of files.
