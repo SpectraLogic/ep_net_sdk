@@ -1,6 +1,6 @@
 ﻿/*
  * ******************************************************************************
- *   Copyright 2014-2018 Spectra Logic Corporation. All Rights Reserved.
+ *   Copyright 2014-2019 Spectra Logic Corporation. All Rights Reserved.
  *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
  *   this file except in compliance with the License. A copy of the License is located at
  *
@@ -47,7 +47,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.669")]
-[assembly: AssemblyFileVersion("1.0.0.669")]
+
+[assembly: AssemblyVersion("1.0.0.670")]
+[assembly: AssemblyFileVersion("1.0.0.670")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("SpectraLogic.SpectraRioBrokerClient.Test")]
