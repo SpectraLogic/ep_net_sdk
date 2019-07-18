@@ -18,7 +18,7 @@ using System;
 namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
 {
     /// <summary>
-    ///
+    /// This exception will be thrown when a user uses drop and non-drop frames when creating a TimeCodeRange
     /// </summary>
     /// <seealso cref="System.Exception" />
     public class MixTimeCodeException : Exception
