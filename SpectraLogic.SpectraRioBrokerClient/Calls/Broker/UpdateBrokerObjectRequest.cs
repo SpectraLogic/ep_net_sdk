@@ -66,7 +66,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         /// <value>The name of the object.</value>
         [JsonIgnore] public string ObjectName { get; private set; }
 
-        internal override string Path => $"/api/brokers/{BrokerName}/objects/{ObjectName}";
+        internal override string Path => $"/api/brokers/{BrokerName}/objects/{Uri.EscapeDataString(ObjectName)}";
         internal override HttpVerb Verb => HttpVerb.PUT;
 
         #endregion Properties

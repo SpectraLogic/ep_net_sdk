@@ -65,7 +65,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
 
         #region Internal Properties
 
-        internal override string Path => $"/api/brokers/{BrokerName}/objects/{FileName}";
+        internal override string Path => $"/api/brokers/{BrokerName}/objects/{Uri.EscapeDataString(FileName)}";
         internal override HttpVerb Verb => HttpVerb.DELETE;
 
         #endregion Internal Properties
