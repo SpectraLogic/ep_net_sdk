@@ -84,6 +84,7 @@
     <Compile Include="Calls\Broker\HeadBrokerRequest.cs" />
     <Compile Include="Calls\DevicesSpectra\HeadDeviceRequest.cs" />
     <Compile Include="Calls\HttpVerb.cs" />
+    <Compile Include="Exceptions\MixTimeCodeRangeException.cs" />
     <Compile Include="Exceptions\AuthenticationFailureException.cs" />
     <Compile Include="Exceptions\BrokerAlreadyExistsException.cs" />
     <Compile Include="Exceptions\BrokerObjectNotFoundException.cs" />
@@ -125,6 +126,8 @@
     <Compile Include="Model\RioSystem.cs" />
     <Compile Include="Model\SortBy.cs" />
     <Compile Include="Model\SortOrder.cs" />
+    <Compile Include="Model\TimeCodeRange.cs" />
+    <Compile Include="Model\TimeCode.cs" />
     <Compile Include="ResponseParsers\Authentication\CreateTokenResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\UpdateBrokerObjectResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerObjectsResponseParser.cs" />

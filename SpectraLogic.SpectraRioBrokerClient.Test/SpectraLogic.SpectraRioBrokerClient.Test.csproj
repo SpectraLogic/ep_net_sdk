@@ -81,6 +81,7 @@
     <Compile Include="SpectraRioBrokerClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stubs.cs" />
+    <Compile Include="TimeCodeRangeTests.cs" />
     <Compile Include="Utils\ResourceFilesUtils.cs" />
   </ItemGroup>
   <ItemGroup>
