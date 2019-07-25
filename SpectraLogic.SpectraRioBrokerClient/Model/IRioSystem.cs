@@ -1,6 +1,6 @@
 ﻿/*
  * ******************************************************************************
- *   Copyright 2014-2018 Spectra Logic Corporation. All Rights Reserved.
+ *   Copyright 2014-2019 Spectra Logic Corporation. All Rights Reserved.
  *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
  *   this file except in compliance with the License. A copy of the License is located at
  *
@@ -12,6 +12,8 @@
  *   specific language governing permissions and limitations under the License.
  * ****************************************************************************
  */
+
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -36,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The build date.
         /// </value>
-        string BuildDate { get; }
+        DateTime BuildDate { get; }
 
         /// <summary>
         /// Gets the git commit hash.

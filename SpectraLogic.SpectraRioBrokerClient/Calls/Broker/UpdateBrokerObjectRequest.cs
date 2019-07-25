@@ -1,6 +1,6 @@
 ﻿/*
  * ******************************************************************************
- *   Copyright 2014-2018 Spectra Logic Corporation. All Rights Reserved.
+ *   Copyright 2014-2019 Spectra Logic Corporation. All Rights Reserved.
  *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
  *   this file except in compliance with the License. A copy of the License is located at
  *
@@ -66,7 +66,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         /// <value>The name of the object.</value>
         [JsonIgnore] public string ObjectName { get; private set; }
 
-        internal override string Path => $"/api/brokers/{BrokerName}/objects/{ObjectName}";
+        internal override string Path => $"/api/brokers/{BrokerName}/objects/{Uri.EscapeDataString(ObjectName)}";
         internal override HttpVerb Verb => HttpVerb.PUT;
 
         #endregion Properties

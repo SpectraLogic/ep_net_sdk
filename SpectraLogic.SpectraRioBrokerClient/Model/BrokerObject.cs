@@ -1,6 +1,6 @@
 ﻿/*
  * ******************************************************************************
- *   Copyright 2014-2018 Spectra Logic Corporation. All Rights Reserved.
+ *   Copyright 2014-2019 Spectra Logic Corporation. All Rights Reserved.
  *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
  *   this file except in compliance with the License. A copy of the License is located at
  *
@@ -14,6 +14,8 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
@@ -39,7 +41,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         {
             Broker = broker;
             Checksum = checksum;
-            CreationDate = creationDate;
+            CreationDate = creationDate.ToDateTime();
             Metadata = metadata;
             Name = name;
             Relationships = relationships;
@@ -72,7 +74,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [JsonProperty(PropertyName = "creationDate")] public string CreationDate { get; }
+        [JsonProperty(PropertyName = "creationDate")] public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the metadata.
