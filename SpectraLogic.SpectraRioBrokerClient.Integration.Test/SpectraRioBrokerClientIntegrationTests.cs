@@ -20,6 +20,7 @@ using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -1088,6 +1089,74 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
 
                 Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+            }
+        }
+
+        [Test]
+        public void UpdateClientTokenTest()
+        {
+            var numberOfMetadataEntries = 50;
+            var numberOfArchiveFiles = 100;
+
+            var SpectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
+                ConfigurationManager.AppSettings["ServerName"],
+                int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
+
+            var proxy = ConfigurationManager.AppSettings["Proxy"];
+            if (!string.IsNullOrWhiteSpace(proxy))
+            {
+                SpectraRioBrokerClientBuilder.WithProxy(proxy);
+            }
+
+            var spectraRioBrokerClient = SpectraRioBrokerClientBuilder.DisableSslValidation().Build();
+
+            var filenamePrefix = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+            var metadata = new Dictionary<string, string>();
+            for (int i = 0; i < numberOfMetadataEntries; i++)
+            {
+                metadata.Add("i" + i.ToString(), i.ToString());
+            }
+
+            var listOfFilesToArchive = new List<ArchiveFile>();
+            for (int i = 1; i <= numberOfArchiveFiles; i++)
+            {
+                listOfFilesToArchive.Add(new ArchiveFile(filenamePrefix + Guid.NewGuid().ToString(), $"aToZSequence://file", i, metadata));
+            }
+
+            var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, listOfFilesToArchive);
+
+            try
+            {
+                var archiveJob = spectraRioBrokerClient.Archive(archiveRequest);
+            }
+            catch (MissingAuthorizationHeaderException)
+            {
+                var token = spectraRioBrokerClient.CreateToken(new CreateTokenRequest(ConfigurationManager.AppSettings["RioUsername"], ConfigurationManager.AppSettings["RioPassword"])).Token;
+                spectraRioBrokerClient.UpdateToken(token);
+
+                var archiveJob = spectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttemps = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
+                    pollingAttemps++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS * 4);
+
+                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS * 4);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+            }
+            finally
+            {
+                foreach(var file in listOfFilesToArchive)
+                {
+                    var deleteF1Request = new DeleteFileRequest("*", file.Name);
+                    spectraRioBrokerClient.DeleteFile(deleteF1Request);
+                }
             }
         }
 
