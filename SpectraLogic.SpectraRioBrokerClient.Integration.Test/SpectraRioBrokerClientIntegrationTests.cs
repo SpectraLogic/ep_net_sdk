@@ -256,6 +256,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        [Ignore("https://jira.spectralogic.com/browse/ESCP-1583")]
         public void ArchiveNewFilesOnlyTest_1()
         {
             var fileName1 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid().ToString();
@@ -677,7 +678,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, perPage: 1));
 
                 Assert.AreEqual(1, brokerObjects.Objects.Count());
-                Assert.AreEqual(fileName1, brokerObjects.Objects.ElementAt(0).Name);
+                Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
                 Assert.AreEqual(2, brokerObjects.Page.TotalPages);
                 Assert.AreEqual(1, brokerObjects.Page.PageSize);
                 Assert.AreEqual(0, brokerObjects.Page.Number);
