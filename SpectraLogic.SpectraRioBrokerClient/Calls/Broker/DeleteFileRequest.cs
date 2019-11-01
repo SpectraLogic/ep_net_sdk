@@ -16,7 +16,7 @@
 using System;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 {
     /// <summary>
     ///

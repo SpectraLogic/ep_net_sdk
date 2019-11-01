@@ -13,11 +13,11 @@
  * ****************************************************************************
  */
 
+using System.Net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Net;
 
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Jobs
 {
     internal class GetJobResponseParser : IResponseParser<IJob>
     {

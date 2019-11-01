@@ -13,16 +13,16 @@
  * ****************************************************************************
  */
 
+using System.Net;
+using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
 using Moq;
 using NUnit.Framework;
-using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Test
 {

@@ -13,11 +13,6 @@
  * ****************************************************************************
  */
 
-using log4net;
-using NUnit.Framework;
-using SpectraLogic.SpectraRioBrokerClient.Calls;
-using SpectraLogic.SpectraRioBrokerClient.Exceptions;
-using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +22,16 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using log4net;
+using NUnit.Framework;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
+using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
+using SpectraLogic.SpectraRioBrokerClient.Calls.System;
+using SpectraLogic.SpectraRioBrokerClient.Exceptions;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {

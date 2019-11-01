@@ -13,11 +13,11 @@
  * ****************************************************************************
  */
 
+using System.Net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Net;
 
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Cluster
 {
     internal class GetClusterResponseParser : IResponseParser<ICluster>
     {
@@ -25,7 +25,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 
         public ICluster Parse(IHttpWebResponse response)
         {
-            return Parser<Cluster>.Parse(response, HttpStatusCode.OK);
+            return Parser<Model.Cluster>.Parse(response, HttpStatusCode.OK);
         }
 
         #endregion Public Methods

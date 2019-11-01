@@ -13,11 +13,11 @@
  * ****************************************************************************
  */
 
+using System;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
-using System;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Authentication
 {
     /// <summary>
     ///

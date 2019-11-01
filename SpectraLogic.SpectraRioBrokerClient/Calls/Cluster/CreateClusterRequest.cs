@@ -13,10 +13,10 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Cluster
 {
     /// <summary>
     ///

@@ -13,12 +13,12 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
-using SpectraLogic.SpectraRioBrokerClient.Utils;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 {
     /// <summary></summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />

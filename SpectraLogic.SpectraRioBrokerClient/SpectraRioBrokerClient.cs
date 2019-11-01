@@ -13,13 +13,25 @@
  * ****************************************************************************
  */
 
+
+using System;
 using log4net;
-using SpectraLogic.SpectraRioBrokerClient.Calls;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
+using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
+using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Authentication;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Cluster;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Jobs;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.System;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
-using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient
 {
@@ -29,13 +41,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.ISpectraRioBrokerClient" />
     public class SpectraRioBrokerClient : ISpectraRioBrokerClient
     {
-        #region Fields
-
-        private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClient");
-        private readonly INetwork _network;
-
-        #endregion Fields
-
         #region Constructors
 
         internal SpectraRioBrokerClient(INetwork network)
@@ -45,69 +50,55 @@ namespace SpectraLogic.SpectraRioBrokerClient
 
         #endregion Constructors
 
+        #region Fields
+
+        private static readonly ILog Log = LogManager.GetLogger("SpectraRioBrokerClient");
+        private readonly INetwork _network;
+
+        #endregion Fields
+
         #region Methods
 
         /// <inheritdoc/>
         public IJob Archive(ArchiveRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new ArchiveResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new ArchiveResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IJob Cancel(CancelRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new CancelResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new CancelResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBroker CreateBroker(CreateBrokerRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new CreateBrokerResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new CreateBrokerResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public ICluster CreateCluster(CreateClusterRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new CreateClusterResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new CreateClusterResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IDevice CreateDevice(CreateDeviceRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new CreateDeviceResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new CreateDeviceResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IToken CreateToken(CreateTokenRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new CreateTokenResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new CreateTokenResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public void DeleteBroker(DeleteBrokerRequest request)
         {
-            ExceptionDecorator.Run(() =>
-            {
-                return new DeleteBrokerResponseParser().Parse(_network.Invoke(request));
-            });
+            ExceptionDecorator.Run(() => new DeleteBrokerResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
@@ -123,10 +114,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <inheritdoc/>
         public void DeleteFile(DeleteFileRequest request)
         {
-            ExceptionDecorator.Run(() =>
-            {
-                return new DeleteFileResponseParser().Parse(_network.Invoke(request));
-            });
+            ExceptionDecorator.Run(() => new DeleteFileResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
@@ -172,91 +160,61 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <inheritdoc/>
         public IBroker GetBroker(GetBrokerRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokerResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetBrokerResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBrokerObject GetBrokerObject(GetBrokerObjectRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokerObjectResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetBrokerObjectResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBrokerObjects GetBrokerObjects(GetBrokerObjectsRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokerObjectsResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetBrokerObjectsResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBrokerObjects GetBrokerRelationship(GetBrokerRelationshipRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokerRelationshipResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetBrokerRelationshipResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBrokerRelationships GetBrokerRelationships(GetBrokerRelationshipsRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokerRelationshipsResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetBrokerRelationshipsResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBrokers GetBrokers(GetBrokersRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetBrokersResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetBrokersResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public ICluster GetCluster(GetClusterRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetClusterResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetClusterResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IDevice GetDevice(GetDeviceRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetDeviceResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetDeviceResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IJob GetJob(GetJobRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetJobResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetJobResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IJobs GetJobs(GetJobsRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetJobsResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetJobsResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
@@ -282,37 +240,25 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <inheritdoc/>
         public IRioSystem GetSystem(GetSystemRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new GetSystemResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new GetSystemResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IJob Restore(RestoreRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new RestoreResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new RestoreResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IJob Retry(RetryRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new RetryResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new RetryResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
         public IBrokerObject UpdateBrokerObject(UpdateBrokerObjectRequest request)
         {
-            return ExceptionDecorator.Run(() =>
-            {
-                return new UpdateBrokerObjectResponseParser().Parse(_network.Invoke(request));
-            });
+            return ExceptionDecorator.Run(() => new UpdateBrokerObjectResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
