@@ -35,10 +35,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Fields
 
-        private readonly int MAX_POLLING_ATTEMPS = 10;
+        private const int MaxPollingAttempts = 10;
+        private const int PollingInterval = 10; // in sec
 
-        private readonly int POLLING_INTERVAL = 10;  // in sec
-        private ILog _log = LogManager.GetLogger("SpectraRioBrokerClientIntegrationTest");
+        private readonly ILog _log = LogManager.GetLogger("SpectraRioBrokerClientIntegrationTest");
 
         #endregion Fields
 
@@ -47,8 +47,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveAndRestore()
         {
-            var fileName1 = "ArchiveAndRestore_" + Guid.NewGuid().ToString();
-            var fileName2 = "ArchiveAndRestore_" + Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveAndRestore_" + Guid.NewGuid();
+            var fileName2 = "ArchiveAndRestore_" + Guid.NewGuid();
 
             try
             {
@@ -59,26 +59,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                  ***********/
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false)
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName2}}, false)
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
@@ -95,23 +98,26 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
-                    new RestoreFile(fileName1, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
-                    new RestoreFile(fileName2, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F2_restore.txt".ToFileUri(), new ByteRange(0, 10))
+                    new RestoreFile(fileName1,
+                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                    new RestoreFile(fileName2,
+                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F2_restore.txt".ToFileUri(),
+                        new ByteRange(0, 10))
                 });
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, restoreJob.Status.Status);
 
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
@@ -140,8 +146,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveAndRestoreWithRelationship()
         {
-            var fileName1 = "ArchiveAndRestoreWithRelationship_" + Guid.NewGuid().ToString();
-            var fileName2 = "ArchiveAndRestoreWithRelationship_" + Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveAndRestoreWithRelationship_" + Guid.NewGuid();
+            var fileName2 = "ArchiveAndRestoreWithRelationship_" + Guid.NewGuid();
 
             try
             {
@@ -153,26 +159,31 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var relationshipName = "ep_net_test";
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, new HashSet<string>(){relationshipName}),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, new HashSet<string>(){relationshipName})
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false,
+                        new HashSet<string> {relationshipName}),
+                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName2}}, false,
+                        new HashSet<string> {relationshipName})
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
@@ -184,15 +195,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 }
 
                 var relationshipsRequest = new GetBrokerRelationshipsRequest(SpectraRioBrokerClientFixture.BrokerName);
-                var relationships = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationships(relationshipsRequest);
+                var relationships =
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationships(relationshipsRequest);
 
-                Assert.AreEqual(1, relationships.Relationships.Count());
-                Assert.AreEqual(new List<string>() { relationshipName }, relationships.Relationships);
+                Assert.AreEqual(1, relationships.Relationships.Count);
+                Assert.AreEqual(new List<string> {relationshipName}, relationships.Relationships);
 
-                var relationshipRequest = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, relationshipName);
-                var relationship = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(relationshipRequest);
+                var relationshipRequest =
+                    new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName, relationshipName);
+                var relationship =
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(relationshipRequest);
 
-                Assert.AreEqual(2, relationship.Objects.Count());
+                Assert.AreEqual(2, relationship.Objects.Count);
                 foreach (var obj in relationship.Objects)
                 {
                     Assert.AreEqual(1, obj.Relationships.Count);
@@ -203,25 +217,23 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 * RESTORE *
                 ***********/
 
-                var restoreList = relationship.Objects.Select(obj =>
-                {
-                    return new RestoreFile(obj.Name, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/{obj.Name}".ToFileUri());
-                });
+                var restoreList = relationship.Objects.Select(obj => new RestoreFile(obj.Name,
+                    $"{SpectraRioBrokerClientFixture.RestoreTempDir}/{obj.Name}".ToFileUri()));
 
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, restoreList);
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, restoreJob.Status.Status);
 
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
@@ -235,10 +247,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     Assert.AreEqual("Completed", file.Status);
                 }
 
-                var updatedMetadata = new Dictionary<string, string> { { "test", "update" } };
-                var updatedRelationships = new HashSet<string> { "test1", "test2" };
-                var updateBrokerObjectRequest = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1, updatedMetadata, updatedRelationships);
-                var updatedObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(updateBrokerObjectRequest);
+                var updatedMetadata = new Dictionary<string, string> {{"test", "update"}};
+                var updatedRelationships = new HashSet<string> {"test1", "test2"};
+                var updateBrokerObjectRequest = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName,
+                    fileName1, updatedMetadata, updatedRelationships);
+                var updatedObject =
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(updateBrokerObjectRequest);
 
                 Assert.AreEqual(1, updatedObject.Metadata.Count);
                 Assert.AreEqual(updatedMetadata, updatedObject.Metadata);
@@ -262,25 +276,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Ignore("https://jira.spectralogic.com/browse/ESCP-1583")]
         public void ArchiveNewFilesOnlyTest_1()
         {
-            var fileName1 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid().ToString();
-            var fileName2 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid();
+            var fileName2 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid();
 
             try
             {
                 SpectraRioBrokerClientFixture.SetupTestData();
 
                 ArchiveNewFilesOnlyTest(
-                new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false)
-                },
-                new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false)
-                },
-                "All files already exist. Nothing to archive.");
+                    new List<ArchiveFile>
+                    {
+                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                        new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName2}}, false)
+                    },
+                    new List<ArchiveFile>
+                    {
+                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                        new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName2}}, false)
+                    },
+                    "All files already exist. Nothing to archive.");
             }
             finally
             {
@@ -294,24 +312,27 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveNewFilesOnlyTest_2()
         {
-            var fileName1 = "ArchiveNewFilesOnlyTest_2_" + Guid.NewGuid().ToString();
-            var fileName2 = "ArchiveNewFilesOnlyTest_2_" + Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveNewFilesOnlyTest_2_" + Guid.NewGuid();
+            var fileName2 = "ArchiveNewFilesOnlyTest_2_" + Guid.NewGuid();
 
             try
             {
                 SpectraRioBrokerClientFixture.SetupTestData();
 
                 ArchiveNewFilesOnlyTest(
-                new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
-                },
-                new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false)
-                },
-                "Archive job completed successfully");
+                    new List<ArchiveFile>
+                    {
+                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                    },
+                    new List<ArchiveFile>
+                    {
+                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                        new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(),
+                            14, new Dictionary<string, string> {{"fileName", fileName2}}, false)
+                    },
+                    "Archive job completed successfully");
             }
             finally
             {
@@ -325,8 +346,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveWithoutSize()
         {
-            var fileName1 = "ArchiveWithoutSize" + Guid.NewGuid().ToString();
-            var fileName2 = "ArchiveWithoutSize" + Guid.NewGuid().ToString();
+            var fileName1 = "ArchiveWithoutSize" + Guid.NewGuid();
+            var fileName2 = "ArchiveWithoutSize" + Guid.NewGuid();
 
             try
             {
@@ -343,20 +364,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
@@ -382,7 +404,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveAndDeleteWithSpecialCharacters()
         {
-            var fileName1 = "Archive@And&Delete#With$Special Characters/" + Guid.NewGuid().ToString();
+            var fileName1 = "Archive@And&Delete#With$Special Characters/" + Guid.NewGuid();
 
             try
             {
@@ -398,20 +420,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
@@ -439,10 +462,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 SpectraRioBrokerClientFixture.SetupTestData();
 
-                var fileName1 = "CancelArchiveJob_" + Guid.NewGuid().ToString();
+                var fileName1 = "CancelArchiveJob_" + Guid.NewGuid();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -455,7 +479,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
                 Assert.AreEqual("Canceled", cancel.Status.Message);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
@@ -476,7 +501,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void CancelRestoreJob()
         {
-            var fileName1 = "CancelRestoreJob_" + Guid.NewGuid().ToString();
+            var fileName1 = "CancelRestoreJob_" + Guid.NewGuid();
 
             try
             {
@@ -484,27 +509,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
-                    new RestoreFile(fileName1, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                    new RestoreFile(fileName1,
+                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
                 });
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -517,7 +544,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
                 Assert.AreEqual("Canceled", cancel.Status.Message);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(restoreJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
@@ -540,15 +568,19 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void DeleteBrokersTest()
         {
-            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)), Throws.Exception.TypeOf<BrokerNotFoundException>());
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(
+                new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
+            Assert.That(
+                () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(
+                    new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)),
+                Throws.Exception.TypeOf<BrokerNotFoundException>());
             SpectraRioBrokerClientFixture.CreateBroker_1();
         }
 
         [Test]
         public void DoesBrokerObjectExistTest()
         {
-            var fileName1 = "DoesBrokerObjectExistTest_" + Guid.NewGuid().ToString();
+            var fileName1 = "DoesBrokerObjectExistTest_" + Guid.NewGuid();
 
             try
             {
@@ -556,25 +588,28 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                Assert.IsTrue(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerObjectExist(SpectraRioBrokerClientFixture.BrokerName, fileName1));
+                Assert.IsTrue(
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesBrokerObjectExist(
+                        SpectraRioBrokerClientFixture.BrokerName, fileName1));
             }
             finally
             {
@@ -596,22 +631,23 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 Assert.IsTrue(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesJobExist(archiveJob.JobId));
@@ -628,8 +664,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetBrokerObjectsTest()
         {
-            var fileName1 = "a_" + "GetBrokerObjectsTest_" + Guid.NewGuid().ToString();
-            var fileName2 = "b_" + "GetBrokerObjectsTest_" + Guid.NewGuid().ToString();
+            var fileName1 = "a_" + "GetBrokerObjectsTest_" + Guid.NewGuid();
+            var fileName2 = "b_" + "GetBrokerObjectsTest_" + Guid.NewGuid();
 
             try
             {
@@ -641,46 +677,52 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var relationshipName = "ep_net_test";
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false, new HashSet<string>(){relationshipName}),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName2 } }, false, new HashSet<string>(){relationshipName})
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false,
+                        new HashSet<string> {relationshipName}),
+                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName2}}, false,
+                        new HashSet<string> {relationshipName})
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 var brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
                     new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName));
 
-                Assert.AreEqual(2, brokerObjects.Objects.Count());
+                Assert.AreEqual(2, brokerObjects.Objects.Count);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, sortBy: SortBy.Name, sortOrder: SortOrder.Asc));
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, sortBy: ObjectsSortByEnum.NAME,
+                        sortOrder: SortOrderEnum.ASC));
 
-                Assert.AreEqual(2, brokerObjects.Objects.Count());
+                Assert.AreEqual(2, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName1, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, sortBy: SortBy.Name, sortOrder: SortOrder.Desc));
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, sortBy: ObjectsSortByEnum.NAME,
+                        sortOrder: SortOrderEnum.DESC));
 
-                Assert.AreEqual(2, brokerObjects.Objects.Count());
+                Assert.AreEqual(2, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
                     new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, perPage: 1));
 
-                Assert.AreEqual(1, brokerObjects.Objects.Count());
+                Assert.AreEqual(1, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
                 Assert.AreEqual(2, brokerObjects.Page.TotalPages);
                 Assert.AreEqual(1, brokerObjects.Page.PageSize);
@@ -689,36 +731,39 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
                     new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, filename: fileName2));
 
-                Assert.AreEqual(1, brokerObjects.Objects.Count());
+                Assert.AreEqual(1, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
                     new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, prefix: "a"));
 
-                Assert.AreEqual(1, brokerObjects.Objects.Count());
+                Assert.AreEqual(1, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName1, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, prefix: "a", filename: "not_found"));
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, prefix: "a",
+                        filename: "not_found"));
 
-                Assert.AreEqual(0, brokerObjects.Objects.Count());
+                Assert.AreEqual(0, brokerObjects.Objects.Count);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, metadata: new List<KeyValuePair<string, string>>()
-                    {
-                        new KeyValuePair<string, string>("fileName", fileName2)
-                    }));
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
+                        metadata: new List<KeyValuePair<string, string>>
+                        {
+                            new KeyValuePair<string, string>("fileName", fileName2)
+                        }));
 
-                Assert.AreEqual(1, brokerObjects.Objects.Count());
+                Assert.AreEqual(1, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, relationships: new List<string>()
-                    {
-                        "ep_net_test"
-                    }));
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
+                        relationships: new List<string>
+                        {
+                            "ep_net_test"
+                        }));
 
-                Assert.AreEqual(2, brokerObjects.Objects.Count());
+                Assert.AreEqual(2, brokerObjects.Objects.Count);
             }
             finally
             {
@@ -734,7 +779,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetBrokerObjectTest()
         {
-            var fileName1 = "GetBrokerObjectTest_" + Guid.NewGuid().ToString();
+            var fileName1 = "GetBrokerObjectTest_" + Guid.NewGuid();
 
             try
             {
@@ -742,26 +787,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var getBrokerObjectRequest = new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
-                var brokerObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
+                var getBrokerObjectRequest =
+                    new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                var brokerObject =
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
 
                 Assert.AreEqual(SpectraRioBrokerClientFixture.BrokerName, brokerObject.Broker);
                 Assert.AreEqual(fileName1, brokerObject.Name);
@@ -779,7 +827,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetBrokerObjectTestWithSpecialCharacters()
         {
-            var fileName1 = "Get!Broker@Object#Test$With%Special Characters/" + Guid.NewGuid().ToString();
+            var fileName1 = "Get!Broker@Object#Test$With%Special Characters/" + Guid.NewGuid();
 
             try
             {
@@ -787,26 +835,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var getBrokerObjectRequest = new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
-                var brokerObject = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
+                var getBrokerObjectRequest =
+                    new GetBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                var brokerObject =
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(getBrokerObjectRequest);
 
                 Assert.AreEqual(SpectraRioBrokerClientFixture.BrokerName, brokerObject.Broker);
                 Assert.AreEqual(fileName1, brokerObject.Name);
@@ -825,7 +876,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void GetBrokersTest()
         {
             var brokers = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokers(new GetBrokersRequest());
-            Assert.AreEqual(2, brokers.BrokerList.Count());
+            Assert.AreEqual(2, brokers.BrokerList.Count);
         }
 
         [Test]
@@ -836,43 +887,52 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var archiveJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
                     new GetJobsRequest(
-                        jobTypes: new List<string>() { JobTypeEnum.ARCHIVE.ToString() },
-                        jobStatuses: new List<string>() { JobStatusEnum.COMPLETED.ToString() })
-                        ).JobsList.Count();
+                        jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
+                        jobStatuses: new List<JobStatusEnum> {JobStatusEnum.COMPLETED})
+                ).JobsList.Count;
                 var restoreJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(jobTypes: new List<string>() { JobTypeEnum.RESTORE.ToString() })
-                    ).JobsList.Count();
+                    new GetJobsRequest(jobTypes: new List<JobTypeEnum> {JobTypeEnum.RESTORE})
+                ).JobsList.Count;
 
                 SpectraRioBrokerClientFixture.SetupTestData();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 var jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
                     new GetJobsRequest(
-                        jobTypes: new List<string>() { JobTypeEnum.ARCHIVE.ToString() },
-                        jobStatuses: new List<string>() { JobStatusEnum.COMPLETED.ToString() }));
-                Assert.AreEqual(archiveJobsBefore + 1, jobs.JobsList.Count());
+                        jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
+                        jobStatuses: new List<JobStatusEnum> {JobStatusEnum.COMPLETED}));
+                Assert.AreEqual(archiveJobsBefore + 1, jobs.JobsList.Count);
 
                 jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(jobTypes: new List<string>() { JobTypeEnum.RESTORE.ToString() }));
-                Assert.AreEqual(restoreJobsBefore, jobs.JobsList.Count());
+                    new GetJobsRequest(jobTypes: new List<JobTypeEnum> {JobTypeEnum.RESTORE}));
+                Assert.AreEqual(restoreJobsBefore, jobs.JobsList.Count);
+                
+                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(
+                        jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
+                        jobStatuses: new List<JobStatusEnum> {JobStatusEnum.COMPLETED},
+                        sortBy: JobsSortByEnum.CREATION_DATE,
+                        sortOrder: SortOrderEnum.DESC));
+                Assert.AreEqual(archiveJob.JobId, jobs.JobsList[0].JobId);
             }
             finally
             {
@@ -897,7 +957,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void GetMembersTest()
         {
             var members = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMembers();
-            Assert.AreEqual(1, members.Members.Count());
+            Assert.AreEqual(1, members.Members.Count);
             var node = members.Members[0];
             Assert.AreEqual("127.0.0.1", node.IpAddress);
             Assert.AreEqual(5701, node.ClusterPort);
@@ -908,13 +968,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetSystemTest()
         {
-            Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));
+            Assert.DoesNotThrow(() =>
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));
         }
 
         [Test]
         public void RestoreJobWithIgnoreDuplicates()
         {
-            var fileName1 = "RestoreJobWithIgnoreDuplicates_" + Guid.NewGuid().ToString();
+            var fileName1 = "RestoreJobWithIgnoreDuplicates_" + Guid.NewGuid();
 
             try
             {
@@ -922,68 +983,72 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName2, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 //Using search and restore
                 var restoreRequest = new RestoreRequest("*", new List<RestoreFile>
                 {
-                    new RestoreFile(fileName1, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                    new RestoreFile(fileName1,
+                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
                 }, true);
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
 
                 Assert.AreEqual(JobStatusEnum.ACTIVE, restoreJob.Status.Status);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(restoreJob.JobId));
                     _log.Debug(restoreJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, restoreJob.Status.Status);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(restoreJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Restore job completed successfully", job.Status.Message);
@@ -1007,7 +1072,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void RetryArchiveCanceledJob()
         {
-            var fileName1 = "RetryArchiveCanceledJob_" + Guid.NewGuid().ToString();
+            var fileName1 = "RetryArchiveCanceledJob_" + Guid.NewGuid();
 
             try
             {
@@ -1015,7 +1080,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -1026,7 +1092,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
                 Assert.AreEqual("Canceled", cancel.Status.Message);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
@@ -1037,22 +1104,23 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 //    Assert.AreEqual("Canceled", file.Status);
                 //}
 
-                var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, archiveJob.JobId, JobType.ARCHIVE);
+                var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, archiveJob.JobId,
+                    JobType.ARCHIVE);
                 var retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(retryRequest);
 
                 Assert.AreNotEqual(retryJob.JobId, archiveJob.JobId);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(retryJob.JobId));
                     _log.Debug(retryJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
 
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
@@ -1077,7 +1145,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void RetryRestoreCanceledJob()
         {
-            var fileName1 = "RetryRestoreCanceledJob_" + Guid.NewGuid().ToString();
+            var fileName1 = "RetryRestoreCanceledJob_" + Guid.NewGuid();
 
             try
             {
@@ -1085,27 +1153,29 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
-                    new RestoreFile(fileName1, $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                    new RestoreFile(fileName1,
+                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
                 });
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -1118,7 +1188,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.CANCELED, cancel.Status.Status);
                 Assert.AreEqual("Canceled", cancel.Status.Message);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(restoreJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(restoreJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
@@ -1129,22 +1200,23 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 //    Assert.AreEqual("Canceled", file.Status);
                 //}
 
-                var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, restoreJob.JobId, JobType.RESTORE);
+                var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, restoreJob.JobId,
+                    JobType.RESTORE);
                 var retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(retryRequest);
 
                 Assert.AreNotEqual(retryJob.JobId, restoreJob.JobId);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     retryJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(retryJob.JobId));
                     _log.Debug(retryJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (retryJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, retryJob.Status.Status);
 
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(retryJob.JobId));
@@ -1169,7 +1241,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void SearchAndDeleteTest()
         {
-            var fileName1 = "SearchAndDeleteTest_" + Guid.NewGuid().ToString();
+            var fileName1 = "SearchAndDeleteTest_" + Guid.NewGuid();
 
             try
             {
@@ -1177,22 +1249,23 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14, new Dictionary<string, string>{ { "fileName", fileName1 } }, false),
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
             }
             finally
@@ -1207,66 +1280,70 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void UpdateClientTokenTest()
         {
-            var numberOfMetadataEntries = 50;
-            var numberOfArchiveFiles = 100;
+            const int numberOfMetadataEntries = 50;
+            const int numberOfArchiveFiles = 100;
 
-            var SpectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
+            var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
                 ConfigurationManager.AppSettings["ServerName"],
                 int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
 
             var proxy = ConfigurationManager.AppSettings["Proxy"];
             if (!string.IsNullOrWhiteSpace(proxy))
             {
-                SpectraRioBrokerClientBuilder.WithProxy(proxy);
+                spectraRioBrokerClientBuilder.WithProxy(proxy);
             }
 
-            var spectraRioBrokerClient = SpectraRioBrokerClientBuilder.DisableSslValidation().Build();
+            var spectraRioBrokerClient = spectraRioBrokerClientBuilder.DisableSslValidation().Build();
 
-            var filenamePrefix = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            const string filenamePrefix = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
             var metadata = new Dictionary<string, string>();
-            for (int i = 0; i < numberOfMetadataEntries; i++)
+            for (var i = 0; i < numberOfMetadataEntries; i++)
             {
-                metadata.Add("i" + i.ToString(), i.ToString());
+                metadata.Add("i" + i, i.ToString());
             }
 
             var listOfFilesToArchive = new List<ArchiveFile>();
-            for (int i = 1; i <= numberOfArchiveFiles; i++)
+            for (var i = 1; i <= numberOfArchiveFiles; i++)
             {
-                listOfFilesToArchive.Add(new ArchiveFile(filenamePrefix + Guid.NewGuid().ToString(), $"aToZSequence://file", i, metadata));
+                listOfFilesToArchive.Add(new ArchiveFile(filenamePrefix + Guid.NewGuid(), "aToZSequence://file", i,
+                    metadata));
             }
 
             var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, listOfFilesToArchive);
 
             try
             {
-                var archiveJob = spectraRioBrokerClient.Archive(archiveRequest);
+                spectraRioBrokerClient.Archive(archiveRequest);
             }
             catch (MissingAuthorizationHeaderException)
             {
-                var token = spectraRioBrokerClient.CreateToken(new CreateTokenRequest(ConfigurationManager.AppSettings["RioUsername"], ConfigurationManager.AppSettings["RioPassword"])).Token;
+                var token = spectraRioBrokerClient.CreateToken(new CreateTokenRequest(
+                        ConfigurationManager.AppSettings["RioUsername"],
+                        ConfigurationManager.AppSettings["RioPassword"]))
+                    .Token;
                 spectraRioBrokerClient.UpdateToken(token);
 
                 var archiveJob = spectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS * 4);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts * 4);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS * 4);
+                Assert.Less(pollingAttempts, MaxPollingAttempts * 4);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
             }
             finally
             {
-                foreach(var file in listOfFilesToArchive)
+                foreach (var deleteF1Request in listOfFilesToArchive.Select(file =>
+                    new DeleteFileRequest("*", file.Name)))
                 {
-                    var deleteF1Request = new DeleteFileRequest("*", file.Name);
                     spectraRioBrokerClient.DeleteFile(deleteF1Request);
                 }
             }
@@ -1279,20 +1356,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, list1);
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
-                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId));
 
                 Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
                 Assert.AreEqual("Archive job completed successfully", job.Status.Message);
@@ -1304,17 +1382,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, list2, true);
                 archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(new GetJobRequest(archiveJob.JobId));

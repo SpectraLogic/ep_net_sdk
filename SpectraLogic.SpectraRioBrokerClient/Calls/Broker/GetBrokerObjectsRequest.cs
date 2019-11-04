@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
@@ -40,8 +41,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <exception cref="System.ArgumentNullException"></exception>
         public GetBrokerObjectsRequest(
             string brokerName,
-            string sortBy = null,
-            string sortOrder = null,
+            ObjectsSortByEnum? sortBy = null,
+            SortOrderEnum? sortOrder = null,
             int? page = null,
             int? perPage = null,
             string prefix = null,
@@ -55,12 +56,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
             if (sortBy != null)
             {
-                QueryParams.Add("sort_by", sortBy);
+                QueryParams.Add("sort_by", sortBy.ToString());
             }
 
             if (sortOrder != null)
             {
-                QueryParams.Add("sort_order", sortOrder);
+                QueryParams.Add("sort_order", sortOrder.ToString());
             }
 
             if (page != null)
@@ -83,21 +84,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
                 QueryParams.Add("filename", filename);
             }
 
-            if (metadata != null)
-            {
-                metadata.ForEach(pair =>
-                {
-                    QueryParams.Add("metadata", $"{pair.Key},{pair.Value}");
-                });
-            }
+            metadata?.ForEach(pair => { QueryParams.Add("metadata", $"{pair.Key},{pair.Value}"); });
 
-            if (relationships != null)
-            {
-                relationships.ForEach(relationship =>
-                {
-                    QueryParams.Add("relationships", relationship);
-                });
-            }
+            relationships?.ForEach(relationship => { QueryParams.Add("relationships", relationship); });
         }
 
         #endregion Public Constructors

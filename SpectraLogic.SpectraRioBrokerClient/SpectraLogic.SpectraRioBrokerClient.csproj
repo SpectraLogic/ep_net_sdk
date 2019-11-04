@@ -121,11 +121,14 @@
     <Compile Include="Model\JobTypeEnum.cs" />
     <Compile Include="Model\JobStatusEnum.cs" />
     <Compile Include="Model\BrokerObjects.cs" />
+    <Compile Include="Model\ObjectsSortByEnum.cs" />
     <Compile Include="Model\PageResult.cs" />
     <Compile Include="Model\BrokerObject.cs" />
     <Compile Include="Model\RioSystem.cs" />
     <Compile Include="Model\SortBy.cs" />
+    <Compile Include="Model\JobsSortByEnum.cs" />
     <Compile Include="Model\SortOrder.cs" />
+    <Compile Include="Model\SortOrderEnum.cs" />
     <Compile Include="Model\TimeCodeRange.cs" />
     <Compile Include="Model\TimeCode.cs" />
     <Compile Include="ResponseParsers\Authentication\CreateTokenResponseParser.cs" />

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * ******************************************************************************
  *   Copyright 2014-2019 Spectra Logic Corporation. All Rights Reserved.
  *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
@@ -13,23 +13,11 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
-
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    /// <summary></summary>
-    public interface IJobs
+    public enum SortOrderEnum
     {
-        #region Public Properties
-
-        /// <summary>Gets the page.</summary>
-        /// <value>The page.</value>
-        PageResult Page { get; }
-
-        /// <summary>Gets the jobs.</summary>
-        /// <value>The jobs.</value>
-        IList<Job> JobsList { get; }
-
-        #endregion Public Properties
+        ASC,
+        DESC
     }
 }
