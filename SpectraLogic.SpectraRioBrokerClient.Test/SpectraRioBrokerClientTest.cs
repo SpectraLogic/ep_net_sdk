@@ -256,8 +256,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void DeleteClusterTest()
         {
-            var deleteClusterRequest = new DeleteClusterRequest();
-
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(It.IsAny<DeleteClusterRequest>()))
@@ -640,6 +638,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var client = builder.Build();
 
             var master = client.GetMaster();
+            Assert.AreEqual("b4efd674-ae74-4327-8b53-5be871688865", master.MemberId);
             Assert.AreEqual("127.0.0.1", master.IpAddress);
             Assert.AreEqual(5701, master.ClusterPort);
             Assert.AreEqual(5050, master.HttpPort);
@@ -711,8 +710,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void HeadBrokerObjectTest()
         {
-            var headBrokerObjectRequest = new HeadBrokerObjectRequest(Stubs.BrokerName, "objectName");
-
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .SetupSequence(n => n.Invoke(It.IsAny<HeadBrokerObjectRequest>()))
@@ -737,8 +734,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void HeadBrokerTest()
         {
-            var headBrokerRequest = new HeadBrokerRequest(Stubs.BrokerName);
-
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .SetupSequence(n => n.Invoke(It.IsAny<HeadBrokerRequest>()))
@@ -763,8 +758,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void HeadDeviceTest()
         {
-            var headDeviceRequest = new HeadDeviceRequest("deviceName");
-
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .SetupSequence(n => n.Invoke(It.IsAny<HeadDeviceRequest>()))
@@ -789,8 +782,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void HeadJobTest()
         {
-            var headJobRequest = new HeadJobRequest(new Guid());
-
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .SetupSequence(n => n.Invoke(It.IsAny<HeadJobRequest>()))

@@ -1,4 +1,5 @@
 ﻿{
+  "memberId": "b4efd674-ae74-4327-8b53-5be871688865",
   "ipAddress": "127.0.0.1",
   "clusterPort": 5701,
   "httpPort": 5050,
