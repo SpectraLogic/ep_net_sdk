@@ -15,7 +15,7 @@
 
 using System;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
     internal class HeadJobRequest : RestRequest
     {

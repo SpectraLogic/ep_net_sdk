@@ -13,11 +13,11 @@
  * ****************************************************************************
  */
 
+using System.Net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Net;
 
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
 {
     internal class GetBrokerResponseParser : IResponseParser<IBroker>
     {
@@ -25,7 +25,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 
         public IBroker Parse(IHttpWebResponse response)
         {
-            return Parser<Broker>.Parse(response, HttpStatusCode.OK);
+            return Parser<Model.Broker>.Parse(response, HttpStatusCode.OK);
         }
 
         #endregion Public Methods

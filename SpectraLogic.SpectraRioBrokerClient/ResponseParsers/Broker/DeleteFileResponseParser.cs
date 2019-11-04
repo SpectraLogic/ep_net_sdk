@@ -13,14 +13,14 @@
  * ****************************************************************************
  */
 
+using System.Linq;
+using System.Net;
 using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
-using System.Linq;
-using System.Net;
 
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
 {
     internal class DeleteFileResponseParser : IResponseParser<Void>
     {

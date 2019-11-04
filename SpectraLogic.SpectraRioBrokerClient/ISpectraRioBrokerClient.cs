@@ -13,9 +13,14 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Calls;
-using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
+using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
+using SpectraLogic.SpectraRioBrokerClient.Calls.System;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 
 namespace SpectraLogic.SpectraRioBrokerClient
 {

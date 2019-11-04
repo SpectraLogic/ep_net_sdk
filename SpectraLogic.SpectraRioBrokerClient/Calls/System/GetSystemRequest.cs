@@ -13,7 +13,7 @@
  * ****************************************************************************
  */
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.System
 {
     /// <summary>
     ///

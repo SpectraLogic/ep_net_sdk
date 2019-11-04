@@ -15,7 +15,7 @@
 
 using System.Collections.Generic;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
     /// <summary>
     ///
