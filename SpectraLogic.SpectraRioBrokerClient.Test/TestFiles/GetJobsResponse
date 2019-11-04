@@ -1,4 +1,9 @@
 ﻿{
+  "page": {
+    "number": 0,
+    "pageSize": 100,
+    "totalPages": 1
+  },
   "jobs": [
     {
       "id": "173e8530-5805-4a1c-a57b-969331e49683",

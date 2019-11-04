@@ -13,8 +13,8 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -25,18 +25,26 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
 
         /// <summary>Initializes a new instance of the <see cref="Jobs"/> class.</summary>
         /// <param name="jobsList">The jobs list.</param>
-        public Jobs(IList<Job> jobsList)
+        /// <param name="page">The page.</param>
+        public Jobs(IList<Job> jobsList, PageResult page)
         {
             JobsList = jobsList;
+            Page = page;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
 
+        /// <summary>Gets the page.</summary>
+        /// <value>The page.</value>
+        [JsonProperty(PropertyName = "page")]
+        public PageResult Page { get; }
+
         /// <summary>Gets the jobs.</summary>
         /// <value>The jobs.</value>
-        [JsonProperty(PropertyName = "jobs")] public IList<Job> JobsList { get; }
+        [JsonProperty(PropertyName = "jobs")]
+        public IList<Job> JobsList { get; }
 
         #endregion Public Properties
     }
