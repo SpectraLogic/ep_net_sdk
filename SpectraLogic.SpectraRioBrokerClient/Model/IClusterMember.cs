@@ -22,6 +22,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Properties
 
+        /// <summary>Gets the member id.</summary>
+        /// <value>The member id.</value>
+        string MemberId { get; }
+
         /// <summary>Gets the cluster port.</summary>
         /// <value>The cluster port.</value>
         int ClusterPort { get; }
