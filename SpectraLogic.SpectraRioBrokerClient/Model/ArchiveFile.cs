@@ -13,8 +13,9 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -28,12 +29,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The index media
         /// </summary>
-        [JsonProperty(PropertyName = "indexMedia", NullValueHandling = NullValueHandling.Ignore)] public bool? IndexMedia;
+        [JsonProperty(PropertyName = "indexMedia", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IndexMedia;
 
         /// <summary>
         /// The metadata
         /// </summary>
-        [JsonProperty(PropertyName = "metadata", NullValueHandling = NullValueHandling.Ignore)] public IDictionary<string, string> Metadata;
+        [JsonProperty(PropertyName = "metadata", NullValueHandling = NullValueHandling.Ignore)]
+        public IDictionary<string, string> Metadata;
 
         /// <summary>
         /// The name
@@ -43,12 +46,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The relationships
         /// </summary>
-        [JsonProperty(PropertyName = "relationships", NullValueHandling = NullValueHandling.Ignore)] public ISet<string> Relationships;
+        [JsonProperty(PropertyName = "relationships", NullValueHandling = NullValueHandling.Ignore)]
+        public ISet<string> Relationships;
 
         /// <summary>
         /// The size
         /// </summary>
-        [JsonProperty(PropertyName = "size", NullValueHandling = NullValueHandling.Ignore)] public long? Size;
+        [JsonProperty(PropertyName = "size", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Size;
 
         /// <summary>
         /// The URI
@@ -68,10 +73,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="metadata">Key value pairs of metadata to associate with the file. This is optional</param>
         /// <param name="indexMedia">If enabled, if the file is a media file, it will be indexed to allow for time based partial file restores. This is optional and defaults to false</param>
         /// <param name="relationships">The list of relationships. This is optional</param>
-        public ArchiveFile(string name, string uri, long? size = null, IDictionary<string, string> metadata = null, bool? indexMedia = null, ISet<string> relationships = null)
+        public ArchiveFile(string name, Uri uri, long? size = null, IDictionary<string, string> metadata = null,
+            bool? indexMedia = null, ISet<string> relationships = null)
         {
             Name = name;
-            Uri = uri;
+            Uri = uri.ToString();
             Size = size;
             Metadata = metadata;
             IndexMedia = indexMedia;

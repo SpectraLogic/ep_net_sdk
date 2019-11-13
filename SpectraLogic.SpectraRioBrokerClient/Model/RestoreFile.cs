@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using System;
 using Newtonsoft.Json;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
@@ -27,7 +28,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The byte range
         /// </summary>
-        [JsonProperty(PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)] public ByteRange ByteRange;
+        [JsonProperty(PropertyName = "byteRange", NullValueHandling = NullValueHandling.Ignore)]
+        public ByteRange ByteRange;
 
         /// <summary>
         /// The name
@@ -37,7 +39,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The time code range
         /// </summary>
-        [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)] public TimeCodeRange TimeCodeRange;
+        [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)]
+        public TimeCodeRange TimeCodeRange;
 
         /// <summary>
         /// The URI
@@ -53,10 +56,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="uri">The destination.</param>
-        public RestoreFile(string name, string uri)
+        public RestoreFile(string name, Uri uri)
         {
             Name = name;
-            Uri = uri;
+            Uri = uri.ToString();
         }
 
         /// <summary>
@@ -65,10 +68,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="name">The name.</param>
         /// <param name="uri">The destination.</param>
         /// <param name="byteRange">The byte range.</param>
-        public RestoreFile(string name, string uri, ByteRange byteRange)
+        public RestoreFile(string name, Uri uri, ByteRange byteRange)
         {
             Name = name;
-            Uri = uri;
+            Uri = uri.ToString();
             ByteRange = byteRange;
         }
 
@@ -78,10 +81,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="name">The name.</param>
         /// <param name="uri">The destination.</param>
         /// <param name="timeCodeRange">Beginning and ending frame of the desired clip separated by '-'. Format: hh:mm:ss:ff for non-drop frame rates and hh:mm:ss;ff for drop frame rates. Example: 01:00:00;12-01:00:10;13 for drop frame rate.</param>
-        public RestoreFile(string name, string uri, TimeCodeRange timeCodeRange)
+        public RestoreFile(string name, Uri uri, TimeCodeRange timeCodeRange)
         {
             Name = name;
-            Uri = uri;
+            Uri = uri.ToString();
             TimeCodeRange = timeCodeRange;
         }
 

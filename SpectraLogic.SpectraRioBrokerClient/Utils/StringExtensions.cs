@@ -13,8 +13,8 @@
  * ****************************************************************************
  */
 
-using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
@@ -23,9 +23,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
     /// </summary>
     public static class StringExtensions
     {
-        /// <summary>
-        /// Format the given string to a Json format
-        /// </summary>
+        /// <summary>Format the given string to a Json format</summary>
         /// <param name="str">The string to format.</param>
         /// <returns></returns>
         public static string JsonFormat(this string str)
@@ -37,6 +35,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
         /// <summary>Converts to universal DateTime object.</summary>
         /// <param name="str">The string.</param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this string str) => DateTime.Parse(str.Replace("[UTC]", "")).ToUniversalTime();
+        public static DateTime ToDateTime(this string str) =>
+            DateTime.Parse(str.Replace("[UTC]", "")).ToUniversalTime();
+
+        /// <summary>Converts to Uri object.</summary>
+        /// <param name="str">The string.</param>
+        /// <returns></returns>
+        public static Uri ToUri(this string str) => new Uri(str);
     }
 }

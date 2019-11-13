@@ -27,6 +27,7 @@ using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
@@ -706,14 +707,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(2, brokerObjects.Objects.Count);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, sortBy: ObjectsSortByEnum.NAME,
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
+                        sortBy: ObjectsSortByEnum.NAME,
                         sortOrder: SortOrderEnum.ASC));
 
                 Assert.AreEqual(2, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName1, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, sortBy: ObjectsSortByEnum.NAME,
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
+                        sortBy: ObjectsSortByEnum.NAME,
                         sortOrder: SortOrderEnum.DESC));
 
                 Assert.AreEqual(2, brokerObjects.Objects.Count);
@@ -925,7 +928,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
                     new GetJobsRequest(jobTypes: new List<JobTypeEnum> {JobTypeEnum.RESTORE}));
                 Assert.AreEqual(restoreJobsBefore, jobs.JobsList.Count);
-                
+
                 jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
                     new GetJobsRequest(
                         jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
@@ -1306,7 +1309,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             var listOfFilesToArchive = new List<ArchiveFile>();
             for (var i = 1; i <= numberOfArchiveFiles; i++)
             {
-                listOfFilesToArchive.Add(new ArchiveFile(filenamePrefix + Guid.NewGuid(), "aToZSequence://file", i,
+                listOfFilesToArchive.Add(new ArchiveFile(filenamePrefix + Guid.NewGuid(), "aToZSequence://file".ToUri(),
+                    i,
                     metadata));
             }
 
