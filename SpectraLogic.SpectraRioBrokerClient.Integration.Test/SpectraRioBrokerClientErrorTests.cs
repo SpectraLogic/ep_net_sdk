@@ -32,6 +32,7 @@ using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
@@ -58,7 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var request = new ArchiveRequest("not_found", new List<ArchiveFile>
             {
-                new ArchiveFile("not_found", new Uri("uri"), 0L, new Dictionary<string, string>(), false)
+                new ArchiveFile("not_found", "uri".ToFileUri(), 0L, new Dictionary<string, string>(), false)
             });
             Assert.ThrowsAsync<BrokerNotFoundException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request)));
@@ -73,21 +74,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 new List<ValidationError>
                 {
                     new ValidationError("files", "files", "no_files_in_job")
-                });
-
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
-                    {
-                        new ArchiveFile("not_found", new Uri("bad uri"), 0, new Dictionary<string, string>(), false)
-                    });
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
-                    Assert.Fail();
-                },
-                new List<ValidationError>
-                {
-                    new ValidationError("files.uri", "URI", "invalid_format", "bad uri")
                 });
         }
 
@@ -210,15 +196,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void CreateDeviceErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest(null, "localhost", "username", "password")));
+                Task.FromResult(new CreateDeviceRequest(null, "localhost".ToHttpsUri(), "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
                 Task.FromResult(new CreateDeviceRequest("name", null, "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest("name", "localhost", null, "password")));
+                Task.FromResult(new CreateDeviceRequest("name", "localhost".ToHttpsUri(), null, "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest("name", "localhost", "username", null)));
+                Task.FromResult(new CreateDeviceRequest("name", "localhost".ToHttpsUri(), "username", null)));
 
-            var request = new CreateDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost", "username",
+            var request = new CreateDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost".ToHttpsUri(), "username",
                 "password");
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request)));
@@ -226,7 +212,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest(string.Empty, "localhost", "username", "password");
+                    request = new CreateDeviceRequest(string.Empty, "localhost".ToHttpsUri(), "username", "password");
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
@@ -238,31 +224,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("name", string.Empty, "username", "password");
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
-                    Assert.Fail();
-                },
-                new List<ValidationError>
-                {
-                    new ValidationError("mgmtInterface", "string", "missing")
-                });
-
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new CreateDeviceRequest("name", "bad url", "username", "password");
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
-                    Assert.Fail();
-                },
-                new List<ValidationError>
-                {
-                    new ValidationError("mgmtInterface", "uri", "invalid_uri", "bad url")
-                });
-
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new CreateDeviceRequest("name", "localhost", string.Empty, "password");
+                    request = new CreateDeviceRequest("name", "localhost".ToHttpsUri(), string.Empty, "password");
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
@@ -274,7 +236,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("name", "localhost", "username", string.Empty);
+                    request = new CreateDeviceRequest("name", "localhost".ToHttpsUri(), "username", string.Empty);
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
@@ -286,13 +248,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest(string.Empty, string.Empty, string.Empty, string.Empty);
+                    request = new CreateDeviceRequest(string.Empty, "localhost".ToHttpsUri(), string.Empty, string.Empty);
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("mgmtInterface", "string", "missing"),
                     new ValidationError("username", "string", "missing"),
                     new ValidationError("password", "password", "missing"),
                     new ValidationError("name", "string", "missing"),
@@ -336,7 +297,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("mgmtInterface", "uri", "data_interface_specified")
+                    new ValidationError("mgmtInterface", "URI", "data_interface_specified")
+                });
+            
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateDeviceRequest("should_fail", "http://localhost".ToUri(),
+                        SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("mgmtInterface", "URI", "invalid_scheme", "http", "URI scheme must be HTTPS")
                 });
         }
 
@@ -371,7 +345,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Task.FromResult(
                     noAuthClient.CreateBroker(new CreateBrokerRequest("", "", new AgentConfig("", "", "", false)))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.CreateDevice(new CreateDeviceRequest("", "", "", ""))));
+                Task.FromResult(noAuthClient.CreateDevice(new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", ""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetBrokerRelationship(new GetBrokerRelationshipRequest("", ""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -477,6 +451,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        [Ignore("https://jira.spectralogic.com/browse/ESCP-1652")]
         public void GetBrokerObjectsErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerObjectsRequest(null)));
@@ -487,6 +462,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        [Ignore("https://jira.spectralogic.com/browse/ESCP-1653")]
         public void GetBrokerRelationshipErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() =>
@@ -622,7 +598,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-                        var request = new CreateDeviceRequest("", "", "", "");
+                        var request = new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", "");
                         return Task.FromResult(
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request));
                     });
@@ -792,21 +768,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 new List<ValidationError>
                 {
                     new ValidationError("files", "files", "no_files_in_job")
-                });
-
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
-                    {
-                        new RestoreFile("not_found", "bad uri".ToFileUri())
-                    });
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
-                    Assert.Fail();
-                },
-                new List<ValidationError>
-                {
-                    new ValidationError("files.uri", "URI", "invalid_format", "bad uri"),
                 });
 
             ValidationExceptionCheck(

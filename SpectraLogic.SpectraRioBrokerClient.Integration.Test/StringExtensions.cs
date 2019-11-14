@@ -22,10 +22,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Public Methods
 
-        public static Uri ToFileUri(this string str)
-        {
-            return $"file://{str.Replace("\\", "/").Replace(" ", "%20")}".ToUri();
-        }
+        public static Uri ToFileUri(this string str) => $"file://{str.Replace("\\", "/").Replace(" ", "%20")}".ToUri();
+
+        public static Uri ToHttpsUri(this string str) => $"https://{str}".ToUri();
 
         #endregion Public Methods
     }
