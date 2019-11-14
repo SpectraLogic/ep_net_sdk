@@ -13,6 +13,7 @@
  * ****************************************************************************
  */
 
+using System;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
@@ -24,6 +25,7 @@ using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
 using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
@@ -66,9 +68,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public static string BrokerName { get; private set; }
         public static string BrokerName2 { get; private set; }
         public static string ClusterName { get; private set; }
-        public static string DataInterface { get; private set; }
+        public static Uri DataInterface { get; private set; }
         public static string DeviceName { get; private set; }
-        public static string MgmtInterface { get; private set; }
+        public static Uri MgmtInterface { get; private set; }
         public static string Password { get; private set; }
         public static string RestoreTempDir { get; private set; }
         public static ISpectraRioBrokerClient SpectraRioBrokerClient { get; private set; }
@@ -125,10 +127,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public static void CreateDevice()
         {
             DeviceName = ConfigurationManager.AppSettings["DeviceName"];
-            MgmtInterface = ConfigurationManager.AppSettings["MgmtInterface"];
+            MgmtInterface = ConfigurationManager.AppSettings["MgmtInterface"].ToUri();
             Username = ConfigurationManager.AppSettings["Username"];
             Password = ConfigurationManager.AppSettings["Password"];
-            DataInterface = ConfigurationManager.AppSettings["DataInterface"];
+            DataInterface = ConfigurationManager.AppSettings["DataInterface"].ToUri();
 
             if (!SpectraRioBrokerClient.DoesDeviceExist(DeviceName))
             {

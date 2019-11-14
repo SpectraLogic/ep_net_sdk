@@ -59,7 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <exception cref="System.ArgumentNullException"></exception>
-        public CreateDeviceRequest(string deviceName, string mgmtInterface, string username, string password)
+        public CreateDeviceRequest(string deviceName, Uri mgmtInterface, string username, string password)
         {
             Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
             Contract.Requires<ArgumentNullException>(mgmtInterface != null, "mgmtInterface");
@@ -67,7 +67,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
             Contract.Requires<ArgumentNullException>(password != null, "password");
 
             DeviceName = deviceName;
-            MgmtInterface = mgmtInterface;
+            MgmtInterface = mgmtInterface.ToString();
             Username = username;
             Password = password;
         }
