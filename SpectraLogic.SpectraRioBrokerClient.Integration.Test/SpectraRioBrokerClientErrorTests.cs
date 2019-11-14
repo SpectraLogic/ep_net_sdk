@@ -58,11 +58,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var request = new ArchiveRequest("not_found", new List<ArchiveFile>
             {
-<<<<<<< Updated upstream
-                new ArchiveFile("not_found", "uri", 0L, new Dictionary<string, string>(), false)
-=======
                 new ArchiveFile("not_found", "uri".ToFileUri(), 0L, new Dictionary<string, string>(), false)
->>>>>>> Stashed changes
             });
             Assert.ThrowsAsync<BrokerNotFoundException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request)));
 
@@ -77,24 +73,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("files", "files", "no_files_in_job")
                 });
-<<<<<<< Updated upstream
-
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
-                    {
-                        new ArchiveFile("not_found", "bad uri", 0, new Dictionary<string, string>(), false)
-                    });
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
-                    Assert.Fail();
-                },
-                new List<ValidationError>
-                {
-                    new ValidationError("files.uri", "URI", "invalid_format", "bad uri")
-                });
-=======
->>>>>>> Stashed changes
         }
 
         [Test]
@@ -196,15 +174,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void CreateDeviceErrorTests()
         {
-<<<<<<< Updated upstream
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest(null, "localhost", "username", "password")));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", null, "username", "password")));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "localhost", null, "password")));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateDeviceRequest("name", "localhost", "username", null)));
-
-            var request = new CreateDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost", "username", "password");
-            Assert.ThrowsAsync<DeviceAlreadyExistsException>(() => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request)));
-=======
             Assert.ThrowsAsync<ArgumentNullException>(() =>
                 Task.FromResult(new CreateDeviceRequest(null, "localhost".ToHttpsUri(), "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
@@ -218,7 +187,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 "password");
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request)));
->>>>>>> Stashed changes
 
             ValidationExceptionCheck(
                 () =>
@@ -342,23 +310,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
             var noAuthClient = spectraRioBrokerClientBuilder.Build();
 
-<<<<<<< Updated upstream
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Archive(new ArchiveRequest("", Enumerable.Empty<ArchiveFile>()))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Cancel(new CancelRequest(Guid.Empty))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.CreateBroker(new CreateBrokerRequest("", "", new AgentConfig("", "", "", false)))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.CreateDevice(new CreateDeviceRequest("", "", "", ""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBrokerRelationship(new GetBrokerRelationshipRequest("", ""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBrokerRelationships(new GetBrokerRelationshipsRequest(""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBrokers(new GetBrokersRequest())));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetDevice(new GetDeviceRequest(""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJob(new GetJobRequest(Guid.Empty))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.GetJobs(new GetJobsRequest())));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.Retry(new RetryRequest("", Guid.Empty, JobType.ARCHIVE))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => { noAuthClient.DeleteBroker(new DeleteBrokerRequest("")); return null; });
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() => Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest("", "", new Dictionary<string, string>(), new HashSet<string>()))));
-=======
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.Archive(new ArchiveRequest("", Enumerable.Empty<ArchiveFile>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -394,7 +345,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest("", "",
                     new Dictionary<string, string>(), new HashSet<string>()))));
->>>>>>> Stashed changes
 
             ValidationExceptionCheck(
                 () =>
@@ -596,14 +546,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
                     () =>
                     {
-<<<<<<< Updated upstream
-                        var request = new CreateDeviceRequest("", "", "", "");
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request));
-=======
                         var request = new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", "");
                         return Task.FromResult(
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request));
->>>>>>> Stashed changes
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
@@ -770,26 +715,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                     {
-<<<<<<< Updated upstream
-                        new RestoreFile("not_found", "bad uri")
-                    });
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
-                    Assert.Fail();
-                },
-                new List<ValidationError>
-                {
-                    new ValidationError("files.uri", "URI", "invalid_format", "bad uri"),
-                });
-
-            ValidationExceptionCheck(
-                () =>
-                {
-                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
-                    {
-                        new RestoreFile("name", "uri", new ByteRange(-1, 10))
-=======
                         new RestoreFile("name", "uri".ToFileUri(), new ByteRange(-1, 10))
->>>>>>> Stashed changes
                     });
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
