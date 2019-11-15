@@ -30,6 +30,7 @@ using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Test.Mock;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Test
 {
@@ -178,7 +179,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void CreateDeviceTest()
         {
-            var createDeviceRequest = new CreateDeviceRequest("device_test", "localhost", "username", "password");
+            var createDeviceRequest = new CreateDeviceRequest("device_test", "https://localhost".ToUri(), "username", "password");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork

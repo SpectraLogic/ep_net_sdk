@@ -13,8 +13,9 @@
  * ****************************************************************************
  */
 
-using SpectraLogic.SpectraRioBrokerClient.Model;
 using System.Collections.Generic;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Test
 {
@@ -30,10 +31,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         {
             new ArchiveFile(
                 "fileName",
-                "uri",
+                "file://uri".ToUri(),
                 1234,
-                new Dictionary<string, string> {
-                    { "key", "value" }
+                new Dictionary<string, string>
+                {
+                    {"key", "value"}
                 },
                 false)
         };
@@ -42,9 +44,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
         public static IEnumerable<RestoreFile> RestoreFiles = new List<RestoreFile>
         {
-            new RestoreFile("name", "dest"),
-            new RestoreFile("name2", "dest2", new ByteRange(0, 10)),
-            new RestoreFile("name3", "dest3", new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
+            new RestoreFile("name", "file://dest".ToUri()),
+            new RestoreFile("name2", "file://dest2".ToUri(), new ByteRange(0, 10)),
+            new RestoreFile("name3", "file://dest3".ToUri(),
+                new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
         };
 
         #endregion Fields

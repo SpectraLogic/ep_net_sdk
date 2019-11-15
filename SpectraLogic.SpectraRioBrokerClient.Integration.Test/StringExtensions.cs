@@ -13,16 +13,18 @@
  * ****************************************************************************
  */
 
+using System;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
+
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
     internal static class StringExtensions
     {
         #region Public Methods
 
-        public static string ToFileUri(this string str)
-        {
-            return string.Format("{0}{1}", "file:///", str.Replace("\\", "/").Replace(" ", "%20"));
-        }
+        public static Uri ToFileUri(this string str) => $"file://{str.Replace("\\", "/").Replace(" ", "%20")}".ToUri();
+
+        public static Uri ToHttpsUri(this string str) => $"https://{str}".ToUri();
 
         #endregion Public Methods
     }
