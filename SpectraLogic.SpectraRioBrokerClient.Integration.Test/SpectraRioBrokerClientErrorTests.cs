@@ -41,10 +41,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Fields
 
-        private readonly int MAX_POLLING_ATTEMPS = 10;
+        private const int MaxPollingAttempts = 10;
 
-        private readonly int POLLING_INTERVAL = 10;
-        private ILog _log = LogManager.GetLogger("SpectraRioBrokerClientErrorTests");
+        private const int PollingInterval = 10;
+        private readonly ILog _log = LogManager.GetLogger("SpectraRioBrokerClientErrorTests");
 
         #endregion Fields
 
@@ -256,7 +256,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("username", "string", "missing"),
                     new ValidationError("password", "password", "missing"),
-                    new ValidationError("name", "string", "missing"),
+                    new ValidationError("name", "string", "missing")
                 });
 
             ValidationExceptionCheck(
@@ -477,7 +477,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             request = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName,
                 "relationship_not_found");
             Assert.AreEqual(0,
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request).Objects.Count());
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request).Objects.Count);
         }
 
         [Test]
@@ -567,27 +567,27 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
-        public void NodeIsNotAClusterMemeberErrorTests()
+        public void NodeIsNotAClusterMemberErrorTests()
         {
             try
             {
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteCluster();
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new ArchiveRequest("", Enumerable.Empty<ArchiveFile>());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new CancelRequest(Guid.NewGuid());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Cancel(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new CreateBrokerRequest("", "", new AgentConfig("", "", "", false));
@@ -595,7 +595,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", "");
@@ -603,14 +603,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteCluster();
                         return null;
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new DeleteFileRequest("", "");
@@ -618,7 +618,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         return null;
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetBrokersRequest();
@@ -626,14 +626,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokers(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetBrokerRequest("");
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetClusterRequest();
@@ -641,68 +641,56 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetCluster(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                    () =>
-                    {
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster());
-                    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster()));
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                    () =>
-                    {
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMembers());
-                    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMembers()));
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetDeviceRequest("");
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetJobRequest(Guid.NewGuid());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetJobsRequest();
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                    () =>
-                    {
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
-                            .DoesBrokerExist(""));
-                    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
+                        .DoesBrokerExist("")));
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
-                    () =>
-                    {
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
-                            .DoesDeviceExist(""));
-                    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
+                        .DoesDeviceExist("")));
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new RestoreRequest("", Enumerable.Empty<RestoreFile>());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new RetryRequest("", Guid.Empty, JobType.ARCHIVE);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetBrokerRelationshipRequest("", "");
@@ -710,7 +698,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetBrokerRelationshipsRequest("");
@@ -718,7 +706,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                             .GetBrokerRelationships(request));
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new DeleteBrokerRequest("");
@@ -726,7 +714,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         return null;
                     });
 
-                Assert.ThrowsAsync<NodeIsNotAClusterMemeberException>(
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new UpdateBrokerObjectRequest("", "", new Dictionary<string, string>(),
@@ -783,7 +771,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 new List<ValidationError>
                 {
                     new ValidationError("files.byteRange", "object", "invalid",
-                        reason: "The startingIndex must be positive"),
+                        reason: "The startingIndex must be positive")
                 });
 
             ValidationExceptionCheck(
@@ -799,7 +787,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 new List<ValidationError>
                 {
                     new ValidationError("files.byteRange", "object", "invalid",
-                        reason: "The endingIndex must be positive"),
+                        reason: "The endingIndex must be positive")
                 });
 
             ValidationExceptionCheck(
@@ -815,7 +803,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 new List<ValidationError>
                 {
                     new ValidationError("files.byteRange", "object", "invalid",
-                        reason: "startingIndex must be lower than endingIndex"),
+                        reason: "startingIndex must be lower than endingIndex")
                 });
         }
 
@@ -830,43 +818,43 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                var pollingAttemps = 0;
+                var pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName2, new List<ArchiveFile>
                 {
                     new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
                 archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
-                pollingAttemps = 0;
+                pollingAttempts = 0;
                 do
                 {
                     archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
                         new GetJobRequest(archiveJob.JobId));
                     _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(POLLING_INTERVAL));
-                    pollingAttemps++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttemps < MAX_POLLING_ATTEMPS);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
 
-                Assert.Less(pollingAttemps, MAX_POLLING_ATTEMPS);
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
                 Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
 
                 ValidationExceptionCheck(
@@ -876,14 +864,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         var restoreRequest = new RestoreRequest("*", new List<RestoreFile>
                         {
                             new RestoreFile(fileName1,
-                                $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                                $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri())
                         });
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
                         Assert.Fail();
                     },
                     new List<ValidationError>
                     {
-                        new ValidationError(fileName1, "file", "duplicate_file_brokers"),
+                        new ValidationError(fileName1, "file", "duplicate_file_brokers")
                     });
 
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
@@ -943,7 +931,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
         }
 
-        private void ValidationExceptionCheck(Action action, IEnumerable expected)
+        private static void ValidationExceptionCheck(Action action, IEnumerable expected)
         {
             try
             {

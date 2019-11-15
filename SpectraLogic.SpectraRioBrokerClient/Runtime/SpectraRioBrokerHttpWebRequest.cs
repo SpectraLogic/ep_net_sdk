@@ -26,7 +26,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
         #region Private Fields
 
         private readonly HttpWebRequest _httpWebRequest;
-        private readonly IList<string> FILTER_HEADERS = new List<string>() { "Authorization" };
+        private readonly IList<string> _filterHeaders = new List<string> { "Authorization" };
 
         #endregion Private Fields
 
@@ -48,7 +48,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append("HttpWebRequest information:");
             sb.AppendFormat("{0}{1} {2}", Environment.NewLine, _httpWebRequest.Method, _httpWebRequest.Address);
             sb.AppendFormat("{0}{1}", Environment.NewLine, GetHeaders());
@@ -66,7 +66,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
                 .ToString()
                 .Split(Environment.NewLine.ToCharArray())
                 .Where(key => !string.IsNullOrEmpty(key))
-                .Where(key => !FILTER_HEADERS.Contains(key, new StartWithComparer()));
+                .Where(key => !_filterHeaders.Contains(key, new StartWithComparer()));
 
             return string.Join(Environment.NewLine, headers);
         }

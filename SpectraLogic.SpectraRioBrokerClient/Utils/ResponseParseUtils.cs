@@ -29,7 +29,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
     {
         #region Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("ResponseParseUtils");
+        private static readonly ILog Log = LogManager.GetLogger("ResponseParseUtils");
 
         #endregion Fields
 
@@ -50,11 +50,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
         private static ErrorResponse GetErrorResponse(IHttpWebResponse response)
         {
             using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream, encoding: Encoding.UTF8))
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
                 var responseString = reader.ReadToEnd();
                 var requestId = response.Headers["request-id"].First();
-                LOG.Debug($"Request: {requestId}\n{responseString}");
+                Log.Debug($"Request: {requestId}\n{responseString}");
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.NotFound:

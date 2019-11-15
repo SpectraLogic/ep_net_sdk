@@ -15,11 +15,29 @@
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum ObjectsSortByEnum
     {
+        /// <summary>
+        ///
+        /// </summary>
         NONE,
+        
+        /// <summary>
+        /// Sort by name
+        /// </summary>
         NAME,
+        
+        /// <summary>
+        /// Sort by size
+        /// </summary>
         SIZE,
+        
+        /// <summary>
+        /// Sort by creation date
+        /// </summary>
         CREATION_DATE
     }
 }

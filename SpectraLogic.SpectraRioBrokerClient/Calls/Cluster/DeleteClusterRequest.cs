@@ -27,7 +27,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Cluster
 
         #region Internal Properties
 
-        internal override string Path => $"/api/cluster";
+        internal override string Path => "/api/cluster";
         internal override HttpVerb Verb => HttpVerb.DELETE;
 
         #endregion Internal Properties

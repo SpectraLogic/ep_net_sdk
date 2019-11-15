@@ -32,7 +32,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.System
 
         #region Internal Properties
 
-        internal override string Path => $"/api/system";
+        internal override string Path => "/api/system";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Internal Properties

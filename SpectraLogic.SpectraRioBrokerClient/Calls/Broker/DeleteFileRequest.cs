@@ -31,7 +31,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="fileName">Name of the file.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public DeleteFileRequest(string brokerName, string fileName)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");

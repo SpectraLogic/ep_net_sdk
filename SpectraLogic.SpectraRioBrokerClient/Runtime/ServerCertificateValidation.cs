@@ -30,7 +30,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
         /// </summary>
         public static void OverrideValidation()
         {
-            //Adding Tls11 and Tls12 to the exsiting Security Protocol to support HTTPS requests
+            //Adding Tls11 and Tls12 to the existing Security Protocol to support HTTPS requests
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType)SslProtocols.Tls11 |
                                                     (SecurityProtocolType)SslProtocols.Tls12;
 

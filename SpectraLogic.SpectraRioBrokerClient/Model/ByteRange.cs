@@ -24,8 +24,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Fields
 
-        [JsonProperty(PropertyName = "endingIndex")] private long EndingIndex;
-        [JsonProperty(PropertyName = "startingIndex")] private long StartingIndex;
+        [JsonProperty(PropertyName = "endingIndex")] private long _endingIndex;
+        [JsonProperty(PropertyName = "startingIndex")] private long _startingIndex;
 
         #endregion Fields
 
@@ -38,8 +38,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="endingIndex">Index of the ending.</param>
         public ByteRange(long startingIndex, long endingIndex)
         {
-            StartingIndex = startingIndex;
-            EndingIndex = endingIndex;
+            _startingIndex = startingIndex;
+            _endingIndex = endingIndex;
         }
 
         #endregion Constructors
