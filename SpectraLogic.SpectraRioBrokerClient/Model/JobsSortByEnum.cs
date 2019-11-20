@@ -15,16 +15,54 @@
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum JobsSortByEnum
     {
+        /// <summary>
+        /// Sort by creation date
+        /// </summary>
         CREATION_DATE,
+        
+        /// <summary>
+        /// Sort by last updated
+        /// </summary>
         LAST_UPDATED,
+        
+        /// <summary>
+        /// Sort by type
+        /// </summary>
         TYPE,
+        
+        /// <summary>
+        /// Sort by job id
+        /// </summary>
         JOB_ID,
+        
+        /// <summary>
+        /// Sort by status
+        /// </summary>
         STATUS,
+        
+        /// <summary>
+        /// Sort by number of files
+        /// </summary>
         NUMBER_OF_FILES,
+        
+        /// <summary>
+        /// Sort by file transferred
+        /// </summary>
         FILES_TRANSFERRED,
+        
+        /// <summary>
+        /// Sort by total size in bytes
+        /// </summary>
         TOTAL_SIZE_IN_BYTES,
+        
+        /// <summary>
+        /// Sort by progress
+        /// </summary>
         PROGRESS
     }
 }

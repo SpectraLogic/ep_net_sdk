@@ -14,6 +14,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
@@ -58,7 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
         /// <param name="mgmtInterface">The MGMT interface.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public CreateDeviceRequest(string deviceName, Uri mgmtInterface, string username, string password)
         {
             Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
@@ -76,7 +77,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
 
         #region Internal Properties
 
-        internal override string Path => $"/api/devices/spectra";
+        internal override string Path => "/api/devices/spectra";
         internal override HttpVerb Verb => HttpVerb.POST;
 
         #endregion Internal Properties
