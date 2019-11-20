@@ -25,9 +25,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
         public static AgentConfig AgentConfig = new AgentConfig("name", "user", "bucket");
 
-        public static string AgentName = "agentName";
+        public const string AgentName = "agentName";
 
-        public static IEnumerable<ArchiveFile> ArchiveFiles = new List<ArchiveFile>
+        public static readonly IEnumerable<ArchiveFile> ArchiveFiles = new List<ArchiveFile>
         {
             new ArchiveFile(
                 "fileName",
@@ -40,9 +40,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
                 false)
         };
 
-        public static string BrokerName = "brokerName";
+        public const string BrokerName = "brokerName";
 
-        public static IEnumerable<RestoreFile> RestoreFiles = new List<RestoreFile>
+        public static readonly IEnumerable<RestoreFile> RestoreFiles = new List<RestoreFile>
         {
             new RestoreFile("name", "file://dest".ToUri()),
             new RestoreFile("name2", "file://dest2".ToUri(), new ByteRange(0, 10)),

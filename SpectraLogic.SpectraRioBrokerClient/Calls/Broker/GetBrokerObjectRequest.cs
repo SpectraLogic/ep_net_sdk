@@ -29,7 +29,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <summary>Initializes a new instance of the <see cref="GetBrokerObjectRequest"/> class.</summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="objectName">Name of the object.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public GetBrokerObjectRequest(string brokerName, string objectName)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");

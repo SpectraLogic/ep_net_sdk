@@ -21,7 +21,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
     {
         #region Private Fields
 
-        private Guid JobId;
+        private readonly Guid _jobId;
 
         #endregion Private Fields
 
@@ -29,14 +29,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 
         public HeadJobRequest(Guid jobId)
         {
-            JobId = jobId;
+            _jobId = jobId;
         }
 
         #endregion Public Constructors
 
         #region Internal Properties
 
-        internal override string Path => $"/api/jobs/{JobId}";
+        internal override string Path => $"/api/jobs/{_jobId}";
         internal override HttpVerb Verb => HttpVerb.HEAD;
 
         #endregion Internal Properties

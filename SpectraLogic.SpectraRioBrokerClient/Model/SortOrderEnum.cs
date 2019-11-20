@@ -15,9 +15,19 @@
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum SortOrderEnum
     {
+        /// <summary>
+        /// Sort by ascending order
+        /// </summary>
         ASC,
+        
+        /// <summary>
+        /// Sort by descending order
+        /// </summary>
         DESC
     }
 }

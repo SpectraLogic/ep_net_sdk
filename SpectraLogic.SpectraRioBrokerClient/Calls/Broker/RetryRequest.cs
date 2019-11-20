@@ -31,7 +31,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="jobId">The job identifier.</param>
         /// <param name="retryJobType">Type of the retry job.</param>
-        public RetryRequest(String brokerName, Guid jobId, JobType retryJobType)
+        public RetryRequest(string brokerName, Guid jobId, JobType retryJobType)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<InvalidOperationException>(retryJobType == JobType.ARCHIVE || retryJobType == JobType.RESTORE, "retryJobType");
@@ -48,7 +48,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         /// <summary>Gets the name of the broker.</summary>
         /// <value>The name of the broker.</value>
-        public String BrokerName { get; private set; }
+        public string BrokerName { get; private set; }
 
         /// <summary>Gets the type of the retry job.</summary>
         /// <value>The type of the retry job.</value>

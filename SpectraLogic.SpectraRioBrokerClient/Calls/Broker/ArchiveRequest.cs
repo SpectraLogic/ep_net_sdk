@@ -44,7 +44,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="files">The files.</param>
         /// <param name="uploadNewFilesOnly">if set only archive new files.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public ArchiveRequest(string brokerName, IEnumerable<ArchiveFile> files, bool uploadNewFilesOnly=false)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
