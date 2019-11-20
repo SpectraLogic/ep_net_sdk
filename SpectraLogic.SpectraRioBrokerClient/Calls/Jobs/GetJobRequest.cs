@@ -29,7 +29,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// Initializes a new instance of the <see cref="GetJobRequest"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public GetJobRequest(Guid jobId)
         {
             JobId = jobId;

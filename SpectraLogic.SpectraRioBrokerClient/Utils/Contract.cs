@@ -20,12 +20,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
     /// <summary>
     ///
     /// </summary>
-    public class Contract
+    public static class Contract
     {
         #region Methods
 
         /// <summary>
-        /// Requireses the specified predicate.
+        /// Requires the specified predicate.
         /// </summary>
         /// <typeparam name="TException">The type of the exception.</typeparam>
         /// <param name="predicate">if set to <c>true</c> [predicate].</param>

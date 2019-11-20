@@ -20,11 +20,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Fields
 
-        private readonly string Divider;
-        private readonly string FF;
-        private readonly string HH;
-        private readonly string MM;
-        private readonly string SS;
+        private readonly string _divider;
+        private readonly string _ff;
+        private readonly string _hh;
+        private readonly string _mm;
+        private readonly string _ss;
 
         #endregion Fields
 
@@ -38,11 +38,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="dropFrame">if set to <c>true</c> [divider].</param>
         public TimeCode(int HH, int MM, int SS, int FF, bool dropFrame)
         {
-            this.HH = HH.ToString("D2");
-            this.MM = MM.ToString("D2");
-            this.SS = SS.ToString("D2");
-            this.FF = FF.ToString("D2");
-            Divider = dropFrame ? ";" : ":";
+            this._hh = HH.ToString("D2");
+            this._mm = MM.ToString("D2");
+            this._ss = SS.ToString("D2");
+            this._ff = FF.ToString("D2");
+            _divider = dropFrame ? ";" : ":";
         }
 
         #endregion Constructors
@@ -52,11 +52,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>Determines whether [is drop frame].</summary>
         /// <returns>
         ///   <c>true</c> if [is drop frame]; otherwise, <c>false</c>.</returns>
-        public bool IsDropFrame => Divider.Equals(";");
+        public bool IsDropFrame => _divider.Equals(";");
 
         /// <summary>Converts to string.</summary>
         /// <returns>A <see cref="System.String"/> that represents this instance.</returns>
-        public override string ToString() => $"{HH}:{MM}:{SS}{Divider}{FF}";
+        public override string ToString() => $"{_hh}:{_mm}:{_ss}{_divider}{_ff}";
 
         #endregion Methods
     }

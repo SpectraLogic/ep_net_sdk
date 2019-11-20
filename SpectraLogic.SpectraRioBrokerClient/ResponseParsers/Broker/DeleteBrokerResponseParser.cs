@@ -26,7 +26,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
     {
         #region Private Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("DeleteBrokerResponseParser");
+        private static readonly ILog Log = LogManager.GetLogger("DeleteBrokerResponseParser");
 
         #endregion Private Fields
 
@@ -38,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
             {
                 ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
                 var requestId = response.Headers["request-id"].First();
-                LOG.Debug($"Request: {requestId}");
+                Log.Debug($"Request: {requestId}");
                 return new Void();
             }
         }

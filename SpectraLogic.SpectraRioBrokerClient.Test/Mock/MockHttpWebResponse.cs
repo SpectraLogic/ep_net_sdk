@@ -43,9 +43,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test.Mock
             }
             else
             {
-                Headers = new Dictionary<string, IEnumerable<string>>()
+                Headers = new Dictionary<string, IEnumerable<string>>
                 {
-                    {"request-id", new List<string>(){Guid.NewGuid().ToString()} }
+                    {"request-id", new List<string> {Guid.NewGuid().ToString()} }
                 };
             }
         }

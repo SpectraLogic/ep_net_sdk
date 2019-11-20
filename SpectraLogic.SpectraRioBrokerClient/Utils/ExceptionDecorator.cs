@@ -20,7 +20,7 @@ using System.Net;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
-    internal class ExceptionDecorator
+    internal static class ExceptionDecorator
     {
         #region Public Methods
 
@@ -80,7 +80,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                     {
                         case "The service is unavailable":
                         case "The node is not a member of a cluster":
-                            throw new NodeIsNotAClusterMemeberException(ex.ErrorResponse.ErrorMessage, ex);
+                            throw new NodeIsNotAClusterMemberException(ex.ErrorResponse.ErrorMessage, ex);
                     }
                 }
 
@@ -98,7 +98,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                     }
                 }
 
-                throw ex;
+                throw;
             }
         }
 

@@ -115,7 +115,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 #if DEBUG
             if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
             {
-                requestPrettyPrint = String.Concat(requestPrettyPrint, String.Concat(Environment.NewLine, request.GetBody().JsonFormat()));
+                requestPrettyPrint = string.Concat(requestPrettyPrint, string.Concat(Environment.NewLine, request.GetBody().JsonFormat()));
             }
 #endif
             return requestPrettyPrint;

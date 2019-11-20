@@ -27,7 +27,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
     {
         #region Private Fields
 
-        private static ILog LOG = LogManager.GetLogger("HeadResponseParser");
+        private static readonly ILog Log = LogManager.GetLogger("HeadResponseParser");
 
         #endregion Private Fields
 
@@ -38,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
             using (response)
             {
                 var requestId = response.Headers["request-id"].First();
-                LOG.Debug($"Request: {requestId} {response.StatusCode}");
+                Log.Debug($"Request: {requestId} {response.StatusCode}");
 
                 if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {

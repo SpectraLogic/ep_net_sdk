@@ -38,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <param name="filename">The filename.</param>
         /// <param name="metadata">The metadata.</param>
         /// <param name="relationships">The relationships.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public GetBrokerObjectsRequest(
             string brokerName,
             ObjectsSortByEnum? sortBy = null,

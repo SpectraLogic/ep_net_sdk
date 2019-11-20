@@ -46,7 +46,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Authentication
         /// </summary>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public CreateTokenRequest(string username, string password)
         {
             Contract.Requires<ArgumentNullException>(username != null, "username");

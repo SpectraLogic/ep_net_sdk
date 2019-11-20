@@ -77,7 +77,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </returns>
         public override string ToString()
         {
-            return string.Format("<name: {0}, status: {1}, statusMessage: {2}>", Name, Status, StatusMessage);
+            return $"<name: {Name}, status: {Status}, statusMessage: {StatusMessage}>";
         }
 
         #endregion Methods

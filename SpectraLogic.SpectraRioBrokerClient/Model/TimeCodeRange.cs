@@ -22,8 +22,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Fields
 
-        private readonly TimeCode Start;
-        private readonly TimeCode End;
+        private readonly TimeCode _start;
+        private readonly TimeCode _end;
 
         #endregion Fields
 
@@ -36,8 +36,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         {
             if (start.IsDropFrame != end.IsDropFrame) throw new MixTimeCodeException("Both start and end timecodes should be drop-frame or non-drop-frame.");
 
-            Start = start;
-            End = end;
+            _start = start;
+            _end = end;
         }
 
         #endregion Constructors
@@ -48,7 +48,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <returns>A <see cref="System.String"/> that represents this instance.</returns>
         public override string ToString()
         {
-            return $"{Start}-{End}";
+            return $"{_start}-{_end}";
         }
 
         #endregion Methods

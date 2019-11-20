@@ -33,10 +33,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Public Fields
 
-        public static readonly string AgentName = "bp_agent";
-        public static readonly string BlackPearlBucket = "ep_net_sdk_tests";
-        public static readonly string BlackPearlBucket2 = "ep_net_sdk_tests_2";
-        public static readonly string BlackPearlUserName = "Administrator";
+        public const string AgentName = "bp_agent";
+        public const string BlackPearlBucket = "ep_net_sdk_tests";
+        public const string BlackPearlBucket2 = "ep_net_sdk_tests_2";
+        public const string BlackPearlUserName = "Administrator";
 
         #endregion Public Fields
 
@@ -117,7 +117,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 SpectraRioBrokerClient.GetCluster(getClusterRequest);
             }
-            catch (NodeIsNotAClusterMemeberException)
+            catch (NodeIsNotAClusterMemberException)
             {
                 var createClusterRequest = new CreateClusterRequest(ClusterName);
                 SpectraRioBrokerClient.CreateCluster(createClusterRequest);
@@ -158,22 +158,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         private static void CreateClient()
         {
-            var SpectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
+            var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
                 ConfigurationManager.AppSettings["ServerName"],
                 int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
 
             var proxy = ConfigurationManager.AppSettings["Proxy"];
             if (!string.IsNullOrWhiteSpace(proxy))
             {
-                SpectraRioBrokerClientBuilder.WithProxy(proxy);
+                spectraRioBrokerClientBuilder.WithProxy(proxy);
             }
 
-            SpectraRioBrokerClient = SpectraRioBrokerClientBuilder.DisableSslValidation().Build();
+            SpectraRioBrokerClient = spectraRioBrokerClientBuilder.DisableSslValidation().Build();
         }
 
         private static void SetupArchiveTestData(string tempDir)
         {
-            ArchiveTempDir = $"{tempDir}archvie";
+            ArchiveTempDir = $"{tempDir}archive";
             if (!Directory.Exists(ArchiveTempDir))
             {
                 Directory.CreateDirectory(ArchiveTempDir);
