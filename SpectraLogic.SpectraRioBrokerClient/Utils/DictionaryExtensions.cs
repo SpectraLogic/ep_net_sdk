@@ -1,4 +1,4 @@
-﻿/*
+/*
  * ******************************************************************************
  *   Copyright 2014-2019 Spectra Logic Corporation. All Rights Reserved.
  *   Licensed under the Apache License, Version 2.0 (the "License"). You may not use
@@ -13,33 +13,30 @@
  * ****************************************************************************
  */
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using log4net;
-using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
+namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
-    internal class DeleteFileResponseParser : IResponseParser<Void>
+    public static class DictionaryExtensions
     {
-        #region Private Fields
-
-        private static readonly ILog LOG = LogManager.GetLogger("DeleteFileResponseParser");
-
-        #endregion Private Fields
-
-        #region Public Methods
-
-        public Void Parse(IHttpWebResponse response)
+        private static readonly ILog Log = LogManager.GetLogger("DictionaryExtensions");
+        
+        public static string GetRequestIdFromHeader(this IDictionary<string, IEnumerable<string>> headers)
         {
-            ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
-            var requestId = response.Headers.GetRequestIdFromHeader();
-            LOG.Debug($"Request: {requestId}");
-            return new Void();
+            
+            try
+            {
+                headers.TryGetValue("request-id", out var requestId);
+                return requestId.FirstOrDefault();
+            } 
+            catch (Exception)
+            {
+                Log.Error("request-id header was not found");
+                return null;
+            }
         }
-
-        #endregion Public Methods
     }
 }

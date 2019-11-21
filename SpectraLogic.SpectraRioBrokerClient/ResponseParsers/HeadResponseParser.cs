@@ -20,6 +20,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using System.Linq;
 using System.Net;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
@@ -37,7 +38,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
         {
             using (response)
             {
-                var requestId = response.Headers["request-id"].First();
+                var requestId = response.Headers.GetRequestIdFromHeader();
                 LOG.Debug($"Request: {requestId} {response.StatusCode}");
 
                 if (response.StatusCode == HttpStatusCode.ServiceUnavailable)

@@ -37,7 +37,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Cluster
             using (response)
             {
                 ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
-                var requestId = response.Headers["request-id"].First();
+                var requestId = response.Headers.GetRequestIdFromHeader();
                 LOG.Debug($"Request: {requestId}");
                 return new Void();
             }

@@ -186,6 +186,7 @@
     <Compile Include="Calls\Broker\RestoreRequest.cs" />
     <Compile Include="ResponseParsers\Broker\RestoreResponseParser.cs" />
     <Compile Include="Utils\Contract.cs" />
+    <Compile Include="Utils\DictionaryExtensions.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
     <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Runtime\SpectraRioBrokerHttpWebRequest.cs" />

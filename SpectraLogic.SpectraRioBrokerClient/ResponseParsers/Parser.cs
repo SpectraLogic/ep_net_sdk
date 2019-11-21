@@ -42,7 +42,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
                 using (var textStreamReader = new StreamReader(stream))
                 {
                     var responseString = textStreamReader.ReadToEnd();
-                    string requestId = response.Headers["request-id"].First();
+                    string requestId = response.Headers.GetRequestIdFromHeader();
 #if DEBUG
                     LOG.Debug($"Request: {requestId}\n{responseString.JsonFormat()}");
 #else
