@@ -22,30 +22,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// </summary>
     public class AgentConfig
     {
-        #region Fields
-
-        /// <summary>
-        /// The black pearl name
-        /// </summary>
-        [JsonProperty(PropertyName = "blackPearlName")] public string BlackPearlName;
-
-        /// <summary>
-        /// The bucket
-        /// </summary>
-        [JsonProperty(PropertyName = "bucket")] public string Bucket;
-
-        /// <summary>
-        /// The HTTPS
-        /// </summary>
-        [JsonProperty(PropertyName = "https")] public bool Https;
-
-        /// <summary>
-        /// The user name
-        /// </summary>
-        [JsonProperty(PropertyName = "username")] public string UserName;
-
-        #endregion Fields
-
         #region Constructors
 
         /// <summary>
@@ -55,14 +31,84 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="userName">Name of the user.</param>
         /// <param name="bucket">The bucket.</param>
         /// <param name="https">if set to <c>true</c> [HTTPS].</param>
-        public AgentConfig(string blackPearlName, string userName, string bucket, bool https)
+        /// <param name="createBucket">if set to <c>true</c> creates the bucket</param>
+        /// <param name="dataPolicyUuid">The data policy uuid</param>
+        /// <param name="proxy">The proxy</param>
+        /// <param name="maxRetries">The max retires</param>
+        /// <param name="delay">The delay</param>
+        public AgentConfig(string blackPearlName, string userName, string bucket, bool? https = null,
+            bool? createBucket = null, string dataPolicyUuid = null, string proxy = null, int? maxRetries = null,
+            long? delay = null)
         {
             BlackPearlName = blackPearlName;
             UserName = userName;
             Bucket = bucket;
             Https = https;
+            CreateBucket = createBucket;
+            DataPolicyUuid = dataPolicyUuid;
+            Proxy = proxy;
+            MaxRetries = maxRetries;
+            Delay = delay;
         }
 
         #endregion Constructors
+
+        #region Fields
+
+        /// <summary>
+        /// The black pearl name
+        /// </summary>
+        [JsonProperty(PropertyName = "blackPearlName")]
+        public string BlackPearlName;
+
+        /// <summary>
+        /// The bucket
+        /// </summary>
+        [JsonProperty(PropertyName = "bucket")]
+        public string Bucket;
+
+        /// <summary>
+        /// The user name
+        /// </summary>
+        [JsonProperty(PropertyName = "username")]
+        public string UserName;
+
+        /// <summary>
+        /// The HTTPS
+        /// </summary>
+        [JsonProperty(PropertyName = "https", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Https;
+
+        /// <summary>
+        /// Create the bucket if doesn't exists
+        /// </summary>
+        [JsonProperty(PropertyName = "createBucket", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CreateBucket;
+
+        /// <summary>
+        /// The data policy uuid
+        /// </summary>
+        [JsonProperty(PropertyName = "dataPolicyUUID", NullValueHandling = NullValueHandling.Ignore)]
+        public string DataPolicyUuid;
+
+        /// <summary>
+        /// The proxy
+        /// </summary>
+        [JsonProperty(PropertyName = "proxy", NullValueHandling = NullValueHandling.Ignore)]
+        public string Proxy;
+
+        /// <summary>
+        /// The max retries
+        /// </summary>
+        [JsonProperty(PropertyName = "maxRetries", NullValueHandling = NullValueHandling.Ignore)]
+        public int? MaxRetries;
+
+        /// <summary>
+        /// The delay
+        /// </summary>
+        [JsonProperty(PropertyName = "delay", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Delay;
+
+        #endregion Fields
     }
 }

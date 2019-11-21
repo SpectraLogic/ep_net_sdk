@@ -23,7 +23,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
     {
         #region Fields
 
-        public static readonly AgentConfig AgentConfig = new AgentConfig("name", "user", "bucket", false);
+        public static AgentConfig AgentConfig = new AgentConfig("name", "user", "bucket");
 
         public const string AgentName = "agentName";
 

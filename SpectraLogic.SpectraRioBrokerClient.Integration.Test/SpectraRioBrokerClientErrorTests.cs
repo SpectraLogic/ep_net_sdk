@@ -130,8 +130,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     request = new CreateBrokerRequest("should_fail", string.Empty,
                         new AgentConfig(SpectraRioBrokerClientFixture.DeviceName,
-                            SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.BlackPearlBucket,
-                            false));
+                            SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.BlackPearlBucket));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
@@ -144,7 +143,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName,
-                        new AgentConfig("bp_name", "username", "bucket", false));
+                        new AgentConfig("bp_name", "username", "bucket"));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
@@ -158,7 +157,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 () =>
                 {
                     request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName,
-                        new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, "username", "bucket", false));
+                        new AgentConfig(SpectraRioBrokerClientFixture.DeviceName, "username", "bucket"));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
@@ -172,13 +171,58 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName,
                         new AgentConfig(SpectraRioBrokerClientFixture.DeviceName,
-                            SpectraRioBrokerClientFixture.BlackPearlUserName, "wrong_bucket", false));
+                            SpectraRioBrokerClientFixture.BlackPearlUserName, "wrong_bucket"));
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
                 {
                     new ValidationError("agentConfig.bucket", "string", "not_found", "wrong_bucket")
+                });
+            
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName,
+                        new AgentConfig(SpectraRioBrokerClientFixture.DeviceName,
+                            SpectraRioBrokerClientFixture.BlackPearlUserName, "not_found",
+                            createBucket: true));
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("agentConfig.dataPolicyUUID", "uuid", "missing")
+                });
+            
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName,
+                        new AgentConfig(SpectraRioBrokerClientFixture.DeviceName,
+                            SpectraRioBrokerClientFixture.BlackPearlUserName, "not_found",
+                            createBucket: true, dataPolicyUuid: "d68415f8-5bb3-44a6-acc8-6fd7a3fcf2e4"));
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("agentConfig.dataPolicyUUID", "uuid", "not_found", "d68415f8-5bb3-44a6-acc8-6fd7a3fcf2e4")
+                });
+            
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new CreateBrokerRequest("should_fail", SpectraRioBrokerClientFixture.AgentName,
+                        new AgentConfig(SpectraRioBrokerClientFixture.DeviceName,
+                            SpectraRioBrokerClientFixture.BlackPearlUserName, "not_found",
+                            createBucket: true, dataPolicyUuid: "i am the data policy"));
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("agentConfig.dataPolicyUUID", "uuid", "invalid_uuid_value", "i am the data policy")
                 });
         }
 
@@ -343,7 +387,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Task.FromResult(noAuthClient.Cancel(new CancelRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(
-                    noAuthClient.CreateBroker(new CreateBrokerRequest("", "", new AgentConfig("", "", "", false)))));
+                    noAuthClient.CreateBroker(new CreateBrokerRequest("", "", new AgentConfig("", "", "")))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.CreateDevice(new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", ""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -590,7 +634,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new CreateBrokerRequest("", "", new AgentConfig("", "", "", false));
+                        var request = new CreateBrokerRequest("", "", new AgentConfig("", "", ""));
                         return Task.FromResult(
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request));
                     });
