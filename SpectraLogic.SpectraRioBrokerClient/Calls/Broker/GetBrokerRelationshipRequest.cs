@@ -31,7 +31,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="relationshipName">Name of the relationship.</param>
-        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
         public GetBrokerRelationshipRequest(string brokerName, string relationshipName)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");

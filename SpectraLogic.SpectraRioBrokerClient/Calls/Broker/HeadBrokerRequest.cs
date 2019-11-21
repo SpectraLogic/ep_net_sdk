@@ -22,7 +22,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
     {
         #region Fields
 
-        private string BrokerName;
+        private readonly string _brokerName;
 
         #endregion Fields
 
@@ -32,14 +32,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
 
-            BrokerName = brokerName;
+            _brokerName = brokerName;
         }
 
         #endregion Constructors
 
         #region Properties
 
-        internal override string Path => $"/api/brokers/{BrokerName}";
+        internal override string Path => $"/api/brokers/{_brokerName}";
         internal override HttpVerb Verb => HttpVerb.HEAD;
 
         #endregion Properties

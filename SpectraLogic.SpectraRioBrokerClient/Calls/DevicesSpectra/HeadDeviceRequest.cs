@@ -22,7 +22,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
     {
         #region Fields
 
-        private string DeviceName;
+        private readonly string _deviceName;
 
         #endregion Fields
 
@@ -32,14 +32,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
         {
             Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
 
-            DeviceName = deviceName;
+            _deviceName = deviceName;
         }
 
         #endregion Constructors
 
         #region Properties
 
-        internal override string Path => $"/api/devices/spectra/{DeviceName}";
+        internal override string Path => $"/api/devices/spectra/{_deviceName}";
         internal override HttpVerb Verb => HttpVerb.HEAD;
 
         #endregion Properties

@@ -23,7 +23,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Fields
 
-        private static ILog LOG = LogManager.GetLogger("ValidationErrorComparer");
+        private static readonly ILog Log = LogManager.GetLogger("ValidationErrorComparer");
 
         #endregion Fields
 
@@ -35,35 +35,35 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             if (!x.ErrorType.Equals(y.ErrorType))
             {
-                LOG.Error($"expected ErrorType to be '{x.ErrorType}' but was '{y.ErrorType}'");
+                Log.Error($"expected ErrorType to be '{x.ErrorType}' but was '{y.ErrorType}'");
                 ret = 1;
             }
 
             if (!x.FieldName.Equals(y.FieldName))
             {
-                LOG.Error($"expected FieldName to be '{x.FieldName}' but was '{y.FieldName}'");
+                Log.Error($"expected FieldName to be '{x.FieldName}' but was '{y.FieldName}'");
                 ret = 1;
             }
 
             if (!x.FieldType.Equals(y.FieldType))
             {
-                LOG.Error($"expected FieldType to be '{x.FieldType}' but was '{y.FieldType}'");
+                Log.Error($"expected FieldType to be '{x.FieldType}' but was '{y.FieldType}'");
                 ret = 1;
             }
 
-            if ((x.Value == null && y.Value != null) ||
-                (x.Value != null && y.Value == null) ||
-                (x.Value != null && y.Value != null && !x.Value.Equals(y.Value)))
+            if (x.Value == null && y.Value != null ||
+                x.Value != null && y.Value == null ||
+                x.Value != null && y.Value != null && !x.Value.Equals(y.Value))
             {
-                LOG.Error($"expected Value to be '{x.Value}' but was '{y.Value}'");
+                Log.Error($"expected Value to be '{x.Value}' but was '{y.Value}'");
                 ret = 1;
             }
 
-            if ((x.Reason == null && y.Reason != null) ||
-                (x.Reason != null && y.Reason == null) ||
-                (x.Reason != null && y.Reason != null && !x.Reason.Equals(y.Reason)))
+            if (x.Reason == null && y.Reason != null ||
+                x.Reason != null && y.Reason == null ||
+                x.Reason != null && y.Reason != null && !x.Reason.Equals(y.Reason))
             {
-                LOG.Error($"expected Reason to be '{x.Reason}' but was '{y.Reason}'");
+                Log.Error($"expected Reason to be '{x.Reason}' but was '{y.Reason}'");
                 ret = 1;
             }
 

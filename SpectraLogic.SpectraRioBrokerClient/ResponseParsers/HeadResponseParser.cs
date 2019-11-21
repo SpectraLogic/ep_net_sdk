@@ -13,13 +13,12 @@
  * ****************************************************************************
  */
 
+using System.Net;
 using log4net;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
-using System.Linq;
-using System.Net;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
@@ -28,7 +27,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
     {
         #region Private Fields
 
-        private static ILog LOG = LogManager.GetLogger("HeadResponseParser");
+        private static readonly ILog Log = LogManager.GetLogger("HeadResponseParser");
 
         #endregion Private Fields
 
@@ -39,11 +38,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
             using (response)
             {
                 var requestId = response.Headers.GetRequestIdFromHeader();
-                LOG.Debug($"Request: {requestId} {response.StatusCode}");
+                Log.Debug($"Request: {requestId} {response.StatusCode}");
+
 
                 if (response.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {
-                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>("{\"message\":\"The service is unavailable\",\"statusCode\":503}");
+                    var errorResponse =
+                        JsonConvert.DeserializeObject<ErrorResponse>(
+                            "{\"message\":\"The service is unavailable\",\"statusCode\":503}");
                     throw new ErrorResponseException(errorResponse);
                 }
 

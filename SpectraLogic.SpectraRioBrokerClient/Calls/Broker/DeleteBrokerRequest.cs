@@ -24,7 +24,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         #region Fields
 
         /// <summary>The broker name</summary>
-        public string BrokerName;
+        public readonly string BrokerName;
 
         #endregion Fields
 

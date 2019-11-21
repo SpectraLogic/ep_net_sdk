@@ -40,13 +40,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         #region Public Constructors
 
-        public Network(string hostServerName, int hostServerPort, string token, bool disableSslValidation, Uri proxy = null)
+        public Network(string hostServerName, int hostServerPort, string token, bool disableSslValidation, Uri proxy = null, string userAgent = null)
         {
             HostServerName = hostServerName;
             HostServerPort = hostServerPort;
             Token = token;
             Proxy = proxy;
             DisableSslValidation = disableSslValidation;
+            UserAgent = userAgent;
         }
 
         #endregion Public Constructors
@@ -58,6 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
         private int HostServerPort { get; }
         private Uri Proxy { get; }
         private string Token { get; set; }
+        private string UserAgent { get; }
 
         #endregion Private Properties
 
@@ -113,7 +115,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 #if DEBUG
             if (request.Verb == HttpVerb.POST || request.Verb == HttpVerb.PUT)
             {
-                requestPrettyPrint = String.Concat(requestPrettyPrint, String.Concat(Environment.NewLine, request.GetBody().JsonFormat()));
+                requestPrettyPrint = string.Concat(requestPrettyPrint, string.Concat(Environment.NewLine, request.GetBody().JsonFormat()));
             }
 #endif
             return requestPrettyPrint;
@@ -151,7 +153,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
             }
 
             httpRequest.Date = DateTime.UtcNow;
-            httpRequest.UserAgent = $"Spectra Rio Broker Client v{GetVersion()}";
+
+            httpRequest.UserAgent = UserAgent ?? $"Spectra Rio Broker Client v{GetVersion()}";
 
             if (request.Verb == HttpVerb.PUT || request.Verb == HttpVerb.POST)
             {

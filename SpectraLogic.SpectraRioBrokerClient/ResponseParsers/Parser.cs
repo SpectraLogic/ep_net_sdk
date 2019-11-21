@@ -23,11 +23,11 @@ using System.Net;
 
 namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 {
-    internal class Parser<T>
+    internal static class Parser<T>
     {
         #region Private Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("Parser");
+        private static readonly ILog Log = LogManager.GetLogger("Parser");
 
         #endregion Private Fields
 
@@ -42,11 +42,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
                 using (var textStreamReader = new StreamReader(stream))
                 {
                     var responseString = textStreamReader.ReadToEnd();
-                    string requestId = response.Headers.GetRequestIdFromHeader();
+
+                    var requestId = response.Headers.GetRequestIdFromHeader();
 #if DEBUG
-                    LOG.Debug($"Request: {requestId}\n{responseString.JsonFormat()}");
+                    Log.Debug($"Request: {requestId}\n{responseString.JsonFormat()}");
 #else
-                    LOG.Debug($"Request: {requestId} {response.StatusCode}");
+                    Log.Debug($"Request: {requestId} {response.StatusCode}");
 #endif
                     return JsonConvert.DeserializeObject<T>(responseString);
                 }

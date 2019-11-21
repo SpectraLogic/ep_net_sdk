@@ -34,7 +34,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         #region Internal Properties
 
-        internal override string Path => $"/api/brokers";
+        internal override string Path => "/api/brokers";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Internal Properties

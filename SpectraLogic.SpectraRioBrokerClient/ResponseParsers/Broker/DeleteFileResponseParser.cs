@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using System.Linq;
 using System.Net;
 using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
@@ -26,7 +25,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
     {
         #region Private Fields
 
-        private static readonly ILog LOG = LogManager.GetLogger("DeleteFileResponseParser");
+        private static readonly ILog Log = LogManager.GetLogger("DeleteFileResponseParser");
 
         #endregion Private Fields
 
@@ -35,8 +34,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
         public Void Parse(IHttpWebResponse response)
         {
             ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
+
             var requestId = response.Headers.GetRequestIdFromHeader();
-            LOG.Debug($"Request: {requestId}");
+            Log.Debug($"Request: {requestId}");
+
             return new Void();
         }
 

@@ -49,7 +49,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Exceptions
 
         #region Methods
 
-        private IEnumerable<ValidationError> ExtractValidationErrors(Exception ex)
+        private static IEnumerable<ValidationError> ExtractValidationErrors(Exception ex)
         {
             var errorResponseException = ex as ErrorResponseException;
             var validationErrorResponse = errorResponseException.ErrorResponse as ValidationErrorResponse;

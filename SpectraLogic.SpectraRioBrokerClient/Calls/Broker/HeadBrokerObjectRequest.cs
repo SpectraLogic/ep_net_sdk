@@ -22,8 +22,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
     {
         #region Private Fields
 
-        private string BrokerName;
-        private string ObjectName;
+        private readonly string _brokerName;
+        private readonly string _objectName;
 
         #endregion Private Fields
 
@@ -34,15 +34,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(objectName != null, "objectName");
 
-            BrokerName = brokerName;
-            ObjectName = objectName;
+            _brokerName = brokerName;
+            _objectName = objectName;
         }
 
         #endregion Public Constructors
 
         #region Internal Properties
 
-        internal override string Path => $"/api/brokers/{BrokerName}/objects/{Uri.EscapeDataString(ObjectName)}";
+        internal override string Path => $"/api/brokers/{_brokerName}/objects/{Uri.EscapeDataString(_objectName)}";
         internal override HttpVerb Verb => HttpVerb.HEAD;
 
         #endregion Internal Properties

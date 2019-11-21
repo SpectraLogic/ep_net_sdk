@@ -34,6 +34,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         private readonly string _token = null;
         private bool _disableSslValidation = false;
         private Uri _proxy;
+        private string _userAgent;
 
         #endregion Private Fields
 
@@ -70,7 +71,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <inheritdoc/>
         public ISpectraRioBrokerClient Build()
         {
-            var network = new Network(_serverName, _serverPort, _token, _disableSslValidation, _proxy);
+            var network = new Network(_serverName, _serverPort, _token, _disableSslValidation, _proxy, _userAgent);
             return new SpectraRioBrokerClient(network);
         }
 
@@ -103,6 +104,17 @@ namespace SpectraLogic.SpectraRioBrokerClient
         public SpectraRioBrokerClientBuilder WithProxy(Uri proxy)
         {
             _proxy = proxy;
+            return this;
+        }
+
+        /// <summary>
+        /// Withs the user agent
+        /// </summary>
+        /// <param name="userAgent"></param>
+        /// <returns></returns>
+        public SpectraRioBrokerClientBuilder WithUserAgent(string userAgent)
+        {
+            _userAgent = userAgent;
             return this;
         }
 
