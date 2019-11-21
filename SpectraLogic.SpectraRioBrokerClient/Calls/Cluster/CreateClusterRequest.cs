@@ -34,7 +34,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Cluster
         {
             Contract.Requires<ArgumentNullException>(clusterName != null, "clusterName");
 
-            QueryParams.Add("name", clusterName);
+            AddQueryParam("name", clusterName);
         }
 
         #endregion Public Constructors

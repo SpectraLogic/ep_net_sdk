@@ -26,8 +26,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         #region Properties
 
         internal abstract string Path { get; }
-        internal Dictionary<string, string> QueryParams { get; } = new Dictionary<string, string>();
         internal abstract HttpVerb Verb { get; }
+
+        private readonly Dictionary<string, string> _queryParams = new Dictionary<string, string>();
 
         #endregion Properties
 
@@ -48,13 +49,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                QueryParams.Add(key, value);
+                _queryParams.Add(key, value);
             }
             else
             {
                 throw new ArgumentNullException();
             }
         }
+
+        public Dictionary<string, string> GetQueryParams() => _queryParams;
 
         #endregion Methods
     }

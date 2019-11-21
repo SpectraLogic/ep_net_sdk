@@ -43,17 +43,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="files">The files.</param>
-        /// <param name="uploadNewFilesOnly">if set only archive new files.</param>
+        /// <param name="uploadNewFilesOnly">If enabled, when a file already exists in RioBroker it is ignored in the archive job and no update occurs; only new files are uploaded. Default = false.</param>
+        /// <param name="failFast">If enabled, when a validation error occurs the job fails immediately. If disabled, the job continues even though a validation error occurred. Default = true.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public ArchiveRequest(string brokerName, IEnumerable<ArchiveFile> files, bool uploadNewFilesOnly=false)
+        public ArchiveRequest(string brokerName, IEnumerable<ArchiveFile> files, bool uploadNewFilesOnly = false,
+            bool failFast = true)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(files != null, "files");
 
             BrokerName = brokerName;
             Files = files;
-
-            QueryParams.Add("upload-new-files-only", uploadNewFilesOnly.ToString());
+            
+            AddQueryParam("upload-new-files-only", uploadNewFilesOnly.ToString());
+            AddQueryParam("fail-fast", failFast.ToString());
         }
 
         #endregion Public Constructors
@@ -66,7 +69,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <value>
         /// The name of the broker.
         /// </value>
-        [JsonIgnore] public string BrokerName { get; private set; }
+        [JsonIgnore]
+        public string BrokerName { get; private set; }
 
         #endregion Public Properties
 

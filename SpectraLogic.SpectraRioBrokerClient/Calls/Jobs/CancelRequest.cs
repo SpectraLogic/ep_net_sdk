@@ -32,7 +32,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         public CancelRequest(Guid jobId)
         {
             JobId = jobId;
-            QueryParams.Add("cancel", "true");
+            AddQueryParam("cancel", "true");
         }
 
         #endregion Constructors

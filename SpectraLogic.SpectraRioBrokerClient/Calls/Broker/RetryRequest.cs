@@ -39,7 +39,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             BrokerName = brokerName;
             RetryJobType = retryJobType;
 
-            QueryParams.Add("retry", jobId.ToString());
+            AddQueryParam("retry", jobId.ToString());
         }
 
         #endregion Constructors

@@ -52,7 +52,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             BrokerName = brokerName;
             Files = files;
 
-            QueryParams.Add("ignore-duplicates", ignoreDuplicates.ToString());
+            AddQueryParam("ignore-duplicates", ignoreDuplicates.ToString());
         }
 
         #endregion Constructors
