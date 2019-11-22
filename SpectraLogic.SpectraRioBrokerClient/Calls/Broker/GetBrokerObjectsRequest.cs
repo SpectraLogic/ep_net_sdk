@@ -56,37 +56,37 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
             if (sortBy != null)
             {
-                QueryParams.Add("sort_by", sortBy.ToString());
+                AddQueryParam("sort_by", sortBy.ToString());
             }
 
             if (sortOrder != null)
             {
-                QueryParams.Add("sort_order", sortOrder.ToString());
+                AddQueryParam("sort_order", sortOrder.ToString());
             }
 
             if (page != null)
             {
-                QueryParams.Add("page", page.ToString());
+                AddQueryParam("page", page.ToString());
             }
 
             if (perPage != null)
             {
-                QueryParams.Add("per_page", perPage.ToString());
+                AddQueryParam("per_page", perPage.ToString());
             }
 
             if (prefix != null)
             {
-                QueryParams.Add("prefix", prefix);
+                AddQueryParam("prefix", prefix);
             }
 
             if (filename != null)
             {
-                QueryParams.Add("filename", filename);
+                AddQueryParam("filename", filename);
             }
 
-            metadata?.ForEach(pair => { QueryParams.Add("metadata", $"{pair.Key},{pair.Value}"); });
+            metadata?.ForEach(pair => { AddQueryParam("metadata", $"{pair.Key},{pair.Value}"); });
 
-            relationships?.ForEach(relationship => { QueryParams.Add("relationships", relationship); });
+            relationships?.ForEach(relationship => { AddQueryParam("relationships", relationship); });
         }
 
         #endregion Public Constructors

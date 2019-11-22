@@ -43,7 +43,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
             {
                 foreach (var broker in brokers)
                 {
-                    QueryParams.Add("broker", broker);
+                    AddQueryParam("broker", broker);
                 }
             }
 
@@ -51,7 +51,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
             {
                 foreach (var jobType in jobTypes)
                 {
-                    QueryParams.Add("job_type", jobType.ToString());
+                    AddQueryParam("job_type", jobType.ToString());
                 }
             }
 
@@ -59,28 +59,28 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
             {
                 foreach (var jobStatus in jobStatuses)
                 {
-                    QueryParams.Add("status", jobStatus.ToString());
+                    AddQueryParam("status", jobStatus.ToString());
                 }
             }
 
             if (sortBy != null)
             {
-                QueryParams.Add("sort_by", sortBy.ToString());
+                AddQueryParam("sort_by", sortBy.ToString());
             }
 
             if (sortOrder != null)
             {
-                QueryParams.Add("sort_oder", sortOrder.ToString());
+                AddQueryParam("sort_oder", sortOrder.ToString());
             }
 
             if (page != null)
             {
-                QueryParams.Add("page", page.ToString());
+                AddQueryParam("page", page.ToString());
             }
 
             if (perPage != null)
             {
-                QueryParams.Add("per_page", perPage.ToString());
+                AddQueryParam("per_page", perPage.ToString());
             }
         }
 

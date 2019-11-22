@@ -131,7 +131,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
             var uriBuilder = new UriBuilder(HostServerName)
             {
                 Path = request.Path,
-                Query = BuildQueryParams(request.QueryParams),
+                Query = BuildQueryParams(request.GetQueryParams()),
                 Port = HostServerPort
             };
 
