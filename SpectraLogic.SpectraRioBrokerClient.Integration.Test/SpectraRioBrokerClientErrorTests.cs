@@ -861,7 +861,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var fileName1 = Guid.NewGuid().ToString();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -882,7 +882,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName2, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -908,7 +908,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         var restoreRequest = new RestoreRequest("*", new List<RestoreFile>
                         {
                             new RestoreFile(fileName1,
-                                $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri())
+                                "F1_restore.txt".ToDevNullUri())
                         });
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
                         Assert.Fail();
