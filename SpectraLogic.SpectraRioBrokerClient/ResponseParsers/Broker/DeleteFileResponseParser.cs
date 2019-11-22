@@ -13,7 +13,6 @@
  * ****************************************************************************
  */
 
-using System.Linq;
 using System.Net;
 using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
@@ -35,8 +34,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker
         public Void Parse(IHttpWebResponse response)
         {
             ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
-            var requestId = response.Headers["request-id"].First();
+
+            var requestId = response.Headers.GetRequestIdFromHeader();
             Log.Debug($"Request: {requestId}");
+
             return new Void();
         }
 
