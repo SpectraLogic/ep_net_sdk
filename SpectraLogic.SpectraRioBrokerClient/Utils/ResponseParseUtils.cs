@@ -13,6 +13,8 @@
  * ****************************************************************************
  */
 
+using System;
+using System.Collections.Generic;
 using log4net;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
@@ -53,8 +55,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
             using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
                 var responseString = reader.ReadToEnd();
-                var requestId = response.Headers["request-id"].First();
+
+                var requestId = response.Headers.GetRequestIdFromHeader();
                 Log.Debug($"Request: {requestId}\n{responseString}");
+
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.NotFound:
@@ -63,7 +67,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                     case HttpStatusCode.Conflict:
                         return JsonConvert.DeserializeObject<ConflictErrorResponse>(responseString);
 
-                    case (HttpStatusCode)422:
+                    case (HttpStatusCode) 422:
                         return JsonConvert.DeserializeObject<ValidationErrorResponse>(responseString);
 
                     default:
