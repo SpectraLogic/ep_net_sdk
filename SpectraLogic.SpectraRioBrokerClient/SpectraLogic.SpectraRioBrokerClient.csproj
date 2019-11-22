@@ -67,6 +67,7 @@
     <Compile Include="Calls\Broker\UpdateBrokerObjectRequest.cs" />
     <Compile Include="Calls\Cluster\GetMembersRequest.cs" />
     <Compile Include="Calls\Cluster\GetMasterRequest.cs" />
+    <Compile Include="Calls\DevicesSpectra\DeleteDeviceRequest.cs" />
     <Compile Include="Calls\Jobs\HeadJobRequest.cs" />
     <Compile Include="Calls\Jobs\GetJobsRequest.cs" />
     <Compile Include="Calls\System\GetSystemRequest.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="ResponseParsers\Broker\DeleteBrokerResponseParser.cs" />
     <Compile Include="ResponseParsers\Cluster\GetMembersResponseParser.cs" />
     <Compile Include="ResponseParsers\Cluster\GetMasterResponseParser.cs" />
+    <Compile Include="ResponseParsers\DevicesSpectra\DeleteDeviceResponseParser.cs" />
     <Compile Include="ResponseParsers\Jobs\GetJobsResponseParser.cs" />
     <Compile Include="ResponseParsers\System\GetSystemResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\RetryResponseParser.cs" />
