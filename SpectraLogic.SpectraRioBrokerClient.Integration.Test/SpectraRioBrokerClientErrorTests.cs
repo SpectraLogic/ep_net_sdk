@@ -416,6 +416,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 return null;
             });
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
+            {
+                noAuthClient.DeleteDevice(new DeleteDeviceRequest(""));
+                return null;
+            });
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest("", "",
                     new Dictionary<string, string>(), new HashSet<string>()))));
 
@@ -454,6 +459,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Throws.Exception.TypeOf<BrokerNotFoundException>());
         }
 
+        [Test]
+        public void DeleteDeviceErrorTests()
+        {
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteDeviceRequest(null)));
+
+            var request = new DeleteDeviceRequest("not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteDevice(request),
+                Throws.Exception.TypeOf<DeviceNotFoundException>());
+        }
+        
         [Test]
         public void DeleteFileErrorTests()
         {
@@ -497,7 +512,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
-        [Ignore("https://jira.spectralogic.com/browse/ESCP-1652")]
         public void GetBrokerObjectsErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerObjectsRequest(null)));
@@ -508,7 +522,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
-        [Ignore("https://jira.spectralogic.com/browse/ESCP-1653")]
         public void GetBrokerRelationshipErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() =>
@@ -609,7 +622,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             var spectraRioBrokerClient = spectraRioBrokerClientBuilder.Build();
 
             Assert.ThrowsAsync<WebException>(() =>
-                Task.FromResult(spectraRioBrokerClient.GetSystem(new GetSystemRequest())));
+                Task.FromResult(spectraRioBrokerClient.GetSystem()));
         }
 
         [Test]
@@ -767,6 +780,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         return null;
                     });
 
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () =>
+                    {
+                        var request = new DeleteDeviceRequest("");
+                        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteDevice(request);
+                        return null;
+                    });
+                
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {

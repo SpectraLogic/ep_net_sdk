@@ -277,6 +277,30 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void DeleteDeviceTest()
+        {
+            var deleteDeviceRequest = new DeleteDeviceRequest("device");
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(deleteDeviceRequest))
+                .Returns(new MockHttpWebResponse(null, HttpStatusCode.NoContent, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            client.DeleteDevice(deleteDeviceRequest);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+        
+        [Test]
         public void DeleteFileTest()
         {
             var deleteFileRequest = new DeleteFileRequest("broker", "test.file");
@@ -725,10 +749,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void GetSystemTest()
         {
-            var getSystemRequest = new GetSystemRequest();
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(getSystemRequest))
+                .Setup(n => n.Invoke(It.IsAny<GetSystemRequest>()))
                 .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSystemResponse",
                     HttpStatusCode.OK, null));
 
@@ -740,7 +763,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var system = client.GetSystem(getSystemRequest);
+            var system = client.GetSystem();
             Assert.AreEqual("0.2.9-dev", system.Version);
             Assert.AreEqual("11/13/2018 6:19:52 PM", system.BuildDate.ToString());
         }
