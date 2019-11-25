@@ -401,6 +401,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetDevice(new GetDeviceRequest(""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
+                Task.FromResult(noAuthClient.GetDevices(new GetDevicesRequest())));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetJob(new GetJobRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetJobs(new GetJobsRequest())));
@@ -698,6 +700,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(request));
                     });
 
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () =>
+                    {
+                        var request = new GetDevicesRequest();
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevices(request));
+                    });
+                
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {

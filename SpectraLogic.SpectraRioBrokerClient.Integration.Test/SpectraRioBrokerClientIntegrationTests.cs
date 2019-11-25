@@ -23,6 +23,7 @@ using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
+using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
@@ -1187,6 +1188,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     spectraRioBrokerClient.DeleteFile(deleteF1Request);
                 }
             }
+        }
+
+        [Test]
+        public void GetDevicesTest()
+        {
+            var devices = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevices(new GetDevicesRequest(0, 1));
+            Assert.AreEqual(0, devices.Page.Number);
+            Assert.AreEqual(1, devices.Page.PageSize);
+            Assert.AreEqual(1, devices.Page.TotalPages);
+            
+            Assert.AreEqual(1, devices.DeviceList.Count);
         }
     }
 }
