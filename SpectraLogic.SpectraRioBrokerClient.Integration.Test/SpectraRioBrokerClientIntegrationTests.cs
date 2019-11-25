@@ -31,6 +31,7 @@ using SpectraLogic.SpectraRioBrokerClient.Model;
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.All)]
     public class SpectraRioBrokerClientIntegrationTests
     {
         private const int MaxPollingAttempts = 10;
@@ -38,11 +39,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         private readonly ILog _log = LogManager.GetLogger("SpectraRioBrokerClientIntegrationTest");
 
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            SpectraRioBrokerClientFixture.SetupTestData();
+        }
+        
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+            Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
+        }
+        
         private void ArchiveNewFilesOnlyTest(IEnumerable<ArchiveFile> list1, IEnumerable<ArchiveFile> list2,
             string message)
         {
-            try
-            {
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, list1);
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
 
@@ -93,11 +105,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     Assert.AreEqual("Completed", file.Status);
                 }
-            }
-            finally
-            {
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-            }
         }
 
         [Test]
@@ -105,16 +112,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             var fileName1 = "Archive@And&Delete#With$Special Characters/" + Guid.NewGuid();
 
-            try
-            {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
-                /***********
-                 * ARCHIVE *
-                 ***********/
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri())
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 10)
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -146,12 +146,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-            }
-            finally
-            {
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
-            }
         }
 
         [Test]
@@ -162,16 +156,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 /***********
                  * ARCHIVE *
                  ***********/
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName2}}, false)
                 });
 
@@ -209,9 +201,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
                     new RestoreFile(fileName1,
-                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri()),
+                        "F1_restore.txt".ToDevNullUri()),
                     new RestoreFile(fileName2,
-                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F2_restore.txt".ToFileUri(),
+                        "F2_restore.txt".ToDevNullUri(),
                         new ByteRange(0, 10))
                 });
 
@@ -247,9 +239,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF2Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
@@ -261,18 +250,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 /***********
                  * ARCHIVE *
                  ***********/
-                const string relationshipName = "ep_net_test";
+                const string relationshipName = "ArchiveAndRestoreWithRelationship";
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false,
                         new HashSet<string> {relationshipName}),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName2}}, false,
                         new HashSet<string> {relationshipName})
                 });
@@ -328,7 +315,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 ***********/
 
                 var restoreList = relationship.Objects.Select(obj => new RestoreFile(obj.Name,
-                    $"{SpectraRioBrokerClientFixture.RestoreTempDir}/{obj.Name}".ToFileUri()));
+                    $"{obj.Name}".ToDevNullUri()));
 
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, restoreList);
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -376,9 +363,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF2Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
@@ -390,21 +374,19 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 ArchiveNewFilesOnlyTest(
                     new List<ArchiveFile>
                     {
-                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                        new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
-                        new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(),
+                        new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName2}}, false)
                     },
                     new List<ArchiveFile>
                     {
-                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                        new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
-                        new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(),
+                        new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName2}}, false)
                     },
                     "All files already exist. Nothing to archive.");
@@ -426,19 +408,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 ArchiveNewFilesOnlyTest(
                     new List<ArchiveFile>
                     {
-                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                        new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName1}}, false)
                     },
                     new List<ArchiveFile>
                     {
-                        new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(),
+                        new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName1}}, false),
-                        new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(),
+                        new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(),
                             14, new Dictionary<string, string> {{"fileName", fileName2}}, false)
                     },
                     "Archive job completed successfully");
@@ -459,7 +439,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
             {
-                new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/not_found.txt".ToFileUri(),
+                new ArchiveFile(fileName1, "not_found.txt".ToFileUri(),
                     14,
                     new Dictionary<string, string> {{"fileName", fileName1}}),
             }, failFast: false);
@@ -500,15 +480,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 /***********
                  * ARCHIVE *
                  ***********/
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri()),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri())
+                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1_No_Size.txt".ToFileUri()),
+                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2_No_Size.txt".ToFileUri())
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -544,23 +522,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF2Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
         [Test]
         public void CancelArchiveJob()
         {
-            try
-            {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var fileName1 = "CancelArchiveJob_" + Guid.NewGuid();
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -586,12 +557,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 //    Assert.AreEqual("Canceled", file.Status);
                 //}
             }
-            finally
-            {
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
-            }
-        }
 
         [Test]
         public void CancelRestoreJob()
@@ -600,11 +565,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -626,7 +589,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
                     new RestoreFile(fileName1,
-                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri())
+                        "F1_restore.txt".ToDevNullUri())
                 });
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -654,22 +617,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
         [Test]
         public void DeleteBrokersTest()
         {
+            const string brokerName = "DeleteBrokersTest";
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(new CreateBrokerRequest(brokerName, SpectraRioBrokerClientFixture.AgentName, SpectraRioBrokerClientFixture.GetAgentConfig()));
+            Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(brokerName)));
+            
             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(
-                new DeleteBrokerRequest(SpectraRioBrokerClientFixture.BrokerName));
+                new DeleteBrokerRequest(brokerName));
             Assert.That(
                 () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(
-                    new GetBrokerRequest(SpectraRioBrokerClientFixture.BrokerName)),
+                    new GetBrokerRequest(brokerName)),
                 Throws.Exception.TypeOf<BrokerNotFoundException>());
-            SpectraRioBrokerClientFixture.CreateBroker_1();
         }
 
         [Test]
@@ -691,11 +654,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -722,8 +683,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
 
@@ -734,11 +693,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -763,125 +720,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-            }
-        }
-
-        [Test]
-        public void GetBrokerObjectsTest()
-        {
-            var fileName1 = "a_" + "GetBrokerObjectsTest_" + Guid.NewGuid();
-            var fileName2 = "b_" + "GetBrokerObjectsTest_" + Guid.NewGuid();
-
-            try
-            {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
-                /***********
-                 * ARCHIVE *
-                 ***********/
-                const string relationshipName = "ep_net_test";
-                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName1}}, false,
-                        new HashSet<string> {relationshipName}),
-                    new ArchiveFile(fileName2, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F2.txt".ToFileUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName2}}, false,
-                        new HashSet<string> {relationshipName})
-                });
-
-                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
-
-                var pollingAttempts = 0;
-                do
-                {
-                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
-                        new GetJobRequest(archiveJob.JobId));
-                    _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
-                    pollingAttempts++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
-
-                Assert.Less(pollingAttempts, MaxPollingAttempts);
-                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
-
-                var brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName));
-
-                Assert.AreEqual(2, brokerObjects.Objects.Count);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
-                        ObjectsSortByEnum.NAME,
-                        SortOrderEnum.ASC));
-
-                Assert.AreEqual(2, brokerObjects.Objects.Count);
-                Assert.AreEqual(fileName1, brokerObjects.Objects.ElementAt(0).Name);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
-                        ObjectsSortByEnum.NAME,
-                        SortOrderEnum.DESC));
-
-                Assert.AreEqual(2, brokerObjects.Objects.Count);
-                Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, perPage: 1));
-
-                Assert.AreEqual(1, brokerObjects.Objects.Count);
-                Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
-                Assert.AreEqual(2, brokerObjects.Page.TotalPages);
-                Assert.AreEqual(1, brokerObjects.Page.PageSize);
-                Assert.AreEqual(0, brokerObjects.Page.Number);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, filename: fileName2));
-
-                Assert.AreEqual(1, brokerObjects.Objects.Count);
-                Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, prefix: "a"));
-
-                Assert.AreEqual(1, brokerObjects.Objects.Count);
-                Assert.AreEqual(fileName1, brokerObjects.Objects.ElementAt(0).Name);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName, prefix: "a",
-                        filename: "not_found"));
-
-                Assert.AreEqual(0, brokerObjects.Objects.Count);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
-                        metadata: new List<KeyValuePair<string, string>>
-                        {
-                            new KeyValuePair<string, string>("fileName", fileName2)
-                        }));
-
-                Assert.AreEqual(1, brokerObjects.Objects.Count);
-                Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
-
-                brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
-                        relationships: new List<string>
-                        {
-                            "ep_net_test"
-                        }));
-
-                Assert.AreEqual(2, brokerObjects.Objects.Count);
-            }
-            finally
-            {
-                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
-                var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF2Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
 
@@ -892,11 +730,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -928,8 +764,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
 
@@ -940,11 +774,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -976,79 +808,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-            }
-        }
-
-        [Test]
-        public void GetBrokersTest()
-        {
-            var brokers = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokers(new GetBrokersRequest());
-            Assert.AreEqual(2, brokers.BrokerList.Count);
-        }
-
-        [Test]
-        public void GetJobsTest()
-        {
-            var fileName1 = Guid.NewGuid().ToString();
-            try
-            {
-                var archiveJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(
-                        jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
-                        jobStatuses: new List<JobStatusEnum> {JobStatusEnum.COMPLETED})
-                ).JobsList.Count;
-                var restoreJobsBefore = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(jobTypes: new List<JobTypeEnum> {JobTypeEnum.RESTORE})
-                ).JobsList.Count;
-
-                SpectraRioBrokerClientFixture.SetupTestData();
-                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
-                {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName1}}, false)
-                });
-
-                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
-
-                var pollingAttempts = 0;
-                do
-                {
-                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
-                        new GetJobRequest(archiveJob.JobId));
-                    _log.Debug(archiveJob.Status);
-                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
-                    pollingAttempts++;
-                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
-
-                Assert.Less(pollingAttempts, MaxPollingAttempts);
-                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
-
-                var jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(
-                        jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
-                        jobStatuses: new List<JobStatusEnum> {JobStatusEnum.COMPLETED}));
-                Assert.AreEqual(archiveJobsBefore + 1, jobs.JobsList.Count);
-
-                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(jobTypes: new List<JobTypeEnum> {JobTypeEnum.RESTORE}));
-                Assert.AreEqual(restoreJobsBefore, jobs.JobsList.Count);
-
-                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
-                    new GetJobsRequest(
-                        jobTypes: new List<JobTypeEnum> {JobTypeEnum.ARCHIVE},
-                        jobStatuses: new List<JobStatusEnum> {JobStatusEnum.COMPLETED},
-                        sortBy: JobsSortByEnum.CREATION_DATE,
-                        sortOrder: SortOrderEnum.DESC));
-                Assert.AreEqual(archiveJob.JobId, jobs.JobsList[0].JobId);
-            }
-            finally
-            {
-                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
 
@@ -1088,11 +847,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -1113,7 +870,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName2, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -1136,7 +893,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var restoreRequest = new RestoreRequest("*", new List<RestoreFile>
                 {
                     new RestoreFile(fileName1,
-                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri())
+                        "F1_restore.txt".ToDevNullUri())
                 }, true);
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -1172,9 +929,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
                 deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName2, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
@@ -1185,11 +939,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -1245,9 +997,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
@@ -1258,11 +1007,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -1284,7 +1031,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
                     new RestoreFile(fileName1,
-                        $"{SpectraRioBrokerClientFixture.RestoreTempDir}/F1_restore.txt".ToFileUri())
+                        "F1_restore.txt".ToDevNullUri())
                 });
 
                 var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
@@ -1341,9 +1088,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 
@@ -1354,11 +1098,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             try
             {
-                SpectraRioBrokerClientFixture.SetupTestData();
-
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri(), 14,
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false)
                 });
 
@@ -1381,8 +1123,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest("*", fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
             }
         }
 

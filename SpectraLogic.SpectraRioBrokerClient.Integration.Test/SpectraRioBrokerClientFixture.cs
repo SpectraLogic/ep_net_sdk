@@ -42,7 +42,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         #region Private Fields
 
-        private static readonly string[] Files = { "F1.txt", "F2.txt" };
+        private static readonly string[] Files = { "F1_No_Size.txt", "F2_No_Size.txt" };
 
         #endregion Private Fields
 
