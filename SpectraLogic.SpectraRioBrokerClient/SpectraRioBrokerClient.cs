@@ -112,6 +112,12 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public void DeleteDevice(DeleteDeviceRequest request)
+        {
+            ExceptionDecorator.Run(() => new DeleteDeviceResponseParser().Parse(_network.Invoke(request)));
+        }
+
+        /// <inheritdoc/>
         public void DeleteFile(DeleteFileRequest request)
         {
             ExceptionDecorator.Run(() => new DeleteFileResponseParser().Parse(_network.Invoke(request)));
@@ -238,9 +244,13 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
-        public IRioSystem GetSystem(GetSystemRequest request)
+        public IRioSystem GetSystem()
         {
-            return ExceptionDecorator.Run(() => new GetSystemResponseParser().Parse(_network.Invoke(request)));
+            return ExceptionDecorator.Run(() =>
+            {
+                var request = new GetSystemRequest();
+                return new GetSystemResponseParser().Parse(_network.Invoke(request));
+            });
         }
 
         /// <inheritdoc/>
