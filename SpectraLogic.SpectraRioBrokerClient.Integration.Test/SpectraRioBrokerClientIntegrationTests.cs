@@ -23,11 +23,10 @@ using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
+using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
-using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
@@ -368,7 +367,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
-        [Ignore("https://jira.spectralogic.com/browse/ESCP-1583")]
         public void ArchiveNewFilesOnlyTest_1()
         {
             var fileName1 = "ArchiveNewFilesOnlyTest_1_" + Guid.NewGuid();
@@ -638,6 +636,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void DeleteDeviceTest()
+        {
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteDevice(
+                new DeleteDeviceRequest(SpectraRioBrokerClientFixture.DeviceName));
+            Assert.That(
+                () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(
+                    new GetDeviceRequest(SpectraRioBrokerClientFixture.DeviceName)),
+                Throws.Exception.TypeOf<DeviceNotFoundException>());
+            SpectraRioBrokerClientFixture.CreateDevice();
+        }
+
+        [Test]
         public void DoesBrokerObjectExistTest()
         {
             var fileName1 = "DoesBrokerObjectExistTest_" + Guid.NewGuid();
@@ -827,7 +837,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void GetSystemTest()
         {
             Assert.DoesNotThrow(() =>
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem(new GetSystemRequest()));
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem());
         }
 
         [Test]
@@ -1119,9 +1129,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void UpdateClientTokenTest()
         {
-            const int numberOfMetadataEntries = 50;
-            const int numberOfArchiveFiles = 100;
-
             var spectraRioBrokerClientBuilder = new SpectraRioBrokerClientBuilder(
                 ConfigurationManager.AppSettings["ServerName"],
                 int.Parse(ConfigurationManager.AppSettings["ServerPort"]));
@@ -1134,23 +1141,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var spectraRioBrokerClient = spectraRioBrokerClientBuilder.DisableSslValidation().Build();
 
-            const string filenamePrefix = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            var fileName1 = "UpdateClientTokenTest" + Guid.NewGuid();
 
-            var metadata = new Dictionary<string, string>();
-            for (var i = 0; i < numberOfMetadataEntries; i++)
+            SpectraRioBrokerClientFixture.SetupTestData();
+
+            var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
             {
-                metadata.Add("i" + i, i.ToString());
-            }
-
-            var listOfFilesToArchive = new List<ArchiveFile>();
-            for (var i = 1; i <= numberOfArchiveFiles; i++)
-            {
-                listOfFilesToArchive.Add(new ArchiveFile(filenamePrefix + Guid.NewGuid(), "aToZSequence://file".ToUri(),
-                    i,
-                    metadata));
-            }
-
-            var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, listOfFilesToArchive);
+                new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri())
+            });
 
             try
             {
@@ -1181,11 +1179,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
             finally
             {
-                foreach (var deleteF1Request in listOfFilesToArchive.Select(file =>
-                    new DeleteFileRequest("*", file.Name)))
-                {
-                    spectraRioBrokerClient.DeleteFile(deleteF1Request);
-                }
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+
+                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
+                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
     }
