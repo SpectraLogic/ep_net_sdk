@@ -121,6 +121,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var createClusterRequest = new CreateClusterRequest(ClusterName);
                 SpectraRioBrokerClient.CreateCluster(createClusterRequest);
+                
+                /* Adding 1 sec sleep after the cluster creation to avid getting a <400, There is not an active key>
+                 * when trying to create a spectra device.
+                 */
+                Thread.Sleep(TimeSpan.FromSeconds(1));
             }
         }
 
