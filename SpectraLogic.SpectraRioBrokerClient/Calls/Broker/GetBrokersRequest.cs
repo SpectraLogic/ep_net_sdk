@@ -25,9 +25,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetBrokersRequest"/> class.
+        /// <param name="page">The page.</param>
+        /// <param name="perPage">The per page.</param>
         /// </summary>
-        public GetBrokersRequest()
+        public GetBrokersRequest(int? page = null, int? perPage = null)
         {
+            if (page != null)
+            {
+                AddQueryParam("page", page.ToString());
+            }
+
+            if (perPage != null)
+            {
+                AddQueryParam("per_page", perPage.ToString());
+            }
         }
 
         #endregion Public Constructors

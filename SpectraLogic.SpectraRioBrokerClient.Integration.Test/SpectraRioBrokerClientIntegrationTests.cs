@@ -1147,7 +1147,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
             {
-                new ArchiveFile(fileName1, $"{SpectraRioBrokerClientFixture.ArchiveTempDir}/F1.txt".ToFileUri())
+                new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14)
             });
 
             try
@@ -1181,9 +1181,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
-
-                Directory.Delete(SpectraRioBrokerClientFixture.ArchiveTempDir, true);
-                Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
 

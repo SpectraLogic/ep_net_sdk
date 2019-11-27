@@ -450,6 +450,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var brokers = client.GetBrokers(getBrokersRequest);
             Assert.AreEqual(2, brokers.BrokerList.Count);
 
+            Assert.AreEqual(0, brokers.Page.Number);
+            Assert.AreEqual(100, brokers.Page.PageSize);
+            Assert.AreEqual(1, brokers.Page.TotalPages);
+            
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
