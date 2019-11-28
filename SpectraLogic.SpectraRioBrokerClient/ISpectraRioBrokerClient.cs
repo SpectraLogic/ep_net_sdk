@@ -240,6 +240,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IDevice GetDevice(GetDeviceRequest request);
 
+        /// <summary>Gets the devices.</summary>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        IDevices GetDevices(GetDevicesRequest request);
+        
         /// <summary>Gets the job.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>

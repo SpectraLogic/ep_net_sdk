@@ -1186,5 +1186,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Directory.Delete(SpectraRioBrokerClientFixture.RestoreTempDir, true);
             }
         }
+
+        [Test]
+        public void GetDevicesTest()
+        {
+            var devices = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevices(new GetDevicesRequest(0, 1));
+            Assert.AreEqual(0, devices.Page.Number);
+            Assert.AreEqual(1, devices.Page.PageSize);
+            Assert.AreEqual(1, devices.Page.TotalPages);
+            
+            Assert.AreEqual(1, devices.DeviceList.Count);
+        }
     }
 }

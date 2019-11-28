@@ -1,0 +1,19 @@
+﻿{
+    "page": {
+        "number": 0,
+        "pageSize": 100,
+        "totalPages": 1
+    },
+    "devices": [
+        {
+            "mgmtInterface": "https://sm2u-11-mgmt.eng.sldomain.com",
+            "name": "sm2u-11",
+            "username": "Administrator"
+        },
+        {
+            "mgmtInterface": "https://sm25-2-mgmt.eng.sldomain.com",
+            "name": "sm25-2",
+            "username": "Administrator"
+        }
+    ]
+}

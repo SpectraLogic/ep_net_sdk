@@ -537,6 +537,43 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetDevicesTest()
+        {
+            var getDevicesRequest = new GetDevicesRequest();
+            
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getDevicesRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetDevicesResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var devices = client.GetDevices(getDevicesRequest);
+            
+            Assert.AreEqual(0, devices.Page.Number);
+            Assert.AreEqual(100, devices.Page.PageSize);
+            Assert.AreEqual(1, devices.Page.TotalPages);
+            
+            Assert.AreEqual("sm2u-11", devices.DeviceList[0].DeviceName);
+            Assert.AreEqual("https://sm2u-11-mgmt.eng.sldomain.com", devices.DeviceList[0].MgmtInterface);
+            Assert.AreEqual("Administrator", devices.DeviceList[0].Username);
+            
+            Assert.AreEqual("sm25-2", devices.DeviceList[1].DeviceName);
+            Assert.AreEqual("https://sm25-2-mgmt.eng.sldomain.com", devices.DeviceList[1].MgmtInterface);
+            Assert.AreEqual("Administrator", devices.DeviceList[1].Username);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+        
+        [Test]
         public void GetJobsTest()
         {
             var getJobsRequest = new GetJobsRequest();
