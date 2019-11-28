@@ -423,6 +423,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest("", "",
                     new Dictionary<string, string>(), new HashSet<string>()))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
+                Task.FromResult(noAuthClient.GetJobFilesStatus(new GetJobFilesStatusRequest(Guid.Empty))));
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
+                Task.FromResult(noAuthClient.GetJobFileStatuses(new GetJobFileStatusesRequest(Guid.Empty, ""))));
 
             ValidationExceptionCheck(
                 () =>
@@ -796,6 +800,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request);
                         return null;
                     });
+                
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () =>
+                    {
+                        var request = new GetJobFilesStatusRequest(Guid.Empty);
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFilesStatus(request));
+                    });
+                
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () =>
+                    {
+                        var request = new GetJobFileStatusesRequest(Guid.Empty, "");
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request));
+                    });
             }
             finally
             {
@@ -1005,6 +1023,27 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
         }
 
+        [Test]
+        public void GetJobFilesStatusErrorTest()
+        {
+            var request = new GetJobFilesStatusRequest(Guid.Empty);
+            Assert.ThrowsAsync<JobNotFoundException>(() =>
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFilesStatus(request)));
+        }
+        
+        [Test]
+        public void GetJobFileStatusErrorTest()
+        {
+            var request = new GetJobFileStatusesRequest(Guid.Empty, "");
+            Assert.ThrowsAsync<JobNotFoundException>(() =>
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request)));
+
+            Assert.ThrowsAsync<ArgumentNullException>(() =>
+                Task.FromResult(new GetJobFileStatusesRequest(Guid.Empty, null)));
+            
+            
+        }
+        
         private static void ValidationExceptionCheck(Action action, IEnumerable expected)
         {
             try

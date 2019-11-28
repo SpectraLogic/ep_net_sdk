@@ -14,6 +14,7 @@
  */
 
 using System;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
@@ -21,17 +22,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
-    public class GetJobRequest : RestRequest
+    public class GetJobFileStatusesRequest : RestRequest
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetJobRequest"/> class.
+        /// Initializes a new instance of the <see cref="GetJobFileStatusesRequest"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        public GetJobRequest(Guid jobId)
+        /// <param name="objectName">The object name.</param>
+        public GetJobFileStatusesRequest(Guid jobId, string objectName)
         {
+            Contract.Requires<ArgumentNullException>(objectName != null, "objectName");
+
             JobId = jobId;
+            ObjectName = objectName;
         }
 
         #endregion Constructors
@@ -46,7 +51,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// </value>
         public Guid JobId { get; private set; }
 
-        internal override string Path => $"api/jobs/{JobId}";
+        /// <summary>
+        /// Gets the object name.
+        /// </summary>
+        /// <value>
+        /// The object name.
+        /// </value>
+        public string ObjectName { get; private set; }
+
+        internal override string Path => $"api/jobs/{JobId}/filestatus/{Uri.EscapeDataString(ObjectName)}";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Properties

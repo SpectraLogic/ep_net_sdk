@@ -69,6 +69,8 @@
     <Compile Include="Calls\Cluster\GetMasterRequest.cs" />
     <Compile Include="Calls\DevicesSpectra\GetDevicesRequest.cs" />
     <Compile Include="Calls\DevicesSpectra\DeleteDeviceRequest.cs" />
+    <Compile Include="Calls\Jobs\GetJobFilesStatusRequest.cs" />
+    <Compile Include="Calls\Jobs\GetJobFileStatusesRequest.cs" />
     <Compile Include="Calls\Jobs\HeadJobRequest.cs" />
     <Compile Include="Calls\Jobs\GetJobsRequest.cs" />
     <Compile Include="Calls\System\GetSystemRequest.cs" />
@@ -109,6 +111,9 @@
     <Compile Include="Model\ClusterMembers.cs" />
     <Compile Include="Model\Brokers.cs" />
     <Compile Include="Model\Devices.cs" />
+    <Compile Include="Model\FilesStatus.cs" />
+    <Compile Include="Model\FileStatus.cs" />
+    <Compile Include="Model\FileStatuses.cs" />
     <Compile Include="Model\IBrokerRelationships.cs" />
     <Compile Include="Model\IBrokers.cs" />
     <Compile Include="Model\IBrokerObject.cs" />
@@ -116,6 +121,8 @@
     <Compile Include="Model\IClusterMembers.cs" />
     <Compile Include="Model\IClusterMember.cs" />
     <Compile Include="Model\IDevices.cs" />
+    <Compile Include="Model\IFilesStatus.cs" />
+    <Compile Include="Model\IFileStatuses.cs" />
     <Compile Include="Model\IJobs.cs" />
     <Compile Include="Model\IRioSystem.cs" />
     <Compile Include="Model\IBrokerObjects.cs" />
@@ -147,6 +154,8 @@
     <Compile Include="ResponseParsers\Cluster\GetMasterResponseParser.cs" />
     <Compile Include="ResponseParsers\DevicesSpectra\GetDevicesResponseParser.cs" />
     <Compile Include="ResponseParsers\DevicesSpectra\DeleteDeviceResponseParser.cs" />
+    <Compile Include="ResponseParsers\Jobs\GetJobFilesStatusResponseParser.cs" />
+    <Compile Include="ResponseParsers\Jobs\GetJobFileStatusesResponseParser.cs" />
     <Compile Include="ResponseParsers\Jobs\GetJobsResponseParser.cs" />
     <Compile Include="ResponseParsers\System\GetSystemResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\RetryResponseParser.cs" />

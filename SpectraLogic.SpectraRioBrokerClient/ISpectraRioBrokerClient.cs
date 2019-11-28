@@ -258,6 +258,26 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IJob GetJob(GetJobRequest request);
 
+        /// <summary>Gets the job file status log.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.JobNotFoundException"></exception>
+        /// <exception cref="NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        IFilesStatus GetJobFilesStatus(GetJobFilesStatusRequest request);
+        
+        /// <summary>Gets the job file status log.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.JobNotFoundException"></exception>
+        /// <exception cref="NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        IFileStatuses GetJobFileStatuses(GetJobFileStatusesRequest request);
+        
         /// <summary>Gets the jobs.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>

@@ -1,0 +1,46 @@
+﻿{
+    "fileStatus": [
+        {
+            "name": "2d0430db-4b62-421f-81c5-1e444091d27d",
+            "uri": "atozsequence://f1.txt/",
+            "status": "Initializing",
+            "statusMessage": "",
+            "lastUpdated": "2019-11-25T19:48:43.3Z[UTC]"
+        },
+        {
+            "name": "2d0430db-4b62-421f-81c5-1e444091d27d",
+            "uri": "atozsequence://f1.txt/",
+            "status": "Transferring",
+            "statusMessage": "Transferring file to BlackPearl",
+            "lastUpdated": "2019-11-25T19:48:43.736Z[UTC]"
+        },
+        {
+            "name": "2d0430db-4b62-421f-81c5-1e444091d27d",
+            "uri": "atozsequence://f1.txt/",
+            "status": "Completed",
+            "statusMessage": "Successfully transferred file to BlackPearl",
+            "lastUpdated": "2019-11-25T19:48:43.827Z[UTC]"
+        },
+        {
+            "name": "2d0430db-4b62-421f-81c5-1e444091d27e",
+            "uri": "atozsequence://f2.txt/",
+            "status": "Initializing",
+            "statusMessage": "",
+            "lastUpdated": "2019-11-25T19:48:43.3Z[UTC]"
+        },
+        {
+            "name": "2d0430db-4b62-421f-81c5-1e444091d27e",
+            "uri": "atozsequence://f2.txt/",
+            "status": "Transferring",
+            "statusMessage": "Transferring file to BlackPearl",
+            "lastUpdated": "2019-11-25T19:48:43.736Z[UTC]"
+        },
+        {
+            "name": "2d0430db-4b62-421f-81c5-1e444091d27e",
+            "uri": "atozsequence://f2.txt/",
+            "status": "Completed",
+            "statusMessage": "Successfully transferred file to BlackPearl",
+            "lastUpdated": "2019-11-25T19:48:43.827Z[UTC]"
+        }
+    ]
+}

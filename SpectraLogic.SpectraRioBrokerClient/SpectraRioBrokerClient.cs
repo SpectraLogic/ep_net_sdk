@@ -223,6 +223,18 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
+        public IFilesStatus GetJobFilesStatus(GetJobFilesStatusRequest request)
+        {
+            return ExceptionDecorator.Run(() => new GetJobFilesStatusResponseParser().Parse(_network.Invoke(request)));
+        }
+        
+        /// <inheritdoc/>
+        public IFileStatuses GetJobFileStatuses(GetJobFileStatusesRequest request)
+        {
+            return ExceptionDecorator.Run(() => new GetJobFileStatusesResponseParser().Parse(_network.Invoke(request)));
+        }
+
+        /// <inheritdoc/>
         public IJobs GetJobs(GetJobsRequest request)
         {
             return ExceptionDecorator.Run(() => new GetJobsResponseParser().Parse(_network.Invoke(request)));

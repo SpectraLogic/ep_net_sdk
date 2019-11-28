@@ -90,6 +90,8 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <EmbeddedResource Include="TestFiles\GetDevicesResponse" />
+    <EmbeddedResource Include="TestFiles\GetJobFilesStatusResponse" />
+    <EmbeddedResource Include="TestFiles\GetJobFileStatusesResponse" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCompletedResponse" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCanceledResponse" />
     <EmbeddedResource Include="TestFiles\RetryResponse" />

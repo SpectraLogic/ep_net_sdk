@@ -604,6 +604,62 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetJobFileStatusTest()
+        {
+            var jobId = Guid.NewGuid();
+            var getJobFilesStatusRequest = new GetJobFilesStatusRequest(jobId);
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobFilesStatusRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobFilesStatusResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobFileStatus = client.GetJobFilesStatus(getJobFilesStatusRequest);
+            Assert.AreEqual(6, jobFileStatus.FilesStatusList.Count);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+        
+        [Test]
+        public void GetJobFileStatusesTest()
+        {
+            var jobId = Guid.NewGuid();
+            var getJobFileStatusesRequest = new GetJobFileStatusesRequest(jobId, "");
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobFileStatusesRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobFileStatusesResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobFileStatus = client.GetJobFileStatuses(getJobFileStatusesRequest);
+            Assert.AreEqual(3, jobFileStatus.FileStatusesList.Count);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+        
+        [Test]
         public void GetJobWithStatusStringTest()
         {
             var jobId = Guid.NewGuid();

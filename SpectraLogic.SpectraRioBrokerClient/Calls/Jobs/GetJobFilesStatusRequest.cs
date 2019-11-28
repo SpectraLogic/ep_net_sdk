@@ -14,6 +14,8 @@
  */
 
 using System;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
@@ -21,15 +23,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
-    public class GetJobRequest : RestRequest
+    public class GetJobFilesStatusRequest : RestRequest
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetJobRequest"/> class.
+        /// Initializes a new instance of the <see cref="GetJobFilesStatusRequest"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        public GetJobRequest(Guid jobId)
+        public GetJobFilesStatusRequest(Guid jobId)
         {
             JobId = jobId;
         }
@@ -46,7 +48,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// </value>
         public Guid JobId { get; private set; }
 
-        internal override string Path => $"api/jobs/{JobId}";
+        internal override string Path => $"api/jobs/{JobId}/filestatus";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Properties
