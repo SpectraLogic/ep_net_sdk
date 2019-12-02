@@ -57,6 +57,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
             }
         }
 
+        /// <summary>Gets the query parameters.</summary>
+        /// <returns></returns>
         public Dictionary<string, string> GetQueryParams() => _queryParams;
 
         #endregion Methods
