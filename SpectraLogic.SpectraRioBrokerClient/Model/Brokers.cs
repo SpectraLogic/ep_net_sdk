@@ -27,15 +27,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #region Private Constructors
 
         [JsonConstructor]
-        private Brokers(IList<Broker> brokerList)
+        private Brokers(IList<Broker> brokerList, PageResult page)
         {
             BrokerList = brokerList;
+            Page = page;
         }
 
         #endregion Private Constructors
 
         #region Public Properties
 
+        /// <summary>Gets the page.</summary>
+        /// <value>The page.</value>
+        [JsonProperty(PropertyName = "page")] public PageResult Page { get; }
+        
         /// <summary>Gets the broker list.</summary>
         /// <value>The broker list.</value>
         [JsonProperty(PropertyName = "brokers")] public IList<Broker> BrokerList { get; }

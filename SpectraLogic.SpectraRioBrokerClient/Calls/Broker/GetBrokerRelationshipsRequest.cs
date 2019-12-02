@@ -30,12 +30,24 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// Initializes a new instance of the <see cref="GetBrokerRelationshipsRequest"/> class.
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="perPage">The per page.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public GetBrokerRelationshipsRequest(string brokerName)
+        public GetBrokerRelationshipsRequest(string brokerName, int? page = null, int? perPage = null)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
 
             BrokerName = brokerName;
+            
+            if (page != null)
+            {
+                AddQueryParam("page", page.ToString());
+            }
+
+            if (perPage != null)
+            {
+                AddQueryParam("per_page", perPage.ToString());
+            }
         }
 
         #endregion Constructors

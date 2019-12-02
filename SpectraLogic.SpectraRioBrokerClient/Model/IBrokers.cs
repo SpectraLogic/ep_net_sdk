@@ -24,6 +24,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     {
         #region Public Properties
 
+        /// <summary>Gets the page.</summary>
+        /// <value>The page.</value>
+        PageResult Page { get; }
+        
         /// <summary>Gets the broker list.</summary>
         /// <value>The broker list.</value>
         IList<Broker> BrokerList { get; }
