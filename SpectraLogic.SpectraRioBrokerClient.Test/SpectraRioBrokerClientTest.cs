@@ -24,7 +24,7 @@ using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
-using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Model;
@@ -177,14 +177,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void CreateDeviceTest()
+        public void CreateSpectraDeviceTest()
         {
-            var createDeviceRequest = new CreateDeviceRequest("device_test", "https://localhost".ToUri(), "username", "password");
+            var createSpectraDeviceRequest = new CreateSpectraDeviceRequest("device_test", "https://localhost".ToUri(), "username", "password");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(createDeviceRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateDeviceResponse",
+                .Setup(n => n.Invoke(createSpectraDeviceRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateSpectraDeviceResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -195,7 +195,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var device = client.CreateDevice(createDeviceRequest);
+            var device = client.CreateSpectraDevice(createSpectraDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
             Assert.AreEqual("localhost", device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
@@ -279,7 +279,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void DeleteDeviceTest()
         {
-            var deleteDeviceRequest = new DeleteDeviceRequest("device");
+            var deleteDeviceRequest = new DeleteSpectraDeviceRequest("device");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -294,7 +294,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            client.DeleteDevice(deleteDeviceRequest);
+            client.DeleteSpectraDevice(deleteDeviceRequest);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -513,14 +513,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void GetDeviceTest()
+        public void GetSpectraDeviceTest()
         {
-            var getDeviceRequest = new GetDeviceRequest("device_test");
+            var getSpectraDeviceRequest = new GetSpectraDeviceRequest("device_test");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(getDeviceRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetDeviceResponse",
+                .Setup(n => n.Invoke(getSpectraDeviceRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSpectraDeviceResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -531,7 +531,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var device = client.GetDevice(getDeviceRequest);
+            var device = client.GetSpectraDevice(getSpectraDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
             Assert.AreEqual("localhost", device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
@@ -541,14 +541,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void GetDevicesTest()
+        public void GetSpectraDevicesTest()
         {
-            var getDevicesRequest = new GetDevicesRequest();
+            var getSpectraDevicesRequest = new GetSpectraDevicesRequest();
             
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .Setup(n => n.Invoke(getDevicesRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetDevicesResponse",
+                .Setup(n => n.Invoke(getSpectraDevicesRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSpectraDevicesResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -559,7 +559,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            var devices = client.GetDevices(getDevicesRequest);
+            var devices = client.GetSpectraDevices(getSpectraDevicesRequest);
             
             Assert.AreEqual(0, devices.Page.Number);
             Assert.AreEqual(100, devices.Page.PageSize);
@@ -877,11 +877,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void HeadDeviceTest()
+        public void HeadSpectraDeviceTest()
         {
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
-                .SetupSequence(n => n.Invoke(It.IsAny<HeadDeviceRequest>()))
+                .SetupSequence(n => n.Invoke(It.IsAny<HeadSpectraDeviceRequest>()))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.OK, null))
                 .Returns(new MockHttpWebResponse(null, HttpStatusCode.NotFound, null));
 
@@ -893,8 +893,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var builder = mockBuilder.Object;
             var client = builder.Build();
 
-            Assert.IsTrue(client.DoesDeviceExist("deviceName"));
-            Assert.IsFalse(client.DoesDeviceExist("deviceNameNotFound"));
+            Assert.IsTrue(client.DoesSpectraDeviceExist("deviceName"));
+            Assert.IsFalse(client.DoesSpectraDeviceExist("deviceNameNotFound"));
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

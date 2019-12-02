@@ -20,13 +20,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IDevice" />
-    public class Device : IDevice
+    /// <seealso cref="ISpectraDevice" />
+    public class SpectraDevice : ISpectraDevice
     {
         #region Constructors
 
         [JsonConstructor]
-        private Device(string deviceName, string mgmtInterface, string username)
+        private SpectraDevice(string deviceName, string mgmtInterface, string username)
         {
             DeviceName = deviceName;
             MgmtInterface = mgmtInterface;

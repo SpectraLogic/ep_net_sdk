@@ -22,7 +22,7 @@ using log4net.Config;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
-using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
@@ -56,7 +56,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             CreateCluster();
             UpdateClientToken();
             Thread.Sleep(500); //we need this sleep to let the server create the default user after the cluster gets created
-            CreateDevice();
+            CreateSpectraDevice();
             CreateBrokers();
         }
 
@@ -129,19 +129,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        public static void CreateDevice()
+        public static void CreateSpectraDevice()
         {
-            DeviceName = ConfigurationManager.AppSettings["DeviceName"];
+            DeviceName = ConfigurationManager.AppSettings["SpectraDeviceName"];
             MgmtInterface = ConfigurationManager.AppSettings["MgmtInterface"].ToUri();
             Username = ConfigurationManager.AppSettings["Username"];
             Password = ConfigurationManager.AppSettings["Password"];
             DataInterface = ConfigurationManager.AppSettings["DataInterface"].ToUri();
 
-            if (!SpectraRioBrokerClient.DoesDeviceExist(DeviceName))
-            {
-                var createDeviceRequest = new CreateDeviceRequest(DeviceName, MgmtInterface, Username, Password);
-                SpectraRioBrokerClient.CreateDevice(createDeviceRequest);
-            }
+            if (SpectraRioBrokerClient.DoesSpectraDeviceExist(DeviceName)) return;
+            
+            var createDeviceRequest = new CreateSpectraDeviceRequest(DeviceName, MgmtInterface, Username, Password);
+            SpectraRioBrokerClient.CreateSpectraDevice(createDeviceRequest);
         }
 
         public static AgentConfig GetAgentConfig()

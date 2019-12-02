@@ -13,25 +13,35 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
+using System;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public interface IDevices
+    internal class HeadSpectraDeviceRequest : RestRequest
     {
-        #region Public Properties
+        #region Fields
 
-        /// <summary>Gets the page.</summary>
-        /// <value>The page.</value>
-        PageResult Page { get; }
-        
-        /// <summary>Gets the spectra device list.</summary>
-        /// <value>The spectra device list.</value>
-        IList<Device> DeviceList { get; }
+        private readonly string _deviceName;
 
-        #endregion Public Properties
+        #endregion Fields
+
+        #region Constructors
+
+        public HeadSpectraDeviceRequest(string deviceName)
+        {
+            Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
+
+            _deviceName = deviceName;
+        }
+
+        #endregion Constructors
+
+        #region Properties
+
+        internal override string Path => $"/api/devices/spectra/{_deviceName}";
+        internal override HttpVerb Verb => HttpVerb.HEAD;
+
+        #endregion Properties
     }
 }

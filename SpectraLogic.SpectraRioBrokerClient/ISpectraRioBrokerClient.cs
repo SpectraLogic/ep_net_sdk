@@ -17,7 +17,7 @@ using System;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
-using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 
@@ -68,7 +68,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         ICluster CreateCluster(CreateClusterRequest request);
 
-        /// <summary>Creates a device.</summary>
+        /// <summary>Creates a spectra device.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
@@ -78,7 +78,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ValidationException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        IDevice CreateDevice(CreateDeviceRequest request);
+        ISpectraDevice CreateSpectraDevice(CreateSpectraDeviceRequest request);
 
         /// <summary>Creates the token.</summary>
         /// <param name="request">The request.</param>
@@ -102,14 +102,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         void DeleteCluster();
 
-        /// <summary>Deletes the device.</summary>
+        /// <summary>Deletes the spectra device.</summary>
         /// <param name="request">The request.</param>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.DeviceNotFoundException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        void DeleteDevice(DeleteDeviceRequest request);
+        void DeleteSpectraDevice(DeleteSpectraDeviceRequest request);
         
         /// <summary>Deletes the specified file.</summary>
         /// <param name="request">The request.</param>
@@ -151,7 +151,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        bool DoesDeviceExist(string deviceName);
+        bool DoesSpectraDeviceExist(string deviceName);
 
         /// <summary>Determines whether jobId exist.</summary>
         /// <param name="jobId">The job id.</param>
@@ -230,7 +230,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         ICluster GetCluster(GetClusterRequest request);
 
-        /// <summary>Gets the device.</summary>
+        /// <summary>Gets the spectra device.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
@@ -238,15 +238,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.DeviceNotFoundException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        IDevice GetDevice(GetDeviceRequest request);
+        ISpectraDevice GetSpectraDevice(GetSpectraDeviceRequest request);
 
-        /// <summary>Gets the devices.</summary>
+        /// <summary>Gets the spectra devices.</summary>
         /// <returns></returns>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
-        /// <exception cref="NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        IDevices GetDevices(GetDevicesRequest request);
+        ISpectraDevices GetSpectraDevices(GetSpectraDevicesRequest request);
         
         /// <summary>Gets the job.</summary>
         /// <param name="request">The request.</param>
@@ -264,7 +264,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.JobNotFoundException"></exception>
-        /// <exception cref="NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IFilesStatus GetJobFilesStatus(GetJobFilesStatusRequest request);
         
@@ -274,7 +274,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.JobNotFoundException"></exception>
-        /// <exception cref="NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IFileStatuses GetJobFileStatuses(GetJobFileStatusesRequest request);
         

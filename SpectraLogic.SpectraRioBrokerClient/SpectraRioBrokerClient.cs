@@ -19,7 +19,7 @@ using log4net;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
-using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Model;
@@ -27,7 +27,7 @@ using SpectraLogic.SpectraRioBrokerClient.ResponseParsers;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Broker;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Cluster;
-using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Devices;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.ResponseParsers.System;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
@@ -84,9 +84,9 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
-        public IDevice CreateDevice(CreateDeviceRequest request)
+        public ISpectraDevice CreateSpectraDevice(CreateSpectraDeviceRequest request)
         {
-            return ExceptionDecorator.Run(() => new CreateDeviceResponseParser().Parse(_network.Invoke(request)));
+            return ExceptionDecorator.Run(() => new CreateSpectraDeviceResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
@@ -112,9 +112,9 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
-        public void DeleteDevice(DeleteDeviceRequest request)
+        public void DeleteSpectraDevice(DeleteSpectraDeviceRequest request)
         {
-            ExceptionDecorator.Run(() => new DeleteDeviceResponseParser().Parse(_network.Invoke(request)));
+            ExceptionDecorator.Run(() => new DeleteSpectraDeviceResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>
@@ -144,11 +144,11 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
-        public bool DoesDeviceExist(string deviceName)
+        public bool DoesSpectraDeviceExist(string deviceName)
         {
             return ExceptionDecorator.Run(() =>
             {
-                var request = new HeadDeviceRequest(deviceName);
+                var request = new HeadSpectraDeviceRequest(deviceName);
                 return new HeadResponseParser().Parse(_network.Invoke(request));
             });
         }
@@ -206,14 +206,14 @@ namespace SpectraLogic.SpectraRioBrokerClient
         }
 
         /// <inheritdoc/>
-        public IDevice GetDevice(GetDeviceRequest request)
+        public ISpectraDevice GetSpectraDevice(GetSpectraDeviceRequest request)
         {
-            return ExceptionDecorator.Run(() => new GetDeviceResponseParser().Parse(_network.Invoke(request)));
+            return ExceptionDecorator.Run(() => new GetSpectraDeviceResponseParser().Parse(_network.Invoke(request)));
         }
 
-        public IDevices GetDevices(GetDevicesRequest request)
+        public ISpectraDevices GetSpectraDevices(GetSpectraDevicesRequest request)
         {
-            return ExceptionDecorator.Run(() =>  new GetDevicesResponseParser().Parse(_network.Invoke(request)));
+            return ExceptionDecorator.Run(() =>  new GetSpectraDevicesResponseParser().Parse(_network.Invoke(request)));
         }
 
         /// <inheritdoc/>

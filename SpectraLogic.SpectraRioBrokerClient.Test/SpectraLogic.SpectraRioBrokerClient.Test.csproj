@@ -89,7 +89,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="TestFiles\GetDevicesResponse" />
+    <EmbeddedResource Include="TestFiles\GetSpectraDevicesResponse" />
     <EmbeddedResource Include="TestFiles\GetJobFilesStatusResponse" />
     <EmbeddedResource Include="TestFiles\GetJobFileStatusesResponse" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCompletedResponse" />
@@ -135,10 +135,10 @@
     <EmbeddedResource Include="TestFiles\BrokerNotFoundExceptionResponse" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestFiles\CreateDeviceResponse" />
+    <EmbeddedResource Include="TestFiles\CreateSpectraDeviceResponse" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestFiles\GetDeviceResponse" />
+    <EmbeddedResource Include="TestFiles\GetSpectraDeviceResponse" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestFiles\CreateClusterResponse" />

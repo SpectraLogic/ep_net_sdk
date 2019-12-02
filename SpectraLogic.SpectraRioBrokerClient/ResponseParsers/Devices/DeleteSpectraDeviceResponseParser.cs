@@ -13,35 +13,29 @@
  * ****************************************************************************
  */
 
-using System;
+using System.Linq;
+using System.Net;
+using log4net;
+using SpectraLogic.SpectraRioBrokerClient.Model;
+using SpectraLogic.SpectraRioBrokerClient.Runtime;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Devices
 {
-    internal class HeadDeviceRequest : RestRequest
+    internal class DeleteSpectraDeviceResponseParser : IResponseParser<Void>
     {
-        #region Fields
+        private static readonly ILog Log = LogManager.GetLogger("DeleteSpectraDeviceResponseParser");
 
-        private readonly string _deviceName;
-
-        #endregion Fields
-
-        #region Constructors
-
-        public HeadDeviceRequest(string deviceName)
+        public Void Parse(IHttpWebResponse response)
         {
-            Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
-
-            _deviceName = deviceName;
+            using (response)
+            {
+                ResponseParseUtils.HandleStatusCode(response, HttpStatusCode.NoContent);
+                var requestId = response.Headers.GetRequestIdFromHeader();
+                Log.Debug($"Request: {requestId}");
+                return new Void();
+            }
         }
-
-        #endregion Constructors
-
-        #region Properties
-
-        internal override string Path => $"/api/devices/spectra/{_deviceName}";
-        internal override HttpVerb Verb => HttpVerb.HEAD;
-
-        #endregion Properties
     }
+
 }

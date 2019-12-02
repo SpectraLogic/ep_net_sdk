@@ -73,21 +73,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         #endregion Private Methods
     }
-}
 
-internal class StartWithComparer : IEqualityComparer<string>
-{
-    #region Public Methods
-
-    public bool Equals(string x, string y)
+    internal class StartWithComparer : IEqualityComparer<string>
     {
-        return y.StartsWith(x);
-    }
+        #region Public Methods
 
-    public int GetHashCode(string obj)
-    {
-        return int.Parse(obj).ToString().GetHashCode();
-    }
+        public bool Equals(string x, string y)
+        {
+            return y.StartsWith(x);
+        }
 
-    #endregion Public Methods
+        public int GetHashCode(string obj)
+        {
+            return int.Parse(obj).ToString().GetHashCode();
+        }
+
+        #endregion Public Methods
+    }
 }

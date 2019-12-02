@@ -22,12 +22,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IBrokers" />
-    public class Devices : IDevices
+    public class SpectraDevices : ISpectraDevices
     {
         #region Private Constructors
 
         [JsonConstructor]
-        private Devices(IList<Device> deviceList, PageResult page)
+        private SpectraDevices(IList<SpectraDevice> deviceList, PageResult page)
         {
             DeviceList = deviceList;
             Page = page;
@@ -44,7 +44,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         
         /// <summary>Gets the broker list.</summary>
         /// <value>The broker list.</value>
-        [JsonProperty(PropertyName = "devices")] public IList<Device> DeviceList { get; }
+        [JsonProperty(PropertyName = "devices")] public IList<SpectraDevice> DeviceList { get; }
 
         #endregion Public Properties
     }

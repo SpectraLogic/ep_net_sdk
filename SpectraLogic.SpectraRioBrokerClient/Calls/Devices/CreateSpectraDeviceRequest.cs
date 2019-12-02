@@ -14,17 +14,16 @@
  */
 
 using System;
-using System.Diagnostics;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
 {
     /// <summary>
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
-    public class CreateDeviceRequest : RestRequest
+    public class CreateSpectraDeviceRequest : RestRequest
     {
         #region Public Fields
 
@@ -53,14 +52,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateDeviceRequest" /> class.
+        /// Initializes a new instance of the <see cref="CreateSpectraDeviceRequest" /> class.
         /// </summary>
         /// <param name="deviceName">The device name.</param>
         /// <param name="mgmtInterface">The MGMT interface.</param>
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public CreateDeviceRequest(string deviceName, Uri mgmtInterface, string username, string password)
+        public CreateSpectraDeviceRequest(string deviceName, Uri mgmtInterface, string username, string password)
         {
             Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
             Contract.Requires<ArgumentNullException>(mgmtInterface != null, "mgmtInterface");

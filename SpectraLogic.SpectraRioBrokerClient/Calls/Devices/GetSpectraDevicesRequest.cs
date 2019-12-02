@@ -13,44 +13,39 @@
  * ****************************************************************************
  */
 
-using System;
-using Newtonsoft.Json;
-using SpectraLogic.SpectraRioBrokerClient.Utils;
-
-namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
 {
     /// <summary>
     ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
-    public class GetDeviceRequest : RestRequest
+    public class GetSpectraDevicesRequest : RestRequest
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GetDeviceRequest"/> class.
+        /// Initializes a new instance of the <see cref="GetSpectraDevicesRequest"/> class.
         /// </summary>
-        /// <param name="deviceName">Name of the device.</param>
-        public GetDeviceRequest(string deviceName)
+        /// <param name="page">For paginated responses, the page to return.</param>
+        /// <param name="perPage">The number of devices returned in a page.</param>
+        public GetSpectraDevicesRequest(int? page = null, int? perPage = null)
         {
-            Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
+            if (page != null)
+            {
+                AddQueryParam("page", page.ToString());
+            }
 
-            DeviceName = deviceName;
+            if (perPage != null)
+            {
+                AddQueryParam("per_page", perPage.ToString());
+            }
         }
 
         #endregion Constructors
 
         #region Properties
 
-        /// <summary>
-        /// Gets the name of the device.
-        /// </summary>
-        /// <value>
-        /// The name of the device.
-        /// </value>
-        [JsonProperty(PropertyName = "name")] public string DeviceName { get; private set; }
-
-        internal override string Path => $"/api/devices/spectra/{DeviceName}";
+        internal override string Path => "/api/devices/spectra";
         internal override HttpVerb Verb => HttpVerb.GET;
 
         #endregion Properties

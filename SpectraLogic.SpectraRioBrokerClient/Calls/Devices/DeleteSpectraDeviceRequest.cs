@@ -16,10 +16,10 @@
 using System;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
+namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
 {
     /// <summary></summary>
-    public class DeleteDeviceRequest : RestRequest
+    public class DeleteSpectraDeviceRequest : RestRequest
     {
         #region Fields
 
@@ -30,9 +30,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="DeleteDeviceRequest"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="DeleteSpectraDeviceRequest"/> class.</summary>
         /// <param name="deviceName">Name of the device.</param>
-        public DeleteDeviceRequest(string deviceName)
+        public DeleteSpectraDeviceRequest(string deviceName)
         {
             Contract.Requires<ArgumentNullException>(deviceName != null, "deviceName");
 
