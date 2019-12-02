@@ -20,10 +20,14 @@ using log4net;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Utils
 {
+    /// <summary></summary>
     public static class DictionaryExtensions
     {
         private static readonly ILog Log = LogManager.GetLogger("DictionaryExtensions");
-        
+
+        /// <summary>Gets the request identifier from header.</summary>
+        /// <param name="headers">The headers.</param>
+        /// <returns></returns>
         public static string GetRequestIdFromHeader(this IDictionary<string, IEnumerable<string>> headers)
         {
             

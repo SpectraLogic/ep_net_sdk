@@ -211,6 +211,7 @@ namespace SpectraLogic.SpectraRioBrokerClient
             return ExceptionDecorator.Run(() => new GetSpectraDeviceResponseParser().Parse(_network.Invoke(request)));
         }
 
+        /// <inheritdoc/>
         public ISpectraDevices GetSpectraDevices(GetSpectraDevicesRequest request)
         {
             return ExceptionDecorator.Run(() =>  new GetSpectraDevicesResponseParser().Parse(_network.Invoke(request)));
