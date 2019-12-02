@@ -27,9 +27,8 @@ using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Cluster;
-using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
-using SpectraLogic.SpectraRioBrokerClient.Calls.System;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
@@ -240,24 +239,24 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void CreateDeviceErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest(null, "localhost".ToHttpsUri(), "username", "password")));
+                Task.FromResult(new CreateSpectraDeviceRequest(null, "localhost".ToHttpsUri(), "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest("name", null, "username", "password")));
+                Task.FromResult(new CreateSpectraDeviceRequest("name", null, "username", "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest("name", "localhost".ToHttpsUri(), null, "password")));
+                Task.FromResult(new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), null, "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new CreateDeviceRequest("name", "localhost".ToHttpsUri(), "username", null)));
+                Task.FromResult(new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), "username", null)));
 
-            var request = new CreateDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost".ToHttpsUri(), "username",
+            var request = new CreateSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost".ToHttpsUri(), "username",
                 "password");
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() =>
-                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request)));
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request)));
 
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest(string.Empty, "localhost".ToHttpsUri(), "username", "password");
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    request = new CreateSpectraDeviceRequest(string.Empty, "localhost".ToHttpsUri(), "username", "password");
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -268,8 +267,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("name", "localhost".ToHttpsUri(), string.Empty, "password");
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    request = new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), string.Empty, "password");
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -280,8 +279,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("name", "localhost".ToHttpsUri(), "username", string.Empty);
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    request = new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), "username", string.Empty);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -292,8 +291,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest(string.Empty, "localhost".ToHttpsUri(), string.Empty, string.Empty);
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    request = new CreateSpectraDeviceRequest(string.Empty, "localhost".ToHttpsUri(), string.Empty, string.Empty);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -306,9 +305,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", SpectraRioBrokerClientFixture.MgmtInterface,
+                    request = new CreateSpectraDeviceRequest("should_fail", SpectraRioBrokerClientFixture.MgmtInterface,
                         SpectraRioBrokerClientFixture.Username, "wrong_password");
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -320,9 +319,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", SpectraRioBrokerClientFixture.MgmtInterface,
+                    request = new CreateSpectraDeviceRequest("should_fail", SpectraRioBrokerClientFixture.MgmtInterface,
                         "wrong_username", SpectraRioBrokerClientFixture.Password);
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -334,9 +333,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", SpectraRioBrokerClientFixture.DataInterface,
+                    request = new CreateSpectraDeviceRequest("should_fail", SpectraRioBrokerClientFixture.DataInterface,
                         SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -347,9 +346,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateDeviceRequest("should_fail", "http://localhost".ToUri(),
+                    request = new CreateSpectraDeviceRequest("should_fail", "http://localhost".ToUri(),
                         SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
-                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
@@ -389,7 +388,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Task.FromResult(
                     noAuthClient.CreateBroker(new CreateBrokerRequest("", "", new AgentConfig("", "", "")))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.CreateDevice(new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", ""))));
+                Task.FromResult(noAuthClient.CreateSpectraDevice(new CreateSpectraDeviceRequest("", "localhost".ToHttpsUri(), "", ""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetBrokerRelationship(new GetBrokerRelationshipRequest("", ""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -399,9 +398,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetDevice(new GetDeviceRequest(""))));
+                Task.FromResult(noAuthClient.GetSpectraDevice(new GetSpectraDeviceRequest(""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetDevices(new GetDevicesRequest())));
+                Task.FromResult(noAuthClient.GetSpectraDevices(new GetSpectraDevicesRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetJob(new GetJobRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -417,7 +416,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             });
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
             {
-                noAuthClient.DeleteDevice(new DeleteDeviceRequest(""));
+                noAuthClient.DeleteSpectraDevice(new DeleteSpectraDeviceRequest(""));
                 return null;
             });
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -466,10 +465,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void DeleteDeviceErrorTests()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteDeviceRequest(null)));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteSpectraDeviceRequest(null)));
 
-            var request = new DeleteDeviceRequest("not_found");
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteDevice(request),
+            var request = new DeleteSpectraDeviceRequest("not_found");
+            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(request),
                 Throws.Exception.TypeOf<DeviceNotFoundException>());
         }
         
@@ -556,12 +555,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetDeviceErrorTests()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetDeviceRequest(null)));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetSpectraDeviceRequest(null)));
 
-            var request = new GetDeviceRequest("not_found");
+            var request = new GetSpectraDeviceRequest("not_found");
             Assert.ThrowsAsync<DeviceNotFoundException>(
                 () =>
-                    Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(request)));
+                    Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevice(request)));
         }
 
         [Test]
@@ -599,9 +598,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void HeadDeviceErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist(null)));
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesSpectraDeviceExist(null)));
 
-            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesDeviceExist("not_found"));
+            Assert.IsFalse(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DoesSpectraDeviceExist("not_found"));
         }
 
         [Test]
@@ -661,9 +660,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new CreateDeviceRequest("", "localhost".ToHttpsUri(), "", "");
+                        var request = new CreateSpectraDeviceRequest("", "localhost".ToHttpsUri(), "", "");
                         return Task.FromResult(
-                            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateDevice(request));
+                            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
@@ -713,15 +712,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new GetDeviceRequest("");
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(request));
+                        var request = new GetSpectraDeviceRequest("");
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevice(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new GetDevicesRequest();
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevices(request));
+                        var request = new GetSpectraDevicesRequest();
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevices(request));
                     });
                 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
@@ -744,7 +743,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
-                        .DoesDeviceExist("")));
+                        .DoesSpectraDeviceExist("")));
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
@@ -787,8 +786,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new DeleteDeviceRequest("");
-                        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteDevice(request);
+                        var request = new DeleteSpectraDeviceRequest("");
+                        SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(request);
                         return null;
                     });
                 
@@ -818,7 +817,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             finally
             {
                 SpectraRioBrokerClientFixture.CreateCluster();
-                SpectraRioBrokerClientFixture.CreateDevice();
+                SpectraRioBrokerClientFixture.CreateSpectraDevice();
                 SpectraRioBrokerClientFixture.CreateBrokers();
             }
         }

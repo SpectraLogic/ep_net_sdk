@@ -13,21 +13,39 @@
  * ****************************************************************************
  */
 
-using System.Net;
-using SpectraLogic.SpectraRioBrokerClient.Model;
-using SpectraLogic.SpectraRioBrokerClient.Runtime;
-
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.DevicesSpectra
+namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    internal class GetDevicesResponseParser : IResponseParser<IDevices>
+    /// <summary>
+    ///
+    /// </summary>
+    public interface ISpectraDevice
     {
-        #region Public Methods
+        #region Properties
 
-        public IDevices Parse(IHttpWebResponse response)
-        {
-            return Parser<Devices>.Parse(response, HttpStatusCode.OK);
-        }
+        /// <summary>
+        /// Gets the name of the device.
+        /// </summary>
+        /// <value>
+        /// The name of the device.
+        /// </value>
+        string DeviceName { get; }
 
-        #endregion Public Methods
+        /// <summary>
+        /// Gets the MGMT interface.
+        /// </summary>
+        /// <value>
+        /// The MGMT interface.
+        /// </value>
+        string MgmtInterface { get; }
+
+        /// <summary>
+        /// Gets the username.
+        /// </summary>
+        /// <value>
+        /// The username.
+        /// </value>
+        string Username { get; }
+
+        #endregion Properties
     }
 }

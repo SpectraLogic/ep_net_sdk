@@ -23,7 +23,7 @@ using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
-using SpectraLogic.SpectraRioBrokerClient.Calls.DevicesSpectra;
+using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
@@ -638,13 +638,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void DeleteDeviceTest()
         {
-            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteDevice(
-                new DeleteDeviceRequest(SpectraRioBrokerClientFixture.DeviceName));
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(
+                new DeleteSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName));
             Assert.That(
-                () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevice(
-                    new GetDeviceRequest(SpectraRioBrokerClientFixture.DeviceName)),
+                () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevice(
+                    new GetSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName)),
                 Throws.Exception.TypeOf<DeviceNotFoundException>());
-            SpectraRioBrokerClientFixture.CreateDevice();
+            SpectraRioBrokerClientFixture.CreateSpectraDevice();
         }
 
         [Test]
@@ -1187,7 +1187,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetDevicesTest()
         {
-            var devices = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetDevices(new GetDevicesRequest(0, 1));
+            var devices = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevices(new GetSpectraDevicesRequest(0, 1));
             Assert.AreEqual(0, devices.Page.Number);
             Assert.AreEqual(1, devices.Page.PageSize);
             Assert.AreEqual(1, devices.Page.TotalPages);

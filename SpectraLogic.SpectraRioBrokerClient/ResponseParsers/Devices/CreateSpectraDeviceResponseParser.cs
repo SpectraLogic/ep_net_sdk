@@ -17,15 +17,15 @@ using System.Net;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Runtime;
 
-namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.DevicesSpectra
+namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Devices
 {
-    internal class GetDeviceResponseParser : IResponseParser<IDevice>
+    internal class CreateSpectraDeviceResponseParser : IResponseParser<ISpectraDevice>
     {
         #region Public Methods
 
-        public IDevice Parse(IHttpWebResponse response)
+        public ISpectraDevice Parse(IHttpWebResponse response)
         {
-            return Parser<Device>.Parse(response, HttpStatusCode.OK);
+            return Parser<SpectraDevice>.Parse(response, HttpStatusCode.Created);
         }
 
         #endregion Public Methods
