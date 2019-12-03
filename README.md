@@ -5,7 +5,7 @@ The git repository holds the documentation in this gh-pages branch and the sourc
 1. Make sure the latest master branch is checked out in `%base_path%\ep_net_sdk`.
 2. Create another clone of the sdk in `%base_path%\ep_net_sdk_documentation`.
 3. Run `git checkout gh-pages` in the `ep_net_sdk_documentation` repository.
-4. [Download Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html#srcbin) and install it.
+4. [Download Doxygen](http://www.doxygen.nl/download.html) and install it.
 5. Edit `Doxyfile` and change the `PROJECT_NUMBER` AND `HTML_OUTPUT` to be the current version number. (ex 1.0.0)
 6. Run `doxygen.exe Doxyfile` to regenerate the documentation directory.
 7. Edit `index.html` to point to the right folder

@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_broker_1_1_get_brokers_request =
+[
+    [ "GetBrokersRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_broker_1_1_get_brokers_request.html#a7fcf66d4fc156f3aa743d94cdeddc478", null ]
+];

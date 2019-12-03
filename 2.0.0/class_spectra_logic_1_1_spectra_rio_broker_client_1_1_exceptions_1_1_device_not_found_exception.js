@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_device_not_found_exception =
+[
+    [ "DeviceNotFoundException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_device_not_found_exception.html#a6e94d02c9e8b12c4e493b859f66c572d", null ]
+];

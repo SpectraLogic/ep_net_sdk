@@ -1,0 +1,5 @@
+var namespace_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster =
+[
+    [ "CreateClusterRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_create_cluster_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_create_cluster_request" ],
+    [ "GetClusterRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_get_cluster_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_get_cluster_request" ]
+];

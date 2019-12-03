@@ -1,0 +1,6 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_broker_1_1_get_broker_relationship_request =
+[
+    [ "GetBrokerRelationshipRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_broker_1_1_get_broker_relationship_request.html#a71566985d21f4c022f16f5ffdb5a515f", null ],
+    [ "BrokerName", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_broker_1_1_get_broker_relationship_request.html#a197e6d8e8bff095cfba47c03a0180dcb", null ],
+    [ "RelationshipName", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_broker_1_1_get_broker_relationship_request.html#af449d5b8bcc1cac7b74484cd47805a15", null ]
+];

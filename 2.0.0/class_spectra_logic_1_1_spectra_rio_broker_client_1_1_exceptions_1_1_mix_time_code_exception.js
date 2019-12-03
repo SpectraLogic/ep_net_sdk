@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_mix_time_code_exception =
+[
+    [ "MixTimeCodeException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_mix_time_code_exception.html#a520232f1b378043f320b72904df5d39d", null ]
+];

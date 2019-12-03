@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_get_cluster_request =
+[
+    [ "GetClusterRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_get_cluster_request.html#a880f5de1eaebca5113371d05581c8c31", null ]
+];

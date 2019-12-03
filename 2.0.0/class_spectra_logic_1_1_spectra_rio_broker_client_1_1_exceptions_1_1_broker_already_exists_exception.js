@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_broker_already_exists_exception =
+[
+    [ "BrokerAlreadyExistsException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_broker_already_exists_exception.html#aa6ef60c3e4064c8c1efe48f2c2296e48", null ]
+];

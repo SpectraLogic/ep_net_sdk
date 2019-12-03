@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_system_1_1_get_system_request =
+[
+    [ "GetSystemRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_system_1_1_get_system_request.html#a5c3aa938c8f8531881527654eb4e5022", null ]
+];
