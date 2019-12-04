@@ -31,10 +31,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="TimeCode"/> class.</summary>
-        /// <param name="HH">The hh.</param>
-        /// <param name="MM">The mm.</param>
-        /// <param name="SS">The ss.</param>
-        /// <param name="FF">The ff.</param>
+        /// <param name="HH">The Hours.</param>
+        /// <param name="MM">The Minutes.</param>
+        /// <param name="SS">The Seconds.</param>
+        /// <param name="FF">The Frames.</param>
         /// <param name="dropFrame">if set to <c>true</c> [divider].</param>
         public TimeCode(int HH, int MM, int SS, int FF, bool dropFrame)
         {
