@@ -608,6 +608,36 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetJobsMultiParamsTest()
+        {
+            var getJobsRequest = new GetJobsRequest(jobTypes: new List<JobTypeEnum> { JobTypeEnum.ARCHIVE, JobTypeEnum.RESTORE });
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobsRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobsResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var jobs = client.GetJobs(getJobsRequest);
+            Assert.AreEqual(2, jobs.JobsList.Count);
+            Assert.AreEqual(0, jobs.Page.Number);
+            Assert.AreEqual(100, jobs.Page.PageSize);
+            Assert.AreEqual(1, jobs.Page.TotalPages);
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
         public void GetJobFileStatusTest()
         {
             var jobId = Guid.NewGuid();

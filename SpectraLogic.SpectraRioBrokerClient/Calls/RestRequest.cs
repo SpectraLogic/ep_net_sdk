@@ -28,7 +28,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         internal abstract string Path { get; }
         internal abstract HttpVerb Verb { get; }
 
-        private readonly Dictionary<string, string> _queryParams = new Dictionary<string, string>();
+        private readonly List<KeyValuePair<string, string>> _queryParams = new List<KeyValuePair<string, string>>();
 
         #endregion Properties
 
@@ -49,7 +49,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                _queryParams.Add(key, value);
+                _queryParams.Add(new KeyValuePair<string, string>(key, value));
             }
             else
             {
@@ -59,7 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls
 
         /// <summary>Gets the query parameters.</summary>
         /// <returns></returns>
-        public Dictionary<string, string> GetQueryParams() => _queryParams;
+        public List<KeyValuePair<string, string>> GetQueryParams() => _queryParams;
 
         #endregion Methods
     }
