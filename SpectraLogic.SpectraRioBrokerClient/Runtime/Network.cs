@@ -96,7 +96,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Runtime
 
         #region Private Methods
 
-        private static string BuildQueryParams(Dictionary<string, string> queryParams)
+        private static string BuildQueryParams(List<KeyValuePair<string, string>> queryParams)
         {
             return string.Join(
                 "&",
