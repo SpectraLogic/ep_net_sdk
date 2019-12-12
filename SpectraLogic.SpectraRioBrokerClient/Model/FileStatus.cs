@@ -14,6 +14,8 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -32,7 +34,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="status">The current status of the file.</param>
         /// <param name="statusMessage">A longer message explaining the current status of the file.</param>
         /// <param name="lastUpdated">The datetime of when the file status was last updated.</param>
-        public FileStatus(string name, string uri, string status, string statusMessage, string lastUpdated)
+        public FileStatus(string name, Uri uri, string status, string statusMessage, string lastUpdated)
         {
             Name = name;
             Uri = uri;
@@ -59,7 +61,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>
         /// The URI of the file.
         /// </value>
-        [JsonProperty(PropertyName = "uri")] public string Uri { get; }
+        [JsonProperty(PropertyName = "uri")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri Uri { get; }
         
         /// <summary>
         /// Gets the current status of the file.

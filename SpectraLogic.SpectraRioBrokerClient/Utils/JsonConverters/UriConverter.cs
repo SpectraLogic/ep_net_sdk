@@ -13,35 +13,26 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
 using System;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public interface ISpectraDevice
+    internal class UriJsonConverter : JsonConverter<Uri>
     {
-        #region Properties
+        #region Methods
 
-        /// <summary>
-        /// Gets the name of the device.
-        /// </summary>
-        /// <value>The name of the device.</value>
-        string DeviceName { get; }
+        public override Uri ReadJson(JsonReader reader, Type objectType, Uri existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            string s = (string)reader.Value;
+            return new Uri(s);
+        }
 
-        /// <summary>
-        /// Gets the MGMT interface.
-        /// </summary>
-        /// <value>The MGMT interface.</value>
-        Uri MgmtInterface { get; }
+        public override void WriteJson(JsonWriter writer, Uri value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.ToString());
+        }
 
-        /// <summary>
-        /// Gets the username.
-        /// </summary>
-        /// <value>The username.</value>
-        string Username { get; }
-
-        #endregion Properties
+        #endregion Methods
     }
 }

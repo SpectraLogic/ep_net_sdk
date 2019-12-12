@@ -13,35 +13,26 @@
  * ****************************************************************************
  */
 
+using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 
-namespace SpectraLogic.SpectraRioBrokerClient.Model
+namespace SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public interface ISpectraDevice
+    internal class TimeCodeRangeJsonConverter : JsonConverter<TimeCodeRange>
     {
-        #region Properties
+        #region Methods
 
-        /// <summary>
-        /// Gets the name of the device.
-        /// </summary>
-        /// <value>The name of the device.</value>
-        string DeviceName { get; }
+        public override TimeCodeRange ReadJson(JsonReader reader, Type objectType, TimeCodeRange existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
 
-        /// <summary>
-        /// Gets the MGMT interface.
-        /// </summary>
-        /// <value>The MGMT interface.</value>
-        Uri MgmtInterface { get; }
+        public override void WriteJson(JsonWriter writer, TimeCodeRange value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.ToString());
+        }
 
-        /// <summary>
-        /// Gets the username.
-        /// </summary>
-        /// <value>The username.</value>
-        string Username { get; }
-
-        #endregion Properties
+        #endregion Methods
     }
 }

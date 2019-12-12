@@ -13,16 +13,17 @@
  * ****************************************************************************
  */
 
-using System;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
 {
     /// <summary>
     ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
     public class CreateSpectraDeviceRequest : RestRequest
     {
         #region Public Fields
@@ -35,7 +36,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
         /// <summary>
         /// The MGMT interface
         /// </summary>
-        [JsonProperty(PropertyName = "mgmtInterface")] public string MgmtInterface;
+        [JsonProperty(PropertyName = "mgmtInterface")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri MgmtInterface;
 
         /// <summary>
         /// The password
@@ -52,7 +55,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateSpectraDeviceRequest" /> class.
+        /// Initializes a new instance of the <see cref="CreateSpectraDeviceRequest"/> class.
         /// </summary>
         /// <param name="deviceName">The device name.</param>
         /// <param name="mgmtInterface">The MGMT interface.</param>
@@ -67,7 +70,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
             Contract.Requires<ArgumentNullException>(password != null, "password");
 
             DeviceName = deviceName;
-            MgmtInterface = mgmtInterface.ToString();
+            MgmtInterface = mgmtInterface;
             Username = username;
             Password = password;
         }

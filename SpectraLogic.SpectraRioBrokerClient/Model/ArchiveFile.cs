@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -58,7 +59,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The URI
         /// </summary>
-        [JsonProperty(PropertyName = "uri")] public string Uri;
+        [JsonProperty(PropertyName = "uri")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri Uri;
 
         #endregion Fields
 
@@ -77,7 +80,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             bool? indexMedia = null, ISet<string> relationships = null)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
             Size = size;
             Metadata = metadata;
             IndexMedia = indexMedia;

@@ -1,5 +1,5 @@
 ﻿{
-  "mgmtInterface": "localhost",
+  "mgmtInterface": "https://localhost",
   "name": "device_test",
   "username": "username"
 }

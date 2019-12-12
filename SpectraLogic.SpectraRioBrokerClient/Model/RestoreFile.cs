@@ -13,13 +13,13 @@
  * ****************************************************************************
  */
 
-using System;
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
     /// </summary>
     public class RestoreFile
     {
@@ -40,12 +40,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The time code range
         /// </summary>
         [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(TimeCodeRangeJsonConverter))]
         public TimeCodeRange TimeCodeRange;
 
         /// <summary>
         /// The URI
         /// </summary>
-        [JsonProperty(PropertyName = "uri")] public string Uri;
+        [JsonProperty(PropertyName = "uri")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri Uri;
 
         #endregion Fields
 
@@ -59,7 +62,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public RestoreFile(string name, Uri uri)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
         }
 
         /// <summary>
@@ -71,7 +74,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public RestoreFile(string name, Uri uri, ByteRange byteRange)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
             ByteRange = byteRange;
         }
 
@@ -80,11 +83,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="uri">The destination.</param>
-        /// <param name="timeCodeRange">Beginning and ending frame of the desired clip separated by '-'. Format: hh:mm:ss:ff for non-drop frame rates and hh:mm:ss;ff for drop frame rates. Example: 01:00:00;12-01:00:10;13 for drop frame rate.</param>
+        /// <param name="timeCodeRange">
+        /// Beginning and ending frame of the desired clip separated by '-'. Format: hh:mm:ss:ff for
+        /// non-drop frame rates and hh:mm:ss;ff for drop frame rates. Example:
+        /// 01:00:00;12-01:00:10;13 for drop frame rate.
+        /// </param>
         public RestoreFile(string name, Uri uri, TimeCodeRange timeCodeRange)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
             TimeCodeRange = timeCodeRange;
         }
 
