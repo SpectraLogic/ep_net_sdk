@@ -6,5 +6,5 @@ var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file
     [ "ByteRange", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file.html#a2935090b49899b2e0676bcc605c70bfb", null ],
     [ "Name", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file.html#a893ee30a494573c8977907b7255a7cea", null ],
     [ "TimeCodeRange", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file.html#aa8eb3a06efebe8a4e032aaf2588b7cc8", null ],
-    [ "Uri", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file.html#a6ed7b60575d4341690d53d244cea6847", null ]
+    [ "Uri", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_model_1_1_restore_file.html#a02e90df7dd0da8771e96872097d46500", null ]
 ];
