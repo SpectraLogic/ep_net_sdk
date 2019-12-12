@@ -40,7 +40,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The time code range
         /// </summary>
         [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)]
-        public TimeCodeRange TimeCodeRange;
+        public string TimeCodeRange;
 
         /// <summary>
         /// The URI
@@ -85,7 +85,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         {
             Name = name;
             Uri = uri.ToString();
-            TimeCodeRange = timeCodeRange;
+            TimeCodeRange = timeCodeRange.ToString();
         }
 
         #endregion Constructors

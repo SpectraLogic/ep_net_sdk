@@ -13,15 +13,6 @@
  * ****************************************************************************
  */
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 using log4net;
 using NUnit.Framework;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
@@ -32,6 +23,15 @@ using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
@@ -178,7 +178,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("agentConfig.bucket", "string", "not_found", "wrong_bucket")
                 });
-            
+
             ValidationExceptionCheck(
                 () =>
                 {
@@ -193,7 +193,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("agentConfig.dataPolicyUUID", "uuid", "missing")
                 });
-            
+
             ValidationExceptionCheck(
                 () =>
                 {
@@ -208,7 +208,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("agentConfig.dataPolicyUUID", "uuid", "not_found", "d68415f8-5bb3-44a6-acc8-6fd7a3fcf2e4")
                 });
-            
+
             ValidationExceptionCheck(
                 () =>
                 {
@@ -342,7 +342,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("mgmtInterface", "URI", "data_interface_specified")
                 });
-            
+
             ValidationExceptionCheck(
                 () =>
                 {
@@ -471,7 +471,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(request),
                 Throws.Exception.TypeOf<DeviceNotFoundException>());
         }
-        
+
         [Test]
         public void DeleteFileErrorTests()
         {
@@ -569,6 +569,25 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             var request = new GetJobRequest(Guid.NewGuid());
             Assert.ThrowsAsync<JobNotFoundException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(request)));
+        }
+
+        [Test]
+        public void GetJobFilesStatusErrorTest()
+        {
+            var request = new GetJobFilesStatusRequest(Guid.Empty);
+            Assert.ThrowsAsync<JobNotFoundException>(() =>
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFilesStatus(request)));
+        }
+
+        [Test]
+        public void GetJobFileStatusErrorTest()
+        {
+            var request = new GetJobFileStatusesRequest(Guid.Empty, "");
+            Assert.ThrowsAsync<JobNotFoundException>(() =>
+                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request)));
+
+            Assert.ThrowsAsync<ArgumentNullException>(() =>
+                Task.FromResult(new GetJobFileStatusesRequest(Guid.Empty, null)));
         }
 
         [Test]
@@ -722,7 +741,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         var request = new GetSpectraDevicesRequest();
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevices(request));
                     });
-                
+
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
@@ -790,7 +809,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(request);
                         return null;
                     });
-                
+
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
@@ -799,14 +818,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request);
                         return null;
                     });
-                
+
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
                         var request = new GetJobFilesStatusRequest(Guid.Empty);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFilesStatus(request));
                     });
-                
+
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
@@ -895,6 +914,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("files.byteRange", "object", "invalid",
                         reason: "startingIndex must be lower than endingIndex")
+                });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    {
+                        new RestoreFile("name", "uri".ToFileUri(), new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
+                    });
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("name", "file", "not_found")
                 });
         }
 
@@ -1022,27 +1056,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
         }
 
-        [Test]
-        public void GetJobFilesStatusErrorTest()
-        {
-            var request = new GetJobFilesStatusRequest(Guid.Empty);
-            Assert.ThrowsAsync<JobNotFoundException>(() =>
-                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFilesStatus(request)));
-        }
-        
-        [Test]
-        public void GetJobFileStatusErrorTest()
-        {
-            var request = new GetJobFileStatusesRequest(Guid.Empty, "");
-            Assert.ThrowsAsync<JobNotFoundException>(() =>
-                Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request)));
-
-            Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new GetJobFileStatusesRequest(Guid.Empty, null)));
-            
-            
-        }
-        
         private static void ValidationExceptionCheck(Action action, IEnumerable expected)
         {
             try
