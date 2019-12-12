@@ -20,7 +20,7 @@ using System;
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    /// ///
+    ///
     /// </summary>
     /// <seealso cref="ISpectraDevice"/>
     public class SpectraDevice : ISpectraDevice
