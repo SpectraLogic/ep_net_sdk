@@ -21,7 +21,7 @@ using System;
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Devices
 {
     /// <summary>
-    /// ///
+    ///
     /// </summary>
     /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
     public class CreateSpectraDeviceRequest : RestRequest
