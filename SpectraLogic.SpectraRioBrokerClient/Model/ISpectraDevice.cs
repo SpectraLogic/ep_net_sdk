@@ -13,10 +13,12 @@
  * ****************************************************************************
  */
 
+using System;
+
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
+    /// ///
     /// </summary>
     public interface ISpectraDevice
     {
@@ -25,25 +27,19 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// Gets the name of the device.
         /// </summary>
-        /// <value>
-        /// The name of the device.
-        /// </value>
+        /// <value>The name of the device.</value>
         string DeviceName { get; }
 
         /// <summary>
         /// Gets the MGMT interface.
         /// </summary>
-        /// <value>
-        /// The MGMT interface.
-        /// </value>
-        string MgmtInterface { get; }
+        /// <value>The MGMT interface.</value>
+        Uri MgmtInterface { get; }
 
         /// <summary>
         /// Gets the username.
         /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
+        /// <value>The username.</value>
         string Username { get; }
 
         #endregion Properties

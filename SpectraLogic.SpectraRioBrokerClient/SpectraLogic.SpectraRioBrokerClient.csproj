@@ -202,6 +202,7 @@
     <Compile Include="ResponseParsers\Broker\RestoreResponseParser.cs" />
     <Compile Include="Utils\Contract.cs" />
     <Compile Include="Utils\DictionaryExtensions.cs" />
+    <Compile Include="Utils\JsonConverters\UriConverter.cs" />
     <Compile Include="Utils\ResponseParseUtils.cs" />
     <Compile Include="Utils\ExceptionDecorator.cs" />
     <Compile Include="Runtime\SpectraRioBrokerHttpWebRequest.cs" />
@@ -211,7 +212,7 @@
     <Compile Include="Runtime\INetwork.cs" />
     <Compile Include="Runtime\Network.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
-    <Compile Include="Utils\TimeCodeRangeConverter.cs" />
+    <Compile Include="Utils\JsonConverters\TimeCodeRangeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

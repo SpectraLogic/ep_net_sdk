@@ -14,19 +14,21 @@
  */
 
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
+    /// ///
     /// </summary>
-    /// <seealso cref="ISpectraDevice" />
+    /// <seealso cref="ISpectraDevice"/>
     public class SpectraDevice : ISpectraDevice
     {
         #region Constructors
 
         [JsonConstructor]
-        private SpectraDevice(string deviceName, string mgmtInterface, string username)
+        private SpectraDevice(string deviceName, Uri mgmtInterface, string username)
         {
             DeviceName = deviceName;
             MgmtInterface = mgmtInterface;
@@ -40,25 +42,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// Gets the name of the device.
         /// </summary>
-        /// <value>
-        /// The name of the device.
-        /// </value>
+        /// <value>The name of the device.</value>
         [JsonProperty(PropertyName = "name")] public string DeviceName { get; }
 
         /// <summary>
         /// Gets the MGMT interface.
         /// </summary>
-        /// <value>
-        /// The MGMT interface.
-        /// </value>
-        [JsonProperty(PropertyName = "mgmtInterface")] public string MgmtInterface { get; }
+        /// <value>The MGMT interface.</value>
+        [JsonProperty(PropertyName = "mgmtInterface")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri MgmtInterface { get; }
 
         /// <summary>
         /// Gets the username.
         /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
+        /// <value>The username.</value>
         [JsonProperty(PropertyName = "username")] public string Username { get; }
 
         #endregion Properties

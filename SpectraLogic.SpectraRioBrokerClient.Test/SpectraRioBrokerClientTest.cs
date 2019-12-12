@@ -197,7 +197,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var device = client.CreateSpectraDevice(createSpectraDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
-            Assert.AreEqual("localhost", device.MgmtInterface);
+            Assert.AreEqual("https://localhost".ToUri(), device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
 
             mockBuilder.VerifyAll();
@@ -533,7 +533,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var device = client.GetSpectraDevice(getSpectraDeviceRequest);
             Assert.AreEqual("device_test", device.DeviceName);
-            Assert.AreEqual("localhost", device.MgmtInterface);
+            Assert.AreEqual("https://localhost".ToUri(), device.MgmtInterface);
             Assert.AreEqual("username", device.Username);
 
             mockBuilder.VerifyAll();
@@ -566,11 +566,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, devices.Page.TotalPages);
             
             Assert.AreEqual("sm2u-11", devices.DeviceList[0].DeviceName);
-            Assert.AreEqual("https://sm2u-11-mgmt.eng.sldomain.com", devices.DeviceList[0].MgmtInterface);
+            Assert.AreEqual("https://sm2u-11-mgmt.eng.sldomain.com".ToUri(), devices.DeviceList[0].MgmtInterface);
             Assert.AreEqual("Administrator", devices.DeviceList[0].Username);
             
             Assert.AreEqual("sm25-2", devices.DeviceList[1].DeviceName);
-            Assert.AreEqual("https://sm25-2-mgmt.eng.sldomain.com", devices.DeviceList[1].MgmtInterface);
+            Assert.AreEqual("https://sm25-2-mgmt.eng.sldomain.com".ToUri(), devices.DeviceList[1].MgmtInterface);
             Assert.AreEqual("Administrator", devices.DeviceList[1].Username);
 
             mockBuilder.VerifyAll();

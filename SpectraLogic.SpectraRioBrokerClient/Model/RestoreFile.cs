@@ -40,13 +40,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The time code range
         /// </summary>
         [JsonProperty(PropertyName = "timeCodeRange", NullValueHandling = NullValueHandling.Ignore)]
-        [JsonConverter(typeof(TimeCodeRangeConverter))]
+        [JsonConverter(typeof(TimeCodeRangeJsonConverter))]
         public TimeCodeRange TimeCodeRange;
 
         /// <summary>
         /// The URI
         /// </summary>
-        [JsonProperty(PropertyName = "uri")] public string Uri;
+        [JsonProperty(PropertyName = "uri")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri Uri;
 
         #endregion Fields
 
@@ -60,7 +62,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public RestoreFile(string name, Uri uri)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
         }
 
         /// <summary>
@@ -72,7 +74,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public RestoreFile(string name, Uri uri, ByteRange byteRange)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
             ByteRange = byteRange;
         }
 
@@ -89,7 +91,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public RestoreFile(string name, Uri uri, TimeCodeRange timeCodeRange)
         {
             Name = name;
-            Uri = uri.ToString();
+            Uri = uri;
             TimeCodeRange = timeCodeRange;
         }
 

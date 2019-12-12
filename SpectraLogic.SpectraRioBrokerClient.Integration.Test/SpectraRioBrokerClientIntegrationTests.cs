@@ -815,7 +815,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void GetMasterTest()
         {
             var master = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster();
-            Assert.AreEqual("127.0.0.1", master.IpAddress);
             Assert.AreEqual(5701, master.ClusterPort);
             Assert.AreEqual(5050, master.HttpPort);
             Assert.AreEqual("master", master.Role);
@@ -827,7 +826,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             var members = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMembers();
             Assert.AreEqual(1, members.Members.Count);
             var node = members.Members[0];
-            Assert.AreEqual("127.0.0.1", node.IpAddress);
             Assert.AreEqual(5701, node.ClusterPort);
             Assert.AreEqual(5050, node.HttpPort);
             Assert.AreEqual("master", node.Role);

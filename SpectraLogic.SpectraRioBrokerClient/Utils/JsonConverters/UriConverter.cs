@@ -14,21 +14,21 @@
  */
 
 using Newtonsoft.Json;
-using SpectraLogic.SpectraRioBrokerClient.Model;
 using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters
 {
-    internal class TimeCodeRangeJsonConverter : JsonConverter<TimeCodeRange>
+    internal class UriJsonConverter : JsonConverter<Uri>
     {
         #region Methods
 
-        public override TimeCodeRange ReadJson(JsonReader reader, Type objectType, TimeCodeRange existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Uri ReadJson(JsonReader reader, Type objectType, Uri existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            string s = (string)reader.Value;
+            return new Uri(s);
         }
 
-        public override void WriteJson(JsonWriter writer, TimeCodeRange value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Uri value, JsonSerializer serializer)
         {
             writer.WriteValue(value.ToString());
         }

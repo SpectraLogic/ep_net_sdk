@@ -68,18 +68,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public string Bucket;
 
         /// <summary>
-        /// The user name
-        /// </summary>
-        [JsonProperty(PropertyName = "username")]
-        public string UserName;
-
-        /// <summary>
-        /// The HTTPS
-        /// </summary>
-        [JsonProperty(PropertyName = "https", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Https;
-
-        /// <summary>
         /// Create the bucket if doesn't exists
         /// </summary>
         [JsonProperty(PropertyName = "createBucket", NullValueHandling = NullValueHandling.Ignore)]
@@ -92,10 +80,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public string DataPolicyUuid;
 
         /// <summary>
-        /// The proxy
+        /// The delay
         /// </summary>
-        [JsonProperty(PropertyName = "proxy", NullValueHandling = NullValueHandling.Ignore)]
-        public string Proxy;
+        [JsonProperty(PropertyName = "delay", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Delay;
+
+        /// <summary>
+        /// The HTTPS
+        /// </summary>
+        [JsonProperty(PropertyName = "https", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Https;
 
         /// <summary>
         /// The max retries
@@ -104,10 +98,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         public int? MaxRetries;
 
         /// <summary>
-        /// The delay
+        /// The proxy
         /// </summary>
-        [JsonProperty(PropertyName = "delay", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Delay;
+        [JsonProperty(PropertyName = "proxy", NullValueHandling = NullValueHandling.Ignore)]
+        public string Proxy;
+
+        /// <summary>
+        /// The user name
+        /// </summary>
+        [JsonProperty(PropertyName = "username")]
+        public string UserName;
 
         #endregion Fields
     }
