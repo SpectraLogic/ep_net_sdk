@@ -18,7 +18,7 @@ using System;
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    /// ///
+    ///
     /// </summary>
     public interface ISpectraDevice
     {
