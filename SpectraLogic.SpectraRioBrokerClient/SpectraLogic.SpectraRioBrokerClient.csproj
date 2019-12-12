@@ -211,6 +211,7 @@
     <Compile Include="Runtime\INetwork.cs" />
     <Compile Include="Runtime\Network.cs" />
     <Compile Include="Utils\StringExtensions.cs" />
+    <Compile Include="Utils\TimeCodeRangeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
