@@ -30,7 +30,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters
 
         public override void WriteJson(JsonWriter writer, Uri value, JsonSerializer serializer)
         {
-            writer.WriteValue(value.ToString());
+            writer.WriteValue(value.AbsoluteUri);
         }
 
         #endregion Methods
