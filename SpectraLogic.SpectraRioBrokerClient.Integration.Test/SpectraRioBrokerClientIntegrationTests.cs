@@ -151,7 +151,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void ArchiveAndRestore()
         {
-            var fileName1 = "ArchiveAndRestore_" + Guid.NewGuid();
+            var fileName1 = "Archive And Restore_" + Guid.NewGuid();
             var fileName2 = "ArchiveAndRestore_" + Guid.NewGuid();
 
             try
@@ -161,7 +161,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                  ***********/
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
-                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
+                    new ArchiveFile(fileName1, fileName1.ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName1}}, false),
                     new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(), 14,
                         new Dictionary<string, string> {{"fileName", fileName2}}, false)
@@ -200,8 +200,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                 {
-                    new RestoreFile(fileName1,
-                        "F1_restore.txt".ToDevNullUri()),
+                    new RestoreFile(fileName1, fileName1.ToDevNullUri()),
                     new RestoreFile(fileName2,
                         "F2_restore.txt".ToDevNullUri(),
                         new ByteRange(0, 10))
