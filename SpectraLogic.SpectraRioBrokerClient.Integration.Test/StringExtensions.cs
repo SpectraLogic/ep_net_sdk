@@ -22,18 +22,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
     {
         #region Public Methods
 
-        private static string EscapeUri(this string str) =>
-            str.Replace("\\", "/").Replace(" ", "%20");
-
-        public static Uri ToFileUri(this string str) => $"file://{str.EscapeUri()}".ToUri();
+        public static Uri ToFileUri(this string str) => $"file://{str}".ToUri();
 
         public static Uri ToHttpsUri(this string str) => $"https://{str}".ToUri();
 
-        public static Uri ToAtoZUri(this string str) =>
-            $"aToZSequence://{str.EscapeUri()}".ToUri();
+        public static Uri ToAtoZUri(this string str) => $"aToZSequence:///{str}".ToUri();
 
-        public static Uri ToDevNullUri(this string str) =>
-            $"null:///{str.EscapeUri()}".ToUri();
+        public static Uri ToDevNullUri(this string str) => $"null:///{str}".ToUri();
 
         #endregion Public Methods
     }
