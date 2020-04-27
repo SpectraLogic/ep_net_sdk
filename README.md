@@ -98,3 +98,18 @@ namespace your.application
 }
 ```
 For more examples and uses of the SDK [SpectraLogic.SpectraRioBrokerClient.Integration.Test](../../tree/master/SpectraLogic.SpectraRioBrokerClient.Integration.Test)
+
+
+## Updating the max concurrent connections allowed
+By default there are 2 max concurrent connections allowed and there are two ways to override it.
+1. Update the App.config to include the following:
+```xml
+<configuration>  
+  <system.net>  
+    <connectionManagement>  
+      <add address = "*" maxconnection = "100" />  
+    </connectionManagement>  
+  </system.net>  
+</configuration>
+```
+2. Set the `DefaultConnectionLimit` on the `ServicePointManager` to your preferred value once when the AppDomain loads for example `System.Net.ServicePointManager.DefaultConnectionLimit=100`
