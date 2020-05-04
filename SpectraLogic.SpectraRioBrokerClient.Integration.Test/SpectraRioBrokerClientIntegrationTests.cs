@@ -354,7 +354,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(updatedMetadata, updatedObject.Metadata);
 
                 Assert.AreEqual(2, updatedObject.Relationships.Count);
-                Assert.AreEqual(updatedRelationships, updatedObject.Relationships);
+                foreach(var relation in updatedRelationships)
+                {
+                    Assert.That(updatedObject.Relationships.Contains(relation));
+                }
             }
             finally
             {
