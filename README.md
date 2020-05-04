@@ -101,15 +101,15 @@ For more examples and uses of the SDK [SpectraLogic.SpectraRioBrokerClient.Integ
 
 
 ## Updating the max concurrent connections allowed
-By default there are 2 max concurrent connections allowed and there are two ways to override it.
+By default there are 2 max concurrent connections allowed and there are two ways to override it. Typically 2 max concurrent connections will be much too low and will limit RioBroker performance. We therefore recommend that for most environments, 10-15 max concurrent connections would be a better value.
 1. Update the App.config to include the following:
 ```xml
 <configuration>  
   <system.net>  
     <connectionManagement>  
-      <add address = "*" maxconnection = "100" />  
+      <add address = "*" maxconnection = "10" />  
     </connectionManagement>  
   </system.net>  
 </configuration>
 ```
-2. Set the `DefaultConnectionLimit` on the `ServicePointManager` to your preferred value once when the AppDomain loads for example `System.Net.ServicePointManager.DefaultConnectionLimit=100`
+2. Set the `DefaultConnectionLimit` on the `ServicePointManager` to your preferred value once when the AppDomain loads for example `System.Net.ServicePointManager.DefaultConnectionLimit=10`
