@@ -6,9 +6,6 @@
   "metadata": {
     "test":  "metadata"
   },
-  "relationships": [
-    "relation1"
-  ],
   "checksum": {
     "hash": "",
     "type": "NONE"

@@ -38,7 +38,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             var fileName1 = "0a_" + "GetBrokerObjectsTest_" + Guid.NewGuid();
             var fileName2 = "zz_" + "GetBrokerObjectsTest_" + Guid.NewGuid();
-            const string relationshipName = "GetBrokerObjectsTest";
 
             try
             {
@@ -48,11 +47,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
                 {
                     new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName1}}, false,
-                        new HashSet<string> {relationshipName}),
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false),
                     new ArchiveFile(fileName2, "F2.txt".ToAtoZUri(), 14,
-                        new Dictionary<string, string> {{"fileName", fileName2}}, false,
-                        new HashSet<string> {relationshipName})
+                        new Dictionary<string, string> {{"fileName", fileName2}}, false)
                 });
 
                 var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
@@ -129,11 +126,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
 
                 brokerObjects = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(
-                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName,
-                        relationships: new List<string>
-                        {
-                            relationshipName
-                        }));
+                    new GetBrokerObjectsRequest(SpectraRioBrokerClientFixture.BrokerName));
 
                 Assert.AreEqual(2, brokerObjects.Objects.Count);
             }

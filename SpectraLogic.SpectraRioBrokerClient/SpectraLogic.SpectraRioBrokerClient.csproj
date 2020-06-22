@@ -64,8 +64,6 @@
     <Compile Include="Calls\Authentication\CreateTokenRequest.cs" />
     <Compile Include="Calls\Broker\DeleteFileRequest.cs" />
     <Compile Include="Calls\Broker\GetBrokerObjectsRequest.cs" />
-    <Compile Include="Calls\Broker\GetBrokerRelationshipsRequest.cs" />
-    <Compile Include="Calls\Broker\GetBrokerRelationshipRequest.cs" />
     <Compile Include="Calls\Broker\GetBrokerObjectRequest.cs" />
     <Compile Include="Calls\Broker\GetBrokersRequest.cs" />
     <Compile Include="Calls\Broker\DeleteBrokerRequest.cs" />
@@ -112,14 +110,12 @@
     <Compile Include="Calls\Broker\ArchiveRequest.cs" />
     <Compile Include="Calls\RestRequest.cs" />
     <Compile Include="Model\BearerToken.cs" />
-    <Compile Include="Model\BrokerRelationships.cs" />
     <Compile Include="Model\ClusterMembers.cs" />
     <Compile Include="Model\Brokers.cs" />
     <Compile Include="Model\SpectraDevices.cs" />
     <Compile Include="Model\FilesStatus.cs" />
     <Compile Include="Model\FileStatus.cs" />
     <Compile Include="Model\FileStatuses.cs" />
-    <Compile Include="Model\IBrokerRelationships.cs" />
     <Compile Include="Model\IBrokers.cs" />
     <Compile Include="Model\IBrokerObject.cs" />
     <Compile Include="Model\ClusterMember.cs" />
@@ -150,8 +146,6 @@
     <Compile Include="ResponseParsers\Authentication\CreateTokenResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\UpdateBrokerObjectResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerObjectsResponseParser.cs" />
-    <Compile Include="ResponseParsers\Broker\GetBrokerRelationshipsResponseParser.cs" />
-    <Compile Include="ResponseParsers\Broker\GetBrokerRelationshipResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokerObjectResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\GetBrokersResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\DeleteBrokerResponseParser.cs" />

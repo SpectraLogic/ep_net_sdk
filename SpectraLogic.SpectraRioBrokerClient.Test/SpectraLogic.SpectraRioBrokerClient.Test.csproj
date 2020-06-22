@@ -95,7 +95,6 @@
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCompletedResponse" />
     <EmbeddedResource Include="TestFiles\GetJobWithStatusCanceledResponse" />
     <EmbeddedResource Include="TestFiles\RetryResponse" />
-    <EmbeddedResource Include="TestFiles\GetBrokerRelationshipResponse" />
     <EmbeddedResource Include="TestFiles\CreateTokenResponse" />
     <EmbeddedResource Include="TestFiles\GetSystemResponse" />
     <EmbeddedResource Include="TestFiles\GetBrokerObjectResponse" />
@@ -104,7 +103,6 @@
     <EmbeddedResource Include="TestFiles\GetJobsResponse" />
     <EmbeddedResource Include="TestFiles\GetMasterResponse" />
     <EmbeddedResource Include="TestFiles\GetMembersResponse" />
-    <EmbeddedResource Include="TestFiles\GetBrokerRelationshipsResponse" />
     <EmbeddedResource Include="TestFiles\UpdateBrokerObjectResponse" />
   </ItemGroup>
   <ItemGroup>

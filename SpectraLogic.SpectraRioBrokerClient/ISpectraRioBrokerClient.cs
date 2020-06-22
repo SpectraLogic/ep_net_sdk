@@ -194,26 +194,6 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerObjects GetBrokerObjects(GetBrokerObjectsRequest request);
 
-        /// <summary>Gets the relationship objects.</summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        IBrokerObjects GetBrokerRelationship(GetBrokerRelationshipRequest request);
-
-        /// <summary>Gets a paginated list of all the relationships for this broker.</summary>
-        /// <param name="request">The request.</param>
-        /// <returns></returns>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.BrokerNotFoundException"></exception>
-        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
-        IBrokerRelationships GetBrokerRelationships(GetBrokerRelationshipsRequest request);
-
         /// <summary>Gets the brokers.</summary>
         /// <param name="request">The request.</param>
         /// <returns></returns>

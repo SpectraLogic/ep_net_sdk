@@ -45,12 +45,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         [JsonProperty(PropertyName = "name")] public string Name;
 
         /// <summary>
-        /// The relationships
-        /// </summary>
-        [JsonProperty(PropertyName = "relationships", NullValueHandling = NullValueHandling.Ignore)]
-        public ISet<string> Relationships;
-
-        /// <summary>
         /// The size
         /// </summary>
         [JsonProperty(PropertyName = "size", NullValueHandling = NullValueHandling.Ignore)]
@@ -75,16 +69,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="size">The size of the file to be archived. This is optional</param>
         /// <param name="metadata">Key value pairs of metadata to associate with the file. This is optional</param>
         /// <param name="indexMedia">If enabled, if the file is a media file, it will be indexed to allow for time based partial file restores. This is optional and defaults to false</param>
-        /// <param name="relationships">The list of relationships. This is optional</param>
         public ArchiveFile(string name, Uri uri, long? size = null, IDictionary<string, string> metadata = null,
-            bool? indexMedia = null, ISet<string> relationships = null)
+            bool? indexMedia = null)
         {
             Name = name;
             Uri = uri;
             Size = size;
             Metadata = metadata;
             IndexMedia = indexMedia;
-            Relationships = relationships;
         }
 
         #endregion Constructors

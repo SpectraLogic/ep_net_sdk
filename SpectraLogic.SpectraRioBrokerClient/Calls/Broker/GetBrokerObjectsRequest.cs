@@ -37,7 +37,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <param name="prefix">The prefix.</param>
         /// <param name="filename">The filename.</param>
         /// <param name="metadata">The metadata.</param>
-        /// <param name="relationships">The relationships.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public GetBrokerObjectsRequest(
             string brokerName,
@@ -47,8 +46,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             int? perPage = null,
             string prefix = null,
             string filename = null,
-            List<KeyValuePair<string, string>> metadata = null,
-            List<string> relationships = null)
+            List<KeyValuePair<string, string>> metadata = null)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
 
@@ -85,8 +83,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             }
 
             metadata?.ForEach(pair => { AddQueryParam("metadata", $"{pair.Key},{pair.Value}"); });
-
-            relationships?.ForEach(relationship => { AddQueryParam("relationships", relationship); });
         }
 
         #endregion Public Constructors

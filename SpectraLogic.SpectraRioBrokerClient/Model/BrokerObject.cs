@@ -35,16 +35,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="creationDate">The creation date.</param>
         /// <param name="metadata">The metadata.</param>
         /// <param name="name">The name.</param>
-        /// <param name="relationships">The relationships.</param>
         /// <param name="size">The size.</param>
-        public BrokerObject(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, IList<string> relationships, long size)
+        public BrokerObject(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, long size)
         {
             Broker = broker;
             Checksum = checksum;
             CreationDate = creationDate.ToDateTime();
             Metadata = metadata;
             Name = name;
-            Relationships = relationships;
             Size = size;
         }
 
@@ -91,14 +89,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The name.
         /// </value>
         [JsonProperty(PropertyName = "name")] public string Name { get; }
-
-        /// <summary>
-        /// Gets the relationships.
-        /// </summary>
-        /// <value>
-        /// The relationships.
-        /// </value>
-        [JsonProperty(PropertyName = "relationships")] public IList<string> Relationships { get; }
 
         /// <summary>
         /// Gets the size.

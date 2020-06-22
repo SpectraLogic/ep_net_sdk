@@ -62,14 +62,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         string Name { get; }
 
         /// <summary>
-        /// Gets the relationships.
-        /// </summary>
-        /// <value>
-        /// The relationships.
-        /// </value>
-        IList<string> Relationships { get; }
-
-        /// <summary>
         /// Gets the size.
         /// </summary>
         /// <value>
