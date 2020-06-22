@@ -390,10 +390,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.CreateSpectraDevice(new CreateSpectraDeviceRequest("", "localhost".ToHttpsUri(), "", ""))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetBrokerRelationship(new GetBrokerRelationshipRequest("", ""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetBrokerRelationships(new GetBrokerRelationshipsRequest(""))));
-            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetBrokers(new GetBrokersRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(""))));
@@ -421,7 +417,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             });
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest("", "",
-                    new Dictionary<string, string>(), new HashSet<string>()))));
+                    new Dictionary<string, string>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetJobFilesStatus(new GetJobFilesStatusRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -436,7 +432,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("username", "string", "missing", reason: "username cannot be empty")
+                    new ValidationError("username", "string", "missing", reason: "cannot be empty or consist only of whitespace")
                 });
 
             ValidationExceptionCheck(
@@ -448,7 +444,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("password", "string", "missing", reason: "password cannot be empty")
+                    new ValidationError("password", "password", "missing", reason: "cannot be empty or consist only of whitespace")
                 });
         }
 
@@ -502,8 +498,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         {
             Assert.ThrowsAsync<ArgumentNullException>(() =>
                 Task.FromResult(new GetBrokerObjectRequest(null, "objectName")));
-            Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new GetBrokerRelationshipRequest("broker", null)));
 
             var request = new GetBrokerObjectRequest("not_found", "objectName");
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObject(request),
@@ -521,34 +515,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             var request = new GetBrokerObjectsRequest("not_found");
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerObjects(request),
-                Throws.Exception.TypeOf<BrokerNotFoundException>());
-        }
-
-        [Test]
-        public void GetBrokerRelationshipErrorTests()
-        {
-            Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new GetBrokerRelationshipRequest(null, "relationship")));
-            Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new GetBrokerRelationshipRequest("broker", null)));
-
-            var request = new GetBrokerRelationshipRequest("not_found", "relationship");
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request),
-                Throws.Exception.TypeOf<BrokerNotFoundException>());
-
-            request = new GetBrokerRelationshipRequest(SpectraRioBrokerClientFixture.BrokerName,
-                "relationship_not_found");
-            Assert.AreEqual(0,
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request).Objects.Count);
-        }
-
-        [Test]
-        public void GetBrokerRelationshipsErrorTests()
-        {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new GetBrokerRelationshipsRequest(null)));
-
-            var request = new GetBrokerRelationshipsRequest("not_found");
-            Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationships(request),
                 Throws.Exception.TypeOf<BrokerNotFoundException>());
         }
 
@@ -781,22 +747,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new GetBrokerRelationshipRequest("", "");
-                        return Task.FromResult(
-                            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBrokerRelationship(request));
-                    });
-
-                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
-                    () =>
-                    {
-                        var request = new GetBrokerRelationshipsRequest("");
-                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
-                            .GetBrokerRelationships(request));
-                    });
-
-                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
-                    () =>
-                    {
                         var request = new DeleteBrokerRequest("");
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(request);
                         return null;
@@ -813,8 +763,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new UpdateBrokerObjectRequest("", "", new Dictionary<string, string>(),
-                            new HashSet<string>());
+                        var request = new UpdateBrokerObjectRequest("", "", new Dictionary<string, string>());
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request);
                         return null;
                     });
@@ -1036,22 +985,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public void UpdateBrokerObjectErrorTests()
         {
             var metadata = new Dictionary<string, string>();
-            var relationships = new HashSet<string>();
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new UpdateBrokerObjectRequest(null, "objectName", metadata, relationships)));
+                Task.FromResult(new UpdateBrokerObjectRequest(null, "objectName", metadata)));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new UpdateBrokerObjectRequest("broker", null, metadata, relationships)));
+                Task.FromResult(new UpdateBrokerObjectRequest("broker", null, metadata)));
             Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new UpdateBrokerObjectRequest("broker", "objectName", null, relationships)));
-            Assert.ThrowsAsync<ArgumentNullException>(() =>
-                Task.FromResult(new UpdateBrokerObjectRequest("broker", "objectName", metadata, null)));
+                Task.FromResult(new UpdateBrokerObjectRequest("broker", "objectName", null)));
 
-            var request = new UpdateBrokerObjectRequest("not_found", "objectName", metadata, relationships);
+            var request = new UpdateBrokerObjectRequest("not_found", "objectName", metadata);
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request),
                 Throws.Exception.TypeOf<BrokerNotFoundException>());
 
-            request = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, "objectName_not_found",
-                metadata, relationships);
+            request = new UpdateBrokerObjectRequest(SpectraRioBrokerClientFixture.BrokerName, "objectName_not_found", metadata);
             Assert.That(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request),
                 Throws.Exception.TypeOf<BrokerObjectNotFoundException>());
         }

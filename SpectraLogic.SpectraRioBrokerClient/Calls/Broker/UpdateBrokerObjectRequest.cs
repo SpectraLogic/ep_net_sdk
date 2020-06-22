@@ -29,9 +29,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <summary>The metadata</summary>
         [JsonProperty(PropertyName = "metadata")] public IDictionary<string, string> Metadata;
 
-        /// <summary>The relationships</summary>
-        [JsonProperty(PropertyName = "relationships")] public ISet<string> Relationships;
-
         #endregion Fields
 
         #region Constructors
@@ -40,18 +37,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="objectName">Name of the object.</param>
         /// <param name="metadata">The metadata.</param>
-        /// <param name="relationships">The relationships.</param>
-        public UpdateBrokerObjectRequest(string brokerName, string objectName, IDictionary<string, string> metadata, ISet<string> relationships)
+        public UpdateBrokerObjectRequest(string brokerName, string objectName, IDictionary<string, string> metadata)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(objectName != null, "objectName");
             Contract.Requires<ArgumentNullException>(metadata != null, "metadata");
-            Contract.Requires<ArgumentNullException>(relationships != null, "relationships");
 
             BrokerName = brokerName;
             ObjectName = objectName;
             Metadata = metadata;
-            Relationships = relationships;
         }
 
         #endregion Constructors
