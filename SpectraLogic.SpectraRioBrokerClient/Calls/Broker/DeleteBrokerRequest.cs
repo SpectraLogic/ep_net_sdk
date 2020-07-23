@@ -32,11 +32,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         /// <summary>Initializes a new instance of the <see cref="DeleteBrokerRequest"/> class.</summary>
         /// <param name="brokerName">Name of the broker.</param>
-        public DeleteBrokerRequest(string brokerName)
+        /// <param name="force">Force broker delete even if it has associated files. Default=false</param>
+        public DeleteBrokerRequest(string brokerName, bool force = false)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
 
             BrokerName = brokerName;
+            AddQueryParam("force", force.ToString());
         }
 
         #endregion Constructors
