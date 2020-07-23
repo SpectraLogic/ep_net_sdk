@@ -247,15 +247,16 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() =>
                 Task.FromResult(new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), "username", null)));
 
-            var request = new CreateSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, "localhost".ToHttpsUri(), "username",
-                "password");
+            var request = new CreateSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.MgmtInterface, 
+                SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request)));
 
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateSpectraDeviceRequest(string.Empty, "localhost".ToHttpsUri(), "username", "password");
+                    request = new CreateSpectraDeviceRequest(string.Empty, SpectraRioBrokerClientFixture.MgmtInterface,
+                        SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
@@ -267,38 +268,38 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), string.Empty, "password");
+                    request = new CreateSpectraDeviceRequest("name", SpectraRioBrokerClientFixture.MgmtInterface, string.Empty, "password");
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("username", "string", "missing")
+                    new ValidationError("username", "string", "invalid_credentials"),
+                    new ValidationError("password", "password", "invalid_credentials")
                 });
 
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), "username", string.Empty);
+                    request = new CreateSpectraDeviceRequest("name", SpectraRioBrokerClientFixture.MgmtInterface, "username", string.Empty);
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("password", "password", "missing")
+                    new ValidationError("username", "string", "invalid_credentials"),
+                    new ValidationError("password", "password", "invalid_credentials")
                 });
 
             ValidationExceptionCheck(
                 () =>
                 {
-                    request = new CreateSpectraDeviceRequest(string.Empty, "localhost".ToHttpsUri(), string.Empty, string.Empty);
+                    request = new CreateSpectraDeviceRequest(string.Empty, SpectraRioBrokerClientFixture.MgmtInterface, string.Empty, string.Empty);
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("username", "string", "missing"),
-                    new ValidationError("password", "password", "missing"),
                     new ValidationError("name", "string", "missing")
                 });
 
@@ -790,7 +791,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test]
+        [Test, Ignore("ESCP-2182, ESCP-2183")]
         public void RestoreErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(
@@ -881,7 +882,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 });
         }
 
-        [Test]
+        [Test, Ignore("Multi-broker search not currently supported")]
         public void RestoreJobWithIgnoreDuplicatesErrorTests()
         {
             try

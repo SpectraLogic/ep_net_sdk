@@ -307,7 +307,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test]
+        [Test, Ignore("ESCP-1984")]
         public void ArchiveWithFailFastFalse()
         {
             var fileName1 = "ArchiveWithFailFastFalse_" + Guid.NewGuid();
@@ -503,7 +503,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.DoesNotThrow(() => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(new GetBrokerRequest(brokerName)));
             
             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(
-                new DeleteBrokerRequest(brokerName));
+                new DeleteBrokerRequest(brokerName, true));
             Assert.That(
                 () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(
                     new GetBrokerRequest(brokerName)),
@@ -713,7 +713,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem());
         }
 
-        [Test]
+        [Test, Ignore("ESCP-2002 & Multi-broker search not currently supported")]
         public void RestoreJobWithIgnoreDuplicates()
         {
             var fileName1 = "RestoreJobWithIgnoreDuplicates_" + Guid.NewGuid();
@@ -964,7 +964,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test]
+        [Test, Ignore("Multi-broker search not currently supported")]
         public void SearchAndDeleteTest()
         {
             var fileName1 = "SearchAndDeleteTest_" + Guid.NewGuid();
