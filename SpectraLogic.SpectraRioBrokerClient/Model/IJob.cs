@@ -19,7 +19,6 @@ using System.Collections.Generic;
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
     /// </summary>
     public interface IJob
     {
@@ -28,81 +27,67 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// Gets the creation date.
         /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
+        /// <value>The creation date.</value>
         DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the files.
         /// </summary>
-        /// <value>
-        /// The files.
-        /// </value>
+        /// <value>The files.</value>
         IList<JobFileStatus> Files { get; }
 
         /// <summary>
         /// Gets the files transferred.
         /// </summary>
-        /// <value>
-        /// The files transferred.
-        /// </value>
+        /// <value>The files transferred.</value>
         int FilesTransferred { get; }
 
         /// <summary>
         /// Gets the identifier.
         /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
+        /// <value>The identifier.</value>
         Guid JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.
         /// </summary>
-        /// <value>
-        /// The type of the job.
-        /// </value>
+        /// <value>The type of the job.</value>
         JobType JobType { get; }
 
         /// <summary>
         /// Gets the last updated.
         /// </summary>
-        /// <value>
-        /// The last updated.
-        /// </value>
+        /// <value>The last updated.</value>
         DateTime LastUpdated { get; }
+
+        /// <summary>
+        /// Gets the name of the job.
+        /// </summary>
+        /// <value>The name of the job.</value>
+        string Name { get; }
 
         /// <summary>
         /// Gets the number of files.
         /// </summary>
-        /// <value>
-        /// The number of files.
-        /// </value>
+        /// <value>The number of files.</value>
         int NumberOfFiles { get; }
 
         /// <summary>
         /// Gets the progress.
         /// </summary>
-        /// <value>
-        /// The progress.
-        /// </value>
+        /// <value>The progress.</value>
         double Progress { get; }
 
         /// <summary>
         /// Gets the status.
         /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
+        /// <value>The status.</value>
         JobStatus Status { get; }
 
         /// <summary>
         /// Gets the total size in bytes.
         /// </summary>
-        /// <value>
-        /// The total size in bytes.
-        /// </value>
+        /// <value>The total size in bytes.</value>
         long TotalSizeInBytes { get; }
 
         #endregion Properties

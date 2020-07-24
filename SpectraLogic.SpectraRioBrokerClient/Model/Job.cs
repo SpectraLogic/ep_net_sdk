@@ -21,15 +21,14 @@ using System.Collections.Generic;
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IJob" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Model.IJob"/>
     public class Job : IJob
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Job" /> class.
+        /// Initializes a new instance of the <see cref="Job"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
         /// <param name="jobType">Type of the job.</param>
@@ -41,7 +40,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="progress">The progress.</param>
         /// <param name="status">The status.</param>
         /// <param name="files">The files.</param>
-        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred, long totalSizeInBytes, string creationDate, string lastUpdated, double progress, JobStatus status, IList<JobFileStatus> files)
+        /// <param name="name">The job name.</param>
+        public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred,
+            long totalSizeInBytes, string creationDate, string lastUpdated, double progress,
+            JobStatus status, IList<JobFileStatus> files, string name)
         {
             JobId = jobId;
             JobType = jobType;
@@ -53,6 +55,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Progress = progress;
             Status = status;
             Files = files;
+            Name = name;
         }
 
         #endregion Constructors
@@ -62,81 +65,67 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// Gets the creation date.
         /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
+        /// <value>The creation date.</value>
         [JsonProperty(PropertyName = "creationDate")] public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the files.
         /// </summary>
-        /// <value>
-        /// The files.
-        /// </value>
+        /// <value>The files.</value>
         [JsonProperty(PropertyName = "files")] public IList<JobFileStatus> Files { get; }
 
         /// <summary>
         /// Gets the files transferred.
         /// </summary>
-        /// <value>
-        /// The files transferred.
-        /// </value>
+        /// <value>The files transferred.</value>
         [JsonProperty(PropertyName = "filesTransferred")] public int FilesTransferred { get; }
 
         /// <summary>
         /// Gets the identifier.
         /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
+        /// <value>The identifier.</value>
         [JsonProperty(PropertyName = "id")] public Guid JobId { get; }
 
         /// <summary>
         /// Gets the type of the job.
         /// </summary>
-        /// <value>
-        /// The type of the job.
-        /// </value>
+        /// <value>The type of the job.</value>
         [JsonProperty(PropertyName = "jobType")] public JobType JobType { get; }
 
         /// <summary>
         /// Gets the last updated.
         /// </summary>
-        /// <value>
-        /// The last updated.
-        /// </value>
+        /// <value>The last updated.</value>
         [JsonProperty(PropertyName = "lastUpdated")] public DateTime LastUpdated { get; }
+
+        /// <summary>
+        /// Gets the name of the job.
+        /// </summary>
+        /// <value>The name of the job.</value>
+        [JsonProperty(PropertyName = "name")] public string Name { get; }
 
         /// <summary>
         /// Gets the number of files.
         /// </summary>
-        /// <value>
-        /// The number of files.
-        /// </value>
+        /// <value>The number of files.</value>
         [JsonProperty(PropertyName = "numberOfFiles")] public int NumberOfFiles { get; }
 
         /// <summary>
         /// Gets the progress.
         /// </summary>
-        /// <value>
-        /// The progress.
-        /// </value>
+        /// <value>The progress.</value>
         [JsonProperty(PropertyName = "progress")] public double Progress { get; }
 
         /// <summary>
         /// Gets the status.
         /// </summary>
-        /// <value>
-        /// The status.
-        /// </value>
+        /// <value>The status.</value>
         [JsonProperty(PropertyName = "status")] public JobStatus Status { get; }
 
         /// <summary>
         /// Gets the total size in bytes.
         /// </summary>
-        /// <value>
-        /// The total size in bytes.
-        /// </value>
+        /// <value>The total size in bytes.</value>
         [JsonProperty(PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
 
         #endregion Properties
