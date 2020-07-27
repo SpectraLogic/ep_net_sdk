@@ -13,31 +13,36 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
 using SpectraLogic.SpectraRioBrokerClient.Model;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
     /// <summary>
-    ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
     public class GetJobsRequest : RestRequest
     {
-        #region Public Constructors
+        #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="GetJobsRequest"/> class.</summary>
-        /// <param name="brokers">Filter jobs to only include those pertaining to the specified brokers.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetJobsRequest"/> class.
+        /// </summary>
+        /// <param name="brokers">
+        /// Filter jobs to only include those pertaining to the specified brokers.
+        /// </param>
         /// <param name="jobTypes">The type of job to include in the search.</param>
         /// <param name="jobStatuses">The status of job to include in the search.</param>
         /// <param name="sortBy">Specify the field by which to sort.</param>
         /// <param name="sortOrder">Specify the sort direction.</param>
         /// <param name="page">For paginated responses, the page to return.</param>
         /// <param name="perPage">The number of jobs returned in a page.</param>
+        /// <param name="jobName">
+        /// Filter jobs for job names matching parameter (case insensitive search using * as wildcard).
+        /// </param>
         public GetJobsRequest(IList<string> brokers = null, IList<JobTypeEnum> jobTypes = null,
             IList<JobStatusEnum> jobStatuses = null, JobsSortByEnum? sortBy = null, SortOrderEnum? sortOrder = null,
-            int? page = null,
-            int? perPage = null)
+            int? page = null, int? perPage = null, string jobName = null)
         {
             if (brokers != null)
             {
@@ -82,15 +87,20 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
             {
                 AddQueryParam("per_page", perPage.ToString());
             }
+
+            if (jobName != null)
+            {
+                AddQueryParam("job_name", jobName);
+            }
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Internal Properties
+        #region Properties
 
         internal override string Path => "api/jobs";
         internal override HttpVerb Verb => HttpVerb.GET;
 
-        #endregion Internal Properties
+        #endregion Properties
     }
 }

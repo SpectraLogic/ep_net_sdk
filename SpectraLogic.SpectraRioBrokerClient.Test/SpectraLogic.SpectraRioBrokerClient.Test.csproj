@@ -106,6 +106,7 @@
     <EmbeddedResource Include="TestFiles\UpdateBrokerObjectResponse" />
     <EmbeddedResource Include="TestFiles\ArchiveWithJobNameResponse" />
     <EmbeddedResource Include="TestFiles\RestoreWithJobNameResponse" />
+    <EmbeddedResource Include="TestFiles\GetJobsWithNameSearchResponse" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpectraLogic.SpectraRioBrokerClient\SpectraLogic.SpectraRioBrokerClient.csproj">

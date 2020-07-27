@@ -1209,6 +1209,88 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
+        [Test]
+        public void GetJobsWithNameSearchTest()
+        {
+            var fileName1 = "fileName " + Guid.NewGuid();
+            var fileName2 = "nameFile " + Guid.NewGuid();
+
+            try
+            {
+                SpectraRioBrokerClientFixture.SetupTestData();
+                var archiveRequest1 = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, "F1.txt".ToAtoZUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName1}}, false)
+                }, jobName: fileName1);
+
+                var archiveJob1 = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest1);
+
+                var pollingAttempts = 0;
+                do
+                {
+                    archiveJob1 = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob1.JobId));
+                    _log.Debug(archiveJob1.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob1.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
+
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob1.Status.Status);
+
+                var archiveRequest2 = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName2, "F1.txt".ToAtoZUri(), 14,
+                        new Dictionary<string, string> {{"fileName", fileName2}}, false)
+                }, jobName: fileName2);
+
+                var archiveJob2 = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest2);
+
+                pollingAttempts = 0;
+                do
+                {
+                    archiveJob2 = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob2.JobId));
+                    _log.Debug(archiveJob2.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob2.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
+
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob2.Status.Status);
+
+                var jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobName: fileName1));
+                Assert.AreEqual(1, jobs.JobsList.Count);
+
+                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobName: "fileName*"));
+                Assert.AreEqual(1, jobs.JobsList.Count);
+
+                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobName: fileName1.ToLower()));
+                Assert.AreEqual(1, jobs.JobsList.Count);
+
+                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobName: "*name*"));
+                Assert.AreEqual(2, jobs.JobsList.Count);
+
+                jobs = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobs(
+                    new GetJobsRequest(jobName: "fileName"));
+                Assert.AreEqual(0, jobs.JobsList.Count);
+            }
+            finally
+            {
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+
+                var deleteF2Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName2);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF2Request);
+            }
+        }
+
         #endregion Methods
     }
+
 }
