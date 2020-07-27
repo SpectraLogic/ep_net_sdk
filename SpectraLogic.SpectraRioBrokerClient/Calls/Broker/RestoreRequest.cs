@@ -13,44 +13,65 @@
  * ****************************************************************************
  */
 
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 {
-    /// <summary>
-    ///
-    /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
-    public class RestoreRequest : RestRequest
+    public class RestoreBody
     {
         #region Fields
 
         /// <summary>
-        /// The files to be restored
+        /// The files to be restore
         /// </summary>
         [JsonProperty(PropertyName = "files")] public IEnumerable<RestoreFile> Files;
+
+        /// <summary>
+        /// The job name
+        /// </summary>
+        [JsonProperty(PropertyName = "name", Required = Required.AllowNull)] public string JobName;
 
         #endregion Fields
 
         #region Constructors
 
+        public RestoreBody(string jobName, IEnumerable<RestoreFile> files)
+        {
+            JobName = jobName;
+            Files = files;
+        }
+
+        #endregion Constructors
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
+    public class RestoreRequest : RestRequest
+    {
+        #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="RestoreRequest" /> class.
+        /// Initializes a new instance of the <see cref="RestoreRequest"/> class.
         /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="files">The files.</param>
-        /// <param name="ignoreDuplicates">if set ignore duplicate items in a restore job if they appear in multiple brokers when doing a search then restore operation.</param>
-        public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files, bool ignoreDuplicates=false)
+        /// <param name="ignoreDuplicates">
+        /// if set ignore duplicate items in a restore job if they appear in multiple brokers when
+        /// doing a search then restore operation.
+        /// </param>
+        /// <param name="jobName">Name of the job. Default = null.</param>
+        public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files, bool ignoreDuplicates = false, string jobName = null)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(files != null, "files");
 
             BrokerName = brokerName;
-            Files = files;
+            RestoreBody = new RestoreBody(jobName, files);
 
             AddQueryParam("ignore-duplicates", ignoreDuplicates.ToString());
         }
@@ -62,11 +83,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <summary>
         /// Gets the name of the broker.
         /// </summary>
-        /// <value>
-        /// The name of the broker.
-        /// </value>
+        /// <value>The name of the broker.</value>
         [JsonIgnore] public string BrokerName { get; private set; }
 
+        public RestoreBody RestoreBody { get; private set; }
         internal override string Path => $"api/brokers/{BrokerName}/restore";
         internal override HttpVerb Verb => HttpVerb.POST;
 
@@ -76,7 +96,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         internal override string GetBody()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(RestoreBody);
         }
 
         #endregion Methods

@@ -74,6 +74,37 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("files", "files", "no_files_in_job")
                 });
+
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                    {
+                        new ArchiveFile("name", "uri".ToFileUri(), 10L, new Dictionary<string, string>(), false)
+                    }, jobName: "");
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("name", "string", "invalid_job_name", "", "cannot be empty or consist only of whitespace")
+                });
+
+            var bigJobName = new string('a', 2049);
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                    {
+                        new ArchiveFile("name", "uri".ToFileUri(), 10L, new Dictionary<string, string>(), false)
+                    }, jobName: bigJobName);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("name", "string", "invalid_job_name", bigJobName, "Job name is longer than 2048")
+                });
         }
 
         [Test]
@@ -247,7 +278,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<ArgumentNullException>(() =>
                 Task.FromResult(new CreateSpectraDeviceRequest("name", "localhost".ToHttpsUri(), "username", null)));
 
-            var request = new CreateSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.MgmtInterface, 
+            var request = new CreateSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName, SpectraRioBrokerClientFixture.MgmtInterface,
                 SpectraRioBrokerClientFixture.Username, SpectraRioBrokerClientFixture.Password);
             Assert.ThrowsAsync<DeviceAlreadyExistsException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request)));
@@ -791,7 +822,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("ESCP-2182, ESCP-2183")]
+        [Test]
         public void RestoreErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(
@@ -806,6 +837,25 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<BrokerNotFoundException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request)));
 
+            try
+            {
+                request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                {
+                    new RestoreFile("name", "uri".ToFileUri(),
+                        new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
+                });
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                Assert.Fail();
+            }
+            catch (ErrorResponseException ex)
+            {
+                Assert.AreEqual("There are 0 Marquis devices. There must be exactly one in order to process Marquis requests.", ex.ErrorResponse.ErrorMessage);
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Expected ErrorResponseException");
+            }
+
             ValidationExceptionCheck(
                 () =>
                 {
@@ -818,6 +868,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     new ValidationError("files", "files", "no_files_in_job")
                 });
 
+            // TODO This test can be verified after ESCP-2182, ESCP-2183 are resolved
+            /*
             ValidationExceptionCheck(
                 () =>
                 {
@@ -865,20 +917,37 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     new ValidationError("files.byteRange", "object", "invalid",
                         reason: "startingIndex must be lower than endingIndex")
                 });
+            */
 
             ValidationExceptionCheck(
                 () =>
                 {
                     request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
                     {
-                        new RestoreFile("name", "uri".ToFileUri(), new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
-                    });
+                        new RestoreFile("name", "uri".ToFileUri())
+                    }, jobName: "");
                     SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
                     Assert.Fail();
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("name", "file", "not_found")
+                    new ValidationError("name", "string", "invalid_job_name", "", "cannot be empty or consist only of whitespace")
+                });
+
+            var bigJobName = new string('a', 2049);
+            ValidationExceptionCheck(
+                () =>
+                {
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    {
+                        new RestoreFile("name", "uri".ToFileUri())
+                    }, jobName: bigJobName);
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("name", "string", "invalid_job_name", bigJobName, "Job name is longer than 2048")
                 });
         }
 
