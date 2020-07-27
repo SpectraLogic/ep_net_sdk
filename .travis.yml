@@ -2,4 +2,4 @@ language: csharp
 solution: SpectraLogic.SpectraRioBrokerClient.sln
 script:
   - xbuild /p:Configuration=Release SpectraLogic.SpectraRioBrokerClient.sln
-  - mono ./packages/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe ./SpectraLogic.SpectraRioBrokerClient.Test/bin/Release/SpectraLogic.SpectraRioBrokerClient.Test.dll
+  - mono ./packages/NUnit.ConsoleRunner.3.11.1/tools/nunit3-console.exe ./SpectraLogic.SpectraRioBrokerClient.Test/bin/Release/SpectraLogic.SpectraRioBrokerClient.Test.dll
