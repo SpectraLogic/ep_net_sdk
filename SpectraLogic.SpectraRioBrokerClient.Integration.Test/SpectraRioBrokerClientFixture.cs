@@ -13,11 +13,6 @@
  * ****************************************************************************
  */
 
-using System;
-using System.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Threading;
 using log4net.Config;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Authentication;
 using SpectraLogic.SpectraRioBrokerClient.Calls.Broker;
@@ -26,27 +21,28 @@ using SpectraLogic.SpectraRioBrokerClient.Calls.Devices;
 using SpectraLogic.SpectraRioBrokerClient.Exceptions;
 using SpectraLogic.SpectraRioBrokerClient.Model;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Reflection;
+using System.Threading;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 {
     public static class SpectraRioBrokerClientFixture
     {
-        #region Public Fields
+        #region Fields
 
         public const string AgentName = "bp_agent";
         public const string BlackPearlBucket = "ep_net_sdk_tests";
         public const string BlackPearlBucket2 = "ep_net_sdk_tests_2";
-        public const string BlackPearlUserName = "Administrator";
 
-        #endregion Public Fields
-
-        #region Private Fields
-
+        public static readonly string BlackPearlUserName = ConfigurationManager.AppSettings["Username"];
         private static readonly string[] Files = { "F1_No_Size.txt", "F2_No_Size.txt" };
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Constructors
+        #region Constructors
 
         static SpectraRioBrokerClientFixture()
         {
@@ -60,9 +56,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             CreateBrokers();
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
         public static string ArchiveTempDir { get; private set; }
         public static string BrokerName { get; private set; }
@@ -76,15 +72,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         public static ISpectraRioBrokerClient SpectraRioBrokerClient { get; private set; }
         public static string Username { get; private set; }
 
-        #endregion Public Properties
+        #endregion Properties
 
-        #region Public Methods
-
-        public static void CreateBrokers()
-        {
-            CreateBroker_1();
-            CreateBroker_2();
-        }
+        #region Methods
 
         public static void CreateBroker_1()
         {
@@ -109,6 +99,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
+        public static void CreateBrokers()
+        {
+            CreateBroker_1();
+            CreateBroker_2();
+        }
+
         public static void CreateCluster()
         {
             ClusterName = ConfigurationManager.AppSettings["ClusterName"];
@@ -121,7 +117,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             {
                 var createClusterRequest = new CreateClusterRequest(ClusterName);
                 SpectraRioBrokerClient.CreateCluster(createClusterRequest);
-                
+
                 /* Adding 1 sec sleep after the cluster creation to avid getting a <400, There is not an active key>
                  * when trying to create a spectra device.
                  */
@@ -138,7 +134,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             DataInterface = ConfigurationManager.AppSettings["DataInterface"].ToUri();
 
             if (SpectraRioBrokerClient.DoesSpectraDeviceExist(DeviceName)) return;
-            
+
             var createDeviceRequest = new CreateSpectraDeviceRequest(DeviceName, MgmtInterface, Username, Password);
             SpectraRioBrokerClient.CreateSpectraDevice(createDeviceRequest);
         }
@@ -155,10 +151,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             SetupArchiveTestData(tempDir);
             SetupRestoreTestData(tempDir);
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private static void CreateClient()
         {
@@ -209,6 +201,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             SpectraRioBrokerClient.UpdateToken(token);
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }
