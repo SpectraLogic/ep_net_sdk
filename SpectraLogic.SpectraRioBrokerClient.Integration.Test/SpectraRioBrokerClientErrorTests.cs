@@ -867,9 +867,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("files", "files", "no_files_in_job")
                 });
-
-            // TODO This test can be verified after ESCP-2182, ESCP-2183 are resolved
-            /*
+            
             ValidationExceptionCheck(
                 () =>
                 {
@@ -882,8 +880,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("files.byteRange", "object", "invalid",
-                        reason: "The startingIndex must be positive")
+                    new ValidationError("files.byteRange", "object", "invalid_format",
+                        "startingIndex: -1", "The startingIndex must be positive")
                 });
 
             ValidationExceptionCheck(
@@ -898,8 +896,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("files.byteRange", "object", "invalid",
-                        reason: "The endingIndex must be positive")
+                    new ValidationError("files.byteRange", "object", "invalid_format",
+                        "endingIndex: -10", "The endingIndex must be positive")
                 });
 
             ValidationExceptionCheck(
@@ -914,10 +912,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 },
                 new List<ValidationError>
                 {
-                    new ValidationError("files.byteRange", "object", "invalid",
-                        reason: "startingIndex must be lower than endingIndex")
+                    new ValidationError("files.byteRange", "object", "invalid_format",
+                        "startingIndex: 11, endingIndex: 10", "startingIndex must be lower than endingIndex")
                 });
-            */
 
             ValidationExceptionCheck(
                 () =>
