@@ -365,11 +365,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
             Assert.AreEqual("Canceled", job.Status.Message);
 
-            //TODO can be tested after ESCP-1023 is fixed
-            //foreach (var file in job.Files)
-            //{
-            //    Assert.AreEqual("Canceled", file.Status);
-            //}
+            foreach (var file in job.Files)
+            {
+                Assert.AreEqual("Error", file.Status);
+            }
         }
 
         [Test]
@@ -421,11 +420,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
-                //TODO can be tested after ESCP-1023 is fixed
-                //foreach (var file in job.Files)
-                //{
-                //    Assert.AreEqual("Canceled", file.Status);
-                //}
+
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Error", file.Status);
+                }
             }
             finally
             {
@@ -916,11 +915,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
 
-                //TODO can be tested after ESCP-1023 is fixed
-                //foreach (var file in job.Files)
-                //{
-                //    Assert.AreEqual("Canceled", file.Status);
-                //}
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Error", file.Status);
+                }
 
                 var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, archiveJob.JobId,
                     JobType.ARCHIVE);
@@ -1007,11 +1005,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(JobStatusEnum.CANCELED, job.Status.Status);
                 Assert.AreEqual("Canceled", job.Status.Message);
 
-                //TODO can be tested after ESCP-1023 is fixed
-                //foreach (var file in job.Files)
-                //{
-                //    Assert.AreEqual("Canceled", file.Status);
-                //}
+                foreach (var file in job.Files)
+                {
+                    Assert.AreEqual("Error", file.Status);
+                }
 
                 var retryRequest = new RetryRequest(SpectraRioBrokerClientFixture.BrokerName, restoreJob.JobId,
                     JobType.RESTORE);
