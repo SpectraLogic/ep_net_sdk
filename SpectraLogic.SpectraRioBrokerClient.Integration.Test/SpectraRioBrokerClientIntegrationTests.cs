@@ -796,7 +796,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSystem());
         }
 
-        [Test, Ignore("ESCP-2002 & Multi-broker search not currently supported")]
+        [Test]
         public void RestoreJobWithIgnoreDuplicates()
         {
             var fileName1 = "RestoreJobWithIgnoreDuplicates_" + Guid.NewGuid();
