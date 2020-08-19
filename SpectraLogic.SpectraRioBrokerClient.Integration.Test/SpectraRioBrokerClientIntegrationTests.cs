@@ -246,7 +246,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("ESCP-1984")]
+        [Test]
         public void ArchiveWithFailFastFalse()
         {
             var fileName1 = "ArchiveWithFailFastFalse_" + Guid.NewGuid();
@@ -277,7 +277,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 new GetJobRequest(archiveJob.JobId));
 
             Assert.AreEqual(JobStatusEnum.ERROR, job.Status.Status);
-            Assert.AreEqual("Archive job encountered an error while running", job.Status.Message);
+            Assert.AreEqual("Archive job failed (1 of 1 did not complete).", job.Status.Message);
             Assert.AreEqual(0, job.FilesTransferred);
             Assert.AreEqual(0, job.Progress);
             foreach (var file in job.Files)
@@ -1045,7 +1045,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
-        [Test, Ignore("Multi-broker search not currently supported")]
+        [Test]
         public void SearchAndDeleteTest()
         {
             var fileName1 = "SearchAndDeleteTest_" + Guid.NewGuid();

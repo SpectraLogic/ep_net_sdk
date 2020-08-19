@@ -948,7 +948,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 });
         }
 
-        [Test, Ignore("Multi-broker search not currently supported")]
+        [Test]
         public void RestoreJobWithIgnoreDuplicatesErrorTests()
         {
             try
