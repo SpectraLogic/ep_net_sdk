@@ -13,7 +13,10 @@
  * ****************************************************************************
  */
 
+using System;
 using Newtonsoft.Json;
+using SpectraLogic.SpectraRioBrokerClient.Utils;
+using SpectraLogic.SpectraRioBrokerClient.Utils.JsonConverters;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
@@ -30,11 +33,17 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="name">The name.</param>
         /// <param name="status">The status.</param>
         /// <param name="statusMessage">The status message.</param>
-        public JobFileStatus(string name, string status, string statusMessage)
+        /// <param name="uri">The URI.</param>
+        /// <param name="sizeInBytes">The size in bytes.</param>
+        /// <param name="lastUpdated">The last updated date.</param>
+        public JobFileStatus(string name, string status, string statusMessage, Uri uri, long sizeInBytes, string lastUpdated)
         {
             Name = name;
             Status = status;
             StatusMessage = statusMessage;
+            Uri = uri;
+            SizeInBytes = sizeInBytes;
+            LastUpdated = lastUpdated.ToDateTime();
         }
 
         #endregion Constructors
@@ -65,6 +74,30 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </value>
         [JsonProperty(PropertyName = "statusMessage")] public string StatusMessage { get; }
 
+        /// <summary>
+        /// Gets the Uri.
+        /// </summary>
+        /// <value>
+        /// The Uri.
+        /// </value>
+        [JsonProperty(PropertyName = "uri")]
+        [JsonConverter(typeof(UriJsonConverter))]
+        public Uri Uri;
+        
+        /// <summary>
+        /// Gets the size in bytes.
+        /// </summary>
+        /// <value>
+        /// The size in bytes.
+        /// </value>
+        [JsonProperty(PropertyName = "sizeInBytes")] public long SizeInBytes { get; }
+        
+        /// <summary>
+        /// Gets the last updated date.
+        /// </summary>
+        /// <value>The last updated date.</value>
+        [JsonProperty(PropertyName = "lastUpdated")] public DateTime LastUpdated { get; }
+        
         #endregion Properties
 
         #region Methods

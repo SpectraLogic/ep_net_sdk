@@ -87,6 +87,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="TestFiles\GetJobResponse" />
     <EmbeddedResource Include="TestFiles\GetSpectraDevicesResponse" />
     <EmbeddedResource Include="TestFiles\GetJobFilesStatusResponse" />
     <EmbeddedResource Include="TestFiles\GetJobFileStatusesResponse" />
