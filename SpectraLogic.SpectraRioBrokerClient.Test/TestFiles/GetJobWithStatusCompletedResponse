@@ -15,7 +15,10 @@
     {
       "name": "test",
       "status": "Completed",
-      "statusMessage": "Completed"
+      "statusMessage": "Completed",
+      "uri": "atozsequence://file",
+      "sizeInBytes": 1234,
+      "lastUpdated": "2018-01-23T03:52:46.869Z[UTC]"
     }
   ]
 }

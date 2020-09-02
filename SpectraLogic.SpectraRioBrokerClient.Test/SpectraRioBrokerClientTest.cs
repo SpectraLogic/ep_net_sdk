@@ -577,6 +577,56 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetJosTest()
+        {
+            var jobId = Guid.NewGuid();
+            var getJobRequest = new GetJobRequest(jobId);
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var job = client.GetJob(getJobRequest);
+            Assert.AreEqual("job name", job.Name);
+            Assert.AreEqual("173e8530-5805-4a1c-a57b-969331e49683", job.JobId.ToString());
+            Assert.AreEqual("12/17/2018 10:00:34 PM", job.CreationDate.ToString());
+            Assert.AreEqual("12/17/2018 10:00:45 PM", job.LastUpdated.ToString());
+            Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+            Assert.AreEqual(JobType.ARCHIVE, job.JobType);
+            Assert.AreEqual(1, job.NumberOfFiles);
+            Assert.AreEqual(14, job.TotalSizeInBytes);
+            Assert.AreEqual(1, job.Progress);
+
+            var jobFileStatusExpected = new JobFileStatus(
+                "9edc2043-0ea7-4388-8c8d-fdfa68f68894",
+                "Completed",
+                "Successfully transferred file to BlackPearl",
+                new Uri("atozsequence://file"),
+                14,
+                "2020-08-31T22:12:36.59Z[UTC]");
+            Assert.AreEqual(jobFileStatusExpected.Name, job.Files[0].Name);
+            Assert.AreEqual(jobFileStatusExpected.Status, job.Files[0].Status);
+            Assert.AreEqual(jobFileStatusExpected.StatusMessage, job.Files[0].StatusMessage);
+            Assert.AreEqual(jobFileStatusExpected.Uri.ToString(), job.Files[0].Uri.ToString());
+            Assert.AreEqual(jobFileStatusExpected.SizeInBytes, job.Files[0].SizeInBytes);
+            Assert.AreEqual(jobFileStatusExpected.LastUpdated, job.Files[0].LastUpdated);
+            
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+        
+        [Test]
         public void GetJobsTest()
         {
             var getJobsRequest = new GetJobsRequest();
