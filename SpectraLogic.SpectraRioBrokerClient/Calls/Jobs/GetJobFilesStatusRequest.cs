@@ -14,15 +14,12 @@
  */
 
 using System;
-using SpectraLogic.SpectraRioBrokerClient.Calls.Jobs;
-using SpectraLogic.SpectraRioBrokerClient.Utils;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
     /// <summary>
-    ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
     public class GetJobFilesStatusRequest : RestRequest
     {
         #region Constructors
@@ -31,9 +28,21 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// Initializes a new instance of the <see cref="GetJobFilesStatusRequest"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        public GetJobFilesStatusRequest(Guid jobId)
+        /// <param name="page">For paginated responses, the page to return.</param>
+        /// <param name="perPage">The number of jobs returned in a page.</param>
+        public GetJobFilesStatusRequest(Guid jobId, int? page = null, int? perPage = null)
         {
             JobId = jobId;
+
+            if (page != null)
+            {
+                AddQueryParam("page", page.ToString());
+            }
+
+            if (perPage != null)
+            {
+                AddQueryParam("per_page", perPage.ToString());
+            }
         }
 
         #endregion Constructors
@@ -43,9 +52,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// <summary>
         /// Gets the job identifier.
         /// </summary>
-        /// <value>
-        /// The job identifier.
-        /// </value>
+        /// <value>The job identifier.</value>
         public Guid JobId { get; private set; }
 
         internal override string Path => $"api/jobs/{JobId}/filestatus";
