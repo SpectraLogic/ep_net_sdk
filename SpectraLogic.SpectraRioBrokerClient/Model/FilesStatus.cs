@@ -13,32 +13,46 @@
  * ****************************************************************************
  */
 
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    /// <summary></summary>
+    /// <summary>
+    /// </summary>
     public class FilesStatus : IFilesStatus
     {
-        #region Public Constructors
+        #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="FilesStatus"/> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FilesStatus"/> class.
+        /// </summary>
         /// <param name="filesStatusList">The job list of file status.</param>
-        public FilesStatus(IList<FileStatus> filesStatusList)
+        /// <param name="page">The page.</param>
+        public FilesStatus(IList<FileStatus> filesStatusList, PageResult page)
         {
             FilesStatusList = filesStatusList;
+            Page = page;
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
-        /// <summary>Gets the jobs files status.</summary>
+        /// <summary>
+        /// Gets the jobs files status.
+        /// </summary>
         /// <value>The jobs files status.</value>
         [JsonProperty(PropertyName = "fileStatus")]
         public IList<FileStatus> FilesStatusList { get; }
 
-        #endregion Public Properties
+        /// <summary>
+        /// Gets the page.
+        /// </summary>
+        /// <value>The page.</value>
+        [JsonProperty(PropertyName = "page")]
+        public PageResult Page { get; }
+
+        #endregion Properties
     }
 }

@@ -1,4 +1,9 @@
 ﻿{
+    "page": {
+      "number": 0,
+      "pageSize": 100,
+      "totalPages": 1
+    },
     "fileStatus": [
         {
             "name": "2d0430db-4b62-421f-81c5-1e444091d27d",

@@ -18,12 +18,23 @@ using System.Collections.Generic;
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
     /// </summary>
     public interface IFilesStatus
     {
-        /// <summary>Gets the job files status.</summary>
+        #region Properties
+
+        /// <summary>
+        /// Gets the job files status.
+        /// </summary>
         /// <value>The job files status.</value>
         IList<FileStatus> FilesStatusList { get; }
+
+        /// <summary>
+        /// Gets the page.
+        /// </summary>
+        /// <value>The page.</value>
+        PageResult Page { get; }
+
+        #endregion Properties
     }
 }
