@@ -21,6 +21,8 @@ using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 {
+    /// <summary>
+    /// </summary>
     public class RestoreBody
     {
         #region Fields
@@ -39,6 +41,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestoreBody"/> class.
+        /// </summary>
+        /// <param name="jobName">Name of the job.</param>
+        /// <param name="files">The files.</param>
         public RestoreBody(string jobName, IEnumerable<RestoreFile> files)
         {
             JobName = jobName;
@@ -86,7 +93,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <value>The name of the broker.</value>
         [JsonIgnore] public string BrokerName { get; private set; }
 
+        /// <summary>
+        /// Gets the restore body.
+        /// </summary>
+        /// <value>The restore body.</value>
         public RestoreBody RestoreBody { get; private set; }
+
         internal override string Path => $"api/brokers/{BrokerName}/restore";
         internal override HttpVerb Verb => HttpVerb.POST;
 
