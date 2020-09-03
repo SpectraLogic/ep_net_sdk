@@ -18,55 +18,54 @@ using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
-    /// <summary></summary>
+    /// <summary>
+    /// </summary>
     public interface IBrokerObject
     {
+        #region Properties
+
         /// <summary>
         /// Gets the broker.
         /// </summary>
-        /// <value>
-        /// The broker.
-        /// </value>
+        /// <value>The broker.</value>
         string Broker { get; }
 
         /// <summary>
         /// Gets the checksum.
         /// </summary>
-        /// <value>
-        /// The checksum.
-        /// </value>
+        /// <value>The checksum.</value>
         Checksum Checksum { get; }
 
         /// <summary>
         /// Gets the creation date.
         /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
+        /// <value>The creation date.</value>
         DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the metadata.
         /// </summary>
-        /// <value>
-        /// The metadata.
-        /// </value>
+        /// <value>The metadata.</value>
         IDictionary<string, string> Metadata { get; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
+        /// <value>The name.</value>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the object locations.
+        /// </summary>
+        /// <value>The object locations.</value>
+        IList<ObjectLocation> ObjectLocations { get; }
 
         /// <summary>
         /// Gets the size.
         /// </summary>
-        /// <value>
-        /// The size.
-        /// </value>
+        /// <value>The size.</value>
         long Size { get; }
+
+        #endregion Properties
     }
 }

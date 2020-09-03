@@ -1,0 +1,28 @@
+﻿{
+  "name": "5ac04144-bd37-4ee0-a661-09d4db08e9af",
+  "size": "1024",
+  "broker": "broker",
+  "creationDate": "2018-10-18T21:38:53.337Z[UTC]",
+  "metadata": {
+    "test":  "metadata"
+  },
+  "checksum": {
+    "hash": "",
+    "type": "NONE"
+  },
+  "objectLocations": [
+    {
+      "barcode": "362450L5",
+      "partitionId": "734fad2f-5836-4795-bfc6-8aa3bb2847a8",
+      "ejected": false,
+      "inCache": true,
+      "id": "ba864d4a-50f3-4968-a03e-89809c1766b3",
+      "state": "NORMAL",
+      "metadata": {
+          "key1": "value1",
+          "key2": "value2"
+      },
+      "locationType": "tape"
+    }
+  ]
+}
