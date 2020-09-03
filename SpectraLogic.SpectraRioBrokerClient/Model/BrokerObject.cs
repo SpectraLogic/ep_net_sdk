@@ -21,11 +21,10 @@ using System.Collections.Generic;
 namespace SpectraLogic.SpectraRioBrokerClient.Model
 {
     /// <summary>
-    ///
     /// </summary>
     public class BrokerObject : IBrokerObject
     {
-        #region Public Constructors
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BrokerObject"/> class.
@@ -36,7 +35,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="metadata">The metadata.</param>
         /// <param name="name">The name.</param>
         /// <param name="size">The size.</param>
-        public BrokerObject(string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata, string name, long size)
+        /// <param name="objectLocations">The object locations.</param>
+        public BrokerObject(
+            string broker, Checksum checksum, string creationDate, IDictionary<string, string> metadata,
+            string name, long size, IList<ObjectLocation> objectLocations)
         {
             Broker = broker;
             Checksum = checksum;
@@ -44,69 +46,63 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Metadata = metadata;
             Name = name;
             Size = size;
+            ObjectLocations = objectLocations;
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
         /// <summary>
         /// Gets the broker.
         /// </summary>
-        /// <value>
-        /// The broker.
-        /// </value>
+        /// <value>The broker.</value>
         [JsonProperty(PropertyName = "broker")] public string Broker { get; }
 
         /// <summary>
         /// Gets the checksum.
         /// </summary>
-        /// <value>
-        /// The checksum.
-        /// </value>
+        /// <value>The checksum.</value>
         [JsonProperty(PropertyName = "checksum")] public Checksum Checksum { get; }
 
         /// <summary>
         /// Gets the creation date.
         /// </summary>
-        /// <value>
-        /// The creation date.
-        /// </value>
+        /// <value>The creation date.</value>
         [JsonProperty(PropertyName = "creationDate")] public DateTime CreationDate { get; }
 
         /// <summary>
         /// Gets the metadata.
         /// </summary>
-        /// <value>
-        /// The metadata.
-        /// </value>
+        /// <value>The metadata.</value>
         [JsonProperty(PropertyName = "metadata")] public IDictionary<string, string> Metadata { get; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
+        /// <value>The name.</value>
         [JsonProperty(PropertyName = "name")] public string Name { get; }
+
+        /// <summary>
+        /// Gets the object locations.
+        /// </summary>
+        /// <value>The object locations.</value>
+        [JsonProperty(PropertyName = "objectLocations")] public IList<ObjectLocation> ObjectLocations { get; }
 
         /// <summary>
         /// Gets the size.
         /// </summary>
-        /// <value>
-        /// The size.
-        /// </value>
+        /// <value>The size.</value>
         [JsonProperty(PropertyName = "size")] public long Size { get; }
 
-        #endregion Public Properties
+        #endregion Properties
     }
 
     /// <summary>
-    ///
     /// </summary>
     public class Checksum
     {
-        #region Public Constructors
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Checksum"/> class.
@@ -119,26 +115,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Type = type;
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
         /// <summary>
         /// Gets the hash.
         /// </summary>
-        /// <value>
-        /// The hash.
-        /// </value>
+        /// <value>The hash.</value>
         [JsonProperty(PropertyName = "hash")] public string Hash { get; }
 
         /// <summary>
         /// Gets the type.
         /// </summary>
-        /// <value>
-        /// The type.
-        /// </value>
+        /// <value>The type.</value>
         [JsonProperty(PropertyName = "type")] public string Type { get; }
 
-        #endregion Public Properties
+        #endregion Properties
     }
 }

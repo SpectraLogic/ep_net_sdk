@@ -407,6 +407,116 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
+        public void GetBrokerObjectWithLocationCloudTest()
+        {
+            var getBrokerObjectRequest = new GetBrokerObjectRequest("brokerName", "objectName", true);
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getBrokerObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationCloudResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObject = client.GetBrokerObject(getBrokerObjectRequest);
+            Assert.AreEqual("broker", brokerObject.Broker);
+            Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+
+            var expectedObjectLocation = new ObjectLocation(
+                "cloud", id: "ba864d4a-50f3-4968-a03e-89809c1766b3", name: "name", state: "NORMAL", metadata: new Dictionary<string, string>
+                {
+                    {"key1", "value1"},
+                    {"key2", "value2"}
+                });
+            Assert.AreEqual(expectedObjectLocation.LocationType, brokerObject.ObjectLocations[0].LocationType);
+            Assert.AreEqual(expectedObjectLocation.Id, brokerObject.ObjectLocations[0].Id);
+            Assert.AreEqual(expectedObjectLocation.Name, brokerObject.ObjectLocations[0].Name);
+            Assert.AreEqual(expectedObjectLocation.State, brokerObject.ObjectLocations[0].State);
+            CollectionAssert.AreEqual(expectedObjectLocation.Metadata, brokerObject.ObjectLocations[0].Metadata);
+        }
+
+        [Test]
+        public void GetBrokerObjectWithLocationDiskTest()
+        {
+            var getBrokerObjectRequest = new GetBrokerObjectRequest("brokerName", "objectName", true);
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getBrokerObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationDiskResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObject = client.GetBrokerObject(getBrokerObjectRequest);
+            Assert.AreEqual("broker", brokerObject.Broker);
+            Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+
+            var expectedObjectLocation = new ObjectLocation(
+                "disk", id: "ba864d4a-50f3-4968-a03e-89809c1766b3", name: "name", type: "type", state: "NORMAL", metadata: new Dictionary<string, string>
+                {
+                    {"key1", "value1"},
+                    {"key2", "value2"}
+                });
+            Assert.AreEqual(expectedObjectLocation.LocationType, brokerObject.ObjectLocations[0].LocationType);
+            Assert.AreEqual(expectedObjectLocation.Id, brokerObject.ObjectLocations[0].Id);
+            Assert.AreEqual(expectedObjectLocation.Name, brokerObject.ObjectLocations[0].Name);
+            Assert.AreEqual(expectedObjectLocation.Type, brokerObject.ObjectLocations[0].Type);
+            Assert.AreEqual(expectedObjectLocation.State, brokerObject.ObjectLocations[0].State);
+            CollectionAssert.AreEqual(expectedObjectLocation.Metadata, brokerObject.ObjectLocations[0].Metadata);
+        }
+
+        [Test]
+        public void GetBrokerObjectWithLocationTapeTest()
+        {
+            var getBrokerObjectRequest = new GetBrokerObjectRequest("brokerName", "objectName", true);
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getBrokerObjectRequest))
+                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationTapeResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var brokerObject = client.GetBrokerObject(getBrokerObjectRequest);
+            Assert.AreEqual("broker", brokerObject.Broker);
+            Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
+
+            var expectedObjectLocation = new ObjectLocation(
+                "tape", barcode: "362450L5", partitionId: "734fad2f-5836-4795-bfc6-8aa3bb2847a8", ejected: false,
+                id: "ba864d4a-50f3-4968-a03e-89809c1766b3", inCache: true, state: "NORMAL", metadata: new Dictionary<string, string>
+                {
+                    {"key1", "value1"},
+                    {"key2", "value2"}
+                });
+            Assert.AreEqual(expectedObjectLocation.LocationType, brokerObject.ObjectLocations[0].LocationType);
+            Assert.AreEqual(expectedObjectLocation.Barcode, brokerObject.ObjectLocations[0].Barcode);
+            Assert.AreEqual(expectedObjectLocation.PartitionId, brokerObject.ObjectLocations[0].PartitionId);
+            Assert.AreEqual(expectedObjectLocation.InCache, brokerObject.ObjectLocations[0].InCache);
+            Assert.AreEqual(expectedObjectLocation.Id, brokerObject.ObjectLocations[0].Id);
+            Assert.AreEqual(expectedObjectLocation.InCache, brokerObject.ObjectLocations[0].InCache);
+            Assert.AreEqual(expectedObjectLocation.State, brokerObject.ObjectLocations[0].State);
+            CollectionAssert.AreEqual(expectedObjectLocation.Metadata, brokerObject.ObjectLocations[0].Metadata);
+        }
+
+        [Test]
         public void GetBrokersTest()
         {
             var getBrokersRequest = new GetBrokersRequest();
@@ -577,56 +687,6 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         }
 
         [Test]
-        public void GetJosTest()
-        {
-            var jobId = Guid.NewGuid();
-            var getJobRequest = new GetJobRequest(jobId);
-
-            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
-            mockNetwork
-                .Setup(n => n.Invoke(getJobRequest))
-                .Returns(new MockHttpWebResponse(
-                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobResponse",
-                    HttpStatusCode.OK, null));
-
-            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
-            mockBuilder
-                .Setup(b => b.Build())
-                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
-
-            var builder = mockBuilder.Object;
-            var client = builder.Build();
-
-            var job = client.GetJob(getJobRequest);
-            Assert.AreEqual("job name", job.Name);
-            Assert.AreEqual("173e8530-5805-4a1c-a57b-969331e49683", job.JobId.ToString());
-            Assert.AreEqual("12/17/2018 10:00:34 PM", job.CreationDate.ToString());
-            Assert.AreEqual("12/17/2018 10:00:45 PM", job.LastUpdated.ToString());
-            Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
-            Assert.AreEqual(JobType.ARCHIVE, job.JobType);
-            Assert.AreEqual(1, job.NumberOfFiles);
-            Assert.AreEqual(14, job.TotalSizeInBytes);
-            Assert.AreEqual(1, job.Progress);
-
-            var jobFileStatusExpected = new JobFileStatus(
-                "9edc2043-0ea7-4388-8c8d-fdfa68f68894",
-                "Completed",
-                "Successfully transferred file to BlackPearl",
-                new Uri("atozsequence://file"),
-                14,
-                "2020-08-31T22:12:36.59Z[UTC]");
-            Assert.AreEqual(jobFileStatusExpected.Name, job.Files[0].Name);
-            Assert.AreEqual(jobFileStatusExpected.Status, job.Files[0].Status);
-            Assert.AreEqual(jobFileStatusExpected.StatusMessage, job.Files[0].StatusMessage);
-            Assert.AreEqual(jobFileStatusExpected.Uri.ToString(), job.Files[0].Uri.ToString());
-            Assert.AreEqual(jobFileStatusExpected.SizeInBytes, job.Files[0].SizeInBytes);
-            Assert.AreEqual(jobFileStatusExpected.LastUpdated, job.Files[0].LastUpdated);
-            
-            mockBuilder.VerifyAll();
-            mockNetwork.VerifyAll();
-        }
-        
-        [Test]
         public void GetJobsTest()
         {
             var getJobsRequest = new GetJobsRequest();
@@ -763,6 +823,56 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             {
                 Assert.AreEqual("Canceled", file.Status);
             }
+
+            mockBuilder.VerifyAll();
+            mockNetwork.VerifyAll();
+        }
+
+        [Test]
+        public void GetJosTest()
+        {
+            var jobId = Guid.NewGuid();
+            var getJobRequest = new GetJobRequest(jobId);
+
+            var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
+            mockNetwork
+                .Setup(n => n.Invoke(getJobRequest))
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetJobResponse",
+                    HttpStatusCode.OK, null));
+
+            var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
+            mockBuilder
+                .Setup(b => b.Build())
+                .Returns(new SpectraRioBrokerClient(mockNetwork.Object));
+
+            var builder = mockBuilder.Object;
+            var client = builder.Build();
+
+            var job = client.GetJob(getJobRequest);
+            Assert.AreEqual("job name", job.Name);
+            Assert.AreEqual("173e8530-5805-4a1c-a57b-969331e49683", job.JobId.ToString());
+            Assert.AreEqual("12/17/2018 10:00:34 PM", job.CreationDate.ToString());
+            Assert.AreEqual("12/17/2018 10:00:45 PM", job.LastUpdated.ToString());
+            Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+            Assert.AreEqual(JobType.ARCHIVE, job.JobType);
+            Assert.AreEqual(1, job.NumberOfFiles);
+            Assert.AreEqual(14, job.TotalSizeInBytes);
+            Assert.AreEqual(1, job.Progress);
+
+            var jobFileStatusExpected = new JobFileStatus(
+                "9edc2043-0ea7-4388-8c8d-fdfa68f68894",
+                "Completed",
+                "Successfully transferred file to BlackPearl",
+                new Uri("atozsequence://file"),
+                14,
+                "2020-08-31T22:12:36.59Z[UTC]");
+            Assert.AreEqual(jobFileStatusExpected.Name, job.Files[0].Name);
+            Assert.AreEqual(jobFileStatusExpected.Status, job.Files[0].Status);
+            Assert.AreEqual(jobFileStatusExpected.StatusMessage, job.Files[0].StatusMessage);
+            Assert.AreEqual(jobFileStatusExpected.Uri.ToString(), job.Files[0].Uri.ToString());
+            Assert.AreEqual(jobFileStatusExpected.SizeInBytes, job.Files[0].SizeInBytes);
+            Assert.AreEqual(jobFileStatusExpected.LastUpdated, job.Files[0].LastUpdated);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();

@@ -21,6 +21,8 @@ using System.Collections.Generic;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 {
+    /// <summary>
+    /// </summary>
     public class ArchiveBody
     {
         #region Fields
@@ -39,6 +41,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArchiveBody"/> class.
+        /// </summary>
+        /// <param name="jobName">Name of the job.</param>
+        /// <param name="files">The files.</param>
         public ArchiveBody(string jobName, IEnumerable<ArchiveFile> files)
         {
             JobName = jobName;
@@ -87,6 +94,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
         #region Properties
 
+        /// <summary>
+        /// Gets the archive body.
+        /// </summary>
+        /// <value>The archive body.</value>
         public ArchiveBody ArchiveBody { get; private set; }
 
         /// <summary>

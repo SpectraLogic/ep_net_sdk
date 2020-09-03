@@ -13,51 +13,60 @@
  * ****************************************************************************
  */
 
-using System;
 using SpectraLogic.SpectraRioBrokerClient.Utils;
+using System;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 {
     /// <summary>
-    ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
     public class GetBrokerObjectRequest : RestRequest
     {
-        #region Public Constructors
+        #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="GetBrokerObjectRequest"/> class.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetBrokerObjectRequest"/> class.
+        /// </summary>
         /// <param name="brokerName">Name of the broker.</param>
         /// <param name="objectName">Name of the object.</param>
+        /// <param name="includeLocation">
+        /// If enabled, will include object location information in the response. Defaults to false.
+        /// </param>
         /// <exception cref="ArgumentNullException"></exception>
-        public GetBrokerObjectRequest(string brokerName, string objectName)
+        public GetBrokerObjectRequest(string brokerName, string objectName, bool? includeLocation = null)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(objectName != null, "objectName");
 
             BrokerName = brokerName;
             ObjectName = objectName;
+
+            if (includeLocation != null)
+            {
+                AddQueryParam("includeLocation", includeLocation.ToString());
+            }
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
-        /// <summary>Gets the name of the broker.</summary>
+        /// <summary>
+        /// Gets the name of the broker.
+        /// </summary>
         /// <value>The name of the broker.</value>
         public string BrokerName { get; private set; }
 
-        /// <summary>Gets the name of the object.</summary>
+        /// <summary>
+        /// Gets the name of the object.
+        /// </summary>
         /// <value>The name of the object.</value>
         public string ObjectName { get; private set; }
-
-        #endregion Public Properties
-
-        #region Internal Properties
 
         internal override string Path => $"/api/brokers/{BrokerName}/objects/{Uri.EscapeDataString(ObjectName)}";
         internal override HttpVerb Verb => HttpVerb.GET;
 
-        #endregion Internal Properties
+        #endregion Properties
     }
 }
