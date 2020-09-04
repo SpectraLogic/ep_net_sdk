@@ -94,6 +94,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(1, brokerObjects.Objects.Count);
                 Assert.AreEqual(fileName2, brokerObjects.Objects.ElementAt(0).Name);
                 Assert.AreEqual(2, brokerObjects.Page.TotalPages);
+                Assert.AreEqual(2, brokerObjects.Page.TotalItems);
                 Assert.AreEqual(1, brokerObjects.Page.PageSize);
                 Assert.AreEqual(0, brokerObjects.Page.Number);
 

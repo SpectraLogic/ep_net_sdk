@@ -631,6 +631,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.AreEqual(0, devices.Page.Number);
             Assert.AreEqual(1, devices.Page.PageSize);
             Assert.AreEqual(1, devices.Page.TotalPages);
+            Assert.AreEqual(1, devices.Page.TotalItems);
 
             Assert.AreEqual(1, devices.DeviceList.Count);
         }
@@ -685,6 +686,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(0, allFileStatusList.Page.Number);
                 Assert.AreEqual(100, allFileStatusList.Page.PageSize);
                 Assert.AreEqual(1, allFileStatusList.Page.TotalPages);
+                Assert.AreEqual(6, allFileStatusList.Page.TotalItems);
 
                 Assert.AreEqual(6, allFileStatusList.FilesStatusList.Count);
                 Assert.AreEqual(fileName1, allFileStatusList.FilesStatusList[0].Name);
@@ -706,6 +708,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(0, oneFileStatusList.Page.Number);
                 Assert.AreEqual(1, oneFileStatusList.Page.PageSize);
                 Assert.AreEqual(6, oneFileStatusList.Page.TotalPages);
+                Assert.AreEqual(6, oneFileStatusList.Page.TotalItems);
             }
             finally
             {
@@ -765,6 +768,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(0, allFileStatusList.Page.Number);
                 Assert.AreEqual(100, allFileStatusList.Page.PageSize);
                 Assert.AreEqual(1, allFileStatusList.Page.TotalPages);
+                Assert.AreEqual(3, allFileStatusList.Page.TotalItems);
+                
                 Assert.AreEqual(3, allFileStatusList.FileStatusesList.Count);
                 Assert.AreEqual(fileName2, allFileStatusList.FileStatusesList[0].Name);
                 Assert.AreEqual("Initializing", allFileStatusList.FileStatusesList[0].Status);
@@ -779,6 +784,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(0, fileStatusList.Page.Number);
                 Assert.AreEqual(1, fileStatusList.Page.PageSize);
                 Assert.AreEqual(3, fileStatusList.Page.TotalPages);
+                Assert.AreEqual(3, fileStatusList.Page.TotalItems);
             }
             finally
             {
