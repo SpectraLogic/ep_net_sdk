@@ -2,7 +2,8 @@
     "page": {
       "number": 0,
       "pageSize": 100,
-      "totalPages": 1
+      "totalPages": 1,
+      "totalItems": 6
     },
     "fileStatus": [
         {

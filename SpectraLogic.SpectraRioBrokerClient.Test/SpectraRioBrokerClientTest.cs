@@ -381,6 +381,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, brokerObjects.Page.Number);
             Assert.AreEqual(100, brokerObjects.Page.PageSize);
             Assert.AreEqual(1, brokerObjects.Page.TotalPages);
+            Assert.AreEqual(3, brokerObjects.Page.TotalItems);
         }
 
         [Test]
@@ -541,6 +542,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, brokers.Page.Number);
             Assert.AreEqual(100, brokers.Page.PageSize);
             Assert.AreEqual(1, brokers.Page.TotalPages);
+            Assert.AreEqual(2, brokers.Page.TotalItems);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -625,6 +627,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, jobFileStatus.Page.Number);
             Assert.AreEqual(100, jobFileStatus.Page.PageSize);
             Assert.AreEqual(1, jobFileStatus.Page.TotalPages);
+            Assert.AreEqual(3, jobFileStatus.Page.TotalItems);
             Assert.AreEqual(3, jobFileStatus.FileStatusesList.Count);
 
             mockBuilder.VerifyAll();
@@ -656,6 +659,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, jobFileStatus.Page.Number);
             Assert.AreEqual(100, jobFileStatus.Page.PageSize);
             Assert.AreEqual(1, jobFileStatus.Page.TotalPages);
+            Assert.AreEqual(6, jobFileStatus.Page.TotalItems);
             Assert.AreEqual(6, jobFileStatus.FilesStatusList.Count);
 
             mockBuilder.VerifyAll();
@@ -687,6 +691,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, jobs.Page.Number);
             Assert.AreEqual(100, jobs.Page.PageSize);
             Assert.AreEqual(1, jobs.Page.TotalPages);
+            Assert.AreEqual(2, jobs.Page.TotalItems);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -717,6 +722,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, jobs.Page.Number);
             Assert.AreEqual(100, jobs.Page.PageSize);
             Assert.AreEqual(1, jobs.Page.TotalPages);
+            Assert.AreEqual(2, jobs.Page.TotalItems);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -747,6 +753,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, jobs.Page.Number);
             Assert.AreEqual(100, jobs.Page.PageSize);
             Assert.AreEqual(1, jobs.Page.TotalPages);
+            Assert.AreEqual(2, jobs.Page.TotalItems);
             foreach (var job in jobs.JobsList)
             {
                 Assert.AreEqual("archive job", job.Name);
@@ -972,6 +979,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0, devices.Page.Number);
             Assert.AreEqual(100, devices.Page.PageSize);
             Assert.AreEqual(1, devices.Page.TotalPages);
+            Assert.AreEqual(2, devices.Page.TotalItems);
 
             Assert.AreEqual("sm2u-11", devices.DeviceList[0].DeviceName);
             Assert.AreEqual("https://sm2u-11-mgmt.eng.sldomain.com".ToUri(), devices.DeviceList[0].MgmtInterface);

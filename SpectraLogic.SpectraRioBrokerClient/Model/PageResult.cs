@@ -15,11 +15,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="number">The number.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="totalPages">The total pages.</param>
-        public PageResult(long number, long pageSize, long totalPages)
+        /// <param name="totalItems">The total items.</param>
+        public PageResult(long number, long pageSize, long totalPages, long totalItems)
         {
             Number = number;
             PageSize = pageSize;
             TotalPages = totalPages;
+            TotalItems = totalItems;
         }
 
         #endregion Public Constructors
@@ -42,6 +44,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </value>
         [JsonProperty(PropertyName = "pageSize")] public long PageSize { get; }
 
+        /// <summary>
+        /// Gets the total items.
+        /// </summary>
+        /// <value>
+        /// The total pages.
+        /// </value>
+        [JsonProperty(PropertyName = "totalItems")] public long TotalItems { get; }
+        
         /// <summary>
         /// Gets the total pages.
         /// </summary>
