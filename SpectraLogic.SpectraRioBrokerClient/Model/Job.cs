@@ -41,9 +41,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="status">The status.</param>
         /// <param name="files">The files.</param>
         /// <param name="name">The job name.</param>
+        /// <param name="foreignJobs">The foreign jobs.</param>
         public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred,
             long totalSizeInBytes, string creationDate, string lastUpdated, double progress,
-            JobStatus status, IList<JobFileStatus> files, string name)
+            JobStatus status, IList<JobFileStatus> files, string name, IDictionary<Guid, ForeignJobDetails> foreignJobs)
         {
             JobId = jobId;
             JobType = jobType;
@@ -56,6 +57,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Status = status;
             Files = files;
             Name = name;
+            ForeignJobs = foreignJobs;
         }
 
         #endregion Constructors
@@ -79,6 +81,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <value>The files transferred.</value>
         [JsonProperty(PropertyName = "filesTransferred")] public int FilesTransferred { get; }
+
+        /// <summary>
+        /// Gets the foreign jobs.
+        /// </summary>
+        /// <value>The foreign jobs.</value>
+        [JsonProperty(PropertyName = "foreignJobs")] public IDictionary<Guid, ForeignJobDetails> ForeignJobs { get; }
 
         /// <summary>
         /// Gets the identifier.

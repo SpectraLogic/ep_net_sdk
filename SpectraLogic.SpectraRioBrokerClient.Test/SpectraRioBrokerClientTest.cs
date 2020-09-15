@@ -82,6 +82,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(0.0, job.Progress);
             Assert.AreEqual("Initializing", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.ACTIVE, job.Status.Status);
+            Assert.AreEqual(new Dictionary<Guid, ForeignJobDetails>(), job.ForeignJobs);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -95,7 +96,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(archiveRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.ArchiveWithJobNameResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.ArchiveWithJobNameResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -165,7 +167,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createBrokerRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateBrokerResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateBrokerResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -192,7 +195,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createClusterRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateClusterResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateClusterResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -213,12 +217,14 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void CreateSpectraDeviceTest()
         {
-            var createSpectraDeviceRequest = new CreateSpectraDeviceRequest("device_test", "https://localhost".ToUri(), "username", "password");
+            var createSpectraDeviceRequest =
+                new CreateSpectraDeviceRequest("device_test", "https://localhost".ToUri(), "username", "password");
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createSpectraDeviceRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateSpectraDeviceResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateSpectraDeviceResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -246,7 +252,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(createTokenRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateTokenResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.CreateTokenResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -365,7 +372,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokerObjectsRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectsResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectsResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -391,7 +399,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokerObjectRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -414,7 +423,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokerObjectRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationCloudResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationCloudResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -430,7 +440,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
 
             var expectedObjectLocation = new ObjectLocation(
-                "cloud", id: "ba864d4a-50f3-4968-a03e-89809c1766b3", name: "name", state: "NORMAL", metadata: new Dictionary<string, string>
+                "cloud", id: "ba864d4a-50f3-4968-a03e-89809c1766b3", name: "name", state: "NORMAL",
+                metadata: new Dictionary<string, string>
                 {
                     {"key1", "value1"},
                     {"key2", "value2"}
@@ -449,7 +460,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokerObjectRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationDiskResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationDiskResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -465,7 +477,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual("5ac04144-bd37-4ee0-a661-09d4db08e9af", brokerObject.Name);
 
             var expectedObjectLocation = new ObjectLocation(
-                "disk", id: "ba864d4a-50f3-4968-a03e-89809c1766b3", name: "name", type: "type", state: "NORMAL", metadata: new Dictionary<string, string>
+                "disk", id: "ba864d4a-50f3-4968-a03e-89809c1766b3", name: "name", type: "type", state: "NORMAL",
+                metadata: new Dictionary<string, string>
                 {
                     {"key1", "value1"},
                     {"key2", "value2"}
@@ -485,7 +498,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokerObjectRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationTapeResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokerObjectWithLocationTapeResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -502,7 +516,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
 
             var expectedObjectLocation = new ObjectLocation(
                 "tape", barcode: "362450L5", partitionId: "734fad2f-5836-4795-bfc6-8aa3bb2847a8", ejected: false,
-                id: "ba864d4a-50f3-4968-a03e-89809c1766b3", inCache: true, state: "NORMAL", metadata: new Dictionary<string, string>
+                id: "ba864d4a-50f3-4968-a03e-89809c1766b3", inCache: true, state: "NORMAL",
+                metadata: new Dictionary<string, string>
                 {
                     {"key1", "value1"},
                     {"key2", "value2"}
@@ -525,7 +540,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getBrokersRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokersResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetBrokersResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -584,7 +600,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getClusterRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetClusterResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetClusterResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -669,7 +686,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void GetJobsMultiParamsTest()
         {
-            var getJobsRequest = new GetJobsRequest(jobTypes: new List<JobTypeEnum> { JobTypeEnum.ARCHIVE, JobTypeEnum.RESTORE });
+            var getJobsRequest = new GetJobsRequest(jobTypes: new List<JobTypeEnum>
+                {JobTypeEnum.ARCHIVE, JobTypeEnum.RESTORE});
 
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
@@ -724,6 +742,27 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1, jobs.Page.TotalPages);
             Assert.AreEqual(2, jobs.Page.TotalItems);
 
+            Assert.AreEqual(1, jobs.JobsList[0].ForeignJobs.Count);
+            CollectionAssert.AreEqual(new Dictionary<Guid, ForeignJobDetails>
+            {
+                {
+                    new Guid("9a64ece6-1049-4568-952c-63bea45e95ac"),
+                    new ForeignJobDetails(new Guid("c9ffad7b-a732-4709-a637-7868d4f74d74"), ForeignJobType.BLACK_PEARL)
+                }
+            }, jobs.JobsList[0].ForeignJobs);
+
+            CollectionAssert.AreEqual(new Dictionary<Guid, ForeignJobDetails>
+            {
+                {
+                    new Guid("1f4f774a-3df3-4080-972f-11a6ff73df94"),
+                    new ForeignJobDetails(new Guid("2b6506dc-ed65-4196-ad87-c101548dad67"), ForeignJobType.SGL)
+                },
+                {
+                    new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae78"),
+                    new ForeignJobDetails(new Guid("d6a22583-ace2-426a-945f-8b59fc943ec2"), ForeignJobType.FLASHNET)
+                }
+            }, jobs.JobsList[1].ForeignJobs);
+
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
@@ -758,6 +797,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             {
                 Assert.AreEqual("archive job", job.Name);
             }
+
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
         }
@@ -800,13 +840,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
                 "Successfully transferred file to BlackPearl",
                 new Uri("atozsequence://file"),
                 14,
-                "2020-08-31T22:12:36.59Z[UTC]");
+                "2020-08-31T22:12:36.59Z[UTC]",
+                new Guid("9a64ece6-1049-4568-952c-63bea45e95ac"));
             Assert.AreEqual(jobFileStatusExpected.Name, job.Files[0].Name);
             Assert.AreEqual(jobFileStatusExpected.Status, job.Files[0].Status);
             Assert.AreEqual(jobFileStatusExpected.StatusMessage, job.Files[0].StatusMessage);
             Assert.AreEqual(jobFileStatusExpected.Uri.ToString(), job.Files[0].Uri.ToString());
             Assert.AreEqual(jobFileStatusExpected.SizeInBytes, job.Files[0].SizeInBytes);
             Assert.AreEqual(jobFileStatusExpected.LastUpdated, job.Files[0].LastUpdated);
+            Assert.AreEqual(jobFileStatusExpected.ForeignJob, job.Files[0].ForeignJob);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -925,7 +967,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(It.IsAny<GetMembersRequest>()))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetMembersResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetMembersResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -963,7 +1006,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getSpectraDevicesRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSpectraDevicesResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSpectraDevicesResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -1001,7 +1045,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(getSpectraDeviceRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSpectraDeviceResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.GetSpectraDeviceResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -1168,6 +1213,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             Assert.AreEqual(1.0, job.Progress);
             Assert.AreEqual("Completed", job.Status.Message);
             Assert.AreEqual(JobStatusEnum.COMPLETED, job.Status.Status);
+            Assert.AreEqual(new Dictionary<Guid, ForeignJobDetails>(), job.ForeignJobs);
 
             mockBuilder.VerifyAll();
             mockNetwork.VerifyAll();
@@ -1181,7 +1227,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(restoreRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.RestoreWithJobNameResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.RestoreWithJobNameResponse",
                     HttpStatusCode.Created, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);
@@ -1245,11 +1292,13 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
         [Test]
         public void UpdateBrokerObjectTest()
         {
-            var updateBrokerObjectRequest = new UpdateBrokerObjectRequest("brokerName", "objectName", new Dictionary<string, string>());
+            var updateBrokerObjectRequest =
+                new UpdateBrokerObjectRequest("brokerName", "objectName", new Dictionary<string, string>());
             var mockNetwork = new Mock<INetwork>(MockBehavior.Strict);
             mockNetwork
                 .Setup(n => n.Invoke(updateBrokerObjectRequest))
-                .Returns(new MockHttpWebResponse("SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.UpdateBrokerObjectResponse",
+                .Returns(new MockHttpWebResponse(
+                    "SpectraLogic.SpectraRioBrokerClient.Test.TestFiles.UpdateBrokerObjectResponse",
                     HttpStatusCode.OK, null));
 
             var mockBuilder = new Mock<ISpectraRioBrokerClientBuilder>(MockBehavior.Strict);

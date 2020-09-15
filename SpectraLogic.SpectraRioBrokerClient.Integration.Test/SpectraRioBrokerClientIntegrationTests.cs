@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
@@ -130,6 +131,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
+                    Assert.AreEqual(job.ForeignJobs.Keys.ElementAt(0), file.ForeignJob);
                 }
 
                 /*********
@@ -169,6 +171,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 foreach (var file in job.Files)
                 {
                     Assert.AreEqual("Completed", file.Status);
+                    Assert.AreEqual(job.ForeignJobs.Keys.ElementAt(0), file.ForeignJob);
                 }
             }
             finally
@@ -769,7 +772,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.AreEqual(100, allFileStatusList.Page.PageSize);
                 Assert.AreEqual(1, allFileStatusList.Page.TotalPages);
                 Assert.AreEqual(3, allFileStatusList.Page.TotalItems);
-                
+
                 Assert.AreEqual(3, allFileStatusList.FileStatusesList.Count);
                 Assert.AreEqual(fileName2, allFileStatusList.FileStatusesList[0].Name);
                 Assert.AreEqual("Initializing", allFileStatusList.FileStatusesList[0].Status);

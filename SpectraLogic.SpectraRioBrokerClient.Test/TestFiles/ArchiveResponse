@@ -9,5 +9,6 @@
   "status": {
     "message": "Initializing",
     "status": "ACTIVE"
-  }
+  },
+  "foreignJobs": {}
 }

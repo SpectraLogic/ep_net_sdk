@@ -112,6 +112,7 @@
     <Compile Include="Model\BearerToken.cs" />
     <Compile Include="Model\ClusterMembers.cs" />
     <Compile Include="Model\Brokers.cs" />
+    <Compile Include="Model\ForeignJobDetails.cs" />
     <Compile Include="Model\ObjectLocation.cs" />
     <Compile Include="Model\SpectraDevices.cs" />
     <Compile Include="Model\FilesStatus.cs" />
