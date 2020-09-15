@@ -9,5 +9,6 @@
   "status": {
     "message": "Completed",
     "status": "COMPLETED"
-  }
+  },
+  "foreignJobs": {}
 }

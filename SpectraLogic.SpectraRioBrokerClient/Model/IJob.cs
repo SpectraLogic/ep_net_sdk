@@ -43,6 +43,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         int FilesTransferred { get; }
 
         /// <summary>
+        /// Gets the foreign jobs.
+        /// </summary>
+        /// <value>The foreign jobs.</value>
+        IDictionary<Guid, ForeignJobDetails> ForeignJobs { get; }
+
+        /// <summary>
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>

@@ -18,10 +18,16 @@
       "numberOfFiles": 1,
       "filesTransferred": 1,
       "totalSizeInBytes": 14,
-      "progress": 1
+      "progress": 1,
+      "foreignJobs": {
+        "9a64ece6-1049-4568-952c-63bea45e95ac": {
+            "id": "c9ffad7b-a732-4709-a637-7868d4f74d74",
+            "type": "BLACK_PEARL"
+        }
+      }
     },
     {
-      "id": "173e8530-5805-4a1c-a57b-969331e49683",
+      "id": "173e8530-5805-4a1c-a57b-969331e49684",
       "creationDate": "2018-12-17T22:00:34.625Z[UTC]",
       "lastUpdated": "2018-12-17T22:00:45.31Z[UTC]",
       "status": {
@@ -32,7 +38,17 @@
       "numberOfFiles": 1,
       "filesTransferred": 1,
       "totalSizeInBytes": 14,
-      "progress": 1
+      "progress": 1,
+      "foreignJobs": {
+        "1f4f774a-3df3-4080-972f-11a6ff73df94": {
+            "id": "2b6506dc-ed65-4196-ad87-c101548dad67",
+            "type": "SGL"
+        },
+        "8f0496e2-4db8-4d12-96f4-8c9c889cae78": {
+            "id": "d6a22583-ace2-426a-945f-8b59fc943ec2",
+            "type": "FLASHNET"
+        }
+      }
     }
   ]
 }

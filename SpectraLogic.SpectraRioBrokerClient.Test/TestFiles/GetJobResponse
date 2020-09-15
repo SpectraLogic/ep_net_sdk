@@ -19,7 +19,8 @@
       "sizeInBytes": 14,
       "status": "Completed",
       "statusMessage": "Successfully transferred file to BlackPearl",
-      "lastUpdated": "2020-08-31T22:12:36.59Z[UTC]"
+      "lastUpdated": "2020-08-31T22:12:36.59Z[UTC]",
+      "foreignJob": "9a64ece6-1049-4568-952c-63bea45e95ac"
     }
   ]
 }
