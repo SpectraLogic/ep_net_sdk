@@ -305,10 +305,10 @@
         </member>
         <member name="M:Moq.ExpressionExtensions.CanSplit(System.Linq.Expressions.Expression)">
             <summary>
-              Checks whether the given expression <paramref name="e"/> can be split by <see cref="M:Moq.ExpressionExtensions.Split(System.Linq.Expressions.LambdaExpression)"/>.
+              Checks whether the given expression <paramref name="e"/> can be split by <see cref="M:Moq.ExpressionExtensions.Split(System.Linq.Expressions.LambdaExpression,System.Boolean)"/>.
             </summary>
         </member>
-        <member name="M:Moq.ExpressionExtensions.Split(System.Linq.Expressions.LambdaExpression)">
+        <member name="M:Moq.ExpressionExtensions.Split(System.Linq.Expressions.LambdaExpression,System.Boolean)">
             <summary>
               Splits an expression such as `<c>m => m.A.B(x).C[y] = z</c>` into a chain of parts
               that can be set up one at a time:
@@ -4081,12 +4081,6 @@
             Method that is turned into the actual call from .Query{T}, to 
             transform the queryable query into a normal enumerable query.
             This method is never used directly by consumers.
-            </summary>
-        </member>
-        <member name="M:Moq.Mocks.SetProperty(Moq.Mock,System.Reflection.PropertyInfo,System.Object)">
-            <summary>
-            Extension method used to support Linq-like setup properties that are not virtual but do have 
-            a getter and a setter, thereby allowing the use of Linq to Mocks to quickly initialize DTOs too :)
             </summary>
         </member>
         <member name="T:Moq.LookupOrFallbackDefaultValueProvider">
