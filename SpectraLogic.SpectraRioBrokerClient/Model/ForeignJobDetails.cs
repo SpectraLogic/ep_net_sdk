@@ -35,7 +35,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <summary>
         /// The flashnet
         /// </summary>
-        FLASHNET
+        FLASHNET,
+
+        /// <summary>
+        /// The unknown
+        /// </summary>
+        UNKNOWN
     }
 
     /// <summary>
