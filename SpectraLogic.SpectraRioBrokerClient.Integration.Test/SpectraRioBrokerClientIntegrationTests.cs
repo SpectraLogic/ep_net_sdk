@@ -880,6 +880,66 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         }
 
         [Test]
+        public void GetJobWithFileStatusTest()
+        {
+            var fileName1 = "GetJobWithFileStatusTest_" + Guid.NewGuid();
+            const string jobName = "Get Job With File Status Test";
+
+            try
+            {
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName1, fileName1.ToAtoZUri(), 14)
+                }, jobName: jobName);
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttempts = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
+
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                foreach (var jobWithFileStatus in new List<bool?> { null, true }.Select(withFileStatus => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                      new GetJobRequest(archiveJob.JobId, withFileStatus))))
+                {
+                    Assert.AreEqual(JobStatusEnum.COMPLETED, jobWithFileStatus.Status.Status);
+                    Assert.AreEqual(jobName, jobWithFileStatus.Name);
+                    Assert.AreEqual("Archive job completed successfully", jobWithFileStatus.Status.Message);
+                    Assert.AreEqual(1, jobWithFileStatus.FilesTransferred);
+                    Assert.AreEqual(1, jobWithFileStatus.Progress);
+                    foreach (var file in jobWithFileStatus.Files)
+                    {
+                        Assert.AreEqual("Completed", file.Status);
+                        Assert.AreEqual(jobWithFileStatus.ForeignJobs.Keys.ElementAt(0), file.ForeignJob);
+                    }
+                }
+
+                var jobWithoutFileStatus = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(archiveJob.JobId, false));
+
+                Assert.AreEqual(JobStatusEnum.COMPLETED, jobWithoutFileStatus.Status.Status);
+                Assert.AreEqual(jobName, jobWithoutFileStatus.Name);
+                Assert.AreEqual("Archive job completed successfully", jobWithoutFileStatus.Status.Message);
+                Assert.AreEqual(1, jobWithoutFileStatus.FilesTransferred);
+                Assert.AreEqual(1, jobWithoutFileStatus.Progress);
+                Assert.IsEmpty(jobWithoutFileStatus.Files);
+            }
+            finally
+            {
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+        }
+
+        [Test]
         public void GetMasterTest()
         {
             var master = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetMaster();

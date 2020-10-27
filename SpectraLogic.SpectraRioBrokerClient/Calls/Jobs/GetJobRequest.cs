@@ -18,9 +18,8 @@ using System;
 namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
 {
     /// <summary>
-    ///
     /// </summary>
-    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest" />
+    /// <seealso cref="SpectraLogic.SpectraRioBrokerClient.Calls.RestRequest"/>
     public class GetJobRequest : RestRequest
     {
         #region Constructors
@@ -29,9 +28,18 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// Initializes a new instance of the <see cref="GetJobRequest"/> class.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        public GetJobRequest(Guid jobId)
+        /// <param name="withFileStatus">
+        /// If set, include the file status data in the response. Defaults to true. When set to
+        /// false, the response will be faster and the 'files' array of statuses will be empty.
+        /// </param>
+        public GetJobRequest(Guid jobId, bool? withFileStatus = null)
         {
             JobId = jobId;
+
+            if (withFileStatus != null)
+            {
+                AddQueryParam("withFileStatus", withFileStatus.ToString());
+            }
         }
 
         #endregion Constructors
@@ -41,9 +49,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Jobs
         /// <summary>
         /// Gets the job identifier.
         /// </summary>
-        /// <value>
-        /// The job identifier.
-        /// </value>
+        /// <value>The job identifier.</value>
         public Guid JobId { get; private set; }
 
         internal override string Path => $"api/jobs/{JobId}";
