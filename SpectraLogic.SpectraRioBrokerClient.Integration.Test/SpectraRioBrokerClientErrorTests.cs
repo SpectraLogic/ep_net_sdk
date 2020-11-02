@@ -1012,7 +1012,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     },
                     new List<ValidationError>
                     {
-                        new ValidationError(fileName1, "file", "duplicate_file_brokers")
+                        new ValidationError("name", "file", "duplicate_file_brokers", fileName1)
                     });
 
                 var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName1);
