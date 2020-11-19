@@ -1,0 +1,5 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_get_spectra_device_request =
+[
+    [ "GetSpectraDeviceRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_get_spectra_device_request.html#a3e0b46c35b3cb446454a11ab4593ac15", null ],
+    [ "DeviceName", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_get_spectra_device_request.html#aae980b5043a8dedf7a7e67773360e239", null ]
+];

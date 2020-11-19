@@ -1,0 +1,8 @@
+var namespace_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs =
+[
+    [ "CancelRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_cancel_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_cancel_request" ],
+    [ "GetJobFilesStatusRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_job_files_status_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_job_files_status_request" ],
+    [ "GetJobFileStatusesRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_job_file_statuses_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_job_file_statuses_request" ],
+    [ "GetJobRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_job_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_job_request" ],
+    [ "GetJobsRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_jobs_request.html", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_jobs_1_1_get_jobs_request" ]
+];

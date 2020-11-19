@@ -1,0 +1,5 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_delete_spectra_device_request =
+[
+    [ "DeleteSpectraDeviceRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_delete_spectra_device_request.html#ad489e07f8e193eac41d2efe2cd499452", null ],
+    [ "DeviceName", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_delete_spectra_device_request.html#a9bf1eaf26907b9e9882d8e5eca450659", null ]
+];

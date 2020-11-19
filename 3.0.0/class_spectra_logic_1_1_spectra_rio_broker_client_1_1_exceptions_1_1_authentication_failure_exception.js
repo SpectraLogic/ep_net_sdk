@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_authentication_failure_exception =
+[
+    [ "AuthenticationFailureException", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_exceptions_1_1_authentication_failure_exception.html#a90f9f1cd8c425af4b70a18b7e07ee3a6", null ]
+];

@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_create_cluster_request =
+[
+    [ "CreateClusterRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_cluster_1_1_create_cluster_request.html#a8ea9f3a3e3b292386679312110d7199f", null ]
+];

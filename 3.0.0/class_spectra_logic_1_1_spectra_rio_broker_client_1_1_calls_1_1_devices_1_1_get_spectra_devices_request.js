@@ -1,0 +1,4 @@
+var class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_get_spectra_devices_request =
+[
+    [ "GetSpectraDevicesRequest", "class_spectra_logic_1_1_spectra_rio_broker_client_1_1_calls_1_1_devices_1_1_get_spectra_devices_request.html#a2078045aabe73408b9f08624b765c5e5", null ]
+];
