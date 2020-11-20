@@ -454,13 +454,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void DeleteDeviceTest()
         {
-            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(
-                new DeleteSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName));
+            var deviceName = "DeleteDeviceTest";
+            SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(new CreateSpectraDeviceRequest(
+                deviceName,
+                SpectraRioBrokerClientFixture.MgmtInterface,
+                SpectraRioBrokerClientFixture.Username,
+                SpectraRioBrokerClientFixture.Password));
+
+            Assert.NotNull(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevice(
+                new GetSpectraDeviceRequest(deviceName)));
+
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(
+                new DeleteSpectraDeviceRequest(deviceName));
             Assert.That(
                 () => SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevice(
-                    new GetSpectraDeviceRequest(SpectraRioBrokerClientFixture.DeviceName)),
+                    new GetSpectraDeviceRequest(deviceName)),
                 Throws.Exception.TypeOf<DeviceNotFoundException>());
-            SpectraRioBrokerClientFixture.CreateSpectraDevice();
         }
 
         [Test]
