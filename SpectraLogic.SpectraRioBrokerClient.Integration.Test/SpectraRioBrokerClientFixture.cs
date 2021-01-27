@@ -94,7 +94,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
             if (!SpectraRioBrokerClient.DoesBrokerExist(BrokerName2))
             {
-                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, AgentName, new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket2, createBucket: true, dataPolicyUuid: "676f9ea1-e5b0-4d94-a2fa-62f2142cd1d3"));
+                var createBrokerRequest = new CreateBrokerRequest(BrokerName2, AgentName, new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket2, createBucket: true, dataPolicyUuid: "4bec3e00-869f-4651-933f-efae1d7c69c0"));
                 SpectraRioBrokerClient.CreateBroker(createBrokerRequest);
             }
         }
@@ -141,7 +141,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
         public static AgentConfig GetAgentConfig()
         {
-            return new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket, createBucket: true, dataPolicyUuid: "676f9ea1-e5b0-4d94-a2fa-62f2142cd1d3");
+            return new AgentConfig(DeviceName, BlackPearlUserName, BlackPearlBucket, createBucket: true, dataPolicyUuid: "4bec3e00-869f-4651-933f-efae1d7c69c0");
         }
 
         public static void SetupTestData()
