@@ -480,7 +480,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 });
         }
 
-        [Test]
+        [Test, Ignore("ESCP-2754")]
         public void DeleteBrokerErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteBrokerRequest(null)));
@@ -836,25 +836,22 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             });
             Assert.ThrowsAsync<BrokerNotFoundException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request)));
-
-            try
-            {
-                request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+            
+            ValidationExceptionCheck(
+                () =>
                 {
-                    new RestoreFile("name", "uri".ToFileUri(),
-                        new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
+                    request = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                    {
+                        new RestoreFile("name", "uri".ToFileUri(),
+                            new TimeCodeRange(new TimeCode(01, 00, 00, 00, true), new TimeCode(02, 00, 00, 00, true)))
+                    });
+                    SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
+                    Assert.Fail();
+                },
+                new List<ValidationError>
+                {
+                    new ValidationError("name", "file", "not_found", "name")
                 });
-                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request);
-                Assert.Fail();
-            }
-            catch (ErrorResponseException ex)
-            {
-                Assert.AreEqual("There are 0 Marquis devices. There must be exactly one in order to process Marquis requests.", ex.ErrorResponse.ErrorMessage);
-            }
-            catch (Exception)
-            {
-                Assert.Fail("Expected ErrorResponseException");
-            }
 
             ValidationExceptionCheck(
                 () =>
