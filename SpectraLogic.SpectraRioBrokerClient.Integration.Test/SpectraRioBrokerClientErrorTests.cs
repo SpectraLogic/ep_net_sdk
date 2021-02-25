@@ -480,7 +480,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 });
         }
 
-        [Test, Ignore("ESCP-2754")]
+        [Test]
         public void DeleteBrokerErrorTests()
         {
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new DeleteBrokerRequest(null)));
