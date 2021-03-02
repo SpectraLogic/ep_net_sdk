@@ -54,7 +54,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <param name="type">The type.</param>
-        public ForeignJobDetails(Guid id, ForeignJobType type)
+        public ForeignJobDetails(string id, ForeignJobType type)
         {
             Id = id;
             Type = type;
@@ -68,7 +68,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// Gets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        [JsonProperty(PropertyName = "id")] public Guid Id { get; }
+        [JsonProperty(PropertyName = "id")] public string Id { get; }
 
         /// <summary>
         /// Gets the type.
