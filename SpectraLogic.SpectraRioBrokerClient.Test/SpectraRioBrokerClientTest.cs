@@ -747,7 +747,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             {
                 {
                     new Guid("9a64ece6-1049-4568-952c-63bea45e95ac"),
-                    new ForeignJobDetails(new Guid("c9ffad7b-a732-4709-a637-7868d4f74d74"), ForeignJobType.BLACK_PEARL)
+                    new ForeignJobDetails("c9ffad7b-a732-4709-a637-7868d4f74d74", ForeignJobType.BLACK_PEARL)
                 }
             }, jobs.JobsList[0].ForeignJobs);
 
@@ -755,15 +755,15 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
             {
                 {
                     new Guid("1f4f774a-3df3-4080-972f-11a6ff73df94"),
-                    new ForeignJobDetails(new Guid("2b6506dc-ed65-4196-ad87-c101548dad67"), ForeignJobType.SGL)
+                    new ForeignJobDetails("2b6506dc-ed65-4196-ad87-c101548dad67", ForeignJobType.SGL)
                 },
                 {
                     new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae78"),
-                    new ForeignJobDetails(new Guid("d6a22583-ace2-426a-945f-8b59fc943ec2"), ForeignJobType.FLASHNET)
+                    new ForeignJobDetails("240702", ForeignJobType.FLASHNET)
                 },
                 {
                     new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae79"),
-                    new ForeignJobDetails(new Guid("d6a22583-ace2-426a-945f-8b59fc943ec3"), ForeignJobType.UNKNOWN)
+                    new ForeignJobDetails("d6a22583-ace2-426a-945f-8b59fc943ec3", ForeignJobType.UNKNOWN)
                 }
             }, jobs.JobsList[1].ForeignJobs);
 
