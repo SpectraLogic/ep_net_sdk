@@ -762,6 +762,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
                     new ForeignJobDetails("240702", ForeignJobType.FLASHNET)
                 },
                 {
+                    new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae77"),
+                    new ForeignJobDetails("2b6506dc-ed65-4196-ad87-c101548dad68", ForeignJobType.DIVA)
+                },
+                {
                     new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae79"),
                     new ForeignJobDetails("d6a22583-ace2-426a-945f-8b59fc943ec3", ForeignJobType.UNKNOWN)
                 }
