@@ -36,6 +36,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// The flashnet
         /// </summary>
         FLASHNET,
+        
+        /// <summary>
+        /// The diva
+        /// </summary>
+        DIVA,
 
         /// <summary>
         /// The unknown
