@@ -119,7 +119,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             catch (ErrorResponseException e)
             {
                 Assert.AreEqual(
-                    "Job 00000000-0000-0000-0000-000000000000 is not currently running and cannot be canceled",
+                    "Job 00000000-0000-0000-0000-000000000000 is not currently running and cannot be modified",
                     e.ErrorResponse.ErrorMessage);
                 Assert.AreEqual(HttpStatusCode.BadRequest, e.ErrorResponse.StatusCode);
             }
@@ -392,6 +392,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void CreateTokenErrorTests()
         {
+            var testName = Guid.NewGuid().ToString();
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateTokenRequest(null, "password")));
             Assert.ThrowsAsync<ArgumentNullException>(() => Task.FromResult(new CreateTokenRequest("username", null)));
 
@@ -413,7 +414,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             var noAuthClient = spectraRioBrokerClientBuilder.Build();
 
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.Archive(new ArchiveRequest("", Enumerable.Empty<ArchiveFile>()))));
+                Task.FromResult(noAuthClient.Archive(new ArchiveRequest(testName, Enumerable.Empty<ArchiveFile>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.Cancel(new CancelRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -424,9 +425,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetBrokers(new GetBrokersRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(""))));
+                Task.FromResult(noAuthClient.GetBroker(new GetBrokerRequest(testName))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetSpectraDevice(new GetSpectraDeviceRequest(""))));
+                Task.FromResult(noAuthClient.GetSpectraDevice(new GetSpectraDeviceRequest(testName))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetSpectraDevices(new GetSpectraDevicesRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
@@ -434,26 +435,26 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetJobs(new GetJobsRequest())));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.Restore(new RestoreRequest("", Enumerable.Empty<RestoreFile>()))));
+                Task.FromResult(noAuthClient.Restore(new RestoreRequest(testName, Enumerable.Empty<RestoreFile>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.Retry(new RetryRequest("", Guid.Empty, JobType.ARCHIVE))));
+                Task.FromResult(noAuthClient.Retry(new RetryRequest(testName, Guid.Empty, JobType.ARCHIVE))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
             {
-                noAuthClient.DeleteBroker(new DeleteBrokerRequest(""));
+                noAuthClient.DeleteBroker(new DeleteBrokerRequest(testName));
                 return null;
             });
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
             {
-                noAuthClient.DeleteSpectraDevice(new DeleteSpectraDeviceRequest(""));
+                noAuthClient.DeleteSpectraDevice(new DeleteSpectraDeviceRequest(testName));
                 return null;
             });
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest("", "",
+                Task.FromResult(noAuthClient.UpdateBrokerObject(new UpdateBrokerObjectRequest(testName, testName,
                     new Dictionary<string, string>()))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
                 Task.FromResult(noAuthClient.GetJobFilesStatus(new GetJobFilesStatusRequest(Guid.Empty))));
             Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
-                Task.FromResult(noAuthClient.GetJobFileStatuses(new GetJobFileStatusesRequest(Guid.Empty, ""))));
+                Task.FromResult(noAuthClient.GetJobFileStatuses(new GetJobFileStatusesRequest(Guid.Empty, testName))));
 
             ValidationExceptionCheck(
                 () =>
@@ -580,7 +581,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void GetJobFileStatusErrorTest()
         {
-            var request = new GetJobFileStatusesRequest(Guid.Empty, "");
+            var request = new GetJobFileStatusesRequest(Guid.Empty, Guid.NewGuid().ToString());
             Assert.ThrowsAsync<JobNotFoundException>(() =>
                 Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request)));
 
@@ -648,6 +649,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
         [Test]
         public void NodeIsNotAClusterMemberErrorTests()
         {
+            var testName = Guid.NewGuid().ToString();
             try
             {
                 SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteCluster();
@@ -655,7 +657,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new ArchiveRequest("", Enumerable.Empty<ArchiveFile>());
+                        var request = new ArchiveRequest(testName, Enumerable.Empty<ArchiveFile>());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(request));
                     });
 
@@ -669,7 +671,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new CreateBrokerRequest("", "", new AgentConfig("", "", ""));
+                        var request = new CreateBrokerRequest(testName, "", new AgentConfig("", "", ""));
                         return Task.FromResult(
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateBroker(request));
                     });
