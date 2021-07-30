@@ -79,6 +79,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                     switch (ex.ErrorResponse.ErrorMessage)
                     {
                         case "The service is unavailable":
+                        case "The current node is not a member of a cluster":
                         case "The node is not a member of a cluster":
                             throw new NodeIsNotAClusterMemberException(ex.ErrorResponse.ErrorMessage, ex);
                     }

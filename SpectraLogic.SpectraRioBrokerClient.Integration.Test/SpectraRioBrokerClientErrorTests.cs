@@ -679,7 +679,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new CreateSpectraDeviceRequest("", "localhost".ToHttpsUri(), "", "");
+                        var request = new CreateSpectraDeviceRequest(testName, "localhost".ToHttpsUri(), "", "");
                         return Task.FromResult(
                             SpectraRioBrokerClientFixture.SpectraRioBrokerClient.CreateSpectraDevice(request));
                     });
@@ -694,7 +694,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new DeleteFileRequest("", "");
+                        var request = new DeleteFileRequest(testName, testName);
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(request);
                         return null;
                     });
@@ -710,7 +710,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new GetBrokerRequest("");
+                        var request = new GetBrokerRequest(testName);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetBroker(request));
                     });
 
@@ -731,7 +731,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new GetSpectraDeviceRequest("");
+                        var request = new GetSpectraDeviceRequest(testName);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetSpectraDevice(request));
                     });
 
@@ -758,30 +758,30 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
-                        .DoesBrokerExist("")));
+                        .DoesBrokerExist(testName)));
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () => Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient
-                        .DoesSpectraDeviceExist("")));
+                        .DoesSpectraDeviceExist(testName)));
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new RestoreRequest("", Enumerable.Empty<RestoreFile>());
+                        var request = new RestoreRequest(testName, Enumerable.Empty<RestoreFile>());
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new RetryRequest("", Guid.Empty, JobType.ARCHIVE);
+                        var request = new RetryRequest(testName, Guid.Empty, JobType.ARCHIVE);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Retry(request));
                     });
 
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new DeleteBrokerRequest("");
+                        var request = new DeleteBrokerRequest(testName);
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteBroker(request);
                         return null;
                     });
@@ -789,7 +789,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new DeleteSpectraDeviceRequest("");
+                        var request = new DeleteSpectraDeviceRequest(testName);
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteSpectraDevice(request);
                         return null;
                     });
@@ -797,7 +797,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new UpdateBrokerObjectRequest("", "", new Dictionary<string, string>());
+                        var request = new UpdateBrokerObjectRequest(testName, testName, new Dictionary<string, string>());
                         SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateBrokerObject(request);
                         return null;
                     });
@@ -812,7 +812,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
                     () =>
                     {
-                        var request = new GetJobFileStatusesRequest(Guid.Empty, "");
+                        var request = new GetJobFileStatusesRequest(Guid.Empty, testName);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request));
                     });
             }
