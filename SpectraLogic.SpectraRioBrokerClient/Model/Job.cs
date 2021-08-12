@@ -42,9 +42,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <param name="files">The files.</param>
         /// <param name="name">The job name.</param>
         /// <param name="foreignJobs">The foreign jobs.</param>
+        /// <param name="priority">The job priority.</param>
         public Job(Guid jobId, JobType jobType, int numberOfFiles, int filesTransferred,
             long totalSizeInBytes, string creationDate, string lastUpdated, double progress,
-            JobStatus status, IList<JobFileStatus> files, string name, IDictionary<Guid, ForeignJobDetails> foreignJobs)
+            JobStatus status, IList<JobFileStatus> files, string name, IDictionary<Guid, ForeignJobDetails> foreignJobs, JobPriority priority)
         {
             JobId = jobId;
             JobType = jobType;
@@ -58,6 +59,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
             Files = files;
             Name = name;
             ForeignJobs = foreignJobs;
+            Priority = priority;
         }
 
         #endregion Constructors
@@ -136,6 +138,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// <value>The total size in bytes.</value>
         [JsonProperty(PropertyName = "totalSizeInBytes")] public long TotalSizeInBytes { get; }
 
+        /// <summary>
+        /// Gets the job priority
+        /// </summary>
+        /// <value>The job priority</value>
+        [JsonProperty(PropertyName = "priority")] public JobPriority Priority { get; }
+        
         #endregion Properties
     }
 }

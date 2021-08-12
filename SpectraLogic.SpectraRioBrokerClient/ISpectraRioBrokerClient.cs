@@ -314,6 +314,15 @@ namespace SpectraLogic.SpectraRioBrokerClient
         /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
         IBrokerObject UpdateBrokerObject(UpdateBrokerObjectRequest request);
 
+        /// <summary>Updates the job priority.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.MissingAuthorizationHeaderException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.AuthenticationFailureException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.NodeIsNotAClusterMemberException"></exception>
+        /// <exception cref="SpectraLogic.SpectraRioBrokerClient.Exceptions.ErrorResponseException"></exception>
+        IJob UpdateJobPriority(UpdateJobPriorityRequest request);
+        
         /// <summary>Updates the token.</summary>
         /// <param name="token">The token.</param>
         /// <exception cref="System.ArgumentNullException"></exception>

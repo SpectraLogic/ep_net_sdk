@@ -76,9 +76,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// job continues even though a validation error occurred. Default = true.
         /// </param>
         /// <param name="jobName">Name of the job. Default = null.</param>
+        /// <param name="jobPriority">Sets the job priority. Null if not specified.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public ArchiveRequest(string brokerName, IEnumerable<ArchiveFile> files, bool uploadNewFilesOnly = false,
-            bool failFast = true, string jobName = null)
+            bool failFast = true, string jobName = null, JobPriority? jobPriority = null)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(files != null, "files");
@@ -88,6 +89,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
 
             AddQueryParam("upload-new-files-only", uploadNewFilesOnly.ToString());
             AddQueryParam("fail-fast", failFast.ToString());
+            if (jobPriority != null)
+            {
+                AddQueryParam("priority", jobPriority.ToString().ToUpper());
+                
+            }
         }
 
         #endregion Constructors

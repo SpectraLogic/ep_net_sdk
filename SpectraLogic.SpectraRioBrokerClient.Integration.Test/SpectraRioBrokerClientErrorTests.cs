@@ -479,6 +479,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                 {
                     new ValidationError("password", "password", "missing", reason: "cannot be empty or consist only of whitespace")
                 });
+            Assert.ThrowsAsync<MissingAuthorizationHeaderException>(() =>
+                Task.FromResult(noAuthClient.UpdateJobPriority(new UpdateJobPriorityRequest(Guid.Empty, JobPriority.High))));
         }
 
         [Test]
@@ -814,6 +816,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
                     {
                         var request = new GetJobFileStatusesRequest(Guid.Empty, testName);
                         return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJobFileStatuses(request));
+                    });
+                Assert.ThrowsAsync<NodeIsNotAClusterMemberException>(
+                    () =>
+                    {
+                        var request = new UpdateJobPriorityRequest(Guid.NewGuid(), JobPriority.Normal);
+                        return Task.FromResult(SpectraRioBrokerClientFixture.SpectraRioBrokerClient.UpdateJobPriority(request));
                     });
             }
             finally
