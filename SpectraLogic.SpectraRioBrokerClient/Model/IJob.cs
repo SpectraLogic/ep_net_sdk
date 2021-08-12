@@ -95,6 +95,12 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         /// </summary>
         /// <value>The total size in bytes.</value>
         long TotalSizeInBytes { get; }
+        
+        /// <summary>
+        /// Gets the job priority
+        /// </summary>
+        /// <value>The job priority</value>
+        JobPriority Priority { get; }
 
         #endregion Properties
     }

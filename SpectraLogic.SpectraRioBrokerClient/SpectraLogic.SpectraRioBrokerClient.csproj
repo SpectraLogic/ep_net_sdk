@@ -79,6 +79,7 @@
     <Compile Include="Calls\Jobs\GetJobFileStatusesRequest.cs" />
     <Compile Include="Calls\Jobs\HeadJobRequest.cs" />
     <Compile Include="Calls\Jobs\GetJobsRequest.cs" />
+    <Compile Include="Calls\Jobs\UpdateJobPriorityRequest.cs" />
     <Compile Include="Calls\System\GetSystemRequest.cs" />
     <Compile Include="Calls\Broker\HeadBrokerObjectRequest.cs" />
     <Compile Include="Calls\Broker\RetryRequest.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Model\ClusterMembers.cs" />
     <Compile Include="Model\Brokers.cs" />
     <Compile Include="Model\ForeignJobDetails.cs" />
+    <Compile Include="Model\JobPriority.cs" />
     <Compile Include="Model\ObjectLocation.cs" />
     <Compile Include="Model\SpectraDevices.cs" />
     <Compile Include="Model\FilesStatus.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="ResponseParsers\Jobs\GetJobFilesStatusResponseParser.cs" />
     <Compile Include="ResponseParsers\Jobs\GetJobFileStatusesResponseParser.cs" />
     <Compile Include="ResponseParsers\Jobs\GetJobsResponseParser.cs" />
+    <Compile Include="ResponseParsers\Jobs\UpdateJobPriorityResponseParser.cs" />
     <Compile Include="ResponseParsers\System\GetSystemResponseParser.cs" />
     <Compile Include="ResponseParsers\Broker\RetryResponseParser.cs" />
     <Compile Include="ResponseParsers\Parser.cs" />
