@@ -277,6 +277,12 @@ namespace SpectraLogic.SpectraRioBrokerClient
             return ExceptionDecorator.Run(() => new UpdateBrokerObjectResponseParser().Parse(_network.Invoke(request)));
         }
 
+        /// <inheritdoc />
+        public IJob UpdateJobPriority(UpdateJobPriorityRequest request)
+        {
+            return ExceptionDecorator.Run(() => new UpdateJobPriorityResponseParser().Parse(_network.Invoke(request)));
+        }
+
         /// <inheritdoc/>
         public void UpdateToken(string token)
         {

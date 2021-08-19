@@ -35,7 +35,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// <summary>
         /// The job name
         /// </summary>
-        [JsonProperty(PropertyName = "name", Required = Required.AllowNull)] public string JobName;
+        [JsonProperty(PropertyName = "name", Required = Required.AllowNull)]
+        public string JobName;
 
         #endregion Fields
 
@@ -72,7 +73,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// doing a search then restore operation.
         /// </param>
         /// <param name="jobName">Name of the job. Default = null.</param>
-        public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files, bool ignoreDuplicates = false, string jobName = null)
+        /// <param name="jobPriority">Sets the job priority. Null if not specified.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files, bool ignoreDuplicates = false,
+            string jobName = null, JobPriority? jobPriority = null)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(files != null, "files");
@@ -81,6 +85,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             RestoreBody = new RestoreBody(jobName, files);
 
             AddQueryParam("ignore-duplicates", ignoreDuplicates.ToString());
+            if (jobPriority != null)
+            {
+                AddQueryParam("priority", jobPriority.ToString().ToUpper());
+            }
         }
 
         #endregion Constructors
@@ -91,7 +99,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// Gets the name of the broker.
         /// </summary>
         /// <value>The name of the broker.</value>
-        [JsonIgnore] public string BrokerName { get; private set; }
+        [JsonIgnore]
+        public string BrokerName { get; private set; }
 
         /// <summary>
         /// Gets the restore body.
