@@ -1584,6 +1584,70 @@ namespace SpectraLogic.SpectraRioBrokerClient.Integration.Test
             }
         }
 
+        [Test]
+        public void RestoreWithFailFastFalse()
+        {
+            var fileName = "RestoreWithFailFastFalse" + Guid.NewGuid();
+            try
+            {
+                var archiveRequest = new ArchiveRequest(SpectraRioBrokerClientFixture.BrokerName, new List<ArchiveFile>
+                {
+                    new ArchiveFile(fileName, fileName.ToAtoZUri(), 14,
+                        new Dictionary<string, string> { { "test", "RestoreWithFailFastFalse" } }, false)
+                }, jobName: "RestoreWithFailFastFalse");
+
+                var archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Archive(archiveRequest);
+
+                var pollingAttempts = 0;
+                do
+                {
+                    archiveJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(archiveJob.JobId));
+                    _log.Debug(archiveJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (archiveJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
+
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
+                Assert.AreEqual(JobStatusEnum.COMPLETED, archiveJob.Status.Status);
+
+                var restoreRequest = new RestoreRequest(SpectraRioBrokerClientFixture.BrokerName, new List<RestoreFile>
+                {
+                    new RestoreFile("not_found.txt", "1".ToDevNullUri()),
+                    new RestoreFile(fileName, "2".ToDevNullUri())
+                }, failFast: false);
+
+                var restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.Restore(restoreRequest);
+
+                pollingAttempts = 0;
+                do
+                {
+                    restoreJob = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                        new GetJobRequest(restoreJob.JobId));
+                    _log.Debug(restoreJob.Status);
+                    Thread.Sleep(TimeSpan.FromSeconds(PollingInterval));
+                    pollingAttempts++;
+                } while (restoreJob.Status.Status == JobStatusEnum.ACTIVE && pollingAttempts < MaxPollingAttempts);
+
+                Assert.Less(pollingAttempts, MaxPollingAttempts);
+                Assert.AreEqual(JobStatusEnum.ERROR, restoreJob.Status.Status);
+
+                var job = SpectraRioBrokerClientFixture.SpectraRioBrokerClient.GetJob(
+                    new GetJobRequest(restoreJob.JobId));
+
+                Assert.AreEqual(JobStatusEnum.ERROR, job.Status.Status);
+                Assert.AreEqual("Restore job failed (1 of 2 did not complete).", job.Status.Message);
+                Assert.AreEqual(1, job.FilesTransferred);
+                Assert.AreEqual(1, job.Progress);
+            }
+            finally
+            {
+                var deleteF1Request = new DeleteFileRequest(SpectraRioBrokerClientFixture.BrokerName, fileName);
+                SpectraRioBrokerClientFixture.SpectraRioBrokerClient.DeleteFile(deleteF1Request);
+            }
+        }
+
+        
         #endregion Methods
     }
 }
