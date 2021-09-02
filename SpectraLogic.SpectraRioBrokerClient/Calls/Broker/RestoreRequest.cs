@@ -74,9 +74,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
         /// </param>
         /// <param name="jobName">Name of the job. Default = null.</param>
         /// <param name="jobPriority">Sets the job priority. Null if not specified.</param>
+        /// <param name="failFast">If enabled, when a validation error occurs the job fails immediately. If disabled, the job continues even though a validation error occurred. Default = true.</param>
         /// <exception cref="ArgumentNullException"></exception>
         public RestoreRequest(string brokerName, IEnumerable<RestoreFile> files, bool ignoreDuplicates = false,
-            string jobName = null, JobPriority? jobPriority = null)
+            string jobName = null, JobPriority? jobPriority = null, bool failFast = true)
         {
             Contract.Requires<ArgumentNullException>(brokerName != null, "brokerName");
             Contract.Requires<ArgumentNullException>(files != null, "files");
@@ -89,6 +90,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Calls.Broker
             {
                 AddQueryParam("priority", jobPriority.ToString().ToUpper());
             }
+            AddQueryParam("fail-fast", failFast.ToString());
         }
 
         #endregion Constructors
