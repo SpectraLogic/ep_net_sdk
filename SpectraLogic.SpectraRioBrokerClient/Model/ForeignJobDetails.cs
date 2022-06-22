@@ -43,6 +43,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         DIVA,
 
         /// <summary>
+        /// The vail
+        /// </summary>
+        VAIL,
+
+        /// <summary>
         /// The unknown
         /// </summary>
         UNKNOWN
