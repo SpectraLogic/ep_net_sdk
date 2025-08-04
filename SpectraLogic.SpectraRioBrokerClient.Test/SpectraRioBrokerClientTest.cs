@@ -770,6 +770,10 @@ namespace SpectraLogic.SpectraRioBrokerClient.Test
                     new ForeignJobDetails("2b6506dc-ed65-4196-ad87-c101548dad66", ForeignJobType.VAIL)
                 },
                 {
+                    new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae82"),
+                    new ForeignJobDetails("2b6506dc-ed65-4196-ad87-c101548dad71", ForeignJobType.NAS)
+                },
+                {
                     new Guid("8f0496e2-4db8-4d12-96f4-8c9c889cae79"),
                     new ForeignJobDetails("d6a22583-ace2-426a-945f-8b59fc943ec3", ForeignJobType.UNKNOWN)
                 }

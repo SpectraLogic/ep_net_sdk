@@ -48,6 +48,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         VAIL,
 
         /// <summary>
+        /// The NAS
+        /// </summary>
+        NAS,
+
+        /// <summary>
         /// The unknown
         /// </summary>
         UNKNOWN
