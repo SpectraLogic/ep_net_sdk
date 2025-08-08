@@ -45,9 +45,9 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers
 
                     var requestId = response.Headers.GetRequestIdFromHeader();
 #if DEBUG
-                    Log.Debug($"Request: {requestId}\n{responseString.JsonFormat()}");
+                    Log.Debug($"Request: id='{requestId}' status='{response.StatusCode}'\n{responseString.JsonFormat()}");
 #else
-                    Log.Debug($"Request: {requestId} {response.StatusCode}");
+                    Log.Debug($"Request: id='{requestId}' status='{response.StatusCode}'");
 #endif
                     return JsonConvert.DeserializeObject<T>(responseString);
                 }

@@ -25,7 +25,8 @@ namespace SpectraLogic.SpectraRioBrokerClient.ResponseParsers.Authentication
 
         public IToken Parse(IHttpWebResponse response)
         {
-            return Parser<BearerToken>.Parse(response, HttpStatusCode.Created);
+            HttpStatusCode[] expected = { HttpStatusCode.Created, HttpStatusCode.OK };
+            return Parser<BearerToken>.Parse(response, expected);
         }
 
         #endregion Public Methods

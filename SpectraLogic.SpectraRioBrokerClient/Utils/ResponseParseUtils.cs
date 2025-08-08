@@ -40,6 +40,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
         internal static void HandleStatusCode(IHttpWebResponse response, params HttpStatusCode[] expectedStatusCodes)
         {
             var actualStatusCode = response.StatusCode;
+            Log.Debug($"HandleStatusCode: actual='{actualStatusCode}'");
+            for (int i=0; i<expectedStatusCodes.Length; i++)
+            {
+                Log.Debug($"HandleStatusCode: expected {i}: {expectedStatusCodes[i]}");
+            }
             if (expectedStatusCodes.Contains(actualStatusCode))
             {
                 return;
@@ -57,7 +62,7 @@ namespace SpectraLogic.SpectraRioBrokerClient.Utils
                 var responseString = reader.ReadToEnd();
 
                 var requestId = response.Headers.GetRequestIdFromHeader();
-                Log.Debug($"Request: {requestId}\n{responseString}");
+                Log.Debug($"Request: id='{requestId}' status='{response.StatusCode}'\n{responseString}");
 
                 switch (response.StatusCode)
                 {
