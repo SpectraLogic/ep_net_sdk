@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Spectra Logic Corporation")]
 [assembly: AssemblyProduct("SpectraLogic.SpectraRioBrokerClient")]
-[assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2018")]
+[assembly: AssemblyCopyright("Copyright © Spectra Logic Corporation 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -47,8 +47,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.2.3")]
-[assembly: AssemblyFileVersion("3.2.3")]
+[assembly: AssemblyVersion("3.2.4")]
+[assembly: AssemblyFileVersion("3.2.4")]
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("SpectraLogic.SpectraRioBrokerClient.Test")]

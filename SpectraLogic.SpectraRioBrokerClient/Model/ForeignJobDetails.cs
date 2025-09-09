@@ -53,6 +53,11 @@ namespace SpectraLogic.SpectraRioBrokerClient.Model
         NAS,
 
         /// <summary>
+        /// The NAS
+        /// </summary>
+        S3C,
+
+        /// <summary>
         /// The unknown
         /// </summary>
         UNKNOWN
